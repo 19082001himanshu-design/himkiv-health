@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pediatric & Weight Dosage Calculator | HIMKIV Health & MedGuide</title>
+  <meta name="description" content="Calculate exact pediatric and adult doses based on age and body weight. Converts milligrams into liquid suspension milliliters (ml) and displays 24-hour maximum safety ceilings.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            clinical: {
+              teal: '#0891b2',
+              green: '#059669',
+              emerald: '#10b981',
+              amber: '#d97706',
+              danger: '#dc2626'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Figtree & Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Bespoke Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- Emergency Triage Top Banner -->
+  <aside aria-label="Emergency Notice" class="bg-rose-600 text-white text-xs py-2 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <div class="flex items-center gap-2 justify-center">
+        <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
+        <span><strong>Emergency Medical Triage:</strong> If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] font-medium opacity-90">
+        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Reference Pharmacology Standards</span>
+        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> 24/7 Hotline: 1800-HIMKIV</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Multi-Page Header Navigation -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-1">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-700 to-cyan-500 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+          <i data-lucide="activity" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">HIMKIV</span>
+            <span class="font-heading font-bold text-xs uppercase px-1.5 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">MedGuide</span>
+          </div>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">Precision Salts & Dosage Intelligence</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav aria-label="Main Navigation" class="hidden md:flex items-center gap-7 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="home" class="w-4 h-4"></i> Home
+        </a>
+        <a href="survey.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="clipboard-check" class="w-4 h-4"></i> Clinical Survey
+        </a>
+        <a href="medicines.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="search" class="w-4 h-4"></i> Medicine Search
+        </a>
+        <a href="dosage-calculator.html" class="text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 border-b-2 border-emerald-600 dark:border-emerald-400 pb-0.5">
+          <i data-lucide="calculator" class="w-4 h-4"></i> Dosage Calculator
+        </a>
+        <a href="safety.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="shield-alert" class="w-4 h-4"></i> Safety Protocols
+        </a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button type="button" id="theme-toggle-btn" class="touch-target p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle Light and Dark Mode">
+          <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5"></i>
+        </button>
+
+        <a href="survey.html" class="hidden sm:flex touch-target px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold text-xs sm:text-sm items-center gap-2 shadow-xs transition-all">
+          <i data-lucide="stethoscope" class="w-4 h-4"></i>
+          <span>Take Health Survey</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button type="button" id="mobile-menu-btn" class="md:hidden touch-target p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Open Mobile Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu Overlay -->
+  <div id="mobile-menu-drawer" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex justify-end" role="dialog" aria-modal="true">
+    <div class="w-4/5 max-w-sm bg-white dark:bg-slate-900 h-full p-6 flex flex-col justify-between shadow-2xl border-l border-slate-200 dark:border-slate-800 animate-in slide-in-from-right duration-200">
+      
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-6">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold">
+              <i data-lucide="activity" class="w-4 h-4"></i>
+            </div>
+            <span class="font-heading font-bold text-slate-900 dark:text-white text-base">HIMKIV Health</span>
+          </div>
+          <button type="button" id="mobile-menu-close" class="touch-target p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" aria-label="Close Menu">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <nav class="space-y-3 font-semibold text-sm">
+          <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="home" class="w-5 h-5"></i> Home
+          </a>
+          <a href="survey.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="clipboard-check" class="w-5 h-5 text-sky-600"></i> Clinical Survey
+          </a>
+          <a href="medicines.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> Medicine & Salt Directory
+          </a>
+          <a href="dosage-calculator.html" class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+            <i data-lucide="calculator" class="w-5 h-5"></i> Dosage Calculator
+          </a>
+          <a href="safety.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-600"></i> Safety Protocols
+          </a>
+        </nav>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+        <p class="text-xs text-slate-400 text-center">24/7 Clinical Hotline: 1800-HIMKIV</p>
+      </div>
+
+    </div>
+  </div>
+
+  <main class="flex-grow py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 inline-block mb-3 shadow-2xs">
+          Interactive Pharmacokinetics Sandbox
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Pediatric & Weight Dosage Calculator
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
+          Simulate how age and body weight dynamically change required milligram strengths, liquid suspension volumes (ml), and safe 24-hour maximum thresholds.
+        </p>
+      </div>
+
+      <!-- Main Calculator Card Grid -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <div>
+            <label for="calc-salt-select" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">
+              Select Active Chemical Compound:
+            </label>
+            <select id="calc-salt-select" class="w-full px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-xs sm:text-sm font-bold focus:ring-2 focus:ring-emerald-500">
+              <!-- Populated by js/calculator.js -->
+            </select>
+          </div>
+
+          <!-- Age Input & Slider -->
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
+            <div class="flex items-center justify-between mb-2">
+              <label for="calc-age-slider" class="text-xs font-bold text-slate-700 dark:text-slate-300">Patient Age (Years):</label>
+              <div class="flex items-center gap-2">
+                <input type="number" id="calc-age-num" min="0" max="120" value="8" class="w-16 px-2 py-1 text-center font-bold text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+                <span id="calc-age-category" class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold">Pediatric</span>
+              </div>
+            </div>
+            <input type="range" id="calc-age-slider" min="0" max="100" value="8" class="w-full mt-2">
+            <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+              <span>0 (Infant)</span>
+              <span>12 yrs</span>
+              <span>18 yrs</span>
+              <span>65+ yrs</span>
+            </div>
+          </div>
+
+          <!-- Weight Input & Slider -->
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
+            <div class="flex items-center justify-between mb-2">
+              <label for="calc-weight-slider" class="text-xs font-bold text-slate-700 dark:text-slate-300">Patient Body Weight:</label>
+              <div class="flex items-center gap-2">
+                <input type="number" id="calc-weight-num" min="2" max="200" value="24" step="0.5" class="w-20 px-2 py-1 text-center font-bold text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+                <button type="button" id="calc-weight-unit" class="text-xs font-bold px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200">
+                  KG
+                </button>
+              </div>
+            </div>
+            <input type="range" id="calc-weight-slider" min="3" max="130" value="24" class="w-full mt-2">
+            <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+              <span>3 kg</span>
+              <span>25 kg</span>
+              <span>50 kg</span>
+              <span>100+ kg</span>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-200">
+            <div class="flex items-center gap-1.5 font-bold mb-1 text-emerald-700 dark:text-emerald-300">
+              <i data-lucide="shield-check" class="w-4 h-4"></i> Pediatric Safety Principle
+            </div>
+            <p class="text-[11px] leading-relaxed">
+              Children have varying metabolic enzyme clearance. Never approximate with kitchen cutlery; always deliver exact milliliters using oral graduated syringes.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Dynamic Output Result Column -->
+        <div class="lg:col-span-7 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950 text-white shadow-inner">
+          
+          <div>
+            <!-- Header of Result Box -->
+            <div class="flex items-start justify-between gap-3 border-b border-emerald-500/20 pb-4 mb-5">
+              <div>
+                <span id="calc-out-category" class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 block mb-1">
+                  Antipyretic & Analgesic
+                </span>
+                <h3 id="calc-out-title" class="text-2xl font-heading font-extrabold text-white">
+                  Paracetamol (Acetaminophen)
+                </h3>
+              </div>
+              <span id="calc-out-ceiling" class="text-xs px-3 py-1 rounded-full bg-white/10 font-mono text-emerald-200 shrink-0">
+                24h Safe Maximum: 1440 mg/day
+              </span>
+            </div>
+
+            <!-- Single Dose -->
+            <div class="mb-5">
+              <span class="text-xs text-slate-400 uppercase font-semibold block mb-1">Calculated Single Dose:</span>
+              <div id="calc-out-dose" class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+                <strong>240 – 360 mg</strong>
+              </div>
+              <p id="calc-out-formula" class="text-xs text-emerald-300 font-medium mt-1">
+                Formula: 10 - 15 mg/kg × 24 kg = 240 – 360 mg
+              </p>
+            </div>
+
+            <!-- Liquid Suspension ml measure -->
+            <div id="calc-out-liquid-card" class="mb-5 p-4 rounded-2xl bg-white/10 border border-white/10">
+              <span class="text-xs text-emerald-300 uppercase font-bold block mb-1">Liquid Suspension Measure (Pediatric):</span>
+              <div id="calc-out-liquid" class="text-lg font-heading font-extrabold text-white">
+                Administer 4.8 – 7.2 ml
+              </div>
+              <p id="calc-out-liquid-details" class="text-xs text-slate-300 mt-1">
+                Using Junior Suspension (250 mg / 5 ml, approx. 50 mg per ml).
+              </p>
+            </div>
+
+            <!-- Timing & Schedule -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div>
+                <span class="text-xs text-slate-400 uppercase font-semibold block mb-1">Dosing Schedule:</span>
+                <p id="calc-out-schedule" class="text-xs sm:text-sm text-slate-200 font-medium">
+                  Every 4 to 6 hours as needed (Maximum 4 doses in 24 hours)
+                </p>
+              </div>
+              <div>
+                <span class="text-xs text-slate-400 uppercase font-semibold block mb-1">Administration Timing:</span>
+                <p id="calc-out-timing" class="text-xs text-slate-300">
+                  Take with or without food. Drink a full glass of water.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Market Brands -->
+          <div class="pt-5 border-t border-white/10">
+            <span class="text-xs text-slate-400 block mb-2 font-semibold uppercase tracking-wider">Common Commercial Pharmacy Brands:</span>
+            <div id="calc-out-brands" class="flex flex-wrap gap-2">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MASTER HEALTHCARE FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800">
+        
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold">
+              <i data-lucide="activity" class="w-4 h-4"></i>
+            </div>
+            <span class="font-heading font-bold text-white text-base">HIMKIV MedGuide</span>
+          </div>
+          <p class="text-[11px] leading-relaxed text-slate-400 mb-3">
+            Clinical decision support platform providing disease-to-medicine algorithms, salt monographs, and weight-based dosage guidance.
+          </p>
+          <div class="text-[10px] text-slate-500">
+            Compliant with standard clinical reference guidelines.
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Clinical Pages</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-white transition-colors">Home Page</a></li>
+            <li><a href="survey.html" class="hover:text-white transition-colors">Clinical Symptom Survey</a></li>
+            <li><a href="medicines.html" class="hover:text-white transition-colors">Medicine & Salt Directory</a></li>
+            <li><a href="dosage-calculator.html" class="text-emerald-400 hover:text-white transition-colors">Pediatric Dosage Calculator</a></li>
+            <li><a href="safety.html" class="hover:text-white transition-colors">Safety Protocols & ER Red Flags</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Featured Conditions</h4>
+          <ul class="space-y-2">
+            <li><a href="survey.html?condition=fever-bodyache" class="hover:text-white transition-colors">Fever & Body Ache (Pyrexia)</a></li>
+            <li><a href="survey.html?condition=bacterial-pharyngitis" class="hover:text-white transition-colors">Acute Bacterial Pharyngitis</a></li>
+            <li><a href="survey.html?condition=gerd-gastritis" class="hover:text-white transition-colors">Acid Peptic Disease (GERD)</a></li>
+            <li><a href="survey.html?condition=allergic-rhinitis" class="hover:text-white transition-colors">Allergic Rhinitis & Cold</a></li>
+            <li><a href="survey.html?condition=acute-gastroenteritis" class="hover:text-white transition-colors">Gastroenteritis & Dehydration</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Emergency Lines</h4>
+          <p class="text-[11px] text-slate-400 mb-2">Emergency Ambulance: <strong>112 / 911</strong></p>
+          <p class="text-[11px] text-slate-400 mb-2">National Poison Control: <strong>1800-222-1222</strong></p>
+          <p class="text-[11px] text-slate-400">HIMKIV Clinical Support: <strong>support@himkivhealth.org</strong></p>
+        </div>
+
+      </div>
+
+      <div class="text-[11px] leading-relaxed text-slate-500 text-center max-w-4xl mx-auto space-y-2">
+        <p>
+          <strong>Clinical Disclaimer:</strong> The content, calculations, drug salts, and dosages provided by HIMKIV MedGuide are intended strictly for educational, informational, and clinical reference purposes. This platform does not constitute the provision of medical diagnoses, professional consultations, or binding prescriptions. Always consult a board-certified physician or licensed pharmacist before administering any medication.
+        </p>
+        <p>
+          &copy; 2026 HIMKIV Healthcare Technologies. Built according to UI/UX Pro Max clinical specifications. All rights reserved.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/medicineData.js"></script>
+  <script src="js/calculator.js"></script>
+
+</body>
+</html>

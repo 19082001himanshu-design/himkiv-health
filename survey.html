@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinical Symptom & Dosage Survey | HIMKIV Health & MedGuide</title>
+  <meta name="description" content="Take our interactive clinical survey to diagnose symptoms and receive evidence-based drug salts and commercial medicines with exact doses calculated by patient age and body weight.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            clinical: {
+              teal: '#0891b2',
+              green: '#059669',
+              emerald: '#10b981',
+              amber: '#d97706',
+              danger: '#dc2626'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Figtree & Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Bespoke Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- Emergency Triage Top Banner -->
+  <aside aria-label="Emergency Notice" class="bg-rose-600 text-white text-xs py-2 px-4 shadow-inner no-print">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <div class="flex items-center gap-2 justify-center">
+        <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
+        <span><strong>Emergency Medical Triage:</strong> If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] font-medium opacity-90">
+        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Reference Pharmacology Standards</span>
+        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> 24/7 Hotline: 1800-HIMKIV</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Multi-Page Header Navigation -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-xs no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-1">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-700 to-cyan-500 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+          <i data-lucide="activity" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">HIMKIV</span>
+            <span class="font-heading font-bold text-xs uppercase px-1.5 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">MedGuide</span>
+          </div>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">Precision Salts & Dosage Intelligence</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links (Multi-Page) -->
+      <nav aria-label="Main Navigation" class="hidden md:flex items-center gap-7 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="home" class="w-4 h-4"></i> Home
+        </a>
+        <a href="survey.html" class="text-sky-600 dark:text-sky-400 flex items-center gap-1.5 border-b-2 border-sky-600 dark:border-sky-400 pb-0.5">
+          <i data-lucide="clipboard-check" class="w-4 h-4"></i> Clinical Survey
+        </a>
+        <a href="medicines.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="search" class="w-4 h-4"></i> Medicine Search
+        </a>
+        <a href="dosage-calculator.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="calculator" class="w-4 h-4"></i> Dosage Calculator
+        </a>
+        <a href="safety.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="shield-alert" class="w-4 h-4"></i> Safety Protocols
+        </a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button type="button" id="theme-toggle-btn" class="touch-target p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle Light and Dark Mode">
+          <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5"></i>
+        </button>
+
+        <a href="medicines.html" class="hidden sm:flex touch-target px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-heading font-semibold text-xs sm:text-sm items-center gap-2 transition-colors">
+          <i data-lucide="database" class="w-4 h-4 text-sky-600"></i>
+          <span>Drug Directory</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button type="button" id="mobile-menu-btn" class="md:hidden touch-target p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Open Mobile Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu Overlay -->
+  <div id="mobile-menu-drawer" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex justify-end" role="dialog" aria-modal="true">
+    <div class="w-4/5 max-w-sm bg-white dark:bg-slate-900 h-full p-6 flex flex-col justify-between shadow-2xl border-l border-slate-200 dark:border-slate-800 animate-in slide-in-from-right duration-200">
+      
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-6">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold">
+              <i data-lucide="activity" class="w-4 h-4"></i>
+            </div>
+            <span class="font-heading font-bold text-slate-900 dark:text-white text-base">HIMKIV Health</span>
+          </div>
+          <button type="button" id="mobile-menu-close" class="touch-target p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" aria-label="Close Menu">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <nav class="space-y-3 font-semibold text-sm">
+          <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="home" class="w-5 h-5"></i> Home
+          </a>
+          <a href="survey.html" class="flex items-center gap-3 p-3 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400">
+            <i data-lucide="clipboard-check" class="w-5 h-5"></i> Clinical Survey
+          </a>
+          <a href="medicines.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> Medicine & Salt Directory
+          </a>
+          <a href="dosage-calculator.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="calculator" class="w-5 h-5 text-emerald-600"></i> Dosage Calculator
+          </a>
+          <a href="safety.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
+            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-600"></i> Safety Protocols
+          </a>
+        </nav>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+        <p class="text-xs text-slate-400 text-center">24/7 Clinical Hotline: 1800-HIMKIV</p>
+      </div>
+
+    </div>
+  </div>
+
+  <main class="flex-grow py-10 md:py-14">
+    <div id="survey-main-container" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Survey Header & Introduction -->
+      <div class="text-center mb-10 no-print">
+        <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3 shadow-2xs">
+          Pharmacokinetic Decision Support Wizard
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Clinical Symptom & Dosage Survey
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-2.5 leading-relaxed">
+          Select your health condition, provide patient age and body weight, and receive verified generic drug salts and commercial brand posology calibrated to avoid underdosing and organ toxicity.
+        </p>
+
+        <!-- Stepper Progress Bar -->
+        <div class="flex items-center justify-center gap-8 sm:gap-16 mt-8">
+          <div class="survey-progress-step flex flex-col items-center">
+            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-sky-600 text-white shadow-md ring-4 ring-sky-100 dark:ring-sky-950">1</div>
+            <span class="step-label text-xs font-semibold text-sky-600 dark:text-sky-400 mt-1.5 hidden sm:block">Choose Condition</span>
+          </div>
+          <div class="h-0.5 w-12 sm:w-24 bg-slate-300 dark:bg-slate-700"></div>
+          <div class="survey-progress-step flex flex-col items-center">
+            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400">2</div>
+            <span class="step-label text-xs font-medium text-slate-400 dark:text-slate-500 mt-1.5 hidden sm:block">Vitals & Allergies</span>
+          </div>
+          <div class="h-0.5 w-12 sm:w-24 bg-slate-300 dark:bg-slate-700"></div>
+          <div class="survey-progress-step flex flex-col items-center">
+            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400">3</div>
+            <span class="step-label text-xs font-medium text-slate-400 dark:text-slate-500 mt-1.5 hidden sm:block">Prescribed Posology</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Survey Card Container -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-lg relative">
+        
+        <!-- STEP 1: DISEASE & SYMPTOM INTAKE -->
+        <div id="survey-step-1" class="survey-step">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+                Step 1: Select Your Current Health Condition
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Choose the condition or symptoms you are experiencing to begin pharmacological calibration.
+              </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative w-full sm:w-80">
+              <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+              <input type="text" id="survey-disease-search" placeholder="Filter by symptom (e.g. fever, cough, pain)..." class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+            </div>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="flex flex-wrap items-center gap-2 mb-6" role="tablist" aria-label="Condition Categories">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-600 text-white shadow-xs transition-all" data-category="all">
+              All Conditions
+            </button>
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="general">
+              Fever & General
+            </button>
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="respiratory">
+              Respiratory & Throat
+            </button>
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="gastro">
+              Gastrointestinal & Acid
+            </button>
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="chronic">
+              Chronic Care (Diabetes/BP)
+            </button>
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="ortho">
+              Musculoskeletal
+            </button>
+          </div>
+
+          <!-- Dynamic Disease Grid -->
+          <div id="survey-disease-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-1">
+            <!-- Populated by js/survey.js -->
+          </div>
+
+          <!-- Step 1 Footer Navigation -->
+          <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span class="text-xs text-slate-500 dark:text-slate-400">Select any condition card above to proceed</span>
+            <button type="button" id="survey-step-1-next" disabled class="touch-target px-7 py-3 rounded-xl bg-sky-600 text-white font-heading font-semibold text-xs sm:text-sm flex items-center gap-2 opacity-50 cursor-not-allowed transition-all">
+              <span>Continue to Patient Vitals</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- STEP 2: PATIENT DEMOGRAPHICS, VITALS & ALLERGIES -->
+        <div id="survey-step-2" class="survey-step hidden">
+          
+          <div class="mb-6">
+            <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+              Step 2: Patient Parameters & Safety Profile
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+              Exact pediatric and adult doses depend strictly on patient body weight and organ safety.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Age Input -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+              <div class="flex items-center justify-between mb-2">
+                <label for="survey-age-input" class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <i data-lucide="calendar" class="w-4 h-4 text-sky-600"></i> Patient Age (Years)
+                </label>
+                <span id="age-classification-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold">Adult (18-64 yrs)</span>
+              </div>
+              <input type="number" id="survey-age-input" min="0" max="120" value="28" step="1" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-base font-bold focus:ring-2 focus:ring-sky-500">
+              <p class="text-[11px] text-slate-400 mt-1.5">Children under 12 years receive weight-based pediatric liquid or drop posology.</p>
+            </div>
+
+            <!-- Weight Input with Unit Switcher -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+              <div class="flex items-center justify-between mb-2">
+                <label for="survey-weight-input" class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <i data-lucide="scale" class="w-4 h-4 text-emerald-600"></i> Patient Body Weight
+                </label>
+                <button type="button" id="weight-unit-toggle" class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-300 transition-colors">
+                  KG
+                </button>
+              </div>
+              <input type="number" id="survey-weight-input" min="2" max="250" value="65" step="0.5" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-base font-bold focus:ring-2 focus:ring-sky-500">
+              <p class="text-[11px] text-slate-400 mt-1.5">Essential for antipyretics (mg/kg/dose) and antibiotic calculations.</p>
+            </div>
+
+            <!-- Biological Sex & Pregnancy -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">Biological Sex</label>
+              <div class="grid grid-cols-2 gap-2.5">
+                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer text-xs font-semibold">
+                  <input type="radio" name="survey-gender" value="male" checked class="text-sky-600 focus:ring-sky-500"> Male
+                </label>
+                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer text-xs font-semibold">
+                  <input type="radio" name="survey-gender" value="female" class="text-sky-600 focus:ring-sky-500"> Female
+                </label>
+              </div>
+              
+              <!-- Pregnancy Field -->
+              <div id="pregnancy-field" class="mt-3.5 pt-3 border-t border-slate-200 dark:border-slate-700 hidden">
+                <label class="flex items-center gap-2 text-xs font-semibold text-amber-700 dark:text-amber-300 cursor-pointer">
+                  <input type="checkbox" id="survey-pregnant-check" class="rounded text-amber-600 focus:ring-amber-500">
+                  <span>Patient is currently pregnant or nursing</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Known Drug Hypersensitivities -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mb-2.5">
+                <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500"></i> Known Drug Allergies
+              </label>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
+                  <input type="checkbox" name="survey-allergy" value="penicillin" class="rounded text-rose-600"> Penicillin / Amox
+                </label>
+                <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
+                  <input type="checkbox" name="survey-allergy" value="nsaid" class="rounded text-rose-600"> NSAIDs / Aspirin
+                </label>
+                <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
+                  <input type="checkbox" name="survey-allergy" value="sulfa" class="rounded text-rose-600"> Sulfa Drugs
+                </label>
+                <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
+                  <input type="checkbox" name="survey-allergy" value="macrolide" class="rounded text-rose-600"> Macrolides
+                </label>
+              </div>
+            </div>
+
+            <!-- Pre-existing Comorbidities -->
+            <div class="col-span-full p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2.5">Pre-existing Organ Dysfunction & Comorbidities</label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+                <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" name="survey-comorbidity" value="liver" class="rounded text-sky-600"> Liver Cirrhosis
+                </label>
+                <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" name="survey-comorbidity" value="kidney" class="rounded text-sky-600"> Chronic Kidney (CKD)
+                </label>
+                <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" name="survey-comorbidity" value="ulcer" class="rounded text-sky-600"> Peptic Ulcers / GERD
+                </label>
+                <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" name="survey-comorbidity" value="asthma" class="rounded text-sky-600"> Bronchial Asthma
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Step 2 Footer Navigation -->
+          <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <button type="button" id="survey-step-2-back" class="touch-target px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+            </button>
+            <button type="button" id="survey-step-2-next" class="touch-target px-7 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md hover:shadow-lg transition-all">
+              <span>Calculate Precise Doses & Regimens</span>
+              <i data-lucide="check" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- STEP 3: CLINICAL REPORT & POSOLOGY RECOMMENDATIONS -->
+        <div id="survey-step-3" class="survey-step hidden">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800 no-print">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+                Step 3: Pharmacological Prescription & Posology
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                Calibrated against evidence-based pharmacological reference guidelines.
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+              <button type="button" id="survey-print-report-btn" class="touch-target px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors">
+                <i data-lucide="printer" class="w-4 h-4"></i> Print Prescription
+              </button>
+              <button type="button" id="survey-step-3-restart" class="touch-target px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> New Survey
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Prescriptions & Regimens Output -->
+          <div id="survey-results-content">
+            <!-- Populated dynamically by js/survey.js -->
+          </div>
+
+          <!-- Step 3 Footer Navigation -->
+          <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
+            <button type="button" id="survey-step-3-back" class="touch-target px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> Adjust Vitals & Weight
+            </button>
+            <a href="medicines.html" class="touch-target px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-heading font-semibold text-xs sm:text-sm flex items-center justify-center gap-2">
+              <span>Browse All Medicines & Salts</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MASTER HEALTHCARE FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 py-12 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold">
+              <i data-lucide="activity" class="w-4 h-4"></i>
+            </div>
+            <span class="font-heading font-bold text-white text-base">HIMKIV MedGuide</span>
+          </div>
+          <p class="text-[11px] leading-relaxed text-slate-400 mb-3">
+            Clinical decision support platform providing disease-to-medicine algorithms, salt monographs, and weight-based dosage guidance.
+          </p>
+          <div class="text-[10px] text-slate-500">
+            Compliant with standard clinical reference guidelines.
+          </div>
+        </div>
+
+        <!-- Col 2: Multi-Page Navigation Links -->
+        <div>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Clinical Pages</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-white transition-colors">Home Page</a></li>
+            <li><a href="survey.html" class="text-sky-400 hover:text-white transition-colors">Clinical Symptom Survey</a></li>
+            <li><a href="medicines.html" class="hover:text-white transition-colors">Medicine & Salt Directory</a></li>
+            <li><a href="dosage-calculator.html" class="hover:text-white transition-colors">Pediatric Dosage Calculator</a></li>
+            <li><a href="safety.html" class="hover:text-white transition-colors">Safety Protocols & ER Red Flags</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Common Conditions -->
+        <div>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Featured Conditions</h4>
+          <ul class="space-y-2">
+            <li><a href="survey.html?condition=fever-bodyache" class="hover:text-white transition-colors">Fever & Body Ache (Pyrexia)</a></li>
+            <li><a href="survey.html?condition=bacterial-pharyngitis" class="hover:text-white transition-colors">Acute Bacterial Pharyngitis</a></li>
+            <li><a href="survey.html?condition=gerd-gastritis" class="hover:text-white transition-colors">Acid Peptic Disease (GERD)</a></li>
+            <li><a href="survey.html?condition=allergic-rhinitis" class="hover:text-white transition-colors">Allergic Rhinitis & Cold</a></li>
+            <li><a href="survey.html?condition=acute-gastroenteritis" class="hover:text-white transition-colors">Gastroenteritis & Dehydration</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Emergency Contacts -->
+        <div>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Emergency Lines</h4>
+          <p class="text-[11px] text-slate-400 mb-2">Emergency Ambulance: <strong>112 / 911</strong></p>
+          <p class="text-[11px] text-slate-400 mb-2">National Poison Control: <strong>1800-222-1222</strong></p>
+          <p class="text-[11px] text-slate-400">HIMKIV Clinical Support: <strong>support@himkivhealth.org</strong></p>
+        </div>
+
+      </div>
+
+      <!-- Mandatory Medical Disclaimer -->
+      <div class="text-[11px] leading-relaxed text-slate-500 text-center max-w-4xl mx-auto space-y-2">
+        <p>
+          <strong>Clinical Disclaimer:</strong> The content, calculations, drug salts, and dosages provided by HIMKIV MedGuide are intended strictly for educational, informational, and clinical reference purposes. This platform does not constitute the provision of medical diagnoses, professional consultations, or binding prescriptions. Always consult a board-certified physician or licensed pharmacist before administering any medication.
+        </p>
+        <p>
+          &copy; 2026 HIMKIV Healthcare Technologies. Built according to UI/UX Pro Max clinical specifications. All rights reserved.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- CLINICAL MONOGRAPH MODAL DRAWER -->
+  <div id="salt-detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 modal-backdrop hidden no-print" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-150">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+          </div>
+          <span class="font-heading font-bold text-sm text-slate-900 dark:text-white" id="modal-title">Clinical Monograph</span>
+        </div>
+        <button type="button" id="modal-close-btn" class="touch-target p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Close Clinical Monograph Dialog">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div id="modal-dynamic-content" class="p-6 overflow-y-auto flex-grow">
+        <!-- Populated dynamically by js/survey.js openSaltModal -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3.5 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+        <span class="text-slate-400 flex items-center gap-1">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i> Pharmacopoeia Validated
+        </span>
+        <button type="button" onclick="document.getElementById('modal-close-btn').click()" class="px-4 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold">
+          Close Monograph
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Shared Clinical Pharmacology Data & Survey Controller Script -->
+  <script src="data/medicineData.js"></script>
+  <script src="js/survey.js"></script>
+
+</body>
+</html>
