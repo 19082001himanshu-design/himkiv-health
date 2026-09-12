@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortSelect = document.getElementById("dir-sort-select");
   const resultsGrid = document.getElementById("directory-results-grid");
   const resultCountLabel = document.getElementById("directory-count-label");
+  const resultCountLabelBottom = document.getElementById("directory-count-label-bottom");
   const showMoreBtn = document.getElementById("directory-show-more-btn");
   const categoryFilterContainer = document.getElementById("dir-category-filter-container");
 
@@ -293,9 +294,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const totalMatches = filtered.length;
     const visibleMatches = filtered.slice(0, currentPageLimit);
+    const countText = `Showing ${visibleMatches.length} of ${totalMatches} medicines`;
 
     if (resultCountLabel) {
-      resultCountLabel.textContent = `Showing ${visibleMatches.length} of ${totalMatches} medicines`;
+      resultCountLabel.textContent = countText;
+    }
+    if (resultCountLabelBottom) {
+      resultCountLabelBottom.textContent = countText;
     }
 
     // Show More (+6) Button Visibility
