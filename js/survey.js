@@ -1,12 +1,12 @@
 /**
  * HIMKIV Health & MedGuide - Clinical Survey Controller (js/survey.js)
- * Manages 3-step diagnostic assessment, demographic profiling,
- * weight-based posology calculations, allergy cross-checking,
- * URL parameter auto-population, and print report export.
+ * Manages 3-step clinical reference intake, condition discovery,
+ * dynamic category tabs, 6-item incremental pagination, vitals,
+ * allergies cross-checking, and educational posology report.
+ * Integrates HKare Reference Dataset (120 conditions, 18 categories).
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Ensure Clinical Data is loaded
   if (typeof CLINICAL_DATA === "undefined") {
     console.error("Clinical dataset could not be found.");
     return;
@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     step: 1,
     selectedDiseaseId: null,
     selectedCategory: "all",
-    selectedSubcategory: "all",
     searchFilter: "",
     currentPageLimit: 6,
     itemsPerPage: 6,
@@ -33,12 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
     comorbidities: []
   };
 
-  // Refresh Lucide SVG icons
   const refreshIcons = () => {
     if (typeof lucide !== "undefined" && lucide.createIcons) {
       lucide.createIcons();
     }
   };
+
+  const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
 
   // --------------------------------------------------------------------------
   // Theme Toggle (Dark / Light Mode)
@@ -101,85 +101,46 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --------------------------------------------------------------------------
-  // Step 1: Render Conditions Grid with Filtering & Category Tabs
+  // Step 1: Render Conditions Grid with Filtering & Dynamic Category Tabs
   // --------------------------------------------------------------------------
   const diseaseGridContainer = document.getElementById("survey-disease-grid");
   const diseaseSearchInput = document.getElementById("survey-disease-search");
-  const categoryTabs = document.querySelectorAll(".survey-cat-tab");
-  const subcategoryContainer = document.getElementById("survey-subcategory-container");
+  const categoryTabsContainer = document.getElementById("survey-category-tabs");
   const countLabel = document.getElementById("survey-count-label");
   const showMoreBtn = document.getElementById("survey-show-more-btn");
   const step1NextBtn = document.getElementById("survey-step-1-next");
 
-  // Comprehensive Category Slugs Map matching ICD-11 MMS Taxonomy
-  const catSlugMap = {
-    "general": ["general", "general-fever", "General / Infectious", "Fever, Infection & Immune", "Fever & General"],
-    "respiratory": ["respiratory", "respiratory-ent", "Respiratory & Allergy", "Respiratory & ENT", "Respiratory", "Respiratory & Throat"],
-    "gastro": ["gastro", "gastrointestinal", "Gastrointestinal", "Gastrointestinal & Hepato-Biliary", "Gastrointestinal & Acid"],
-    "chronic": ["chronic", "cardiovascular", "cardiovascular-metabolic", "Cardiovascular, Renal & Metabolic", "Endocrinology & Metabolic", "Cardiovascular & Chronic", "Chronic Care (Diabetes/BP)"],
-    "ortho": ["ortho", "musculoskeletal", "musculoskeletal-pain", "Musculoskeletal & Neuromuscular Pain", "Orthopedics & Rheumatology", "Musculoskeletal Pain", "Musculoskeletal"],
-    "neuro": ["neuro", "neurological-psychiatric", "Neurology & Headache", "Neurological, Psychiatric & Sleep", "Neurology & Sleep"],
-    "derm": ["derm", "dermatology-allergy", "Dermatology & Allergy", "Dermatology, Mucosal & Allergic"],
-    "infectious": ["infectious", "infectious-parasitic", "Infectious Diseases, Vector-Borne & Parasitic", "Infectious Disease", "Infectious & Vector-Borne"],
-    "ophthalmic": ["ophthalmic", "ophthalmic-otic", "Ophthalmic, Otic & Dental", "Ophthalmic & Otic", "Genitourinary", "uro"]
-  };
+  // Dynamic Category Tabs Population
+  const renderCategoryTabs = () => {
+    if (!categoryTabsContainer) return;
+    const categories = CLINICAL_DATA.categories || [];
+    if (categories.length === 0) return;
 
-  const renderSubcategories = () => {
-    if (!subcategoryContainer) return;
-    if (state.selectedCategory === "all") {
-      subcategoryContainer.classList.add("hidden");
-      subcategoryContainer.innerHTML = "";
-      return;
-    }
+    categoryTabsContainer.innerHTML = "";
 
-    const validMatches = catSlugMap[state.selectedCategory] || [state.selectedCategory];
-    const catDiseases = CLINICAL_DATA.diseases.filter(d => 
-      validMatches.includes(d.categoryId) || validMatches.includes(d.category)
-    );
+    categories.forEach(cat => {
+      const isSel = state.selectedCategory === cat.id;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `survey-cat-tab touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+        isSel
+          ? "bg-sky-600 text-white shadow-xs"
+          : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400"
+      }`;
+      btn.setAttribute("data-category", cat.id);
+      if (cat.i18nKey) {
+        btn.setAttribute("data-i18n", cat.i18nKey);
+      }
+      btn.textContent = t(cat.i18nKey, cat.name);
 
-    const subcats = [...new Set(catDiseases.map(d => d.subcategory).filter(Boolean))];
-    if (subcats.length === 0) {
-      subcategoryContainer.classList.add("hidden");
-      subcategoryContainer.innerHTML = "";
-      return;
-    }
-
-    const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
-
-    subcategoryContainer.classList.remove("hidden");
-    let html = `
-      <span class="text-[11px] font-semibold text-slate-400 mr-1">${t("subcategory_label", "Subcategory:")}</span>
-      <button type="button" class="survey-subcat-pill touch-target text-[11px] px-3 py-1 rounded-full transition-all ${
-        state.selectedSubcategory === 'all'
-          ? 'bg-sky-600 text-white font-bold shadow-xs'
-          : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-      }" data-subcategory="all">
-        ${t("cat_all", "All")}
-      </button>
-    `;
-
-    subcats.forEach(sub => {
-      const isSel = state.selectedSubcategory === sub;
-      html += `
-        <button type="button" class="survey-subcat-pill touch-target text-[11px] px-3 py-1 rounded-full transition-all ${
-          isSel
-            ? 'bg-sky-600 text-white font-bold shadow-xs'
-            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-        }" data-subcategory="${sub}">
-          ${sub}
-        </button>
-      `;
-    });
-
-    subcategoryContainer.innerHTML = html;
-
-    subcategoryContainer.querySelectorAll(".survey-subcat-pill").forEach(btn => {
       btn.addEventListener("click", () => {
-        state.selectedSubcategory = btn.getAttribute("data-subcategory");
+        state.selectedCategory = cat.id;
         state.currentPageLimit = 6;
-        renderSubcategories();
+        renderCategoryTabs();
         renderDiseaseChoices();
       });
+
+      categoryTabsContainer.appendChild(btn);
     });
   };
 
@@ -189,34 +150,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const query = state.searchFilter.trim().toLowerCase();
     const category = state.selectedCategory;
-    const subcategory = state.selectedSubcategory;
+    const allDiseases = CLINICAL_DATA.diseases || [];
 
-    const filtered = CLINICAL_DATA.diseases.filter(d => {
-      // Category filter
-      if (category !== "all") {
-        const expected = catSlugMap[category] || [category];
-        const matchCat = expected.includes(d.categoryId) || expected.includes(d.category);
-        if (!matchCat) return false;
-      }
-
-      // Subcategory filter
-      if (subcategory !== "all" && d.subcategory !== subcategory) {
-        return false;
-      }
-
-      // Search query filter
-      if (!query) return true;
-
-      const matchName = (d.name || "").toLowerCase().includes(query);
-      const matchIcd = (d.icd11Code || "").toLowerCase().includes(query);
-      const matchSymp = (d.symptoms || []).some(s => s.toLowerCase().includes(query));
-      const matchCat = (d.category || "").toLowerCase().includes(query);
-      const matchSub = (d.subcategory || "").toLowerCase().includes(query);
-      const matchDesc = (d.description || "").toLowerCase().includes(query);
-      return matchName || matchIcd || matchSymp || matchCat || matchSub || matchDesc;
+    // Filter by Category
+    let filtered = allDiseases.filter(d => {
+      if (category === "all") return true;
+      const dCatSlug = (d.categorySlug || d.categoryId || "").toLowerCase();
+      const dCat = (d.category || "").toLowerCase();
+      return dCatSlug === category || dCat === category;
     });
 
-    const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
+    // Search Query Filter
+    if (query) {
+      filtered = filtered.filter(d => {
+        const matchName = (d.name || "").toLowerCase().includes(query);
+        const matchIcd = (d.icd11Code || "").toLowerCase().includes(query);
+        const matchSymp = (d.symptoms || []).some(s => s.toLowerCase().includes(query));
+        const matchCat = (d.category || "").toLowerCase().includes(query);
+        const matchDesc = (d.description || "").toLowerCase().includes(query);
+        return matchName || matchIcd || matchSymp || matchCat || matchDesc;
+      });
+    }
 
     const totalMatches = filtered.length;
     const visibleList = filtered.slice(0, state.currentPageLimit);
@@ -239,9 +193,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (totalMatches === 0) {
       diseaseGridContainer.innerHTML = `
         <div class="col-span-full py-12 text-center text-slate-500 dark:text-slate-400">
-          <i data-lucide="search-x" class="w-10 h-10 mx-auto mb-3 opacity-50"></i>
-          <h4 class="font-heading font-semibold text-slate-700 dark:text-slate-300 text-sm">No clinical conditions found</h4>
-          <p class="text-xs text-slate-400 mt-1">Try searching broader symptoms like "fever", "cough", "pain", or reset filters.</p>
+          <i data-lucide="search-x" class="w-10 h-10 mx-auto mb-3 opacity-50 text-slate-400"></i>
+          <h4 class="font-heading font-semibold text-slate-700 dark:text-slate-300 text-sm">${t("no_conditions_found", "No clinical conditions found")}</h4>
+          <p class="text-xs text-slate-400 mt-1">${t("no_conditions_desc", "Try searching broader symptoms like 'fever', 'cough', 'pain', or reset category filters.")}</p>
         </div>
       `;
       refreshIcons();
@@ -265,11 +219,9 @@ document.addEventListener("DOMContentLoaded", () => {
               <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
                 ICD-11: ${disease.icd11Code || "WHO"}
               </span>
-              ${disease.subcategory ? `
-                <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
-                  ${disease.subcategory}
-                </span>
-              ` : ''}
+              <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
+                ${disease.category}
+              </span>
             </div>
             ${isSelected 
               ? `<span class="text-sky-600 dark:text-sky-400 flex items-center gap-1 text-xs font-bold shrink-0"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ${t("btn_selected", "Selected")}</span>` 
@@ -331,28 +283,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Category Tabs click listener
-  categoryTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      categoryTabs.forEach(t => {
-        t.classList.remove("bg-sky-600", "text-white", "shadow-sm", "shadow-xs");
-        t.classList.add("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300", "border-slate-200", "dark:border-slate-800");
-      });
-      tab.classList.remove("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300", "border-slate-200", "dark:border-slate-800");
-      tab.classList.add("bg-sky-600", "text-white", "shadow-xs");
-
-      state.selectedCategory = tab.getAttribute("data-category");
-      state.selectedSubcategory = "all";
-      state.currentPageLimit = 6;
-      renderSubcategories();
-      renderDiseaseChoices();
-    });
-  });
-
-  // Check URL parameters for auto-selection (e.g. survey.html?condition=fever-bodyache)
+  // Check URL parameters for auto-selection (e.g. survey.html?condition=influenza)
   const urlParams = new URLSearchParams(window.location.search);
   const conditionParam = urlParams.get("condition");
-  if (conditionParam && CLINICAL_DATA.diseases.some(d => d.id === conditionParam)) {
+  if (conditionParam && (CLINICAL_DATA.diseases || []).some(d => d.id === conditionParam)) {
     state.selectedDiseaseId = conditionParam;
     if (step1NextBtn) {
       step1NextBtn.removeAttribute("disabled");
@@ -401,7 +335,6 @@ document.addEventListener("DOMContentLoaded", () => {
       calculateAndRenderResults();
     }
 
-    // Scroll smoothly to top of survey container
     const surveyContainer = document.getElementById("survey-main-container");
     if (surveyContainer) {
       surveyContainer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -432,19 +365,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const badge = document.getElementById("age-classification-badge");
     if (!badge) return;
     if (age < 1) {
-      badge.textContent = "Infant (< 1 yr)";
+      badge.textContent = t("age_cat_infant", "Infant (< 1 yr)");
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 font-semibold";
     } else if (age < 12) {
-      badge.textContent = "Pediatric (1 - 11 yrs)";
+      badge.textContent = t("age_cat_pediatric", "Pediatric (1 - 11 yrs)");
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 font-semibold";
     } else if (age < 18) {
-      badge.textContent = "Adolescent (12 - 17 yrs)";
+      badge.textContent = t("age_cat_adolescent", "Adolescent (12 - 17 yrs)");
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 font-semibold";
     } else if (age < 65) {
-      badge.textContent = "Adult (18 - 64 yrs)";
+      badge.textContent = t("age_cat_adult", "Adult (18 - 64 yrs)");
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-semibold";
     } else {
-      badge.textContent = "Geriatric (65+ yrs)";
+      badge.textContent = t("age_cat_geriatric", "Geriatric (65+ yrs)");
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 font-semibold";
     }
   };
@@ -535,7 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateEmergencyTriageBanner = () => {
     const flagsContainer = document.getElementById("survey-condition-flags-container");
     if (!flagsContainer) return;
-    const disease = CLINICAL_DATA.diseases.find(d => d.id === state.selectedDiseaseId);
+    const disease = (CLINICAL_DATA.diseases || []).find(d => d.id === state.selectedDiseaseId);
     if (!disease) return;
 
     const isCritical = state.severity === "critical";
@@ -592,7 +525,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const populateStep2ConditionData = () => {
     const summaryContainer = document.getElementById("survey-step2-condition-summary");
     if (!summaryContainer) return;
-    const disease = CLINICAL_DATA.diseases.find(d => d.id === state.selectedDiseaseId);
+    const disease = (CLINICAL_DATA.diseases || []).find(d => d.id === state.selectedDiseaseId);
     if (!disease) return;
 
     state.selectedSymptoms = [...(disease.symptoms || [])];
@@ -607,12 +540,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
               WHO ICD-11: ${disease.icd11Code || "Unspecified"}
             </span>
-            ${disease.subcategory ? `<span class="text-xs text-slate-500 dark:text-slate-400 font-medium">• ${disease.subcategory}</span>` : ''}
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">• ${disease.category}</span>
           </div>
           <h3 class="text-xl sm:text-2xl font-heading font-extrabold text-slate-900 dark:text-white">${disease.name}</h3>
           <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed">${disease.description}</p>
         </div>
-        <button type="button" id="survey-step2-change-condition" class="touch-target text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center gap-1 shrink-0 p-2 rounded-xl hover:bg-sky-100/50 dark:hover:bg-slate-800 transition-colors">
+        <button type="button" id="survey-step2-change-condition" class="touch-target text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center gap-1 shrink-0 p-2 rounded-xl hover:bg-sky-100/50 dark:hover:bg-slate-800 transition-colors cursor-pointer">
           <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Change Condition
         </button>
       </div>
@@ -730,13 +663,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --------------------------------------------------------------------------
-  // Step 3: Pharmacological Posology Calculation Algorithm
+  // Step 3: Clinical Posology & Reference Report Generation
   // --------------------------------------------------------------------------
   const calculateAndRenderResults = () => {
     const resultsContainer = document.getElementById("survey-results-content");
     if (!resultsContainer) return;
 
-    const disease = CLINICAL_DATA.diseases.find(d => d.id === state.selectedDiseaseId);
+    const disease = (CLINICAL_DATA.diseases || []).find(d => d.id === state.selectedDiseaseId);
     if (!disease) return;
 
     const age = state.age;
@@ -747,9 +680,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const comorbidities = state.comorbidities;
     const isPregnant = state.isPregnant;
 
-    const recommendedSalts = disease.firstLineSalts
-      .map(saltId => CLINICAL_DATA.salts[saltId])
-      .filter(Boolean);
+    // Find all medicines associated with this condition
+    const allMeds = CLINICAL_DATA.medicineReferences || [];
+    let linkedMeds = allMeds.filter(m => 
+      m.conditionId === disease.id || 
+      m.condition.toLowerCase() === disease.name.toLowerCase() ||
+      (disease.medicineIds || []).includes(m.id)
+    );
+
+    // Fallback to legacy salts if no HKare medicines
+    if (linkedMeds.length === 0 && disease.firstLineSalts) {
+      linkedMeds = disease.firstLineSalts.map(sId => {
+        const s = CLINICAL_DATA.salts[sId];
+        if (!s) return null;
+        return {
+          id: s.id,
+          activeIngredient: s.saltName,
+          medicineClass: s.chemicalClass,
+          generalMedicalRole: s.mechanism || "Evidence-based pharmacology",
+          safetyNote: s.pregnancyCaution || "Clinician supervision recommended",
+          source: "WHO EML"
+        };
+      }).filter(Boolean);
+    }
 
     const isCritical = state.severity === "critical";
     const isSevere = state.severity === "severe";
@@ -833,14 +786,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ${isPregnant ? `
           <div class="mt-4 p-3.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs flex items-center gap-2.5">
             <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 text-amber-400"></i>
-            <span><strong>Pregnancy Safety Protocol:</strong> Strict fetal safety standards applied. NSAIDs and ARBs are contraindicated; only Category B/safe antipyretics are indicated.</span>
+            <span><strong>Pregnancy Safety Protocol:</strong> Strict fetal safety standards applied. Non-steroidal anti-inflammatories and contraindicated teratogens must be avoided.</span>
           </div>
         ` : ''}
 
         ${allergies.length > 0 && !allergies.includes("none") ? `
           <div class="mt-2.5 p-3.5 rounded-xl bg-rose-500/20 border border-rose-400/40 text-rose-200 text-xs flex items-center gap-2.5">
             <i data-lucide="shield-alert" class="w-4 h-4 shrink-0 text-rose-400"></i>
-            <span><strong>Allergy Watchlist:</strong> Patient flagged hypersensitivity to: <strong>${allergies.join(", ").toUpperCase()}</strong>. Safe alternatives evaluated below.</span>
+            <span><strong>Allergy Watchlist:</strong> Patient flagged hypersensitivity to: <strong>${allergies.join(", ").toUpperCase()}</strong>. Cross-reacting regimens contraindicated.</span>
           </div>
         ` : ''}
 
@@ -854,186 +807,93 @@ document.addEventListener("DOMContentLoaded", () => {
         ` : ''}
       </div>
 
-      <!-- Drug Salts Posology Breakdown -->
+      <!-- Associated Medicine Reference Cards -->
       <div class="mb-10">
         <div class="flex items-center justify-between mb-5">
           <div>
             <h4 class="text-lg sm:text-xl font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <i data-lucide="pill" class="w-5 h-5 text-sky-600 dark:text-sky-400"></i>
-              Verified Reference Posology & Drug Monograph
+              Verified Medicine References for ${disease.name}
             </h4>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Calibrated according to international pediatric (mg/kg) and adult pharmacokinetic safety standards.
+              Standard therapeutic classes and active ingredients referenced in the HKare clinical matrix.
             </p>
           </div>
-          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 shrink-0">
-            ${recommendedSalts.length} First-Line Compounds
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 shrink-0">
+            ${linkedMeds.length} Clinical Reference${linkedMeds.length === 1 ? '' : 's'}
           </span>
         </div>
 
-        <div class="space-y-5">
+        <div class="space-y-4">
     `;
 
-    // Process each salt
-    recommendedSalts.forEach(salt => {
-      let hasAllergyConflict = false;
-      let conflictReason = "";
-
-      if (allergies.includes("penicillin") && (salt.allergyClass.includes("Penicillin") || salt.allergyClass.includes("Cephalosporin"))) {
-        hasAllergyConflict = true;
-        conflictReason = "Patient has declared Penicillin hypersensitivity. High risk of anaphylactoid reaction with beta-lactams.";
-      }
-      if (allergies.includes("nsaid") && salt.allergyClass.includes("NSAID")) {
-        hasAllergyConflict = true;
-        conflictReason = "Patient has NSAID allergy. Contraindicated due to bronchospasm / severe urticaria risk.";
-      }
-      if (allergies.includes("sulfa") && salt.allergyClass.includes("Sulfa")) {
-        hasAllergyConflict = true;
-        conflictReason = "Patient has Sulfa hypersensitivity.";
-      }
-      if (allergies.includes("macrolide") && salt.allergyClass.includes("Macrolide")) {
-        hasAllergyConflict = true;
-        conflictReason = "Patient has Macrolide hypersensitivity.";
-      }
-
-      let pregnancyContraindicated = false;
-      if (isPregnant && (salt.id === "ibuprofen" || salt.id === "telmisartan" || salt.id === "ciprofloxacin" || salt.id === "diclofenac-chlorzoxazone")) {
-        pregnancyContraindicated = true;
-      }
-
-      let comorbidityCautions = [];
-      if (comorbidities.includes("liver") && (salt.id === "paracetamol" || salt.id === "diclofenac-chlorzoxazone")) {
-        comorbidityCautions.push("Liver Disease Caution: Hepatic metabolism reduced. Paracetamol daily ceiling capped at 2000mg.");
-      }
-      if (comorbidities.includes("kidney") && (salt.id === "ibuprofen" || salt.id === "metformin" || salt.id === "diclofenac-chlorzoxazone")) {
-        comorbidityCautions.push("Renal Impairment: Nephrotoxic risk. NSAIDs should be avoided; hydration critical.");
-      }
-      if (comorbidities.includes("ulcer") && (salt.id === "ibuprofen" || salt.id === "diclofenac-chlorzoxazone")) {
-        comorbidityCautions.push("Peptic Ulcer Warning: High mucosal erosion risk. Combine with proton pump inhibitors if unavoidable.");
-      }
-
-      let calculatedDoseText = "";
-      let calculatedVolumeText = "";
-      let frequencyText = "";
-      let maxThresholdText = "";
-
-      if (isPediatric && salt.pediatricDosing.minMgPerKg > 0) {
-        const minSingleMg = Math.round(weight * salt.pediatricDosing.minMgPerKg);
-        const maxSingleMg = Math.round(weight * salt.pediatricDosing.maxMgPerKg);
-        
-        calculatedDoseText = minSingleMg === maxSingleMg 
-          ? `<strong>${minSingleMg} mg</strong> per dose`
-          : `<strong>${minSingleMg} – ${maxSingleMg} mg</strong> per dose`;
-        
-        frequencyText = salt.pediatricDosing.frequency;
-        const maxDaily = Math.round(weight * salt.pediatricDosing.maxDailyCeilingPerKg);
-        maxThresholdText = `Max safe 24-hr threshold: <strong>${maxDaily} mg/day</strong>`;
-
-        if (salt.pediatricDosing.liquidFormulations && salt.pediatricDosing.liquidFormulations.length > 0) {
-          const preferredLiquid = salt.pediatricDosing.liquidFormulations[0];
-          if (preferredLiquid.perMlMg > 0) {
-            const mlNeeded = Math.round((minSingleMg / preferredLiquid.perMlMg) * 10) / 10;
-            calculatedVolumeText = `Liquid measure: <strong>${mlNeeded} ml</strong> of ${preferredLiquid.name} (${preferredLiquid.strength})`;
-          }
-        }
-      } else if (isPediatric && salt.pediatricDosing.minMgPerKg === 0) {
-        calculatedDoseText = `<span class="text-amber-600 dark:text-amber-400 font-medium">${salt.pediatricDosing.formulaPerKg}</span>`;
-        frequencyText = salt.pediatricDosing.frequency || "Under specialist supervision";
-        maxThresholdText = salt.pediatricDosing.clinicalNote;
-      } else {
-        calculatedDoseText = `<strong>${salt.adultDosing.standardSingleDose}</strong>`;
-        frequencyText = salt.adultDosing.frequency;
-        maxThresholdText = `24-hr Ceiling: <strong>${salt.adultDosing.maxDailyCeiling}</strong>`;
-      }
+    // Render each associated medicine reference
+    linkedMeds.forEach(med => {
+      // Check for matching verified monograph
+      const cleanName = med.activeIngredient.split("/")[0].split("+")[0].replace(/\(.*\)/, "").trim().toLowerCase();
+      const verifiedSalt = Object.values(CLINICAL_DATA.salts || {}).find(s => 
+        s.saltName.toLowerCase().includes(cleanName) || cleanName.includes(s.id)
+      );
 
       html += `
-        <div class="border rounded-3xl p-5 sm:p-6 transition-all ${
-          hasAllergyConflict || pregnancyContraindicated
-            ? "border-rose-300 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/20"
-            : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
-        }">
-          <div class="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-4">
+        <div class="p-6 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs hover:border-sky-400 transition-all">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
             <div>
               <div class="flex flex-wrap items-center gap-2 mb-1.5">
                 <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300">
-                  ${salt.therapeuticCategory}
+                  ${med.medicineClass}
                 </span>
-                <span class="text-xs text-slate-500 dark:text-slate-400">
-                  Class: ${salt.chemicalClass}
+                <span class="text-xs text-slate-400 font-mono">
+                  ${disease.name}
                 </span>
-                ${hasAllergyConflict ? '<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-600 text-white flex items-center gap-1"><i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> ALLERGY CONFLICT</span>' : ''}
-                ${pregnancyContraindicated ? '<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-600 text-white flex items-center gap-1"><i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i> PREGNANCY CONTRAINDICATION</span>' : ''}
               </div>
-              <h5 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">${salt.saltName}</h5>
+              <h5 class="text-xl font-heading font-bold text-slate-900 dark:text-white">${med.activeIngredient}</h5>
             </div>
-
-            <button type="button" class="view-salt-deepdive-btn text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 flex items-center gap-1 self-start py-1.5 px-3.5 rounded-xl border border-sky-200 dark:border-sky-800 hover:bg-sky-50 dark:hover:bg-sky-950/50 transition-colors" data-salt-id="${salt.id}">
-              <i data-lucide="book-open" class="w-4 h-4"></i> Full Monograph
-            </button>
-          </div>
-
-          ${hasAllergyConflict ? `
-            <div class="mb-4 p-3.5 rounded-xl bg-rose-100 dark:bg-rose-900/40 text-rose-900 dark:text-rose-200 text-xs flex items-start gap-2.5">
-              <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 text-rose-600 mt-0.5"></i>
-              <div>
-                <strong>Hypersensitivity Warning:</strong> ${conflictReason}
-                <span class="block mt-0.5 font-medium text-rose-800 dark:text-rose-300">Consult your physician to use non-penicillin alternatives (e.g. Azithromycin).</span>
-              </div>
-            </div>
-          ` : ''}
-
-          ${pregnancyContraindicated ? `
-            <div class="mb-4 p-3.5 rounded-xl bg-rose-100 dark:bg-rose-900/40 text-rose-900 dark:text-rose-200 text-xs flex items-start gap-2.5">
-              <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 text-rose-600 mt-0.5"></i>
-              <div>
-                <strong>Contraindicated in Pregnancy:</strong> This compound presents significant risk of fetal harm. Do not administer without specialist obstetric authorization.
-              </div>
-            </div>
-          ` : ''}
-
-          <!-- Posology Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 mb-4 text-xs">
-            <div>
-              <span class="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-[10px] tracking-wider mb-1">Calculated Single Dose</span>
-              <div class="text-sm sm:text-base text-slate-800 dark:text-slate-100">${calculatedDoseText}</div>
-              ${calculatedVolumeText ? `<div class="text-sky-600 dark:text-sky-400 font-semibold text-xs mt-1">${calculatedVolumeText}</div>` : ''}
-            </div>
-            <div>
-              <span class="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-[10px] tracking-wider mb-1">Dosing Schedule & Timing</span>
-              <div class="text-xs sm:text-sm text-slate-800 dark:text-slate-100 font-medium">${frequencyText}</div>
-              <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">${salt.administration}</div>
-            </div>
-            <div>
-              <span class="text-slate-400 dark:text-slate-500 block font-semibold uppercase text-[10px] tracking-wider mb-1">Safety Thresholds</span>
-              <div class="text-xs text-slate-700 dark:text-slate-300">${maxThresholdText}</div>
-              ${isGeriatric ? `<div class="text-purple-600 dark:text-purple-400 font-medium text-[11px] mt-1">${salt.adultDosing.elderlyRenalAdjustment}</div>` : ''}
-            </div>
-          </div>
-
-          ${comorbidityCautions.length > 0 ? `
-            <div class="mb-4 space-y-1.5">
-              ${comorbidityCautions.map(c => `
-                <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-800 dark:text-amber-200 text-xs flex items-center gap-2">
-                  <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 text-amber-600"></i>
-                  <span>${c}</span>
-                </div>
-              `).join("")}
-            </div>
-          ` : ''}
-
-          <!-- Commercial Pharmacy Brands -->
-          <div>
-            <span class="text-slate-400 dark:text-slate-500 block text-[11px] font-semibold uppercase tracking-wider mb-2">
-              Common Commercial Pharmacy Brands Containing This Salt:
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 shrink-0">
+              HKare Reference
             </span>
-            <div class="flex flex-wrap gap-2">
-              ${salt.brands.map(b => `
-                <div class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs flex items-center gap-2 shadow-2xs">
-                  <span class="font-bold text-slate-900 dark:text-white">${b.name}</span>
-                  <span class="text-[10px] text-slate-400 border-l border-slate-200 dark:border-slate-700 pl-2">${b.strength} &bull; ${b.company}</span>
-                </div>
-              `).join("")}
+          </div>
+
+          <!-- General Medical Role -->
+          <div class="mb-3">
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+              General Medical Role:
+            </span>
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+              ${med.generalMedicalRole}
+            </p>
+          </div>
+
+          <!-- Clinical Safety Guidance (Amber Alert Box) -->
+          <div class="mb-4 p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs">
+            <div class="flex items-center gap-1.5 mb-1 font-bold text-[11px] uppercase tracking-wide text-amber-800 dark:text-amber-300">
+              <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
+              <span>HKare Clinical Safety & Caution:</span>
             </div>
+            <p class="text-xs leading-relaxed font-semibold pl-5">${med.safetyNote}</p>
+          </div>
+
+          <!-- Verified Monograph Details if Available -->
+          ${verifiedSalt ? `
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <span class="text-[10px] text-slate-400 block uppercase tracking-wider font-semibold">Standard Adult Dose</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200">${verifiedSalt.adultDosing.standardSingleDose}</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-400 block uppercase tracking-wider font-semibold">24h Safe Ceiling</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200">${verifiedSalt.adultDosing.maxDailyCeiling}</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-400 block uppercase tracking-wider font-semibold">Pediatric Formula</span>
+                <span class="font-bold text-sky-600 dark:text-sky-400">${verifiedSalt.pediatricDosing ? verifiedSalt.pediatricDosing.formulaPerKg : 'Consult pediatrician'}</span>
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Source: <strong>HKare Reference Dataset</strong></span>
+            <span>Dataset File: <code>HKare_Common_Disease_Medicine_Reference(1).csv</code></span>
           </div>
         </div>
       `;
@@ -1042,156 +902,19 @@ document.addEventListener("DOMContentLoaded", () => {
     html += `
         </div>
       </div>
-
-      <!-- Red Flag Warnings & Lifestyle Guidance -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div class="p-6 rounded-3xl border border-rose-200 dark:border-rose-900/50 bg-rose-50/40 dark:bg-rose-950/20">
-          <h4 class="font-heading font-bold text-rose-700 dark:text-rose-400 text-sm sm:text-base flex items-center gap-2 mb-3">
-            <i data-lucide="alert-octagon" class="w-5 h-5"></i> Red Flag Symptoms (Seek Emergency ER Immediately)
-          </h4>
-          <ul class="space-y-2.5 text-xs text-rose-900 dark:text-rose-200">
-            ${disease.emergencyFlags.map(flag => `
-              <li class="flex items-start gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0"></span>
-                <span>${flag}</span>
-              </li>
-            `).join("")}
-          </ul>
-        </div>
-
-        <div class="p-6 rounded-3xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/40 dark:bg-emerald-950/20">
-          <h4 class="font-heading font-bold text-emerald-700 dark:text-emerald-400 text-sm sm:text-base flex items-center gap-2 mb-3">
-            <i data-lucide="heart-pulse" class="w-5 h-5"></i> Clinical Self-Care & Hydration Protocol
-          </h4>
-          <p class="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed mb-3">
-            ${disease.lifestyleGuidance}
-          </p>
-          <div class="pt-3 border-t border-emerald-200 dark:border-emerald-900/40 text-[11px] text-emerald-800 dark:text-emerald-300 font-medium">
-            Note: All dosages provide symptomatic relief. If fever or acute symptoms persist over 48 hours, seek certified in-person diagnostic evaluation.
-          </div>
-        </div>
-      </div>
     `;
 
     resultsContainer.innerHTML = html;
-
-    // Attach deepdive buttons
-    document.querySelectorAll(".view-salt-deepdive-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const saltId = btn.getAttribute("data-salt-id");
-        openSaltModal(saltId);
-      });
-    });
-
     refreshIcons();
   };
 
-  // --------------------------------------------------------------------------
-  // Monograph Modal Support on Survey Page
-  // --------------------------------------------------------------------------
-  const saltModal = document.getElementById("salt-detail-modal");
-  const modalCloseBtn = document.getElementById("modal-close-btn");
-  const modalContentContainer = document.getElementById("modal-dynamic-content");
-
-  const openSaltModal = (saltId) => {
-    const salt = CLINICAL_DATA.salts[saltId];
-    if (!salt || !saltModal || !modalContentContainer) return;
-
-    let brandsHtml = salt.brands.map(b => `
-      <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between">
-        <div>
-          <span class="font-heading font-bold text-slate-900 dark:text-white text-sm">${b.name}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400 block">${b.company}</span>
-        </div>
-        <span class="text-xs px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 font-mono font-medium">
-          ${b.strength}
-        </span>
-      </div>
-    `).join("");
-
-    let indicationsHtml = salt.indications.map(ind => `
-      <li class="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
-        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-        <span>${ind}</span>
-      </li>
-    `).join("");
-
-    modalContentContainer.innerHTML = `
-      <div class="mb-5">
-        <div class="flex flex-wrap items-center gap-2 mb-2">
-          <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300">
-            ${salt.therapeuticCategory}
-          </span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">Class: ${salt.chemicalClass}</span>
-        </div>
-        <h3 class="text-2xl font-heading font-bold text-slate-900 dark:text-white">${salt.saltName}</h3>
-      </div>
-
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="stethoscope" class="w-4 h-4 text-sky-600"></i> Indications (What it is used for):
-        </h4>
-        <ul class="space-y-1.5 bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
-          ${indicationsHtml}
-        </ul>
-      </div>
-
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="activity" class="w-4 h-4 text-emerald-600"></i> Mechanism of Action:
-        </h4>
-        <div class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
-          ${salt.mechanism}
-        </div>
-      </div>
-
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="building-2" class="w-4 h-4 text-indigo-600"></i> Commercial Brands:
-        </h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          ${brandsHtml}
-        </div>
-      </div>
-    `;
-
-    saltModal.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-    refreshIcons();
-  };
-
-  const closeSaltModal = () => {
-    if (!saltModal) return;
-    saltModal.classList.add("hidden");
-    document.body.style.overflow = "";
-  };
-
-  if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeSaltModal);
-  if (saltModal) {
-    saltModal.addEventListener("click", (e) => {
-      if (e.target === saltModal) closeSaltModal();
-    });
-  }
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && saltModal && !saltModal.classList.contains("hidden")) {
-      closeSaltModal();
-    }
-  });
-
-  // Initial bootstrap
-  renderDiseaseChoices();
-  updateAgeBadge(state.age);
-  refreshIcons();
-
-  // Listen for i18n language change events
+  // Language Change Listener
   window.addEventListener("himkiv:languageChanged", () => {
-    if (state.step === 1) {
-      renderDiseaseChoices();
-      renderSubcategories();
-    } else if (state.step === 2) {
-      populateStep2ConditionData();
-    } else if (state.step === 3) {
-      calculateAndRenderResults();
-    }
+    renderCategoryTabs();
+    renderDiseaseChoices();
   });
+
+  // Initialize
+  renderCategoryTabs();
+  renderDiseaseChoices();
 });

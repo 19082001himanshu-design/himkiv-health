@@ -5278,3 +5278,10 @@ const CLINICAL_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CLINICAL_DATA;
 }
+// Integrate HKare reference dataset if loaded
+if (typeof HKARE_DATA !== 'undefined') {
+    CLINICAL_DATA.hkareMeta = HKARE_DATA.meta;
+    CLINICAL_DATA.categories = HKARE_DATA.categories;
+    CLINICAL_DATA.diseases = HKARE_DATA.conditions;
+    CLINICAL_DATA.medicineReferences = HKARE_DATA.medicines;
+}

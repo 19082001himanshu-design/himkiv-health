@@ -1,0 +1,132 @@
+Category,Condition,Medicine class,Example active ingredient / salt,General medical role,HKare safety / clinical note
+Infectious,Influenza,Antiviral,Oseltamivir,Antiviral treatment in selected influenza cases,Doctor-guided; timing and risk factors matter
+Infectious,COVID-19,Antiviral,Nirmatrelvir + ritonavir,Antiviral treatment for selected high-risk cases,Prescription; major drug interactions
+Infectious,Tuberculosis,Antitubercular,Rifampicin + isoniazid + pyrazinamide + ethambutol,Combination treatment,Specialist/public-health regimen; never self-treat
+Infectious,Malaria,Antimalarial,Artemether + lumefantrine,Treatment of susceptible malaria,"Regimen depends on species, resistance and severity"
+Infectious,Dengue,Supportive care,Paracetamol (acetaminophen),Fever/pain relief,Avoid aspirin/NSAIDs when dengue is suspected unless clinician advises
+Infectious,Typhoid fever,Antibiotic,Ceftriaxone / azithromycin,Treatment of susceptible bacterial infection,Choice depends on resistance and testing
+Infectious,Cholera,Antibiotic + rehydration,Doxycycline / azithromycin,Antibiotic in selected cases,Rehydration is central; antibiotic choice varies
+Infectious,Measles,Supportive / vitamin,Vitamin A,Supportive management in children under clinical guidance,Medical supervision required
+Infectious,Mumps,Supportive care,Paracetamol (acetaminophen),Fever/pain relief,Supportive care; diagnosis and complications need assessment
+Infectious,Rubella,Supportive care,Paracetamol (acetaminophen),Symptom relief,Pregnancy exposure needs medical assessment
+Infectious,Chickenpox,Antiviral,Acyclovir,Treatment in selected higher-risk cases,Early clinician assessment important
+Infectious,Shingles,Antiviral,Acyclovir / valaciclovir,Antiviral treatment,Early treatment is most useful; clinician guidance
+Infectious,Hepatitis B,Antiviral,Tenofovir disoproxil fumarate,Long-term antiviral therapy in selected chronic cases,Specialist monitoring required
+Infectious,Hepatitis C,Direct-acting antiviral,Sofosbuvir + velpatasvir,Curative antiviral regimen,Regimen depends on genotype/history and interactions
+Infectious,HIV infection,Antiretroviral therapy,Tenofovir + lamivudine + dolutegravir,Combination antiretroviral therapy,Specialist-guided combination therapy
+Infectious,Rabies,Post-exposure prophylaxis,Rabies vaccine + rabies immunoglobulin,Post-exposure prevention,Urgent medical care; not self-treatment
+Infectious,Tetanus,Vaccine / immunoglobulin,Tetanus toxoid vaccine + tetanus immunoglobulin,Prevention after selected wounds,Wound and vaccination history determine treatment
+Infectious,Bacterial meningitis,Antibiotic,Ceftriaxone,Empiric treatment in many settings,Medical emergency; hospital treatment
+Infectious,Pneumococcal pneumonia,Antibiotic,Amoxicillin,Treatment of susceptible bacterial infection,Diagnosis and severity determine treatment
+Infectious,Scabies,Antiparasitic,Permethrin,Eradicates mites,Household treatment and age considerations matter
+Respiratory,Asthma,Short-acting bronchodilator,Salbutamol,Relief of bronchospasm,Controller therapy may also be required
+Respiratory,Asthma,Inhaled corticosteroid,Budesonide,Long-term airway inflammation control,Use depends on asthma severity
+Respiratory,COPD,Long-acting bronchodilator,Tiotropium,Maintenance bronchodilation,Clinician-selected therapy
+Respiratory,Allergic rhinitis,Antihistamine,Cetirizine,Allergy symptom relief,May cause drowsiness in some people
+Respiratory,Allergic rhinitis,Intranasal corticosteroid,Fluticasone,Nasal inflammation control,Correct technique matters
+Respiratory,Acute bronchitis,Supportive care,Paracetamol (acetaminophen),Fever/pain relief,Most acute cases are viral; antibiotics often aren't needed
+Respiratory,Pulmonary fibrosis,Antifibrotic,Nintedanib,Slows progression in selected fibrotic lung diseases,Specialist monitoring required
+Respiratory,Sleep apnea,Positive airway pressure,CPAP,Keeps airway open during sleep,Device treatment rather than a medicine
+Cardiovascular,Hypertension,ACE inhibitor,Enalapril,Blood-pressure control,Clinician selection; pregnancy contraindication
+Cardiovascular,Hypertension,Calcium-channel blocker,Amlodipine,Blood-pressure control,Dose/choice depends on patient factors
+Cardiovascular,Hypertension,Thiazide-like diuretic,Indapamide,Blood-pressure control,Electrolyte monitoring may be needed
+Cardiovascular,Heart failure,ACE inhibitor,Enalapril,Reduces symptoms/events in selected patients,Specialist-guided regimen
+Cardiovascular,Heart failure,Beta blocker,Bisoprolol,Selected stable heart-failure patients,Not for unsupervised initiation
+Cardiovascular,Atrial fibrillation,Anticoagulant,Apixaban,Prevention of stroke/systemic embolism in selected patients,Bleeding risk and eligibility assessment required
+Cardiovascular,Coronary artery disease,Antiplatelet,Aspirin,Prevention of cardiovascular events in selected patients,Not appropriate for everyone
+Cardiovascular,High LDL cholesterol,Statin,Atorvastatin,Lowers LDL cholesterol,Clinician-guided risk assessment
+Cardiovascular,Angina,Nitrate,Glyceryl trinitrate,Rapid relief of angina,Emergency symptoms require urgent evaluation
+Cardiovascular,Deep-vein thrombosis,Anticoagulant,Apixaban,Treatment/prevention of recurrent venous thrombosis,Prescription and bleeding assessment required
+Cardiovascular,Pulmonary embolism,Anticoagulant,Apixaban,Anticoagulation in eligible patients,Medical emergency; treatment must be clinician-guided
+Endocrine,Type 1 diabetes,Insulin,Human insulin / insulin analogues,Replaces insulin,Individualized medical management
+Endocrine,Type 2 diabetes,Biguanide,Metformin,Blood-glucose lowering,Kidney function and other factors matter
+Endocrine,Type 2 diabetes,SGLT2 inhibitor,Empagliflozin,Glucose lowering and cardiovascular/kidney benefits in selected patients,Prescription; contraindications/interactions matter
+Endocrine,Hypothyroidism,Thyroid hormone,Levothyroxine,Thyroid hormone replacement,Dose individualized using thyroid tests
+Endocrine,Hyperthyroidism,Antithyroid,Methimazole,Reduces thyroid hormone production,Blood-test monitoring; clinician-guided
+Endocrine,Graves disease,Antithyroid,Methimazole,Controls thyroid hormone production,Specialist guidance required
+Endocrine,Adrenal insufficiency,Glucocorticoid,Hydrocortisone,Hormone replacement,Medical condition requiring an individualized plan
+Endocrine,Gout,Xanthine-oxidase inhibitor,Allopurinol,Lowers uric acid to prevent flares,Not a medicine for immediate pain relief; initiation needs guidance
+Endocrine,Osteoporosis,Bisphosphonate,Alendronic acid,Reduces fracture risk,Administration and contraindications matter
+Endocrine,Hypercholesterolemia,Statin,Rosuvastatin,Lowers LDL cholesterol,Clinician-guided
+Gastrointestinal,GERD,Proton-pump inhibitor,Omeprazole,Reduces gastric acid,Persistent symptoms need evaluation
+Gastrointestinal,Peptic ulcer disease,Proton-pump inhibitor,Omeprazole,Acid suppression and ulcer healing,H. pylori requires specific eradication therapy
+Gastrointestinal,H. pylori infection,Combination therapy,Amoxicillin + clarithromycin + omeprazole,Example eradication components,Regimen varies with resistance and local guidance
+Gastrointestinal,Nausea/vomiting,Antiemetic,Ondansetron,Controls nausea/vomiting in selected situations,Cause must be assessed
+Gastrointestinal,Irritable bowel syndrome,Antispasmodic,Mebeverine,May relieve intestinal spasm,Treatment depends on symptom pattern
+Gastrointestinal,Inflammatory bowel disease,Aminosalicylate,Mesalazine,Controls inflammation in selected ulcerative-colitis cases,Specialist-guided
+Gastrointestinal,Crohn disease,Biologic,Infliximab,Controls inflammatory disease in selected patients,Specialist treatment; infection screening/monitoring
+Gastrointestinal,Ulcerative colitis,Aminosalicylate,Mesalazine,Induces/maintains remission in selected cases,Specialist-guided
+Gastrointestinal,Constipation,Osmotic laxative,Polyethylene glycol,Relieves constipation,Persistent/recurrent constipation needs assessment
+Gastrointestinal,Diarrhea,Antidiarrheal,Loperamide,Symptom relief in selected non-bloody diarrhea,Avoid in some infections/children without clinician advice
+Gastrointestinal,Hemorrhoids,Topical treatment,Hydrocortisone,Short-term symptom relief,Persistent bleeding requires assessment
+Gastrointestinal,Pancreatitis,Supportive care,Analgesics / IV fluids,Hospital supportive management,Not suitable for self-treatment
+Liver,Chronic hepatitis C,Direct-acting antiviral,Glecaprevir + pibrentasvir,Curative antiviral regimen,Specialist-guided
+Liver,Cirrhosis,Diuretic,Spironolactone,Controls fluid retention in selected patients,Electrolyte/kidney monitoring
+Liver,Hepatic encephalopathy,Non-absorbable disaccharide,Lactulose,Reduces ammonia absorption,Dose and cause require medical management
+Kidney/urinary,Urinary tract infection,Antibiotic,Nitrofurantoin,Treatment of selected lower UTIs,"Choice depends on site, kidney function and susceptibility"
+Kidney/urinary,Kidney infection,Antibiotic,Ceftriaxone,Hospital/initial treatment in selected cases,Needs medical assessment
+Kidney/urinary,Kidney stones,Alpha blocker,Tamsulosin,May aid passage of selected ureteric stones,Not suitable for every stone/patient
+Kidney/urinary,Chronic kidney disease,ACE inhibitor,Enalapril,Kidney/BP protection in selected patients,Kidney function and potassium monitoring
+Kidney/urinary,Overactive bladder,Antimuscarinic,Oxybutynin,Reduces bladder overactivity,Side effects and alternatives need assessment
+Neurological,Migraine,Triptan,Sumatriptan,Acute migraine treatment,Not appropriate for some cardiovascular conditions
+Neurological,Migraine,Preventive therapy,Propranolol,Migraine prevention in selected patients,Prescription; asthma and other factors matter
+Neurological,Epilepsy,Antiseizure medicine,Levetiracetam,Seizure control,Specialist-guided
+Neurological,Epilepsy,Antiseizure medicine,Valproic acid,Seizure control in selected cases,Major pregnancy-related safety concerns; specialist-only decision
+Neurological,Parkinson disease,Dopaminergic therapy,Levodopa + carbidopa,Improves motor symptoms,Specialist-guided
+Neurological,Alzheimer disease,Cholinesterase inhibitor,Donepezil,Symptomatic treatment in selected patients,Does not cure disease
+Neurological,Multiple sclerosis,Disease-modifying therapy,Interferon beta-1a,Reduces relapses in selected MS,Specialist treatment
+Neurological,Neuropathic pain,Antiseizure medicine,Gabapentin,Neuropathic pain treatment,Prescription; sedation and misuse risks
+Neurological,Trigeminal neuralgia,Antiseizure medicine,Carbamazepine,First-line treatment in many cases,Drug interactions and blood monitoring matter
+Mental health,Depressive disorder,SSRI antidepressant,Sertraline,Treatment of depressive/anxiety disorders,Prescription; individualized monitoring
+Mental health,Anxiety disorder,SSRI antidepressant,Escitalopram,Treatment of selected anxiety disorders,Prescription; individualized monitoring
+Mental health,Obsessive-compulsive disorder,SSRI antidepressant,Fluoxetine,Treatment of OCD in selected patients,Prescription and monitoring
+Mental health,Panic disorder,SSRI antidepressant,Sertraline,Long-term treatment in selected cases,Prescription and monitoring
+Mental health,ADHD,Stimulant,Methylphenidate,ADHD treatment in selected patients,Controlled/prescription medicine; specialist assessment
+Skin,Acne,Topical retinoid,Adapalene,Treats comedonal/inflammatory acne,Skin irritation; pregnancy considerations
+Skin,Acne,Topical antimicrobial,Benzoyl peroxide,Reduces acne bacteria/inflammation,May irritate skin
+Skin,Eczema,Topical corticosteroid,Hydrocortisone,Reduces inflammation,Strength/site/duration should be clinician-guided when significant
+Skin,Psoriasis,Topical corticosteroid,Betamethasone,Reduces inflammation in selected lesions,Potency and duration matter
+Skin,Fungal skin infection,Antifungal,Clotrimazole,Treats susceptible superficial fungal infections,Diagnosis matters because rashes can look similar
+Skin,Bacterial skin infection,Antibiotic,Mupirocin,Topical treatment of selected bacterial infections,Antibiotic stewardship; not for every rash
+Skin,Urticaria,Antihistamine,Cetirizine,Relieves itching/hives,Emergency care if breathing/swelling symptoms occur
+Skin,Vitiligo,Topical calcineurin inhibitor,Tacrolimus,May help repigmentation in selected areas,Specialist/dermatology guidance
+Musculoskeletal,Osteoarthritis,Analgesic,Paracetamol (acetaminophen),Pain relief,Effectiveness varies; dose limits matter
+Musculoskeletal,Rheumatoid arthritis,DMARD,Methotrexate,Disease-modifying treatment,Specialist monitoring; not for self-treatment
+Musculoskeletal,Osteoporosis,Bisphosphonate,Alendronic acid,Reduces fracture risk,Medical assessment and administration requirements
+Musculoskeletal,Ankylosing spondylitis,NSAID,Naproxen,Pain/inflammation control,GI/kidney/cardiovascular risks
+Musculoskeletal,Gout flare,NSAID,Naproxen,Acute inflammation/pain relief,Not appropriate for some kidney/GI/cardiovascular conditions
+Musculoskeletal,Fibromyalgia,SNRI,Duloxetine,May reduce pain in selected patients,Prescription and monitoring
+Eye,Glaucoma,Prostaglandin analogue,Latanoprost,Lowers intraocular pressure,Ophthalmology-guided
+Eye,Conjunctivitis,Lubricant,Artificial tears,Symptom relief,Bacterial/viral/allergic causes differ
+Eye,Allergic conjunctivitis,Antihistamine/mast-cell stabilizer,Olopatadine,Allergy symptom relief,Eye examination if severe/persistent
+Eye,Dry eye disease,Lubricant,Carboxymethylcellulose,Lubrication,Persistent/severe symptoms need eye assessment
+Ear,Otitis externa,Antibiotic/steroid ear drops,Ciprofloxacin + dexamethasone,Treats selected bacterial outer-ear infections,Ear examination needed before treatment
+Ear,Otitis media,Analgesic / selected antibiotic,Paracetamol / amoxicillin,Pain relief; antibiotic in selected cases,Many cases can resolve without antibiotics
+Reproductive,Endometriosis,Hormonal therapy,Levonorgestrel,Reduces symptoms in selected patients,Gynecologic assessment required
+Reproductive,PCOS,Insulin-sensitizing medicine,Metformin,Metabolic management in selected PCOS patients,Treatment goals vary
+Reproductive,Benign prostatic hyperplasia,Alpha-1 blocker,Tamsulosin,Improves urinary symptoms,Medical assessment needed
+Reproductive,Erectile dysfunction,PDE-5 inhibitor,Sildenafil,Improves erectile function in eligible patients,Prescription; dangerous with nitrates
+Reproductive,Pelvic inflammatory disease,Antibiotic combination,Ceftriaxone + doxycycline + metronidazole,Treatment of selected PID,Medical assessment and partner management required
+Hematology,Iron-deficiency anemia,Iron replacement,Ferrous sulfate,Replaces iron,Cause of anemia should be investigated
+Hematology,Vitamin B12 deficiency,Vitamin replacement,Cyanocobalamin,B12 replacement,Route/cause determine treatment
+Hematology,Folate deficiency,Vitamin replacement,Folic acid,Folate replacement,B12 deficiency should be considered before treatment alone
+Hematology,Hemophilia A,Clotting factor,Factor VIII,Replaces missing clotting factor,Specialist treatment
+Hematology,Sickle-cell disease,Disease-modifying therapy,Hydroxyurea,Reduces complications in selected patients,Specialist monitoring
+Hematology,Thalassemia,Iron chelation,Deferasirox,Reduces transfusional iron overload,Specialist monitoring
+Cancer,Breast cancer,Endocrine therapy,Tamoxifen,Hormone-receptor-positive disease in selected patients,Oncology-directed
+Cancer,Prostate cancer,Androgen-deprivation therapy,Leuprolide,Hormone-sensitive disease in selected patients,Oncology-directed
+Cancer,Leukemia,Targeted therapy,Imatinib,BCR-ABL-positive leukemia,Oncology-directed
+Cancer,Multiple myeloma,Proteasome inhibitor,Bortezomib,Cancer treatment in combination regimens,Oncology-directed
+Cancer,Lung cancer,Targeted therapy,Osimertinib,EGFR-mutated NSCLC in selected patients,Requires molecular testing and oncology care
+Cancer,Cervical cancer,Chemotherapy,Cisplatin,Used in selected cancer regimens,Oncology/hospital treatment
+Cancer,Colorectal cancer,Chemotherapy,5-Fluorouracil,Used in combination regimens,Oncology-directed
+Cancer,Lymphoma,Chemotherapy,Rituximab,B-cell malignancies in selected regimens,Infusion/oncology supervision
+Allergy/immune,Severe allergic reaction,Emergency medicine,Epinephrine (adrenaline),Emergency treatment of anaphylaxis,Emergency medical care is essential
+Allergy/immune,Allergic dermatitis,Antihistamine,Cetirizine,Itch relief,Identify/remove trigger when possible
+Allergy/immune,Rheumatoid arthritis,DMARD,Methotrexate,Disease modification,Specialist monitoring
+Allergy/immune,Systemic lupus erythematosus,Antimalarial,Hydroxychloroquine,Disease control in selected patients,Ophthalmic monitoring required
+Allergy/immune,Inflammatory arthritis,NSAID,Ibuprofen,Pain/inflammation relief,GI/kidney/cardiovascular risks
+Emergency/supportive,Fever,Analgesic/antipyretic,Paracetamol (acetaminophen),Fever/pain relief,Cause of fever matters
+Emergency/supportive,Mild pain,Analgesic,Paracetamol (acetaminophen),Pain relief,Persistent/severe pain needs assessment
+Emergency/supportive,Moderate inflammatory pain,NSAID,Ibuprofen,Pain/inflammation relief,Not suitable for everyone
+Emergency/supportive,Dehydration,Oral rehydration,Glucose + sodium chloride + potassium chloride + citrate,Replaces fluids/electrolytes,Formulation and severity matter

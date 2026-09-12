@@ -197,7 +197,7 @@
       <!-- Category Filter Pills & Sort Selector -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         
-        <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Directory Category Filters">
+        <div id="dir-category-filter-container" class="flex flex-wrap items-center gap-2" role="group" aria-label="Directory Category Filters">
           <button type="button" class="dir-cat-filter touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-600 text-white shadow-xs transition-all" data-category="all" data-i18n="cat_all">
             All Compounds
           </button>
@@ -360,6 +360,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="data/hkareData.js"></script>
   <script src="data/medicineData.js"></script>
   <script src="data/translations.js"></script>
   <script src="js/i18n.js"></script>

@@ -1,7 +1,8 @@
 /**
  * HIMKIV Health & MedGuide - Medicine Directory Controller (js/medicines.js)
  * Manages Pharmacological Search Engine, Category Filtering,
- * Sorting, and Clinical Monograph Modal.
+ * Priority Ranking, 6-Item Incremental Pagination, and Clinical Reference Modal.
+ * Integrates HKare Reference Dataset (131 rows, 18 categories).
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
     }
   };
+
+  const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
 
   // --------------------------------------------------------------------------
   // Theme Toggle (Dark / Light Mode)
@@ -77,22 +80,43 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --------------------------------------------------------------------------
+  // Data Source Preparation (HKare Dataset + Verified Monographs)
+  // --------------------------------------------------------------------------
+  const getMedicineRecords = () => {
+    if (CLINICAL_DATA.medicineReferences && CLINICAL_DATA.medicineReferences.length > 0) {
+      return CLINICAL_DATA.medicineReferences;
+    }
+    // Fallback to legacy salts if HKare is unavailable
+    return Object.values(CLINICAL_DATA.salts || {}).map(salt => ({
+      id: salt.id,
+      activeIngredient: salt.saltName,
+      medicineClass: salt.chemicalClass,
+      condition: salt.indications ? salt.indications[0] : "General",
+      category: salt.therapeuticCategory,
+      categorySlug: salt.categorySlug || "general",
+      generalMedicalRole: salt.mechanism || "Evidence-based pharmacology",
+      safetyNote: salt.pregnancyCaution || "Clinician guidance recommended",
+      source: "WHO Model List of Essential Medicines",
+      sourceType: "WHO EML"
+    }));
+  };
+
+  // --------------------------------------------------------------------------
   // Search & Filter State
   // --------------------------------------------------------------------------
   const searchInput = document.getElementById("directory-search-input");
   const clearSearchBtn = document.getElementById("clear-directory-search");
-  const categoryFilterBtns = document.querySelectorAll(".dir-cat-filter");
   const sortSelect = document.getElementById("dir-sort-select");
   const resultsGrid = document.getElementById("directory-results-grid");
   const resultCountLabel = document.getElementById("directory-count-label");
-  const countLabelBottom = document.getElementById("directory-count-label-bottom");
   const showMoreBtn = document.getElementById("directory-show-more-btn");
+  const categoryFilterContainer = document.getElementById("dir-category-filter-container");
 
   // 6-Items Incremental Pagination State
   let currentPageLimit = 6;
   const itemsPerPage = 6;
 
-  // Read URL query parameter (e.g. medicines.html?q=dolo)
+  // Read URL query parameter (e.g. medicines.html?q=oseltamivir&category=infectious)
   const urlParams = new URLSearchParams(window.location.search);
   let currentQuery = (urlParams.get("q") || "").trim().toLowerCase();
   let currentCategory = (urlParams.get("category") || "all").toLowerCase();
@@ -103,76 +127,125 @@ document.addEventListener("DOMContentLoaded", () => {
     if (clearSearchBtn) clearSearchBtn.classList.remove("hidden");
   }
 
-  // Update Category Buttons state based on URL
-  if (currentCategory !== "all") {
-    categoryFilterBtns.forEach(btn => {
-      if (btn.getAttribute("data-category") === currentCategory) {
-        btn.classList.remove("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300");
-        btn.classList.add("bg-indigo-600", "text-white");
-      } else {
-        btn.classList.remove("bg-indigo-600", "text-white");
-        btn.classList.add("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300");
-      }
-    });
-  }
+  // --------------------------------------------------------------------------
+  // Dynamic Category Filters Generation
+  // --------------------------------------------------------------------------
+  const renderCategoryFilters = () => {
+    if (!categoryFilterContainer) return;
 
+    const categories = CLINICAL_DATA.categories || [];
+    if (categories.length === 0) return;
+
+    categoryFilterContainer.innerHTML = "";
+
+    categories.forEach(cat => {
+      const isSel = currentCategory === cat.id;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `dir-cat-filter touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+        isSel
+          ? "bg-indigo-600 text-white shadow-xs"
+          : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-indigo-400"
+      }`;
+      btn.setAttribute("data-category", cat.id);
+      if (cat.i18nKey) {
+        btn.setAttribute("data-i18n", cat.i18nKey);
+      }
+      btn.textContent = t(cat.i18nKey, cat.name);
+
+      btn.addEventListener("click", () => {
+        currentCategory = cat.id;
+        currentPageLimit = 6;
+        renderCategoryFilters();
+        filterAndRenderDirectory();
+      });
+
+      categoryFilterContainer.appendChild(btn);
+    });
+  };
+
+  // --------------------------------------------------------------------------
+  // Priority Search & Filter Engine
+  // Priority Order:
+  // 1. Exact condition match
+  // 2. Exact active ingredient/salt match
+  // 3. Exact medicine class match
+  // 4. Partial condition match
+  // 5. Partial active ingredient match
+  // 6. Partial medicine class match
+  // 7. Category match
+  // 8. General medical role / safety note match
+  // --------------------------------------------------------------------------
   const filterAndRenderDirectory = () => {
     if (!resultsGrid) return;
-    const allSalts = Object.values(CLINICAL_DATA.salts);
+    const allRecords = getMedicineRecords();
 
-    let matches = allSalts.filter(salt => {
-      if (currentCategory !== "all") {
-        const catMap = {
-          "pain-fever": ["pain-fever", "Analgesic", "Antipyretic", "NSAID", "pain"],
-          "antibiotics": ["antibiotics", "Antibiotic", "Antimicrobial", "Cephalosporin", "Penicillin", "Macrolide", "Fluoroquinolone"],
-          "acidity-gerd": ["acidity-gerd", "Gastrointestinal", "Antacid", "PPI", "H2 Blocker", "Antiemetic", "Proton Pump"],
-          "allergy-cold": ["allergy-cold", "Antihistamine", "Respiratory", "Cold", "Expectorant", "Decongestant"],
-          "diabetes": ["diabetes", "Endocrine", "Antidiabetic", "Glycemic", "Biguanide", "Sulfonylurea"],
-          "cardiac-bp": ["cardiac-bp", "Cardiovascular", "Antihypertensive", "Statin", "Beta Blocker", "ARB"],
-          "neuro": ["neuro", "Neurological", "Psychiatric", "Sedative", "Anticonvulsant", "Serotonergic"],
-          "derm": ["derm", "Dermatology", "Cutaneous", "Antifungal", "Corticosteroid", "Topical"]
-        };
-        const expected = catMap[currentCategory] || [currentCategory];
-        const hit = expected.some(term => 
-          (salt.categorySlug || "").toLowerCase().includes(term.toLowerCase()) ||
-          (salt.therapeuticCategory || "").toLowerCase().includes(term.toLowerCase()) ||
-          (salt.chemicalClass || "").toLowerCase().includes(term.toLowerCase())
-        );
-        if (!hit) return false;
-      }
-
-      if (!currentQuery) return true;
-
-      if (salt.saltName.toLowerCase().includes(currentQuery)) return true;
-      if (salt.therapeuticCategory.toLowerCase().includes(currentQuery)) return true;
-      if (salt.chemicalClass.toLowerCase().includes(currentQuery)) return true;
-      const brandHit = salt.brands.some(b => b.name.toLowerCase().includes(currentQuery) || b.company.toLowerCase().includes(currentQuery));
-      if (brandHit) return true;
-      const indHit = salt.indications.some(ind => ind.toLowerCase().includes(currentQuery));
-      if (indHit) return true;
-
-      return false;
+    // 1. Filter by category
+    let filtered = allRecords.filter(item => {
+      if (currentCategory === "all") return true;
+      const catSlug = (item.categorySlug || "").toLowerCase();
+      const catName = (item.category || "").toLowerCase();
+      return catSlug === currentCategory || catName === currentCategory;
     });
 
-    // Sorting
-    if (currentSort === "az") {
-      matches.sort((a, b) => a.saltName.localeCompare(b.saltName));
-    } else if (currentSort === "za") {
-      matches.sort((a, b) => b.saltName.localeCompare(a.saltName));
-    } else if (currentSort === "brands") {
-      matches.sort((a, b) => b.brands.length - a.brands.length);
+    // 2. Search & Score
+    if (currentQuery) {
+      const q = currentQuery.trim().toLowerCase();
+      const scored = [];
+
+      filtered.forEach(item => {
+        const cond = (item.condition || "").toLowerCase();
+        const active = (item.activeIngredient || "").toLowerCase();
+        const mClass = (item.medicineClass || "").toLowerCase();
+        const cat = (item.category || "").toLowerCase();
+        const role = (item.generalMedicalRole || "").toLowerCase();
+        const safety = (item.safetyNote || "").toLowerCase();
+
+        let score = 0;
+
+        // Exact matches
+        if (cond === q) score = Math.max(score, 100);
+        else if (active === q) score = Math.max(score, 90);
+        else if (mClass === q) score = Math.max(score, 80);
+        // Word boundary / start matches
+        else if (cond.startsWith(q) || cond.includes(" " + q)) score = Math.max(score, 75);
+        else if (active.startsWith(q) || active.includes(" " + q)) score = Math.max(score, 65);
+        // Partial substring matches
+        else if (cond.includes(q)) score = Math.max(score, 55);
+        else if (active.includes(q)) score = Math.max(score, 50);
+        else if (mClass.includes(q)) score = Math.max(score, 45);
+        else if (cat.includes(q)) score = Math.max(score, 35);
+        else if (role.includes(q)) score = Math.max(score, 25);
+        else if (safety.includes(q)) score = Math.max(score, 15);
+
+        if (score > 0) {
+          scored.push({ item, score });
+        }
+      });
+
+      // Sort by score descending
+      scored.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.item.activeIngredient.localeCompare(b.item.activeIngredient);
+      });
+
+      filtered = scored.map(s => s.item);
+    } else {
+      // Sorting when no search query
+      if (currentSort === "az") {
+        filtered.sort((a, b) => a.activeIngredient.localeCompare(b.activeIngredient));
+      } else if (currentSort === "za") {
+        filtered.sort((a, b) => b.activeIngredient.localeCompare(a.activeIngredient));
+      } else if (currentSort === "condition") {
+        filtered.sort((a, b) => (a.condition || "").localeCompare(b.condition || ""));
+      }
     }
 
-    const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
-
-    const totalMatches = matches.length;
-    const visibleMatches = matches.slice(0, currentPageLimit);
+    const totalMatches = filtered.length;
+    const visibleMatches = filtered.slice(0, currentPageLimit);
 
     if (resultCountLabel) {
-      resultCountLabel.textContent = `${t("med_showing", "Showing")} ${totalMatches} ${t("med_compounds", "pharmacological compounds")}`;
-    }
-    if (countLabelBottom) {
-      countLabelBottom.textContent = `${t("med_showing", "Showing")} ${visibleMatches.length} ${t("med_of", "of")} ${totalMatches} ${t("med_compounds", "compounds")}`;
+      resultCountLabel.textContent = `${t("med_showing", "Showing")} ${visibleMatches.length} ${t("med_of", "of")} ${totalMatches} ${t("med_compounds", "medicines")}`;
     }
 
     // Show More (+6) Button Visibility
@@ -194,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <i data-lucide="flask-conical-off" class="w-12 h-12 mx-auto mb-3 opacity-40 text-slate-400"></i>
           <h3 class="text-base font-heading font-bold text-slate-700 dark:text-slate-300">${t("no_medicines_found", "No matching medicines found")}</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
-            ${t("no_medicines_desc", "Try searching for another brand name (e.g. \"Dolo\", \"Augmentin\", \"Allegra\", \"Pan-D\") or active salt (e.g. \"Paracetamol\", \"Pantoprazole\").")}
+            ${t("no_medicines_desc", "Try searching for another brand name, active salt, or condition (e.g. 'Oseltamivir', 'Influenza', 'Paracetamol', 'Dengue').")}
           </p>
         </div>
       `;
@@ -202,68 +275,58 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    visibleMatches.forEach(salt => {
+    visibleMatches.forEach(med => {
       const card = document.createElement("div");
-      card.className = "interactive-card border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xs flex flex-col justify-between hover:border-indigo-400 dark:hover:border-indigo-700";
+      card.className = "interactive-card border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xs flex flex-col justify-between hover:border-indigo-400 dark:hover:border-indigo-700 transition-all";
 
       card.innerHTML = `
         <div>
           <div class="flex items-start justify-between gap-2 mb-3">
             <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-900/60">
-              ${salt.therapeuticCategory}
+              ${med.medicineClass}
             </span>
-            <span class="text-xs text-slate-400 font-mono">
-              ${salt.brands.length} ${t("label_brands", "Brands")}
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono font-medium">
+              ${med.category}
             </span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-1">
-            ${salt.saltName}
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-1 leading-snug">
+            ${med.activeIngredient}
           </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-1">
-            ${t("chemical_class_label", "Chemical Class:")} ${salt.chemicalClass}
+          <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 line-clamp-1">
+            <strong class="text-slate-700 dark:text-slate-300 font-semibold">${t("label_related_condition", "Related Condition:")}</strong> 
+            <span class="text-indigo-600 dark:text-indigo-400 font-medium">${med.condition}</span>
           </p>
 
-          <!-- Indications -->
+          <!-- General Medical Role -->
           <div class="mb-4">
-            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
-              ${t("primary_indications_label", "Primary Medical Indications:")}
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+              ${t("label_medical_role", "General Medical Role:")}
             </span>
-            <ul class="space-y-1 text-xs text-slate-700 dark:text-slate-300">
-              ${salt.indications.slice(0, 2).map(ind => `
-                <li class="flex items-start gap-1.5">
-                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 mt-0.5 shrink-0"></i>
-                  <span class="line-clamp-1">${ind}</span>
-                </li>
-              `).join("")}
-            </ul>
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+              ${med.generalMedicalRole}
+            </p>
           </div>
 
-          <!-- Commercial Brands -->
-          <div class="mb-5 pt-3 border-t border-slate-100 dark:border-slate-800">
-            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
-              ${t("market_brands", "Market Brands:")}
-            </span>
-            <div class="flex flex-wrap gap-1.5">
-              ${salt.brands.slice(0, 3).map(b => `
-                <span class="text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2.5 py-0.5 rounded-md font-medium">
-                  ${b.name}
-                </span>
-              `).join("")}
-              ${salt.brands.length > 3 ? `<span class="text-[10px] text-slate-400 self-center">+${salt.brands.length - 3}</span>` : ''}
+          <!-- Clinical Safety Note (High Priority Amber Alert) -->
+          <div class="mb-5 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs">
+            <div class="flex items-center gap-1.5 mb-1 font-bold text-[11px] uppercase tracking-wide text-amber-800 dark:text-amber-300">
+              <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
+              <span>${t("label_safety_note", "Clinical Safety Guidance:")}</span>
             </div>
+            <p class="text-[11px] leading-relaxed font-medium pl-5">${med.safetyNote}</p>
           </div>
         </div>
 
         <!-- Card Footer -->
         <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 mt-auto">
           <div class="text-xs">
-            <span class="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">${t("standard_dose", "Standard Dose")}</span>
-            <span class="font-bold text-slate-800 dark:text-slate-200">${salt.adultDosing.standardSingleDose.split(" ")[0]} ${salt.adultDosing.standardSingleDose.split(" ")[1] || ""}</span>
+            <span class="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">${t("label_source", "Source")}</span>
+            <span class="font-semibold text-slate-600 dark:text-slate-400 text-[11px]">${t("source_hkare", "HKare Reference Dataset")}</span>
           </div>
           
-          <button type="button" class="view-med-modal-btn touch-target px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center gap-1.5 transition-colors" data-salt-id="${salt.id}">
-            <span>${t("btn_monograph_dose", "Monograph & Dose")}</span>
+          <button type="button" class="view-med-modal-btn touch-target px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer" data-med-id="${med.id}">
+            <span>${t("btn_inspect_reference", "Inspect Reference")}</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </button>
         </div>
@@ -275,14 +338,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Attach modal open handlers
     document.querySelectorAll(".view-med-modal-btn").forEach(btn => {
       btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-salt-id");
-        openSaltModal(id);
+        const id = btn.getAttribute("data-med-id");
+        openMedicineModal(id);
       });
     });
 
     refreshIcons();
   };
 
+  // --------------------------------------------------------------------------
+  // Search and Sort Event Listeners
+  // --------------------------------------------------------------------------
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       currentQuery = e.target.value.trim().toLowerCase();
@@ -306,21 +372,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  categoryFilterBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      categoryFilterBtns.forEach(b => {
-        b.classList.remove("bg-indigo-600", "text-white", "shadow-sm");
-        b.classList.add("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300", "border-slate-200", "dark:border-slate-800");
-      });
-      btn.classList.remove("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300", "border-slate-200", "dark:border-slate-800");
-      btn.classList.add("bg-indigo-600", "text-white", "shadow-sm");
-
-      currentCategory = btn.getAttribute("data-category");
-      currentPageLimit = 6;
-      filterAndRenderDirectory();
-    });
-  });
-
   if (sortSelect) {
     sortSelect.addEventListener("change", (e) => {
       currentSort = e.target.value;
@@ -338,238 +389,126 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --------------------------------------------------------------------------
-  // Clinical Monograph Modal
+  // Clinical Reference Monograph Modal
   // --------------------------------------------------------------------------
   const saltModal = document.getElementById("salt-detail-modal");
   const modalCloseBtn = document.getElementById("modal-close-btn");
   const modalContentContainer = document.getElementById("modal-dynamic-content");
 
-  const openSaltModal = (saltId) => {
-    const salt = CLINICAL_DATA.salts[saltId];
-    if (!salt || !saltModal || !modalContentContainer) return;
+  const openMedicineModal = (medId) => {
+    const allRecords = getMedicineRecords();
+    const med = allRecords.find(m => m.id === medId);
+    if (!med || !saltModal || !modalContentContainer) return;
 
-    let brandsHtml = salt.brands.map(b => `
-      <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between">
-        <div>
-          <span class="font-heading font-bold text-slate-900 dark:text-white text-sm">${b.name}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400 block">${b.company}</span>
-        </div>
-        <span class="text-xs px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 font-mono font-medium">
-          ${b.strength}
-        </span>
-      </div>
-    `).join("");
+    // Check if matching condition has ICD-11 metadata
+    const conditionObj = (CLINICAL_DATA.diseases || []).find(d => 
+      d.name.toLowerCase() === (med.condition || "").toLowerCase()
+    );
 
-    let indicationsHtml = salt.indications.map(ind => `
-      <li class="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
-        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-        <span>${ind}</span>
-      </li>
-    `).join("");
-
-    let sideEffectsCommon = salt.sideEffects.common.map(se => `
-      <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">
-        ${se}
-      </span>
-    `).join("");
-
-    let sideEffectsSerious = salt.sideEffects.serious.map(se => `
-      <span class="text-xs px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 font-medium border border-rose-200 dark:border-rose-900/40">
-        ${se}
-      </span>
-    `).join("");
-
-    let contraindicationsHtml = salt.contraindications.map(ci => `
-      <li class="flex items-start gap-2 text-xs text-rose-900 dark:text-rose-200">
-        <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
-        <span>${ci}</span>
-      </li>
-    `).join("");
+    // Check if verified pharmacology monograph exists in CLINICAL_DATA.salts
+    const cleanSaltName = med.activeIngredient.split("/")[0].split("+")[0].replace(/\(.*\)/, "").trim().toLowerCase();
+    const verifiedSalt = Object.values(CLINICAL_DATA.salts || {}).find(s => 
+      s.saltName.toLowerCase().includes(cleanSaltName) || cleanSaltName.includes(s.id)
+    );
 
     modalContentContainer.innerHTML = `
       <div class="mb-5">
         <div class="flex flex-wrap items-center gap-2 mb-2">
           <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300">
-            ${salt.therapeuticCategory}
+            ${med.medicineClass}
           </span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">Class: ${salt.chemicalClass}</span>
-          ${salt.allergyClass !== "None" ? `<span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300">${salt.allergyClass}</span>` : ''}
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">${med.category}</span>
+          ${conditionObj && conditionObj.icd11Code ? `
+            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+              WHO ICD-11: ${conditionObj.icd11Code}
+            </span>
+          ` : ''}
         </div>
-        <h3 class="text-2xl font-heading font-bold text-slate-900 dark:text-white">${salt.saltName}</h3>
+        <h3 class="text-2xl font-heading font-extrabold text-slate-900 dark:text-white">${med.activeIngredient}</h3>
       </div>
 
-      <!-- Live Dose Sandbox inside Modal -->
-      <div class="p-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-sky-50 dark:from-indigo-950/40 dark:to-slate-900 border border-indigo-100 dark:border-indigo-900/60 mb-6">
-        <div class="flex items-center justify-between mb-3">
-          <h4 class="font-heading font-bold text-sm text-indigo-900 dark:text-indigo-200 flex items-center gap-1.5">
-            <i data-lucide="calculator" class="w-4 h-4 text-indigo-600"></i>
-            Live Dose Calculator for ${salt.saltName.split(" ")[0]}
+      <!-- Clinical Safety Notice Banner (High Priority) -->
+      <div class="mb-6 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs">
+        <div class="flex items-center gap-2 mb-1.5 font-bold uppercase tracking-wide text-amber-800 dark:text-amber-300">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-amber-600 shrink-0"></i>
+          <span>${t("label_safety_note", "Clinical Safety Guidance:")}</span>
+        </div>
+        <p class="text-xs leading-relaxed font-semibold pl-6">${med.safetyNote}</p>
+      </div>
+
+      <!-- Primary Indication & Related Problem -->
+      <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
+        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
+          <i data-lucide="stethoscope" class="w-4 h-4 text-indigo-600"></i> ${t("label_related_condition", "Related Clinical Condition:")}
+        </h4>
+        <p class="text-sm font-bold text-indigo-700 dark:text-indigo-300 mb-1">${med.condition}</p>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${med.generalMedicalRole}</p>
+        ${conditionObj && conditionObj.description ? `
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 pt-2 border-t border-slate-200 dark:border-slate-700/60 leading-relaxed">
+            ${conditionObj.description}
+          </p>
+        ` : ''}
+      </div>
+
+      <!-- Verified Pharmacology Details if Available -->
+      ${verifiedSalt ? `
+        <div class="mb-5 p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/60">
+          <h4 class="text-xs font-heading font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <i data-lucide="flask-conical" class="w-4 h-4 text-indigo-600"></i> Verified Reference Posology Standards
           </h4>
-          <span class="text-[11px] text-slate-500 dark:text-slate-400">Adjust sliders below</span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-          <div>
-            <div class="flex justify-between text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              <span>Patient Age:</span>
-              <span id="modal-calc-age-label" class="font-bold text-indigo-600">8 yrs</span>
-            </div>
-            <input type="range" id="modal-calc-age-slider" min="1" max="90" value="8" class="w-full">
-          </div>
-          <div>
-            <div class="flex justify-between text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              <span>Weight:</span>
-              <span id="modal-calc-weight-label" class="font-bold text-indigo-600">25 kg</span>
-            </div>
-            <input type="range" id="modal-calc-weight-slider" min="3" max="120" value="25" class="w-full">
+          <div class="text-xs space-y-1.5 text-slate-700 dark:text-slate-300">
+            <div><strong>Adult Single Dose:</strong> ${verifiedSalt.adultDosing.standardSingleDose}</div>
+            <div><strong>Frequency:</strong> ${verifiedSalt.adultDosing.frequency}</div>
+            <div><strong>Daily Maximum Ceiling:</strong> ${verifiedSalt.adultDosing.maxDailyCeiling}</div>
+            ${verifiedSalt.pediatricDosing && verifiedSalt.pediatricDosing.minMgPerKg > 0 ? `
+              <div class="pt-1.5 border-t border-indigo-100 dark:border-indigo-900/40">
+                <strong>Pediatric Weight Ratio:</strong> ${verifiedSalt.pediatricDosing.formulaPerKg}
+              </div>
+            ` : ''}
           </div>
         </div>
+      ` : ''}
 
-        <div id="modal-calc-result-box" class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-900 text-xs">
-          <!-- Populated by JS -->
-        </div>
+      <!-- Educational Boundary & Disclaimer -->
+      <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed mb-4">
+        <strong>Educational & Reference Notice:</strong> This monograph is published strictly for healthcare reference, clinical pharmacology education, and decision support. It does not provide personalized medical diagnoses or binding prescriptions. Always consult a certified physician or licensed clinical pharmacist before initiating or modifying therapeutic regimens.
       </div>
 
-      <!-- Indications -->
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="stethoscope" class="w-4 h-4 text-indigo-600"></i> Indications (What Problems it is used for):
-        </h4>
-        <ul class="space-y-1.5 bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
-          ${indicationsHtml}
-        </ul>
-      </div>
-
-      <!-- Mechanism -->
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="activity" class="w-4 h-4 text-emerald-600"></i> Mechanism of Action (How it works):
-        </h4>
-        <div class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
-          ${salt.mechanism}
-        </div>
-      </div>
-
-      <!-- Brands -->
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="building-2" class="w-4 h-4 text-sky-600"></i> Commercial Pharmacy Brands:
-        </h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          ${brandsHtml}
-        </div>
-      </div>
-
-      <!-- Side effects -->
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500"></i> Known Side Effects:
-        </h4>
-        <div class="space-y-2">
-          <div>
-            <span class="text-[11px] text-slate-400 font-semibold block mb-1">Common:</span>
-            <div class="flex flex-wrap gap-1.5">${sideEffectsCommon}</div>
-          </div>
-          <div>
-            <span class="text-[11px] text-rose-500 font-semibold block mb-1">Serious:</span>
-            <div class="flex flex-wrap gap-1.5">${sideEffectsSerious}</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contraindications -->
-      <div class="mb-5">
-        <h4 class="text-xs font-heading font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="shield-x" class="w-4 h-4 text-rose-600"></i> Contraindications (When NOT to use):
-        </h4>
-        <ul class="space-y-1.5 bg-rose-50/50 dark:bg-rose-950/20 p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/40">
-          ${contraindicationsHtml}
-        </ul>
+      <!-- Provenance Information -->
+      <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-3">
+        <span>Source: <strong>${med.sourceType || "HKare Reference Dataset"}</strong></span>
+        <span>File: <code>${med.source || "HKare_Common_Disease_Medicine_Reference(1).csv"}</code></span>
       </div>
     `;
 
     saltModal.classList.remove("hidden");
     document.body.style.overflow = "hidden";
-
-    // Setup interactive calculator inside modal
-    const modalAgeSlider = document.getElementById("modal-calc-age-slider");
-    const modalWeightSlider = document.getElementById("modal-calc-weight-slider");
-    const modalAgeLabel = document.getElementById("modal-calc-age-label");
-    const modalWeightLabel = document.getElementById("modal-calc-weight-label");
-    const modalResultBox = document.getElementById("modal-calc-result-box");
-
-    const updateModalDose = () => {
-      if (!modalAgeSlider || !modalWeightSlider || !modalResultBox) return;
-      const age = parseInt(modalAgeSlider.value);
-      const weight = parseInt(modalWeightSlider.value);
-      modalAgeLabel.textContent = `${age} yrs`;
-      modalWeightLabel.textContent = `${weight} kg`;
-
-      const isPed = age < 12 || weight < 40;
-      let resultHtml = "";
-
-      if (isPed && salt.pediatricDosing.minMgPerKg > 0) {
-        const minMg = Math.round(weight * salt.pediatricDosing.minMgPerKg);
-        const maxMg = Math.round(weight * salt.pediatricDosing.maxMgPerKg);
-        const maxDay = Math.round(weight * salt.pediatricDosing.maxDailyCeilingPerKg);
-
-        let syrupText = "";
-        if (salt.pediatricDosing.liquidFormulations && salt.pediatricDosing.liquidFormulations.length > 0) {
-          const form = salt.pediatricDosing.liquidFormulations[0];
-          const ml = Math.round((minMg / form.perMlMg) * 10) / 10;
-          syrupText = `<div class="text-indigo-700 dark:text-indigo-300 font-semibold mt-1">Liquid measure: ${ml} ml of ${form.name} (${form.strength})</div>`;
-        }
-
-        resultHtml = `
-          <div class="font-bold text-slate-900 dark:text-white">
-            Pediatric Dose: ${minMg === maxMg ? `${minMg} mg` : `${minMg} mg – ${maxMg} mg`} per dose
-          </div>
-          <div class="text-slate-500 dark:text-slate-400 mt-0.5">${salt.pediatricDosing.frequency}</div>
-          ${syrupText}
-          <div class="text-[11px] text-slate-400 mt-1">24h Safe Maximum: ${maxDay} mg/day</div>
-        `;
-      } else {
-        resultHtml = `
-          <div class="font-bold text-slate-900 dark:text-white">
-            Adult Standard Dose: ${salt.adultDosing.standardSingleDose}
-          </div>
-          <div class="text-slate-500 dark:text-slate-400 mt-0.5">${salt.adultDosing.frequency}</div>
-          <div class="text-[11px] text-slate-400 mt-1">24h Ceiling: ${salt.adultDosing.maxDailyCeiling}</div>
-        `;
-      }
-
-      modalResultBox.innerHTML = resultHtml;
-    };
-
-    if (modalAgeSlider) modalAgeSlider.addEventListener("input", updateModalDose);
-    if (modalWeightSlider) modalWeightSlider.addEventListener("input", updateModalDose);
-    updateModalDose();
-
     refreshIcons();
   };
 
-  const closeSaltModal = () => {
-    if (!saltModal) return;
-    saltModal.classList.add("hidden");
-    document.body.style.overflow = "";
-  };
-
-  if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeSaltModal);
-  if (saltModal) {
-    saltModal.addEventListener("click", (e) => {
-      if (e.target === saltModal) closeSaltModal();
+  if (modalCloseBtn && saltModal) {
+    modalCloseBtn.addEventListener("click", () => {
+      saltModal.classList.add("hidden");
+      document.body.style.overflow = "";
     });
   }
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && saltModal && !saltModal.classList.contains("hidden")) {
-      closeSaltModal();
-    }
-  });
 
-  filterAndRenderDirectory();
-  refreshIcons();
+  if (saltModal) {
+    saltModal.addEventListener("click", (e) => {
+      if (e.target === saltModal) {
+        saltModal.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+    });
+  }
 
+  // React to Language Changes
   window.addEventListener("himkiv:languageChanged", () => {
+    renderCategoryFilters();
     filterAndRenderDirectory();
   });
+
+  // Initialize
+  renderCategoryFilters();
+  filterAndRenderDirectory();
 });
