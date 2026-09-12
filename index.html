@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+﻿<!DOCTYPE html>
+<html lang="en-IN" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,11 +55,11 @@
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
       <div class="flex items-center gap-2 justify-center">
         <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
-        <span><strong data-i18n="emergency_label">Emergency Medical Triage:</strong> <span data-i18n="emergency_triage_banner">If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span></span>
+        <span><strong>Emergency Medical Triage:</strong> If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span>
       </div>
       <div class="flex items-center gap-4 text-[11px] font-medium opacity-90">
-        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> <span data-i18n="top_standards">Reference Pharmacology Standards</span></span>
-        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> <span data-i18n="top_hotline">24/7 Hotline: 1800-HIMKIV</span></span>
+        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Reference Pharmacology Standards</span>
+        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> 24/7 Hotline: 1800-HIMKIV</span>
       </div>
     </div>
   </aside>
@@ -78,34 +78,31 @@
             <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">HIMKIV</span>
             <span class="font-heading font-bold text-xs uppercase px-1.5 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">MedGuide</span>
           </div>
-          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium" data-i18n="portal_tagline">Precision Salts & Dosage Intelligence</span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">Precision Salts & Dosage Intelligence</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links (Multi-Page) -->
       <nav aria-label="Main Navigation" class="hidden md:flex items-center gap-7 text-sm font-semibold">
         <a href="index.html" class="text-sky-600 dark:text-sky-400 flex items-center gap-1.5 border-b-2 border-sky-600 dark:border-sky-400 pb-0.5">
-          <i data-lucide="home" class="w-4 h-4"></i> <span data-i18n="nav_home">Home</span>
+          <i data-lucide="home" class="w-4 h-4"></i> Home
         </a>
         <a href="survey.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="clipboard-check" class="w-4 h-4"></i> <span data-i18n="nav_survey">Clinical Survey</span>
+          <i data-lucide="clipboard-check" class="w-4 h-4"></i> Clinical Survey
         </a>
         <a href="medicines.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="search" class="w-4 h-4"></i> <span data-i18n="nav_medicines">Medicine Search</span>
+          <i data-lucide="search" class="w-4 h-4"></i> Medicine Search
         </a>
         <a href="dosage-calculator.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="calculator" class="w-4 h-4"></i> <span data-i18n="nav_calculator">Dosage Calculator</span>
+          <i data-lucide="calculator" class="w-4 h-4"></i> Dosage Calculator
         </a>
         <a href="safety.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="shield-alert" class="w-4 h-4"></i> <span data-i18n="nav_safety">Safety Protocols</span>
+          <i data-lucide="shield-alert" class="w-4 h-4"></i> Safety Protocols
         </a>
       </nav>
 
-      <!-- Header Actions: Language Selector, Theme Toggle, Survey CTA, Mobile Menu Button -->
+      <!-- Header Actions: Theme Toggle, Survey CTA, Mobile Menu Button -->
       <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Multi-Language Selector Dropdown -->
-        <div class="himkiv-lang-selector-container"></div>
-
         <!-- Dark / Light Mode Toggle -->
         <button type="button" id="theme-toggle-btn" class="touch-target p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle Light and Dark Mode">
           <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5"></i>
@@ -114,7 +111,7 @@
         <!-- Primary CTA to Survey Page -->
         <a href="survey.html" class="hidden sm:flex touch-target px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all items-center gap-2">
           <i data-lucide="stethoscope" class="w-4 h-4"></i>
-          <span data-i18n="nav_take_survey">Take Health Survey</span>
+          <span>Take Health Survey</span>
         </a>
 
         <!-- Mobile Hamburger Button -->
@@ -147,19 +144,19 @@
         <!-- Drawer Links -->
         <nav class="space-y-3 font-semibold text-sm">
           <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400">
-            <i data-lucide="home" class="w-5 h-5"></i> <span data-i18n="nav_home">Home</span>
+            <i data-lucide="home" class="w-5 h-5"></i> Home
           </a>
           <a href="survey.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="clipboard-check" class="w-5 h-5 text-sky-600"></i> <span data-i18n="nav_survey">Clinical Survey</span>
+            <i data-lucide="clipboard-check" class="w-5 h-5 text-sky-600"></i> Clinical Survey
           </a>
           <a href="medicines.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> <span data-i18n="nav_medicines">Medicine & Salt Directory</span>
+            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> Medicine & Salt Directory
           </a>
           <a href="dosage-calculator.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="calculator" class="w-5 h-5 text-emerald-600"></i> <span data-i18n="nav_calculator">Dosage Calculator</span>
+            <i data-lucide="calculator" class="w-5 h-5 text-emerald-600"></i> Dosage Calculator
           </a>
           <a href="safety.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-600"></i> <span data-i18n="nav_safety">Safety Protocols</span>
+            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-600"></i> Safety Protocols
           </a>
         </nav>
       </div>
@@ -167,9 +164,9 @@
       <!-- Drawer Bottom Emergency Notice -->
       <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
         <a href="survey.html" class="w-full touch-target px-4 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold text-sm flex items-center justify-center gap-2 mb-3">
-          <i data-lucide="stethoscope" class="w-4 h-4"></i> <span data-i18n="nav_take_survey">Start Health Survey</span>
+          <i data-lucide="stethoscope" class="w-4 h-4"></i> Start Health Survey
         </a>
-        <p class="text-[11px] text-slate-400 text-center" data-i18n="top_hotline">Emergency Support: 1800-HIMKIV</p>
+        <p class="text-[11px] text-slate-400 text-center">Emergency Support: 1800-HIMKIV</p>
       </div>
 
     </div>
@@ -184,24 +181,24 @@
         <!-- Clinical Quality Badge -->
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100/90 dark:bg-sky-950/80 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-200 text-xs font-semibold mb-6 shadow-2xs">
           <i data-lucide="badge-check" class="w-4 h-4 text-sky-600 dark:text-sky-400"></i>
-          <span data-i18n="hero_badge">Evidence-Based Clinical Pharmacology & Posology Decision Support</span>
+          <span>Evidence-Based Clinical Pharmacology & Posology Decision Support</span>
         </div>
 
         <!-- Grand Portal Headline -->
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.15] max-w-4xl mx-auto mb-6" data-i18n-html="hero_title">
-          Precision <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">Medicines, Drug Salts</span> & Educational Posology Guidance.
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.15] max-w-4xl mx-auto mb-6">
+          Precision <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">Medicines, Drug Salts</span> & Exact Doses Calibrated for You.
         </h1>
 
         <!-- Subtitle explaining dual capability -->
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 font-normal leading-relaxed" data-i18n="hero_subtitle">
-          Explore evidence-based clinical drug salts, WHO ICD-11 condition references, and educational posology simulators. Or search any medicine to discover its active chemical salts, indications, and clinical guidelines.
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
+          Take our interactive clinical survey to receive verified medicine and salt recommendations tailored to your disease, age, and weight. Or search any medicine to discover its active salts, indications, and exact posology.
         </p>
 
         <!-- INSTANT MEDICINE & SALT QUICK SEARCH WIDGET (IN HERO) -->
         <div class="max-w-2xl mx-auto mb-8 relative text-left">
           <div class="relative flex items-center shadow-lg rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/40 dark:border-sky-500/30 focus-within:border-sky-600 focus-within:ring-4 focus-within:ring-sky-500/15 transition-all">
             <i data-lucide="search" class="w-5 h-5 absolute left-4 text-sky-600 dark:text-sky-400"></i>
-            <input type="text" id="home-hero-search" autocomplete="off" placeholder="Search any medicine, salt, or disease (e.g. 'Dolo', 'Augmentin', 'Paracetamol', 'Fever')..." data-i18n-placeholder="search_placeholder" class="w-full pl-12 pr-12 py-4 rounded-2xl bg-transparent text-slate-900 dark:text-white text-sm sm:text-base font-medium placeholder:text-slate-400 focus:outline-none">
+            <input type="text" id="home-hero-search" autocomplete="off" placeholder="Search any medicine, salt, or disease (e.g. 'Dolo', 'Augmentin', 'Paracetamol', 'Fever')..." class="w-full pl-12 pr-12 py-4 rounded-2xl bg-transparent text-slate-900 dark:text-white text-sm sm:text-base font-medium placeholder:text-slate-400 focus:outline-none">
             <button type="button" id="home-clear-search" class="absolute right-4 p-1 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hidden" aria-label="Clear Search Input">
               <i data-lucide="x" class="w-4 h-4"></i>
             </button>
@@ -214,7 +211,7 @@
 
           <!-- Quick Search Chips -->
           <div class="flex items-center gap-1.5 mt-2.5 px-2 text-[11px] text-slate-500 dark:text-slate-400 overflow-x-auto">
-            <span class="font-semibold text-slate-400 shrink-0" data-i18n="popular_search_label">Popular:</span>
+            <span class="font-semibold text-slate-400 shrink-0">Popular:</span>
             <button type="button" onclick="document.getElementById('home-hero-search').value='Dolo'; document.getElementById('home-hero-search').dispatchEvent(new Event('input'))" class="px-2 py-0.5 rounded-md bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-sky-100 dark:hover:bg-sky-950 transition-colors shrink-0">Dolo 650</button>
             <button type="button" onclick="document.getElementById('home-hero-search').value='Augmentin'; document.getElementById('home-hero-search').dispatchEvent(new Event('input'))" class="px-2 py-0.5 rounded-md bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-sky-100 dark:hover:bg-sky-950 transition-colors shrink-0">Augmentin</button>
             <button type="button" onclick="document.getElementById('home-hero-search').value='Pan-D'; document.getElementById('home-hero-search').dispatchEvent(new Event('input'))" class="px-2 py-0.5 rounded-md bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-sky-100 dark:hover:bg-sky-950 transition-colors shrink-0">Pan-D</button>
@@ -227,12 +224,12 @@
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-14">
           <a href="survey.html" class="w-full sm:w-auto touch-target px-7 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group">
             <i data-lucide="clipboard-list" class="w-4 h-4"></i>
-            <span data-i18n="btn_start_survey">Start Clinical Health Survey</span>
+            <span>Start Clinical Health Survey</span>
             <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </a>
           <a href="medicines.html" class="w-full sm:w-auto touch-target px-7 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:border-sky-400 text-slate-800 dark:text-slate-200 font-heading font-semibold text-sm shadow-2xs hover:shadow-sm transition-all flex items-center justify-center gap-2">
             <i data-lucide="database" class="w-4 h-4 text-sky-600"></i>
-            <span data-i18n="btn_browse_directory">Browse Full Drug Directory</span>
+            <span>Browse Full Drug Directory</span>
           </a>
         </div>
 
@@ -241,30 +238,30 @@
           <div class="p-3">
             <div class="flex items-center gap-2 text-sky-600 dark:text-sky-400 mb-1">
               <i data-lucide="scale" class="w-5 h-5"></i>
-              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white" data-i18n="stat_weight_based">Weight-Based</span>
+              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white">Weight-Based</span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="stat_weight_desc">Pediatric mg/kg and suspension ml volume formulas</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Pediatric mg/kg and suspension ml volume formulas</p>
           </div>
           <div class="p-3">
             <div class="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 mb-1">
               <i data-lucide="shield-check" class="w-5 h-5"></i>
-              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white" data-i18n="stat_allergy">Allergy Screening</span>
+              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white">Allergy Screening</span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="stat_allergy_desc">Automated penicillin, NSAID & sulfa conflict checks</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Automated penicillin, NSAID & sulfa conflict checks</p>
           </div>
           <div class="p-3">
             <div class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 mb-1">
               <i data-lucide="pill" class="w-5 h-5"></i>
-              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white" data-i18n="stat_icd11">WHO ICD-11</span>
+              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white">Generic & Brand</span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="stat_icd11_desc">WHO MMS disease classifications & verified indications</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">100+ active salts mapped to commercial brands</p>
           </div>
           <div class="p-3">
-            <div class="flex items-center gap-2 text-rose-600 dark:text-rose-400 mb-1">
-              <i data-lucide="alert-triangle" class="w-5 h-5"></i>
-              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white" data-i18n="stat_triage">Emergency Triage</span>
+            <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 mb-1">
+              <i data-lucide="bell" class="w-5 h-5"></i>
+              <span class="font-heading font-bold text-lg text-slate-900 dark:text-white">Safety Ceilings</span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="stat_triage_desc">Immediate red flag warnings and 112 / 911 directives</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">24-hour maximum thresholds & emergency red flags</p>
           </div>
         </div>
 
@@ -275,13 +272,13 @@
     <section class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-14">
-        <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3" data-i18n="portals_badge">
+        <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3">
           Dedicated Clinical Portals
         </span>
-        <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight" data-i18n="portals_heading">
+        <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
           Everything You Need to Make Safe Pharmacological Decisions
         </h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-i18n="portals_subtitle">
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
           Navigate directly to our specialized healthcare tools for symptom surveys, medicine lookups, pediatric dosage calculation, and emergency safety protocols.
         </p>
       </div>
@@ -296,36 +293,36 @@
               <div class="w-12 h-12 rounded-2xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center shadow-xs">
                 <i data-lucide="clipboard-check" class="w-6 h-6"></i>
               </div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800" data-i18n="portal1_badge">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
                 Diagnostic Advisor
               </span>
             </div>
 
-            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2" data-i18n="portal_survey_title">
+            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2">
               Disease-to-Medicine & Dosage Survey
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4" data-i18n="portal_survey_desc">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
               A guided 3-step clinical questionnaire that evaluates your specific illness, captures patient age, weight, and allergy history, and computes customized drug salt posology with pediatric liquid measures.
             </p>
 
             <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal1_f1">First-line & second-line active salt recommendations</span>
+                <span>First-line & second-line active salt recommendations</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal1_f2">Strict weight-based dosing for children (mg/kg & ml volume)</span>
+                <span>Strict weight-based dosing for children (mg/kg & ml volume)</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal1_f3">Allergy cross-checking & printable PDF prescription report</span>
+                <span>Allergy cross-checking & printable PDF prescription report</span>
               </li>
             </ul>
           </div>
 
           <a href="survey.html" class="touch-target px-5 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold text-xs sm:text-sm flex items-center justify-between group">
-            <span data-i18n="btn_launch_survey">Launch Health Survey</span>
+            <span>Launch Health Survey</span>
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </a>
         </div>
@@ -337,36 +334,36 @@
               <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-xs">
                 <i data-lucide="search" class="w-6 h-6"></i>
               </div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800" data-i18n="portal2_badge">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
                 Drug Database
               </span>
             </div>
 
-            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2" data-i18n="portal_meds_title">
+            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2">
               Universal Medicine & Salt Directory
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4" data-i18n="portal_meds_desc">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
               Search any medicine brand name or active chemical salt to discover what health problems it treats, how the drug works at the cellular level, standard adult/child doses, and potential side effects.
             </p>
 
             <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal2_f1">Complete indication profiles ("In which disease it is used")</span>
+                <span>Complete indication profiles ("In which disease it is used")</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal2_f2">Commercial brand cross-referencing (Crocin, Augmentin, Allegra)</span>
+                <span>Commercial brand cross-referencing (Crocin, Augmentin, Allegra)</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal2_f3">Full clinical monographs with embedded dose calculators</span>
+                <span>Full clinical monographs with embedded dose calculators</span>
               </li>
             </ul>
           </div>
 
           <a href="medicines.html" class="touch-target px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-heading font-semibold text-xs sm:text-sm flex items-center justify-between group">
-            <span data-i18n="btn_browse_meds">Browse Medicine Directory</span>
+            <span>Browse Medicine Directory</span>
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </a>
         </div>
@@ -378,36 +375,36 @@
               <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-xs">
                 <i data-lucide="calculator" class="w-6 h-6"></i>
               </div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800" data-i18n="portal3_badge">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 Posology Simulator
               </span>
             </div>
 
-            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2" data-i18n="portal_calc_title">
+            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2">
               Pediatric & Weight Dosage Calculator
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4" data-i18n="portal_calc_desc">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
               Interactive sandbox tool allowing patients and healthcare workers to adjust age and weight sliders dynamically to test posology curves, liquid syrup volumes, and 24-hour maximum ceilings.
             </p>
 
             <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal3_f1">Real-time mg/kg calculations without mental arithmetic</span>
+                <span>Real-time mg/kg calculations without mental arithmetic</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal3_f2">Direct liquid measure conversion (e.g. 120mg/5ml or 250mg/5ml)</span>
+                <span>Direct liquid measure conversion (e.g. 120mg/5ml or 250mg/5ml)</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal3_f3">Safe 24-hour threshold alerts to prevent overdose</span>
+                <span>Safe 24-hour threshold alerts to prevent overdose</span>
               </li>
             </ul>
           </div>
 
           <a href="dosage-calculator.html" class="touch-target px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-semibold text-xs sm:text-sm flex items-center justify-between group">
-            <span data-i18n="btn_open_calc">Open Posology Calculator</span>
+            <span>Open Posology Calculator</span>
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </a>
         </div>
@@ -419,36 +416,36 @@
               <div class="w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-400 flex items-center justify-center shadow-xs">
                 <i data-lucide="shield-alert" class="w-6 h-6"></i>
               </div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-50 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800" data-i18n="portal4_badge">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-50 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                 Safety & Red Flags
               </span>
             </div>
 
-            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2" data-i18n="portal_safety_title">
+            <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-2">
               Medication Safety & Triage Protocols
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4" data-i18n="portal_safety_desc">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
               Critical pharmacological safety reference covering maximum paracetamol liver limits, antibiotic stewardship rules, proper pediatric measurement methods, and immediate emergency ER red flags.
             </p>
 
             <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal4_f1">Acetaminophen toxicity prevention & safe 4g daily ceilings</span>
+                <span>Acetaminophen toxicity prevention & safe 4g daily ceilings</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal4_f2">Antibiotic resistance rules & full-course completion guide</span>
+                <span>Antibiotic resistance rules & full-course completion guide</span>
               </li>
               <li class="flex items-center gap-2">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-                <span data-i18n="portal4_f3">Emergency red flag triage guide for acute chest pain & stridor</span>
+                <span>Emergency red flag triage guide for acute chest pain & stridor</span>
               </li>
             </ul>
           </div>
 
           <a href="safety.html" class="touch-target px-5 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-heading font-semibold text-xs sm:text-sm flex items-center justify-between group">
-            <span data-i18n="btn_read_safety">Read Safety Protocols</span>
+            <span>Read Safety Protocols</span>
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </a>
         </div>
@@ -462,13 +459,13 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center max-w-2xl mx-auto mb-14">
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3" data-i18n="workflow_badge">
+          <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3">
             Workflow Intelligence
           </span>
-          <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight" data-i18n="workflow_title">
+          <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
             How HIMKIV MedGuide Works
           </h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-i18n="workflow_subtitle">
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
             A three-step evidence-based workflow designed to eliminate medication errors and provide clinical clarity.
           </p>
         </div>
@@ -480,10 +477,10 @@
             <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-base mb-4 shadow-sm">
               1
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2" data-i18n="workflow_step1_title">
+            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2">
               Select Condition or Query Drug
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="workflow_step1_desc">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               Start by selecting your clinical condition from our symptom list or searching any commercial brand name directly in our pharmacological search engine.
             </p>
           </div>
@@ -493,10 +490,10 @@
             <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base mb-4 shadow-sm">
               2
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2" data-i18n="workflow_step2_title">
+            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2">
               Calibrate Age, Weight & Allergies
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="workflow_step2_desc">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               Provide exact patient age and body weight in kg. Declare any known penicillin, sulfa, or NSAID allergies, and check for organ comorbidities or pregnancy.
             </p>
           </div>
@@ -506,10 +503,10 @@
             <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-base mb-4 shadow-sm">
               3
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2" data-i18n="workflow_step3_title">
+            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2">
               Receive Calibrated Posology
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="workflow_step3_desc">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               Our algorithm computes exact single doses (mg), liquid syrup volumes (ml), administration frequency, 24-hr ceilings, and red flag emergency escalation warnings.
             </p>
           </div>
@@ -518,7 +515,7 @@
 
         <div class="text-center mt-10">
           <a href="survey.html" class="inline-flex items-center gap-2 font-heading font-bold text-sm text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300">
-            <span data-i18n="btn_experience_survey">Experience the 3-step survey now</span>
+            <span>Experience the 3-step survey now</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
         </div>
@@ -531,19 +528,19 @@
       
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3" data-i18n="ref_badge">
+          <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3">
             Reference Conditions
           </span>
-          <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight" data-i18n="ref_title">
+          <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
             Common Diseases & First-Line Salts
           </h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="ref_subtitle">
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Explore standard therapeutic compounds recommended by clinical practice guidelines.
           </p>
         </div>
 
         <a href="medicines.html" class="text-xs sm:text-sm font-semibold text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1 shrink-0">
-          <span data-i18n="btn_view_all_compounds">View All 100+ Compounds</span>
+          <span>View All 100+ Compounds</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
       </div>
@@ -561,7 +558,7 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Elevated core body temperature, chills, and generalized myalgia.</p>
             
             <div class="mb-4">
-              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5" data-i18n="label_first_line">First-Line Active Salts:</span>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">First-Line Active Salts:</span>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" data-open-modal-salt="paracetamol" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-100 dark:hover:bg-sky-950 text-slate-800 dark:text-slate-200 font-medium transition-colors">
                   Paracetamol
@@ -574,7 +571,7 @@
           </div>
 
           <a href="survey.html?condition=fever-bodyache" class="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center justify-between">
-            <span data-i18n="btn_calc_fever">Calculate Fever Posology</span>
+            <span>Calculate Fever Posology</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
@@ -590,7 +587,7 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Severe sore throat, odynophagia, swollen tonsils, and pus exudates.</p>
             
             <div class="mb-4">
-              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5" data-i18n="label_first_line">First-Line Active Salts:</span>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">First-Line Active Salts:</span>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" data-open-modal-salt="amoxicillin-clavulanate" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-100 dark:hover:bg-sky-950 text-slate-800 dark:text-slate-200 font-medium transition-colors">
                   Amoxicillin-Clavulanate
@@ -603,7 +600,7 @@
           </div>
 
           <a href="survey.html?condition=bacterial-pharyngitis" class="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center justify-between">
-            <span data-i18n="btn_calc_antibiotic">Calculate Antibiotic Posology</span>
+            <span>Calculate Antibiotic Posology</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
@@ -619,7 +616,7 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Heartburn, sour burping, epigastric gnawing pain, and acid reflux.</p>
             
             <div class="mb-4">
-              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5" data-i18n="label_first_line">First-Line Active Salts:</span>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">First-Line Active Salts:</span>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" data-open-modal-salt="pantoprazole-domperidone" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-100 dark:hover:bg-sky-950 text-slate-800 dark:text-slate-200 font-medium transition-colors">
                   Pantoprazole + Domperidone
@@ -632,7 +629,7 @@
           </div>
 
           <a href="survey.html?condition=gerd-gastritis" class="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center justify-between">
-            <span data-i18n="btn_calc_gerd">Calculate GERD Posology</span>
+            <span>Calculate GERD Posology</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
@@ -648,7 +645,7 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Sneezing bouts, clear watery nasal discharge, itching, and nasal block.</p>
             
             <div class="mb-4">
-              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5" data-i18n="label_first_line">First-Line Active Salts:</span>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">First-Line Active Salts:</span>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" data-open-modal-salt="cetirizine" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-100 dark:hover:bg-sky-950 text-slate-800 dark:text-slate-200 font-medium transition-colors">
                   Cetirizine
@@ -661,7 +658,7 @@
           </div>
 
           <a href="survey.html?condition=allergic-rhinitis" class="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center justify-between">
-            <span data-i18n="btn_calc_allergy">Calculate Allergy Posology</span>
+            <span>Calculate Allergy Posology</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
@@ -677,7 +674,7 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Watery loose stools, nausea, abdominal colic, and dehydration risk.</p>
             
             <div class="mb-4">
-              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5" data-i18n="label_first_line">First-Line Active Salts:</span>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">First-Line Active Salts:</span>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" data-open-modal-salt="ors-zinc" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-100 dark:hover:bg-sky-950 text-slate-800 dark:text-slate-200 font-medium transition-colors">
                   ORS + Zinc Sulphate
@@ -690,7 +687,7 @@
           </div>
 
           <a href="survey.html?condition=acute-gastroenteritis" class="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center justify-between">
-            <span data-i18n="btn_calc_rehydration">Calculate Rehydration Posology</span>
+            <span>Calculate Rehydration Posology</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
@@ -706,7 +703,7 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Elevated fasting blood sugar or persistent blood pressure >= 130/80.</p>
             
             <div class="mb-4">
-              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5" data-i18n="label_first_line">First-Line Active Salts:</span>
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">First-Line Active Salts:</span>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" data-open-modal-salt="metformin" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-sky-100 dark:hover:bg-sky-950 text-slate-800 dark:text-slate-200 font-medium transition-colors">
                   Metformin
@@ -719,7 +716,7 @@
           </div>
 
           <a href="survey.html?condition=type2-diabetes" class="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center justify-between">
-            <span data-i18n="btn_calc_metabolic">Calculate Metabolic Posology</span>
+            <span>Calculate Metabolic Posology</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
@@ -735,19 +732,19 @@
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 inline-block mb-1.5" data-i18n="teaser_badge">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 inline-block mb-1.5">
                 Quick Posology Preview
               </span>
-              <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="teaser_title">
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
                 Live Weight & Dosage Calculator Teaser
               </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="teaser_subtitle">
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Test how body weight adjusts required doses and liquid syrup measures.
               </p>
             </div>
 
             <a href="dosage-calculator.html" class="touch-target px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-semibold text-xs flex items-center gap-1.5 shrink-0 self-start md:self-auto">
-              <span data-i18n="btn_open_sandbox">Open Full Sandbox Tool</span>
+              <span>Open Full Sandbox Tool</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </a>
           </div>
@@ -757,7 +754,7 @@
             <!-- Controls -->
             <div class="md:col-span-6 space-y-4">
               <div>
-                <label for="teaser-salt-select" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5" data-i18n="teaser_select_drug">Select Drug Salt:</label>
+                <label for="teaser-salt-select" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Select Drug Salt:</label>
                 <select id="teaser-salt-select" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-900 dark:text-white">
                   <option value="paracetamol">Paracetamol (Antipyretic / Analgesic)</option>
                   <option value="amoxicillin-clavulanate">Amoxicillin-Clavulanate (Antibiotic)</option>
@@ -769,7 +766,7 @@
 
               <div>
                 <div class="flex justify-between text-xs font-semibold mb-1">
-                  <span class="text-slate-600 dark:text-slate-300" data-i18n="teaser_patient_age">Patient Age:</span>
+                  <span class="text-slate-600 dark:text-slate-300">Patient Age:</span>
                   <span id="teaser-age-val" class="text-emerald-600 font-bold">8 yrs</span>
                 </div>
                 <input type="range" id="teaser-age-slider" min="1" max="80" value="8" class="w-full">
@@ -777,7 +774,7 @@
 
               <div>
                 <div class="flex justify-between text-xs font-semibold mb-1">
-                  <span class="text-slate-600 dark:text-slate-300" data-i18n="teaser_body_weight">Body Weight:</span>
+                  <span class="text-slate-600 dark:text-slate-300">Body Weight:</span>
                   <span id="teaser-weight-val" class="text-emerald-600 font-bold">24 kg</span>
                 </div>
                 <input type="range" id="teaser-weight-slider" min="3" max="110" value="24" class="w-full">
@@ -787,7 +784,7 @@
             <!-- Result Card -->
             <div class="md:col-span-6 p-5 rounded-2xl bg-gradient-to-br from-emerald-950 to-slate-900 text-white shadow-inner">
               <div class="flex items-center justify-between gap-2 border-b border-emerald-500/20 pb-3 mb-3">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-300" data-i18n="teaser_single_dose">Calculated Single Dose</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-300">Calculated Single Dose</span>
                 <span id="teaser-max-output" class="text-[11px] text-emerald-200 font-mono">Max 24h: 1440 mg</span>
               </div>
               
@@ -800,7 +797,7 @@
               </div>
 
               <div class="text-[11px] text-slate-300">
-                <span class="text-slate-400 font-semibold block" data-i18n="teaser_schedule">Administration Schedule:</span>
+                <span class="text-slate-400 font-semibold block">Administration Schedule:</span>
                 <span id="teaser-schedule-output">Every 4 to 6 hours as needed (Maximum 4 doses in 24 hours)</span>
               </div>
             </div>
@@ -814,13 +811,13 @@
     <!-- 6. CLINICAL SAFETY PRINCIPLES & STEWARDSHIP -->
     <section class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800 inline-block mb-3" data-i18n="safety_principles_badge">
+        <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800 inline-block mb-3">
           Pharmacological Stewardship
         </span>
-        <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight" data-i18n="safety_principles_title">
+        <h2 class="text-2xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
           Patient Safety & Toxicity Prevention
         </h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-i18n="safety_principles_subtitle">
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
           Adhering to therapeutic limits prevents accidental overdose, organ toxicity, and antibiotic superbugs.
         </p>
       </div>
@@ -831,12 +828,12 @@
           <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
             <i data-lucide="shield-alert" class="w-5 h-5"></i>
           </div>
-          <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white mb-2" data-i18n="prot1_title">Acetaminophen Safety Ceiling</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3" data-i18n="prot1_sub">
+          <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white mb-2">Acetaminophen Safety Ceiling</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
             Exceeding 4000 mg in 24 hours can cause irreversible liver damage. Never combine multiple over-the-counter cold medicines that contain hidden Paracetamol.
           </p>
           <a href="safety.html#paracetamol" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1">
-            <span data-i18n="btn_read_safety">Read toxicity guidelines</span> &rarr;
+            <span>Read toxicity guidelines</span> &rarr;
           </a>
         </div>
 
@@ -844,12 +841,12 @@
           <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
             <i data-lucide="dna" class="w-5 h-5"></i>
           </div>
-          <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white mb-2" data-i18n="prot2_title">Complete Antibiotic Courses</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3" data-i18n="prot2_sub">
+          <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white mb-2">Complete Antibiotic Courses</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
             Never stop an antibiotic early just because symptoms subside. Stopping prematurely breeds multidrug-resistant bacteria that won't respond to standard treatment.
           </p>
           <a href="safety.html#antibiotics" class="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1">
-            <span data-i18n="btn_read_safety">Read antibiotic rules</span> &rarr;
+            <span>Read antibiotic rules</span> &rarr;
           </a>
         </div>
 
@@ -857,12 +854,12 @@
           <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
             <i data-lucide="scale" class="w-5 h-5"></i>
           </div>
-          <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white mb-2" data-i18n="prot3_title">Pediatric Precision Dosing</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3" data-i18n="prot3_sub">
+          <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white mb-2">Pediatric Precision Dosing</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
             Never use kitchen spoons to measure liquid syrups. Always use the calibrated syringe or dropper supplied with the medicine to guarantee accurate milliliter delivery.
           </p>
           <a href="safety.html#pediatric" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1">
-            <span data-i18n="btn_read_safety">Read pediatric posology</span> &rarr;
+            <span>Read pediatric posology</span> &rarr;
           </a>
         </div>
 
@@ -874,10 +871,10 @@
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center mb-10">
-          <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="faq_title">
+          <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white">
             Frequently Asked Pharmacology Questions
           </h2>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5" data-i18n="faq_subtitle">
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5">
             Key insights on active salts, brand names, and weight-based calculation.
           </p>
         </div>
@@ -886,30 +883,30 @@
           
           <details class="group border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-slate-50/50 dark:bg-slate-800/20">
             <summary class="font-heading font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer flex items-center justify-between list-none">
-              <span data-i18n="faq1_q">What is the difference between a Brand Name and an Active Chemical Salt?</span>
+              <span>What is the difference between a Brand Name and an Active Chemical Salt?</span>
               <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
             </summary>
-            <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed" data-i18n="faq1_a">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
               The active drug salt (e.g., <strong>Paracetamol</strong>) is the therapeutic molecule that lowers fever or stops pain. The brand name (e.g., <strong>Dolo 650, Crocin, Calpol</strong>) is the commercial trademark under which different companies sell that exact chemical salt. HIMKIV MedGuide maps brand names to active salts so you avoid double-dosing identical molecules.
             </p>
           </details>
 
           <details class="group border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-slate-50/50 dark:bg-slate-800/20">
             <summary class="font-heading font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer flex items-center justify-between list-none">
-              <span data-i18n="faq2_q">Why must pediatric doses be calculated by body weight rather than age?</span>
+              <span>Why must pediatric doses be calculated by body weight rather than age?</span>
               <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
             </summary>
-            <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed" data-i18n="faq2_a">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
               Two 5-year-old children can have very different weights (e.g., 14 kg vs. 24 kg). Drug distribution and liver clearance depend directly on body weight, so dosing purely by age causes severe under-treatment or dangerous toxicity. Clinical pharmacologists calculate pediatric posology in <strong>mg per kg</strong>.
             </p>
           </details>
 
           <details class="group border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-slate-50/50 dark:bg-slate-800/20">
             <summary class="font-heading font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer flex items-center justify-between list-none">
-              <span data-i18n="faq3_q">How does the clinical survey protect against drug allergy reactions?</span>
+              <span>How does the clinical survey protect against drug allergy reactions?</span>
               <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
             </summary>
-            <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed" data-i18n="faq3_a">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
               In Step 2 of the survey, you specify any known hypersensitivities (such as Penicillin or NSAIDs). The calculation engine flags any cross-reacting compounds (such as Amoxicillin) in red with severe warnings and automatically elevates safe alternatives (such as Azithromycin).
             </p>
           </details>
@@ -935,23 +932,23 @@
             </div>
             <span class="font-heading font-bold text-white text-base">HIMKIV MedGuide</span>
           </div>
-          <p class="text-[11px] leading-relaxed text-slate-400 mb-3" data-i18n="footer_tagline">
+          <p class="text-[11px] leading-relaxed text-slate-400 mb-3">
             Clinical decision support platform providing disease-to-medicine algorithms, salt monographs, and weight-based dosage guidance.
           </p>
-          <div class="text-[10px] text-slate-500" data-i18n="footer_compliant">
+          <div class="text-[10px] text-slate-500">
             Compliant with standard clinical reference guidelines.
           </div>
         </div>
 
         <!-- Col 2: Multi-Page Navigation Links -->
         <div>
-          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3" data-i18n="footer_clinical_modules">Clinical Pages</h4>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Clinical Pages</h4>
           <ul class="space-y-2">
-            <li><a href="index.html" class="text-sky-400 hover:text-white transition-colors" data-i18n="nav_home">Home Page</a></li>
-            <li><a href="survey.html" class="hover:text-white transition-colors" data-i18n="nav_survey">Clinical Symptom Survey</a></li>
-            <li><a href="medicines.html" class="hover:text-white transition-colors" data-i18n="nav_medicines">Medicine & Salt Directory</a></li>
-            <li><a href="dosage-calculator.html" class="hover:text-white transition-colors" data-i18n="nav_calculator">Pediatric Dosage Calculator</a></li>
-            <li><a href="safety.html" class="hover:text-white transition-colors" data-i18n="nav_safety">Safety Protocols & ER Red Flags</a></li>
+            <li><a href="index.html" class="text-sky-400 hover:text-white transition-colors">Home Page</a></li>
+            <li><a href="survey.html" class="hover:text-white transition-colors">Clinical Symptom Survey</a></li>
+            <li><a href="medicines.html" class="hover:text-white transition-colors">Medicine & Salt Directory</a></li>
+            <li><a href="dosage-calculator.html" class="hover:text-white transition-colors">Pediatric Dosage Calculator</a></li>
+            <li><a href="safety.html" class="hover:text-white transition-colors">Safety Protocols & ER Red Flags</a></li>
           </ul>
         </div>
 
@@ -969,20 +966,20 @@
 
         <!-- Col 4: Emergency Contacts -->
         <div>
-          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3" data-i18n="emergency_lines_title">Emergency Lines</h4>
-          <p class="text-[11px] text-slate-400 mb-2"><span data-i18n="emergency_ambulance">Emergency Ambulance:</span> <strong>112 / 911</strong></p>
-          <p class="text-[11px] text-slate-400 mb-2"><span data-i18n="poison_control">National Poison Control:</span> <strong>1800-222-1222</strong></p>
-          <p class="text-[11px] text-slate-400"><span data-i18n="clinical_support">HIMKIV Clinical Support:</span> <strong>support@himkivhealth.org</strong></p>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Emergency Lines</h4>
+          <p class="text-[11px] text-slate-400 mb-2">Emergency Ambulance: <strong>112 / 911</strong></p>
+          <p class="text-[11px] text-slate-400 mb-2">National Poison Control: <strong>1800-222-1222</strong></p>
+          <p class="text-[11px] text-slate-400">HIMKIV Clinical Support: <strong>support@himkivhealth.org</strong></p>
         </div>
 
       </div>
 
       <!-- Mandatory Medical Disclaimer -->
       <div class="text-[11px] leading-relaxed text-slate-500 text-center max-w-4xl mx-auto space-y-2">
-        <p data-i18n="footer_disclaimer">
+        <p>
           <strong>Clinical Disclaimer:</strong> The content, calculations, drug salts, and dosages provided by HIMKIV MedGuide are intended strictly for educational, informational, and clinical reference purposes. This platform does not constitute the provision of medical diagnoses, professional consultations, or binding prescriptions. Always consult a board-certified physician or licensed pharmacist before administering any medication.
         </p>
-        <p data-i18n="footer_copyright">
+        <p>
           &copy; 2026 HIMKIV Healthcare Technologies. Built according to UI/UX Pro Max clinical specifications. All rights reserved.
         </p>
       </div>
@@ -1028,8 +1025,6 @@
   <!-- Shared Clinical Pharmacology Data & Home Page Controller Script -->
   <script src="data/hkareData.js"></script>
   <script src="data/medicineData.js"></script>
-  <script src="data/translations.js"></script>
-  <script src="js/i18n.js"></script>
   <script src="js/home.js"></script>
 
 </body>

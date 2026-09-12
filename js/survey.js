@@ -38,8 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
-
   // --------------------------------------------------------------------------
   // Theme Toggle (Dark / Light Mode)
   // --------------------------------------------------------------------------
@@ -128,10 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
           : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400"
       }`;
       btn.setAttribute("data-category", cat.id);
-      if (cat.i18nKey) {
-        btn.setAttribute("data-i18n", cat.i18nKey);
-      }
-      btn.textContent = t(cat.i18nKey, cat.name);
+      btn.textContent = cat.name;
 
       btn.addEventListener("click", () => {
         state.selectedCategory = cat.id;
