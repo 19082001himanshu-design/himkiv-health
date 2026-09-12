@@ -17,7 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
     step: 1,
     selectedDiseaseId: null,
     selectedCategory: "all",
+    selectedSubcategory: "all",
     searchFilter: "",
+    currentPageLimit: 6,
+    itemsPerPage: 6,
+    severity: "moderate",
+    duration: "1-3-days",
+    selectedSymptoms: [],
     age: 28,
     weight: 65,
     weightUnit: "kg",
@@ -100,7 +106,80 @@ document.addEventListener("DOMContentLoaded", () => {
   const diseaseGridContainer = document.getElementById("survey-disease-grid");
   const diseaseSearchInput = document.getElementById("survey-disease-search");
   const categoryTabs = document.querySelectorAll(".survey-cat-tab");
+  const subcategoryContainer = document.getElementById("survey-subcategory-container");
+  const countLabel = document.getElementById("survey-count-label");
+  const showMoreBtn = document.getElementById("survey-show-more-btn");
   const step1NextBtn = document.getElementById("survey-step-1-next");
+
+  // Comprehensive Category Slugs Map matching ICD-11 MMS Taxonomy
+  const catSlugMap = {
+    "general": ["general", "general-fever", "General / Infectious", "Fever, Infection & Immune", "Fever & General"],
+    "respiratory": ["respiratory", "respiratory-ent", "Respiratory & Allergy", "Respiratory & ENT", "Respiratory", "Respiratory & Throat"],
+    "gastro": ["gastro", "gastrointestinal", "Gastrointestinal", "Gastrointestinal & Hepato-Biliary", "Gastrointestinal & Acid"],
+    "chronic": ["chronic", "cardiovascular", "cardiovascular-metabolic", "Cardiovascular, Renal & Metabolic", "Endocrinology & Metabolic", "Cardiovascular & Chronic", "Chronic Care (Diabetes/BP)"],
+    "ortho": ["ortho", "musculoskeletal", "musculoskeletal-pain", "Musculoskeletal & Neuromuscular Pain", "Orthopedics & Rheumatology", "Musculoskeletal Pain", "Musculoskeletal"],
+    "neuro": ["neuro", "neurological-psychiatric", "Neurology & Headache", "Neurological, Psychiatric & Sleep", "Neurology & Sleep"],
+    "derm": ["derm", "dermatology-allergy", "Dermatology & Allergy", "Dermatology, Mucosal & Allergic"],
+    "infectious": ["infectious", "infectious-parasitic", "Infectious Diseases, Vector-Borne & Parasitic", "Infectious Disease", "Infectious & Vector-Borne"],
+    "ophthalmic": ["ophthalmic", "ophthalmic-otic", "Ophthalmic, Otic & Dental", "Ophthalmic & Otic", "Genitourinary", "uro"]
+  };
+
+  const renderSubcategories = () => {
+    if (!subcategoryContainer) return;
+    if (state.selectedCategory === "all") {
+      subcategoryContainer.classList.add("hidden");
+      subcategoryContainer.innerHTML = "";
+      return;
+    }
+
+    const validMatches = catSlugMap[state.selectedCategory] || [state.selectedCategory];
+    const catDiseases = CLINICAL_DATA.diseases.filter(d => 
+      validMatches.includes(d.categoryId) || validMatches.includes(d.category)
+    );
+
+    const subcats = [...new Set(catDiseases.map(d => d.subcategory).filter(Boolean))];
+    if (subcats.length === 0) {
+      subcategoryContainer.classList.add("hidden");
+      subcategoryContainer.innerHTML = "";
+      return;
+    }
+
+    subcategoryContainer.classList.remove("hidden");
+    let html = `
+      <span class="text-[11px] font-semibold text-slate-400 mr-1">Subcategory:</span>
+      <button type="button" class="survey-subcat-pill touch-target text-[11px] px-3 py-1 rounded-full transition-all ${
+        state.selectedSubcategory === 'all'
+          ? 'bg-sky-600 text-white font-bold shadow-xs'
+          : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+      }" data-subcategory="all">
+        All
+      </button>
+    `;
+
+    subcats.forEach(sub => {
+      const isSel = state.selectedSubcategory === sub;
+      html += `
+        <button type="button" class="survey-subcat-pill touch-target text-[11px] px-3 py-1 rounded-full transition-all ${
+          isSel
+            ? 'bg-sky-600 text-white font-bold shadow-xs'
+            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+        }" data-subcategory="${sub}">
+          ${sub}
+        </button>
+      `;
+    });
+
+    subcategoryContainer.innerHTML = html;
+
+    subcategoryContainer.querySelectorAll(".survey-subcat-pill").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.selectedSubcategory = btn.getAttribute("data-subcategory");
+        state.currentPageLimit = 6;
+        renderSubcategories();
+        renderDiseaseChoices();
+      });
+    });
+  };
 
   const renderDiseaseChoices = () => {
     if (!diseaseGridContainer) return;
@@ -108,47 +187,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const query = state.searchFilter.trim().toLowerCase();
     const category = state.selectedCategory;
+    const subcategory = state.selectedSubcategory;
 
     const filtered = CLINICAL_DATA.diseases.filter(d => {
-      // Category check
+      // Category filter
       if (category !== "all") {
-        const catMap = {
-          "general": "General / Infectious",
-          "respiratory": ["Respiratory & Allergy", "Respiratory", "Infectious Disease"],
-          "gastro": "Gastrointestinal",
-          "chronic": ["Endocrinology & Metabolic", "Cardiovascular"],
-          "ortho": "Orthopedics & Rheumatology"
-        };
-        const expected = catMap[category];
-        if (Array.isArray(expected)) {
-          if (!expected.includes(d.category)) return false;
-        } else if (expected && d.category !== expected) {
-          return false;
-        }
+        const expected = catSlugMap[category] || [category];
+        const matchCat = expected.includes(d.categoryId) || expected.includes(d.category);
+        if (!matchCat) return false;
       }
 
+      // Subcategory filter
+      if (subcategory !== "all" && d.subcategory !== subcategory) {
+        return false;
+      }
+
+      // Search query filter
       if (!query) return true;
 
-      const matchName = d.name.toLowerCase().includes(query);
-      const matchSymp = d.symptoms.some(s => s.toLowerCase().includes(query));
-      const matchCat = d.category.toLowerCase().includes(query);
-      const matchDesc = d.description.toLowerCase().includes(query);
-      return matchName || matchSymp || matchCat || matchDesc;
+      const matchName = (d.name || "").toLowerCase().includes(query);
+      const matchIcd = (d.icd11Code || "").toLowerCase().includes(query);
+      const matchSymp = (d.symptoms || []).some(s => s.toLowerCase().includes(query));
+      const matchCat = (d.category || "").toLowerCase().includes(query);
+      const matchSub = (d.subcategory || "").toLowerCase().includes(query);
+      const matchDesc = (d.description || "").toLowerCase().includes(query);
+      return matchName || matchIcd || matchSymp || matchCat || matchSub || matchDesc;
     });
 
-    if (filtered.length === 0) {
+    const totalMatches = filtered.length;
+    const visibleList = filtered.slice(0, state.currentPageLimit);
+
+    // Update Pagination Count and Button
+    if (countLabel) {
+      countLabel.textContent = `Showing ${visibleList.length} of ${totalMatches} conditions`;
+    }
+
+    if (showMoreBtn) {
+      if (state.currentPageLimit < totalMatches) {
+        showMoreBtn.classList.remove("hidden");
+        showMoreBtn.style.display = "inline-flex";
+      } else {
+        showMoreBtn.classList.add("hidden");
+        showMoreBtn.style.display = "none";
+      }
+    }
+
+    if (totalMatches === 0) {
       diseaseGridContainer.innerHTML = `
         <div class="col-span-full py-12 text-center text-slate-500 dark:text-slate-400">
           <i data-lucide="search-x" class="w-10 h-10 mx-auto mb-3 opacity-50"></i>
           <h4 class="font-heading font-semibold text-slate-700 dark:text-slate-300 text-sm">No clinical conditions found</h4>
-          <p class="text-xs text-slate-400 mt-1">Try broader terms like "fever", "cough", "acid", "pain", or clear filters.</p>
+          <p class="text-xs text-slate-400 mt-1">Try searching broader symptoms like "fever", "cough", "pain", or reset filters.</p>
         </div>
       `;
       refreshIcons();
       return;
     }
 
-    filtered.forEach(disease => {
+    visibleList.forEach(disease => {
       const isSelected = state.selectedDiseaseId === disease.id;
       const card = document.createElement("button");
       card.type = "button";
@@ -161,12 +257,19 @@ document.addEventListener("DOMContentLoaded", () => {
       card.innerHTML = `
         <div>
           <div class="flex items-start justify-between gap-2 mb-2">
-            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              ${disease.category}
-            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                ICD-11: ${disease.icd11Code || "WHO"}
+              </span>
+              ${disease.subcategory ? `
+                <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
+                  ${disease.subcategory}
+                </span>
+              ` : ''}
+            </div>
             ${isSelected 
-              ? '<span class="text-sky-600 dark:text-sky-400 flex items-center gap-1 text-xs font-bold"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selected</span>' 
-              : '<span class="text-[11px] font-medium text-slate-400">Click to Select</span>'}
+              ? '<span class="text-sky-600 dark:text-sky-400 flex items-center gap-1 text-xs font-bold shrink-0"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selected</span>' 
+              : '<span class="text-[11px] font-medium text-slate-400 shrink-0">Click to Select</span>'}
           </div>
           
           <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base mb-1.5">${disease.name}</h4>
@@ -174,14 +277,19 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-800/80">
-          <div class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 mb-1.5 uppercase tracking-wider">Common Clinical Signs:</div>
+          <div class="flex items-center justify-between mb-1.5 text-[11px]">
+            <span class="font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Clinical Signs:</span>
+            ${disease.emergencyFlags && disease.emergencyFlags.length > 0 
+              ? '<span class="text-rose-600 dark:text-rose-400 font-bold text-[10px] flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Emergency Flags</span>' 
+              : ''}
+          </div>
           <div class="flex flex-wrap gap-1">
-            ${disease.symptoms.slice(0, 3).map(s => `
+            ${(disease.symptoms || []).slice(0, 3).map(s => `
               <span class="text-[11px] bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-slate-700/60">
                 ${s}
               </span>
             `).join("")}
-            ${disease.symptoms.length > 3 ? `<span class="text-[10px] text-slate-400 self-center pl-1">+${disease.symptoms.length - 3} more</span>` : ''}
+            ${(disease.symptoms || []).length > 3 ? `<span class="text-[10px] text-slate-400 self-center pl-1">+${disease.symptoms.length - 3} more</span>` : ''}
           </div>
         </div>
       `;
@@ -202,23 +310,37 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshIcons();
   };
 
+  // Search input listener
   if (diseaseSearchInput) {
     diseaseSearchInput.addEventListener("input", (e) => {
       state.searchFilter = e.target.value;
+      state.currentPageLimit = 6;
       renderDiseaseChoices();
     });
   }
 
+  // Show More (+6) button listener
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener("click", () => {
+      state.currentPageLimit += 6;
+      renderDiseaseChoices();
+    });
+  }
+
+  // Category Tabs click listener
   categoryTabs.forEach(tab => {
     tab.addEventListener("click", () => {
       categoryTabs.forEach(t => {
-        t.classList.remove("bg-sky-600", "text-white", "shadow-sm");
+        t.classList.remove("bg-sky-600", "text-white", "shadow-sm", "shadow-xs");
         t.classList.add("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300", "border-slate-200", "dark:border-slate-800");
       });
       tab.classList.remove("bg-white", "dark:bg-slate-900", "text-slate-600", "dark:text-slate-300", "border-slate-200", "dark:border-slate-800");
-      tab.classList.add("bg-sky-600", "text-white", "shadow-sm");
+      tab.classList.add("bg-sky-600", "text-white", "shadow-xs");
 
       state.selectedCategory = tab.getAttribute("data-category");
+      state.selectedSubcategory = "all";
+      state.currentPageLimit = 6;
+      renderSubcategories();
       renderDiseaseChoices();
     });
   });
@@ -266,6 +388,10 @@ document.addEventListener("DOMContentLoaded", () => {
         label.className = "step-label text-xs font-medium text-slate-400 dark:text-slate-500 mt-1 hidden sm:block";
       }
     });
+
+    if (stepNumber === 2) {
+      populateStep2ConditionData();
+    }
 
     if (stepNumber === 3) {
       calculateAndRenderResults();
@@ -399,6 +525,156 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // --------------------------------------------------------------------------
+  // Step 2: Target Condition Confirmation, Symptoms Checklist & Triage
+  // --------------------------------------------------------------------------
+  const updateEmergencyTriageBanner = () => {
+    const flagsContainer = document.getElementById("survey-condition-flags-container");
+    if (!flagsContainer) return;
+    const disease = CLINICAL_DATA.diseases.find(d => d.id === state.selectedDiseaseId);
+    if (!disease) return;
+
+    const isCritical = state.severity === "critical";
+    const isSevere = state.severity === "severe";
+    const hasFlags = disease.emergencyFlags && disease.emergencyFlags.length > 0;
+
+    if (isCritical || isSevere) {
+      flagsContainer.classList.remove("hidden");
+      flagsContainer.innerHTML = `
+        <div class="p-4 rounded-2xl border-2 border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-900 dark:text-rose-200">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-md">
+              <i data-lucide="alert-octagon" class="w-5 h-5"></i>
+            </div>
+            <div class="text-xs">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="font-heading font-extrabold text-rose-700 dark:text-rose-300 text-sm uppercase tracking-wide">
+                  Deterministic Emergency Medical Triage Triggered
+                </span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-600 text-white">IMMEDIATE ATTENTION</span>
+              </div>
+              <p class="leading-relaxed mb-2 font-medium">
+                ${isCritical 
+                  ? "Patient clinical presentation or reported severity matches acute emergency triage criteria. Self-medication is strongly contraindicated. Call emergency ambulance (112 / 911) or proceed immediately to an emergency hospital department."
+                  : "Severe illness profile detected. Clinical consultation with a certified healthcare practitioner is strongly recommended before initiating outpatient posology."}
+              </p>
+              ${hasFlags ? `
+                <div class="pt-2 border-t border-rose-200 dark:border-rose-900/60">
+                  <span class="text-[11px] font-bold uppercase tracking-wider block mb-1">Emergency Red Flags for ${disease.name}:</span>
+                  <ul class="space-y-1 text-[11px] list-disc list-inside">
+                    ${disease.emergencyFlags.map(f => `<li>${f}</li>`).join("")}
+                  </ul>
+                </div>
+              ` : ''}
+              <div class="mt-3 flex flex-wrap items-center gap-2">
+                <a href="tel:112" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold flex items-center gap-1.5 shadow-xs">
+                  <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Call Emergency (112 / 911)
+                </a>
+                <a href="tel:18002221222" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold flex items-center gap-1.5">
+                  <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Poison Control (1800-222-1222)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      flagsContainer.classList.add("hidden");
+      flagsContainer.innerHTML = "";
+    }
+    refreshIcons();
+  };
+
+  const populateStep2ConditionData = () => {
+    const summaryContainer = document.getElementById("survey-step2-condition-summary");
+    if (!summaryContainer) return;
+    const disease = CLINICAL_DATA.diseases.find(d => d.id === state.selectedDiseaseId);
+    if (!disease) return;
+
+    state.selectedSymptoms = [...(disease.symptoms || [])];
+
+    summaryContainer.innerHTML = `
+      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-1.5">
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-600 text-white shadow-2xs">
+              Selected Target Condition
+            </span>
+            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+              WHO ICD-11: ${disease.icd11Code || "Unspecified"}
+            </span>
+            ${disease.subcategory ? `<span class="text-xs text-slate-500 dark:text-slate-400 font-medium">• ${disease.subcategory}</span>` : ''}
+          </div>
+          <h3 class="text-xl sm:text-2xl font-heading font-extrabold text-slate-900 dark:text-white">${disease.name}</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed">${disease.description}</p>
+        </div>
+        <button type="button" id="survey-step2-change-condition" class="touch-target text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 flex items-center gap-1 shrink-0 p-2 rounded-xl hover:bg-sky-100/50 dark:hover:bg-slate-800 transition-colors">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Change Condition
+        </button>
+      </div>
+
+      <!-- Progressive Symptoms Checklist -->
+      <div class="pt-3 border-t border-sky-200/60 dark:border-sky-800/60">
+        <label class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 mb-2">
+          <i data-lucide="check-square" class="w-4 h-4 text-sky-600"></i>
+          Check Symptoms Currently Present:
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs">
+          ${(disease.symptoms || []).map((symp) => `
+            <label class="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 cursor-pointer hover:border-sky-400 transition-all">
+              <input type="checkbox" class="survey-symptom-checkbox rounded text-sky-600 focus:ring-sky-500" value="${symp}" checked>
+              <span class="text-slate-700 dark:text-slate-200">${symp}</span>
+            </label>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    // Symptom checkboxes listener
+    summaryContainer.querySelectorAll(".survey-symptom-checkbox").forEach(cb => {
+      cb.addEventListener("change", () => {
+        state.selectedSymptoms = Array.from(summaryContainer.querySelectorAll(".survey-symptom-checkbox"))
+          .filter(c => c.checked)
+          .map(c => c.value);
+      });
+    });
+
+    const changeBtn = document.getElementById("survey-step2-change-condition");
+    if (changeBtn) {
+      changeBtn.addEventListener("click", () => setSurveyStep(1));
+    }
+
+    updateEmergencyTriageBanner();
+    refreshIcons();
+  };
+
+  // Severity Radio Listeners & Visual Feedback
+  const severityRadios = document.querySelectorAll('input[name="survey-severity"]');
+  const severityCards = document.querySelectorAll(".severity-card");
+
+  severityRadios.forEach(radio => {
+    radio.addEventListener("change", (e) => {
+      state.severity = e.target.value;
+      severityCards.forEach(card => {
+        const val = card.getAttribute("data-severity");
+        if (val === state.severity) {
+          card.classList.add("border-2", "border-sky-500", "bg-sky-50/50", "dark:bg-sky-950/30");
+        } else {
+          card.classList.remove("border-2", "border-sky-500", "bg-sky-50/50", "dark:bg-sky-950/30");
+        }
+      });
+      updateEmergencyTriageBanner();
+    });
+  });
+
+  // Duration Radio Listeners
+  const durationRadios = document.querySelectorAll('input[name="survey-duration"]');
+  durationRadios.forEach(radio => {
+    radio.addEventListener("change", (e) => {
+      state.duration = e.target.value;
+    });
+  });
+
   // Step 2 Navigation Buttons
   const step2BackBtn = document.getElementById("survey-step-2-back");
   const step2NextBtn = document.getElementById("survey-step-2-next");
@@ -471,16 +747,67 @@ document.addEventListener("DOMContentLoaded", () => {
       .map(saltId => CLINICAL_DATA.salts[saltId])
       .filter(Boolean);
 
+    const isCritical = state.severity === "critical";
+    const isSevere = state.severity === "severe";
+
     let html = `
+      <!-- Educational Clinical Posology Disclaimer -->
+      <div class="mb-6 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-3">
+        <i data-lucide="shield-alert" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+        <div>
+          <strong>Educational Reference Posology:</strong> Calibrated according to WHO Model Formulary and international pharmacopoeias (BNF). This summary is intended strictly for clinical reference and educational guidance. It does NOT constitute an automated prescription or formal medical diagnosis. Always consult a licensed physician or clinical pharmacist before administering therapeutic agents.
+        </div>
+      </div>
+
+      ${isCritical || isSevere ? `
+        <!-- High-Priority Emergency Triage Notice in Report -->
+        <div class="mb-6 p-5 rounded-3xl border-2 border-rose-500 bg-rose-50 dark:bg-rose-950/30 text-rose-900 dark:text-rose-200 shadow-md">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+              <i data-lucide="alert-octagon" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h4 class="font-heading font-extrabold text-sm text-rose-700 dark:text-rose-300 uppercase tracking-wide">
+                  Emergency Medical Triage Advisory
+                </h4>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-600 text-white">RED FLAG TIER</span>
+              </div>
+              <p class="text-xs leading-relaxed font-medium mb-3">
+                ${isCritical 
+                  ? "This case matches deterministic emergency triage red flags. Self-medication carries extreme safety risks. Seek hospital ER care or call emergency ambulance (112 / 911) immediately."
+                  : "Severe clinical presentation noted. Clinical examination and laboratory workup are advised prior to initiating pharmacological regimens."}
+              </p>
+              <div class="flex flex-wrap items-center gap-3 text-xs">
+                <a href="tel:112" class="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold inline-flex items-center gap-1.5 shadow-xs">
+                  <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Call Emergency (112 / 911)
+                </a>
+                <a href="tel:18002221222" class="px-3 py-1.5 rounded-xl bg-slate-800 text-white font-semibold inline-flex items-center gap-1.5">
+                  <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Poison Control (1800-222-1222)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ` : ''}
+
       <!-- Assessment Profile Summary Banner -->
       <div class="bg-gradient-to-r from-sky-900 to-slate-900 text-white p-6 rounded-3xl mb-8 shadow-md">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 mb-1.5">
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
               <span class="px-2.5 py-0.5 rounded-full bg-sky-500/25 text-sky-200 border border-sky-400/30 text-xs font-bold">
-                Clinical Prescription Summary
+                Clinical Reference Summary
               </span>
-              <span class="text-xs text-slate-300">Target Condition:</span>
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-white/10 text-sky-200 border border-white/20">
+                ICD-11: ${disease.icd11Code || "WHO"}
+              </span>
+              <span class="text-xs px-2 py-0.5 rounded bg-white/10 text-slate-200 font-semibold uppercase tracking-wider">
+                Severity: ${state.severity}
+              </span>
+              <span class="text-xs px-2 py-0.5 rounded bg-white/10 text-slate-200">
+                Episode: ${state.duration.replace(/-/g, ' ')}
+              </span>
             </div>
             <h3 class="text-2xl sm:text-3xl font-heading font-extrabold text-white">${disease.name}</h3>
             <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">${disease.description}</p>
@@ -502,7 +829,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ${isPregnant ? `
           <div class="mt-4 p-3.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs flex items-center gap-2.5">
             <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 text-amber-400"></i>
-            <span><strong>Pregnancy Protocol Active:</strong> Strict fetal safety criteria applied. NSAIDs and ARBs are contraindicated; only Category B/safe antipyretics are authorized.</span>
+            <span><strong>Pregnancy Safety Protocol:</strong> Strict fetal safety standards applied. NSAIDs and ARBs are contraindicated; only Category B/safe antipyretics are indicated.</span>
           </div>
         ` : ''}
 
@@ -510,6 +837,15 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="mt-2.5 p-3.5 rounded-xl bg-rose-500/20 border border-rose-400/40 text-rose-200 text-xs flex items-center gap-2.5">
             <i data-lucide="shield-alert" class="w-4 h-4 shrink-0 text-rose-400"></i>
             <span><strong>Allergy Watchlist:</strong> Patient flagged hypersensitivity to: <strong>${allergies.join(", ").toUpperCase()}</strong>. Safe alternatives evaluated below.</span>
+          </div>
+        ` : ''}
+
+        ${state.selectedSymptoms && state.selectedSymptoms.length > 0 ? `
+          <div class="mt-4 pt-3 border-t border-white/10 text-xs flex flex-wrap items-center gap-1.5">
+            <span class="text-slate-400 text-[11px] font-semibold uppercase tracking-wider mr-1">Reported Symptoms:</span>
+            ${state.selectedSymptoms.map(s => `
+              <span class="px-2 py-0.5 rounded-md bg-white/10 text-white text-[11px]">${s}</span>
+            `).join("")}
           </div>
         ` : ''}
       </div>
@@ -520,14 +856,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <div>
             <h4 class="text-lg sm:text-xl font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <i data-lucide="pill" class="w-5 h-5 text-sky-600 dark:text-sky-400"></i>
-              Calculated Drug Salts & Dosage Regimens
+              Verified Reference Posology & Drug Monograph
             </h4>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Calculated according to pharmacokinetic reference standards for ${weight} kg body mass.
+              Calibrated according to international pediatric (mg/kg) and adult pharmacokinetic safety standards.
             </p>
           </div>
           <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 shrink-0">
-            ${recommendedSalts.length} Pharmacological Compounds
+            ${recommendedSalts.length} First-Line Compounds
           </span>
         </div>
 
@@ -842,4 +1178,16 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDiseaseChoices();
   updateAgeBadge(state.age);
   refreshIcons();
+
+  // Listen for i18n language change events
+  window.addEventListener("himkiv:languageChanged", () => {
+    if (state.step === 1) {
+      renderDiseaseChoices();
+      renderSubcategories();
+    } else if (state.step === 2) {
+      populateStep2ConditionData();
+    } else if (state.step === 3) {
+      calculateAndRenderResults();
+    }
+  });
 });

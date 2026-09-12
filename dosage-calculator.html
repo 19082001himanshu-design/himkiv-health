@@ -103,6 +103,9 @@
 
       <!-- Actions -->
       <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Multi-Language Selector Dropdown -->
+        <div class="himkiv-lang-selector-container"></div>
+
         <button type="button" id="theme-toggle-btn" class="touch-target p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle Light and Dark Mode">
           <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5"></i>
         </button>
@@ -137,6 +140,8 @@
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
+
+        <div class="himkiv-lang-selector-container mb-4"></div>
 
         <nav class="space-y-3 font-semibold text-sm">
           <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
@@ -178,6 +183,14 @@
         <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
           Simulate how age and body weight dynamically change required milligram strengths, liquid suspension volumes (ml), and safe 24-hour maximum thresholds.
         </p>
+      </div>
+
+      <!-- Educational Clinical Posology Disclaimer -->
+      <div class="mb-8 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-3 max-w-4xl mx-auto shadow-2xs">
+        <i data-lucide="shield-alert" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+        <div>
+          <strong>Educational Reference Tool:</strong> Posology calculations reflect standard international references (WHO Model Formulary for Children & British National Formulary). This simulator is intended solely for clinical reference and educational exploration. It does NOT generate automated prescriptions. Always consult a licensed healthcare professional.
+        </div>
       </div>
 
       <!-- Main Calculator Card Grid -->
@@ -383,6 +396,8 @@
 
   <!-- Scripts -->
   <script src="data/medicineData.js"></script>
+  <script src="data/translations.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/calculator.js"></script>
 
 </body>

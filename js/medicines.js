@@ -85,6 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortSelect = document.getElementById("dir-sort-select");
   const resultsGrid = document.getElementById("directory-results-grid");
   const resultCountLabel = document.getElementById("directory-count-label");
+  const countLabelBottom = document.getElementById("directory-count-label-bottom");
+  const showMoreBtn = document.getElementById("directory-show-more-btn");
+
+  // 6-Items Incremental Pagination State
+  let currentPageLimit = 6;
+  const itemsPerPage = 6;
 
   // Read URL query parameter (e.g. medicines.html?q=dolo)
   const urlParams = new URLSearchParams(window.location.search);
@@ -115,8 +121,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const allSalts = Object.values(CLINICAL_DATA.salts);
 
     let matches = allSalts.filter(salt => {
-      if (currentCategory !== "all" && salt.categorySlug !== currentCategory) {
-        return false;
+      if (currentCategory !== "all") {
+        const catMap = {
+          "pain-fever": ["pain-fever", "Analgesic", "Antipyretic", "NSAID", "pain"],
+          "antibiotics": ["antibiotics", "Antibiotic", "Antimicrobial", "Cephalosporin", "Penicillin", "Macrolide", "Fluoroquinolone"],
+          "acidity-gerd": ["acidity-gerd", "Gastrointestinal", "Antacid", "PPI", "H2 Blocker", "Antiemetic", "Proton Pump"],
+          "allergy-cold": ["allergy-cold", "Antihistamine", "Respiratory", "Cold", "Expectorant", "Decongestant"],
+          "diabetes": ["diabetes", "Endocrine", "Antidiabetic", "Glycemic", "Biguanide", "Sulfonylurea"],
+          "cardiac-bp": ["cardiac-bp", "Cardiovascular", "Antihypertensive", "Statin", "Beta Blocker", "ARB"],
+          "neuro": ["neuro", "Neurological", "Psychiatric", "Sedative", "Anticonvulsant", "Serotonergic"],
+          "derm": ["derm", "Dermatology", "Cutaneous", "Antifungal", "Corticosteroid", "Topical"]
+        };
+        const expected = catMap[currentCategory] || [currentCategory];
+        const hit = expected.some(term => 
+          (salt.categorySlug || "").toLowerCase().includes(term.toLowerCase()) ||
+          (salt.therapeuticCategory || "").toLowerCase().includes(term.toLowerCase()) ||
+          (salt.chemicalClass || "").toLowerCase().includes(term.toLowerCase())
+        );
+        if (!hit) return false;
       }
 
       if (!currentQuery) return true;
@@ -141,13 +163,30 @@ document.addEventListener("DOMContentLoaded", () => {
       matches.sort((a, b) => b.brands.length - a.brands.length);
     }
 
+    const totalMatches = matches.length;
+    const visibleMatches = matches.slice(0, currentPageLimit);
+
     if (resultCountLabel) {
-      resultCountLabel.textContent = `Showing ${matches.length} pharmacological compounds`;
+      resultCountLabel.textContent = `Showing ${totalMatches} pharmacological compounds`;
+    }
+    if (countLabelBottom) {
+      countLabelBottom.textContent = `Showing ${visibleMatches.length} of ${totalMatches} compounds`;
+    }
+
+    // Show More (+6) Button Visibility
+    if (showMoreBtn) {
+      if (currentPageLimit < totalMatches) {
+        showMoreBtn.classList.remove("hidden");
+        showMoreBtn.style.display = "inline-flex";
+      } else {
+        showMoreBtn.classList.add("hidden");
+        showMoreBtn.style.display = "none";
+      }
     }
 
     resultsGrid.innerHTML = "";
 
-    if (matches.length === 0) {
+    if (totalMatches === 0) {
       resultsGrid.innerHTML = `
         <div class="col-span-full py-16 text-center text-slate-400 dark:text-slate-500">
           <i data-lucide="flask-conical-off" class="w-12 h-12 mx-auto mb-3 opacity-40 text-slate-400"></i>
@@ -161,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    matches.forEach(salt => {
+    visibleMatches.forEach(salt => {
       const card = document.createElement("div");
       card.className = "interactive-card border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xs flex flex-col justify-between hover:border-indigo-400 dark:hover:border-indigo-700";
 
@@ -245,6 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       currentQuery = e.target.value.trim().toLowerCase();
+      currentPageLimit = 6;
       if (clearSearchBtn) {
         if (currentQuery) clearSearchBtn.classList.remove("hidden");
         else clearSearchBtn.classList.add("hidden");
@@ -257,6 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
     clearSearchBtn.addEventListener("click", () => {
       searchInput.value = "";
       currentQuery = "";
+      currentPageLimit = 6;
       clearSearchBtn.classList.add("hidden");
       filterAndRenderDirectory();
       searchInput.focus();
@@ -273,6 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.classList.add("bg-indigo-600", "text-white", "shadow-sm");
 
       currentCategory = btn.getAttribute("data-category");
+      currentPageLimit = 6;
       filterAndRenderDirectory();
     });
   });
@@ -280,6 +322,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sortSelect) {
     sortSelect.addEventListener("change", (e) => {
       currentSort = e.target.value;
+      currentPageLimit = 6;
+      filterAndRenderDirectory();
+    });
+  }
+
+  // Show More (+6) button listener
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener("click", () => {
+      currentPageLimit += 6;
       filterAndRenderDirectory();
     });
   }
@@ -515,4 +566,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   filterAndRenderDirectory();
   refreshIcons();
+
+  window.addEventListener("himkiv:languageChanged", () => {
+    filterAndRenderDirectory();
+  });
 });

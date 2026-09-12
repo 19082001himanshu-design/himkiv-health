@@ -1,3 +1,5 @@
-﻿.agents/
+.agents/
 .vscode/
 *.log
+scripts/
+

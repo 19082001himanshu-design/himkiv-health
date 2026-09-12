@@ -173,11 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
         formulaExplanation.innerHTML = `Formula: <strong>${salt.pediatricDosing.formulaPerKg}</strong> &times; ${weight} kg = <strong>${minDose} mg</strong> single dose.`;
       }
     } else if (isPediatric && salt.pediatricDosing.minMgPerKg === 0) {
-      if (singleDoseOut) singleDoseOut.innerHTML = `<span class="text-base sm:text-lg text-amber-300 font-semibold">${salt.pediatricDosing.formulaPerKg}</span>`;
-      if (scheduleOut) scheduleOut.textContent = salt.pediatricDosing.frequency || "See pediatrician";
-      if (ceilingOut) ceilingOut.textContent = salt.pediatricDosing.clinicalNote;
+      if (singleDoseOut) singleDoseOut.innerHTML = `<span class="text-sm sm:text-base text-amber-600 dark:text-amber-300 font-semibold">${salt.pediatricDosing.formulaPerKg}</span>`;
+      if (scheduleOut) scheduleOut.textContent = salt.pediatricDosing.frequency || "Consult Pediatrician";
+      if (ceilingOut) ceilingOut.innerHTML = `<span class="text-amber-700 dark:text-amber-300 text-xs font-medium">${salt.pediatricDosing.clinicalNote}</span>`;
       if (liquidCard) liquidCard.classList.add("hidden");
-      if (formulaExplanation) formulaExplanation.textContent = salt.pediatricDosing.clinicalNote;
+      if (formulaExplanation) formulaExplanation.innerHTML = `<span class="text-amber-700 dark:text-amber-400 font-medium">${salt.pediatricDosing.clinicalNote}</span>`;
     } else {
       // Adult
       if (singleDoseOut) singleDoseOut.innerHTML = `<strong>${salt.adultDosing.standardSingleDose}</strong>`;
@@ -255,6 +255,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  window.addEventListener("himkiv:languageChanged", () => {
+    populateSalts();
+    recalculate();
+  });
 
   populateSalts();
   recalculate();
