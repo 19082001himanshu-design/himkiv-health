@@ -128,37 +128,93 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --------------------------------------------------------------------------
-  // Dynamic Category Filters Generation
+  // Category Matching & Filter Setup
   // --------------------------------------------------------------------------
-  const renderCategoryFilters = () => {
+  const matchesCategory = (item, cat) => {
+    if (!cat || cat === "all") return true;
+    const cSlug = (item.categorySlug || "").toLowerCase();
+    const cName = (item.category || "").toLowerCase();
+    const cond = (item.condition || "").toLowerCase();
+    const mClass = (item.medicineClass || "").toLowerCase();
+    const active = (item.activeIngredient || "").toLowerCase();
+
+    switch (cat) {
+      case "cardiovascular":
+        return cSlug === "cardiovascular" || cName.includes("cardio") || cName.includes("heart") ||
+               mClass.includes("cardio") || mClass.includes("antiplatelet") || mClass.includes("anticoagulant") ||
+               mClass.includes("statin") || mClass.includes("beta blocker") || mClass.includes("ace inhibitor") ||
+               mClass.includes("arb") || mClass.includes("calcium-channel") || mClass.includes("antianginal") ||
+               mClass.includes("nitrate") || mClass.includes("diuretic") || mClass.includes("glycoside") ||
+               cond.includes("coronary") || cond.includes("heart") || cond.includes("angina") || cond.includes("myocardial") ||
+               cond.includes("atherosclerosis") || cond.includes("cardiovascular") || cond.includes("hypertension") ||
+               cond.includes("atrial fibrillation") || cond.includes("thrombosis") || cond.includes("cholesterol");
+
+      case "cardiac-bp":
+        return cSlug === "cardiovascular" || cName.includes("cardio") || cond.includes("hypertension") ||
+               cond.includes("blood pressure") || mClass.includes("antihypertensive") || mClass.includes("calcium-channel") ||
+               mClass.includes("ace inhibitor") || mClass.includes("arb") || mClass.includes("beta blocker") ||
+               mClass.includes("diuretic");
+
+      case "pain-fever":
+        return cSlug === "pain" || cSlug === "emergency-supportive" || cName.includes("pain") ||
+               mClass.includes("analgesic") || mClass.includes("antipyretic") || mClass.includes("nsaid") ||
+               cond.includes("fever") || cond.includes("pain") || cond.includes("headache") || cond.includes("migraine") ||
+               cond.includes("osteoarthritis") || cond.includes("arthritis");
+
+      case "antibiotics":
+        return mClass.includes("antibiotic") || mClass.includes("antibacterial") || mClass.includes("antimicrobial") ||
+               mClass.includes("penicillin") || mClass.includes("cephalosporin") || mClass.includes("macrolide") ||
+               mClass.includes("fluoroquinolone") || mClass.includes("tetracycline") ||
+               (cSlug === "infectious" && !mClass.includes("antiviral") && !mClass.includes("antifungal") && !mClass.includes("antimalarial") && !mClass.includes("anthelmintic"));
+
+      case "acidity-gerd":
+        return cSlug === "gastrointestinal" || cName.includes("gastro") || cond.includes("gerd") ||
+               cond.includes("acid") || cond.includes("reflux") || cond.includes("ulcer") || cond.includes("dyspepsia") ||
+               cond.includes("gastritis") || mClass.includes("ppi") || mClass.includes("proton pump") ||
+               mClass.includes("antacid") || mClass.includes("h2 blocker") || mClass.includes("antiemetic");
+
+      case "allergy-cold":
+        return cond.includes("cold") || cond.includes("cough") || cond.includes("allergy") || cond.includes("allergic") ||
+               cond.includes("rhinitis") || cond.includes("bronchitis") || cond.includes("asthma") ||
+               mClass.includes("antihistamine") || mClass.includes("decongestant") || mClass.includes("bronchodilator") ||
+               mClass.includes("expectorant") || mClass.includes("leukotriene");
+
+      case "diabetes":
+        return cSlug === "endocrine" || cName.includes("endocrine") || cond.includes("diabetes") ||
+               cond.includes("hyperglycemia") || mClass.includes("antidiabetic") || mClass.includes("biguanide") ||
+               mClass.includes("sulfonylurea") || mClass.includes("sglt2") || mClass.includes("dpp-4") ||
+               mClass.includes("insulin") || mClass.includes("glp-1");
+
+      default:
+        return cSlug === cat || cName === cat || cond.toLowerCase().includes(cat);
+    }
+  };
+
+  const updateCategoryFilterStyles = () => {
     if (!categoryFilterContainer) return;
+    const buttons = categoryFilterContainer.querySelectorAll(".dir-cat-filter");
+    buttons.forEach(btn => {
+      const cat = btn.getAttribute("data-category");
+      if (cat === currentCategory) {
+        btn.className = "dir-cat-filter touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-600 text-white shadow-xs transition-all cursor-pointer";
+      } else {
+        btn.className = "dir-cat-filter touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-indigo-400 transition-all cursor-pointer";
+      }
+    });
+  };
 
-    const categories = CLINICAL_DATA.categories || [];
-    if (categories.length === 0) return;
-
-    categoryFilterContainer.innerHTML = "";
-
-    categories.forEach(cat => {
-      const isSel = currentCategory === cat.id;
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = `dir-cat-filter touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-        isSel
-          ? "bg-indigo-600 text-white shadow-xs"
-          : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-indigo-400"
-      }`;
-      btn.setAttribute("data-category", cat.id);
-      btn.textContent = cat.name;
-
+  const setupCategoryFilters = () => {
+    if (!categoryFilterContainer) return;
+    const buttons = categoryFilterContainer.querySelectorAll(".dir-cat-filter");
+    buttons.forEach(btn => {
       btn.addEventListener("click", () => {
-        currentCategory = cat.id;
+        currentCategory = btn.getAttribute("data-category") || "all";
         currentPageLimit = 6;
-        renderCategoryFilters();
+        updateCategoryFilterStyles();
         filterAndRenderDirectory();
       });
-
-      categoryFilterContainer.appendChild(btn);
     });
+    updateCategoryFilterStyles();
   };
 
   // --------------------------------------------------------------------------
@@ -179,10 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 1. Filter by category
     let filtered = allRecords.filter(item => {
-      if (currentCategory === "all") return true;
-      const catSlug = (item.categorySlug || "").toLowerCase();
-      const catName = (item.category || "").toLowerCase();
-      return catSlug === currentCategory || catName === currentCategory;
+      return matchesCategory(item, currentCategory);
     });
 
     // 2. Search & Score
@@ -274,7 +327,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     visibleMatches.forEach(med => {
       const card = document.createElement("div");
-      card.className = "interactive-card border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xs flex flex-col justify-between hover:border-indigo-400 dark:hover:border-indigo-700 transition-all";
+      card.className = "interactive-card border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xs flex flex-col justify-between hover:border-indigo-400 dark:hover:border-indigo-700 transition-all cursor-pointer";
+      card.addEventListener("click", () => {
+        openMedicineModal(med.id);
+      });
 
       card.innerHTML = `
         <div>
@@ -501,11 +557,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // React to Language Changes
   window.addEventListener("himkiv:languageChanged", () => {
-    renderCategoryFilters();
+    updateCategoryFilterStyles();
     filterAndRenderDirectory();
   });
 
   // Initialize
-  renderCategoryFilters();
+  setupCategoryFilters();
   filterAndRenderDirectory();
 });
