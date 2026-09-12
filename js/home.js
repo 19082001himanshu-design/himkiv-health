@@ -530,4 +530,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   refreshIcons();
+
+  window.addEventListener("himkiv:languageChanged", () => {
+    updateTeaserCalculation();
+    refreshIcons();
+  });
 });

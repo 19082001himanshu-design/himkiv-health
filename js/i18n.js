@@ -1,4 +1,4 @@
-﻿/**
+/**
  * HIMKIV Health & MedGuide - Internationalization (i18n) Engine (js/i18n.js)
  * Manages multi-language translation, persistence, DOM localization,
  * and dispatch of language change events across multi-page clinical modules.
@@ -50,6 +50,15 @@
       if (key) {
         const text = t(key);
         if (text) el.textContent = text;
+      }
+    });
+
+    // HTML content
+    document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-html");
+      if (key) {
+        const html = t(key);
+        if (html) el.innerHTML = html;
       }
     });
 

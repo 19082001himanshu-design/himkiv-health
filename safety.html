@@ -55,11 +55,11 @@
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
       <div class="flex items-center gap-2 justify-center">
         <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
-        <span><strong>Emergency Medical Triage:</strong> If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span>
+        <span><strong data-i18n="emergency_label">Emergency Medical Triage:</strong> <span data-i18n="emergency_triage_banner">If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span></span>
       </div>
       <div class="flex items-center gap-4 text-[11px] font-medium opacity-90">
-        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Reference Pharmacology Standards</span>
-        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> 24/7 Hotline: 1800-HIMKIV</span>
+        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> <span data-i18n="reference_standards">Reference Pharmacology Standards</span></span>
+        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> <span data-i18n="top_hotline">24/7 Hotline: 1800-HIMKIV</span></span>
       </div>
     </div>
   </aside>
@@ -78,26 +78,26 @@
             <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">HIMKIV</span>
             <span class="font-heading font-bold text-xs uppercase px-1.5 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">MedGuide</span>
           </div>
-          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">Precision Salts & Dosage Intelligence</span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium" data-i18n="portal_tagline">Precision Salts & Dosage Intelligence</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
       <nav aria-label="Main Navigation" class="hidden md:flex items-center gap-7 text-sm font-semibold">
         <a href="index.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="home" class="w-4 h-4"></i> Home
+          <i data-lucide="home" class="w-4 h-4"></i> <span data-i18n="nav_home">Home</span>
         </a>
         <a href="survey.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="clipboard-check" class="w-4 h-4"></i> Clinical Survey
+          <i data-lucide="clipboard-check" class="w-4 h-4"></i> <span data-i18n="nav_survey">Clinical Survey</span>
         </a>
         <a href="medicines.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="search" class="w-4 h-4"></i> Medicine Search
+          <i data-lucide="search" class="w-4 h-4"></i> <span data-i18n="nav_medicines">Medicine Search</span>
         </a>
         <a href="dosage-calculator.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="calculator" class="w-4 h-4"></i> Dosage Calculator
+          <i data-lucide="calculator" class="w-4 h-4"></i> <span data-i18n="nav_calculator">Dosage Calculator</span>
         </a>
         <a href="safety.html" class="text-rose-600 dark:text-rose-400 flex items-center gap-1.5 border-b-2 border-rose-600 dark:border-rose-400 pb-0.5">
-          <i data-lucide="shield-alert" class="w-4 h-4"></i> Safety Protocols
+          <i data-lucide="shield-alert" class="w-4 h-4"></i> <span data-i18n="nav_safety">Safety Protocols</span>
         </a>
       </nav>
 
@@ -112,7 +112,7 @@
 
         <a href="survey.html" class="hidden sm:flex touch-target px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold text-xs sm:text-sm items-center gap-2 shadow-xs transition-all">
           <i data-lucide="stethoscope" class="w-4 h-4"></i>
-          <span>Take Health Survey</span>
+          <span data-i18n="nav_take_survey">Take Health Survey</span>
         </a>
 
         <!-- Mobile Menu Button -->
@@ -141,29 +141,27 @@
           </button>
         </div>
 
-        <div class="himkiv-lang-selector-container mb-4"></div>
-
         <nav class="space-y-3 font-semibold text-sm">
           <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="home" class="w-5 h-5"></i> Home
+            <i data-lucide="home" class="w-5 h-5"></i> <span data-i18n="nav_home">Home</span>
           </a>
           <a href="survey.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="clipboard-check" class="w-5 h-5 text-sky-600"></i> Clinical Survey
+            <i data-lucide="clipboard-check" class="w-5 h-5 text-sky-600"></i> <span data-i18n="nav_survey">Clinical Survey</span>
           </a>
           <a href="medicines.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> Medicine & Salt Directory
+            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> <span data-i18n="nav_medicines">Medicine & Salt Directory</span>
           </a>
           <a href="dosage-calculator.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="calculator" class="w-5 h-5 text-emerald-600"></i> Dosage Calculator
+            <i data-lucide="calculator" class="w-5 h-5 text-emerald-600"></i> <span data-i18n="nav_calculator">Dosage Calculator</span>
           </a>
           <a href="safety.html" class="flex items-center gap-3 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400">
-            <i data-lucide="shield-alert" class="w-5 h-5"></i> Safety Protocols
+            <i data-lucide="shield-alert" class="w-5 h-5"></i> <span data-i18n="nav_safety">Safety Protocols</span>
           </a>
         </nav>
       </div>
 
       <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-        <p class="text-xs text-slate-400 text-center">24/7 Clinical Hotline: 1800-HIMKIV</p>
+        <p class="text-xs text-slate-400 text-center" data-i18n="top_hotline">24/7 Clinical Hotline: 1800-HIMKIV</p>
       </div>
 
     </div>
@@ -174,13 +172,13 @@
       
       <!-- Header -->
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800 inline-block mb-3 shadow-2xs">
+        <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800 inline-block mb-3 shadow-2xs" data-i18n="safety_badge">
           Clinical Stewardship & Poison Prevention
         </span>
-        <h1 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="safety_page_title">
           Medication Safety & Emergency Protocols
         </h1>
-        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed" data-i18n="safety_page_subtitle">
           Critical pharmacological standards designed to prevent accidental pediatric overdose, acute liver necrosis, superbug antibiotic resistance, and delayed emergency room triage.
         </p>
       </div>
@@ -192,29 +190,29 @@
             <i data-lucide="alert-octagon" class="w-6 h-6"></i>
           </div>
           <div>
-            <h2 class="text-xl font-heading font-bold text-rose-800 dark:text-rose-300">
+            <h2 class="text-xl font-heading font-bold text-rose-800 dark:text-rose-300" data-i18n="safety_er_title">
               Immediate Emergency Triage: When to Call 112 / 911
             </h2>
-            <p class="text-xs text-rose-700 dark:text-rose-300">Never delay emergency medical evaluation if experiencing any of these acute signs:</p>
+            <p class="text-xs text-rose-700 dark:text-rose-300" data-i18n="safety_er_subtitle">Never delay emergency medical evaluation if experiencing any of these acute signs:</p>
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
           <div class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-rose-200 dark:border-rose-900 flex items-start gap-2">
             <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600 shrink-0 mt-0.5"></i>
-            <span><strong>Crushing Chest Pain:</strong> Radiating to left shoulder, arm, neck, or jaw accompanied by cold clamminess (Rule out Heart Attack).</span>
+            <span><strong data-i18n="flag_chest_pain_title">Crushing Chest Pain:</strong> <span data-i18n="flag_chest_pain_desc">Radiating to left shoulder, arm, neck, or jaw accompanied by cold clamminess (Rule out Heart Attack).</span></span>
           </div>
           <div class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-rose-200 dark:border-rose-900 flex items-start gap-2">
             <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600 shrink-0 mt-0.5"></i>
-            <span><strong>Anaphylaxis:</strong> Rapid swelling of lips, tongue, or throat with stridor breathing or hives after starting a new medicine.</span>
+            <span><strong data-i18n="flag_anaphylaxis_title">Anaphylaxis:</strong> <span data-i18n="flag_anaphylaxis_desc">Rapid swelling of lips, tongue, or throat with stridor breathing or hives after starting a new medicine.</span></span>
           </div>
           <div class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-rose-200 dark:border-rose-900 flex items-start gap-2">
             <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600 shrink-0 mt-0.5"></i>
-            <span><strong>Thunderclap Headache:</strong> Sudden explosive headache reaching maximal intensity in seconds, or headache with facial droop/weakness.</span>
+            <span><strong data-i18n="flag_headache_title">Thunderclap Headache:</strong> <span data-i18n="flag_headache_desc">Sudden explosive headache reaching maximal intensity in seconds, or headache with facial droop/weakness.</span></span>
           </div>
           <div class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-rose-200 dark:border-rose-900 flex items-start gap-2">
             <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600 shrink-0 mt-0.5"></i>
-            <span><strong>Pediatric Lethargy & Dehydration:</strong> Child unable to stay awake, sunken eyes, no wet diapers for >8 hours, or fever with stiff neck.</span>
+            <span><strong data-i18n="flag_lethargy_title">Pediatric Lethargy & Dehydration:</strong> <span data-i18n="flag_lethargy_desc">Child unable to stay awake, sunken eyes, no wet diapers for >8 hours, or fever with stiff neck.</span></span>
           </div>
         </div>
       </div>
@@ -229,17 +227,17 @@
               1
             </div>
             <div>
-              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white">
+              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="prot1_title">
                 Acetaminophen (Paracetamol) Safe Ceiling: Max 4000 mg / 24 Hours
               </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Hepatic toxicity prevention standard</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="prot1_sub">Hepatic toxicity prevention standard</p>
             </div>
           </div>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
             Paracetamol is metabolized in the liver. At standard therapeutic doses, the toxic metabolite <em>N-acetyl-p-benzoquinone imine (NAPQI)</em> is rapidly conjugated with glutathione. When the daily ceiling of 4000 mg is exceeded (or >60 mg/kg in children), glutathione stores deplete, causing direct centrilobular hepatic necrosis.
           </p>
           <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/80 text-xs text-amber-900 dark:text-amber-200">
-            <strong>Key Safety Rule:</strong> Beware of "Hidden Paracetamol" in over-the-counter multi-symptom cold and flu syrups (e.g. cold capsules containing paracetamol + phenylephrine + chlorpheniramine). Taking a 650mg tablet while drinking cold syrup can easily push you over the 4g daily threshold.
+            <strong data-i18n="rule_label">Key Safety Rule:</strong> <span data-i18n="prot1_rule">Beware of "Hidden Paracetamol" in over-the-counter multi-symptom cold and flu syrups (e.g. cold capsules containing paracetamol + phenylephrine + chlorpheniramine). Taking a 650mg tablet while drinking cold syrup can easily push you over the 4g daily threshold.</span>
           </div>
         </div>
 
@@ -250,17 +248,17 @@
               2
             </div>
             <div>
-              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white">
+              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="prot2_title">
                 Antibiotic Resistance Stewardship: Complete the Entire Prescribed Duration
               </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Preventing multidrug-resistant superbugs</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="prot2_sub">Preventing multidrug-resistant superbugs</p>
             </div>
           </div>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
             Antibiotics (e.g., Amoxicillin-Clavulanate, Cefixime, Azithromycin) eliminate bacteria over a specific pharmacodynamic timeline. Stopping treatment on Day 3 because you "feel better" leaves behind the strongest, partially mutated bacteria, which multiply and become resistant to that entire antibiotic class.
           </p>
           <div class="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/80 text-xs text-sky-900 dark:text-sky-200">
-            <strong>Key Safety Rule:</strong> Antibiotics do not work against viral infections like seasonal influenza, common colds, or Covid-19. Never demand antibiotics for viral fevers, and never reuse leftover antibiotics from a past illness.
+            <strong data-i18n="rule_label">Key Safety Rule:</strong> <span data-i18n="prot2_rule">Antibiotics do not work against viral infections like seasonal influenza, common colds, or Covid-19. Never demand antibiotics for viral fevers, and never reuse leftover antibiotics from a past illness.</span>
           </div>
         </div>
 
@@ -271,17 +269,17 @@
               3
             </div>
             <div>
-              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white">
+              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="prot3_title">
                 Pediatric Posology: Always Dose by Body Weight, Never by Spoon
               </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Zero-error pediatric liquid posology</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="prot3_sub">Zero-error pediatric liquid posology</p>
             </div>
           </div>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
             Standard kitchen teaspoons vary in volume from 3 ml to 8 ml. A 50% dosing error in a 12 kg toddler can lead to dangerous hypothermia, acute kidney distress, or under-treatment. Always check the concentration label (e.g., 120 mg / 5 ml vs 250 mg / 5 ml) and calculate exact milliliters using calibrated syringes.
           </p>
           <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-xs text-emerald-900 dark:text-emerald-200">
-            <strong>Key Safety Rule:</strong> Always shake liquid suspensions well before drawing the dose, as active drug crystals settle at the bottom of the bottle.
+            <strong data-i18n="rule_label">Key Safety Rule:</strong> <span data-i18n="prot3_rule">Always shake liquid suspensions well before drawing the dose, as active drug crystals settle at the bottom of the bottle.</span>
           </div>
         </div>
 
@@ -292,17 +290,17 @@
               4
             </div>
             <div>
-              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white">
+              <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="prot4_title">
                 NSAID Safety: Protect Your Stomach, Kidneys, and Pregnancy
               </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Ibuprofen, Diclofenac & Naproxen guidelines</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="prot4_sub">Ibuprofen, Diclofenac & Naproxen guidelines</p>
             </div>
           </div>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
             NSAIDs non-selectively inhibit COX-1 and COX-2 enzymes, reducing protective gastric prostaglandins and renal blood flow. They must always be taken with food or milk, and are strictly contraindicated in active peptic ulcers, chronic kidney disease, and the third trimester of pregnancy.
           </p>
           <div class="p-4 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/80 text-xs text-purple-900 dark:text-purple-200">
-            <strong>Key Safety Rule:</strong> Never give Aspirin or NSAIDs to children or teenagers recovering from viral infections like varicella (chickenpox) or influenza due to the risk of <em>Reye's Syndrome</em>, a fatal hepatic encephalopathy.
+            <strong data-i18n="rule_label">Key Safety Rule:</strong> <span data-i18n="prot4_rule">Never give Aspirin or NSAIDs to children or teenagers recovering from viral infections like varicella (chickenpox) or influenza due to the risk of <em>Reye's Syndrome</em>, a fatal hepatic encephalopathy.</span>
           </div>
         </div>
 
@@ -312,7 +310,7 @@
       <div class="mt-12 text-center">
         <a href="survey.html" class="touch-target px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-bold text-sm shadow-md hover:shadow-lg transition-all inline-flex items-center gap-2">
           <i data-lucide="clipboard-check" class="w-4 h-4"></i>
-          <span>Check Your Dose in the Health Survey</span>
+          <span data-i18n="nav_take_survey">Check Your Dose in the Health Survey</span>
         </a>
       </div>
 
@@ -363,19 +361,19 @@
         </div>
 
         <div>
-          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Emergency Lines</h4>
-          <p class="text-[11px] text-slate-400 mb-2">Emergency Ambulance: <strong>112 / 911</strong></p>
-          <p class="text-[11px] text-slate-400 mb-2">National Poison Control: <strong>1800-222-1222</strong></p>
-          <p class="text-[11px] text-slate-400">HIMKIV Clinical Support: <strong>support@himkivhealth.org</strong></p>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3" data-i18n="emergency_lines_title">Emergency Lines</h4>
+          <p class="text-[11px] text-slate-400 mb-2"><span data-i18n="emergency_ambulance">Emergency Ambulance:</span> <strong>112 / 911</strong></p>
+          <p class="text-[11px] text-slate-400 mb-2"><span data-i18n="poison_control">National Poison Control:</span> <strong>1800-222-1222</strong></p>
+          <p class="text-[11px] text-slate-400"><span data-i18n="clinical_support">HIMKIV Clinical Support:</span> <strong>support@himkivhealth.org</strong></p>
         </div>
 
       </div>
 
       <div class="text-[11px] leading-relaxed text-slate-500 text-center max-w-4xl mx-auto space-y-2">
-        <p>
+        <p data-i18n="footer_disclaimer">
           <strong>Clinical Disclaimer:</strong> The content, calculations, drug salts, and dosages provided by HIMKIV MedGuide are intended strictly for educational, informational, and clinical reference purposes. This platform does not constitute the provision of medical diagnoses, professional consultations, or binding prescriptions. Always consult a board-certified physician or licensed pharmacist before administering any medication.
         </p>
-        <p>
+        <p data-i18n="footer_copyright">
           &copy; 2026 HIMKIV Healthcare Technologies. Built according to UI/UX Pro Max clinical specifications. All rights reserved.
         </p>
       </div>

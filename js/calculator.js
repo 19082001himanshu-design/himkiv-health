@@ -113,20 +113,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const updateAgeCategoryBadge = (age) => {
     if (!ageCategoryBadge) return;
+    const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
     if (age < 1) {
-      ageCategoryBadge.textContent = "Infant (< 1 yr)";
+      ageCategoryBadge.textContent = t("age_cat_infant", "Infant (< 1 yr)");
       ageCategoryBadge.className = "text-xs px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 font-semibold";
     } else if (age < 12) {
-      ageCategoryBadge.textContent = "Pediatric (1 - 11 yrs)";
+      ageCategoryBadge.textContent = t("age_cat_pediatric", "Pediatric (1 - 11 yrs)");
       ageCategoryBadge.className = "text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-semibold";
     } else if (age < 18) {
-      ageCategoryBadge.textContent = "Adolescent (12 - 17 yrs)";
+      ageCategoryBadge.textContent = t("age_cat_adolescent", "Adolescent (12 - 17 yrs)");
       ageCategoryBadge.className = "text-xs px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 font-semibold";
     } else if (age < 65) {
-      ageCategoryBadge.textContent = "Adult (18 - 64 yrs)";
+      ageCategoryBadge.textContent = t("age_cat_adult", "Adult (18 - 64 yrs)");
       ageCategoryBadge.className = "text-xs px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 font-semibold";
     } else {
-      ageCategoryBadge.textContent = "Geriatric (65+ yrs)";
+      ageCategoryBadge.textContent = t("age_cat_geriatric", "Geriatric (65+ yrs)");
       ageCategoryBadge.className = "text-xs px-2.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 font-semibold";
     }
   };
@@ -144,6 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (compoundTitle) compoundTitle.textContent = salt.saltName;
     if (compoundCategory) compoundCategory.textContent = `${salt.therapeuticCategory} • ${salt.chemicalClass}`;
 
+    const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
+
     if (isPediatric && salt.pediatricDosing.minMgPerKg > 0) {
       const minDose = Math.round(weight * salt.pediatricDosing.minMgPerKg);
       const maxDose = Math.round(weight * salt.pediatricDosing.maxMgPerKg);
@@ -156,13 +159,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       
       if (scheduleOut) scheduleOut.textContent = salt.pediatricDosing.frequency;
-      if (ceilingOut) ceilingOut.innerHTML = `24h Safe Maximum: <strong>${max24h} mg/day</strong> (${salt.pediatricDosing.maxDailyCeilingPerKg} mg/kg/day)`;
+      if (ceilingOut) ceilingOut.innerHTML = `${t("calc_ceiling_label", "24h Safe Maximum:")} <strong>${max24h} mg/day</strong> (${salt.pediatricDosing.maxDailyCeilingPerKg} mg/kg/day)`;
 
       // Liquid formulation calculation
       if (salt.pediatricDosing.liquidFormulations && salt.pediatricDosing.liquidFormulations.length > 0) {
         const form = salt.pediatricDosing.liquidFormulations[0];
         const ml = Math.round((minDose / form.perMlMg) * 10) / 10;
-        if (liquidOut) liquidOut.innerHTML = `Administer <strong>${ml} ml</strong>`;
+        if (liquidOut) liquidOut.innerHTML = `${t("calc_administer", "Administer")} <strong>${ml} ml</strong>`;
         if (liquidDetails) liquidDetails.textContent = `Using ${form.name} (${form.strength}, approx. ${form.perMlMg} mg per ml).`;
         if (liquidCard) liquidCard.classList.remove("hidden");
       } else {

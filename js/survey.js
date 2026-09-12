@@ -144,15 +144,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
+
     subcategoryContainer.classList.remove("hidden");
     let html = `
-      <span class="text-[11px] font-semibold text-slate-400 mr-1">Subcategory:</span>
+      <span class="text-[11px] font-semibold text-slate-400 mr-1">${t("subcategory_label", "Subcategory:")}</span>
       <button type="button" class="survey-subcat-pill touch-target text-[11px] px-3 py-1 rounded-full transition-all ${
         state.selectedSubcategory === 'all'
           ? 'bg-sky-600 text-white font-bold shadow-xs'
           : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
       }" data-subcategory="all">
-        All
+        ${t("cat_all", "All")}
       </button>
     `;
 
@@ -214,12 +216,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return matchName || matchIcd || matchSymp || matchCat || matchSub || matchDesc;
     });
 
+    const t = (k, f = "") => (window.himkivI18n ? window.himkivI18n.t(k, f) : (f || k));
+
     const totalMatches = filtered.length;
     const visibleList = filtered.slice(0, state.currentPageLimit);
 
     // Update Pagination Count and Button
     if (countLabel) {
-      countLabel.textContent = `Showing ${visibleList.length} of ${totalMatches} conditions`;
+      countLabel.textContent = `${t("med_showing", "Showing")} ${visibleList.length} ${t("med_of", "of")} ${totalMatches} ${t("conditions_label", "conditions")}`;
     }
 
     if (showMoreBtn) {
@@ -268,8 +272,8 @@ document.addEventListener("DOMContentLoaded", () => {
               ` : ''}
             </div>
             ${isSelected 
-              ? '<span class="text-sky-600 dark:text-sky-400 flex items-center gap-1 text-xs font-bold shrink-0"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selected</span>' 
-              : '<span class="text-[11px] font-medium text-slate-400 shrink-0">Click to Select</span>'}
+              ? `<span class="text-sky-600 dark:text-sky-400 flex items-center gap-1 text-xs font-bold shrink-0"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ${t("btn_selected", "Selected")}</span>` 
+              : `<span class="text-[11px] font-medium text-slate-400 shrink-0">${t("btn_click_to_select", "Click to Select")}</span>`}
           </div>
           
           <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base mb-1.5">${disease.name}</h4>
@@ -278,9 +282,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-800/80">
           <div class="flex items-center justify-between mb-1.5 text-[11px]">
-            <span class="font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Clinical Signs:</span>
+            <span class="font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">${t("clinical_signs_label", "Clinical Signs:")}</span>
             ${disease.emergencyFlags && disease.emergencyFlags.length > 0 
-              ? '<span class="text-rose-600 dark:text-rose-400 font-bold text-[10px] flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Emergency Flags</span>' 
+              ? `<span class="text-rose-600 dark:text-rose-400 font-bold text-[10px] flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> ${t("emergency_flags_label", "Emergency Flags")}</span>` 
               : ''}
           </div>
           <div class="flex flex-wrap gap-1">

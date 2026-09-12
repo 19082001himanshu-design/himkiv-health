@@ -55,11 +55,11 @@
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
       <div class="flex items-center gap-2 justify-center">
         <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
-        <span><strong>Emergency Medical Triage:</strong> If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span>
+        <span><strong data-i18n="emergency_label">Emergency Medical Triage:</strong> <span data-i18n="emergency_triage_banner">If experiencing crushing chest pain, anaphylaxis, or acute shortness of breath, call emergency services (112 / 911) immediately.</span></span>
       </div>
       <div class="flex items-center gap-4 text-[11px] font-medium opacity-90">
-        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Reference Pharmacology Standards</span>
-        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> 24/7 Hotline: 1800-HIMKIV</span>
+        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> <span data-i18n="top_standards">Reference Pharmacology Standards</span></span>
+        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3.5 h-3.5"></i> <span data-i18n="top_hotline">24/7 Hotline: 1800-HIMKIV</span></span>
       </div>
     </div>
   </aside>
@@ -78,26 +78,26 @@
             <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">HIMKIV</span>
             <span class="font-heading font-bold text-xs uppercase px-1.5 py-0.5 rounded bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">MedGuide</span>
           </div>
-          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">Precision Salts & Dosage Intelligence</span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium" data-i18n="portal_tagline">Precision Salts & Dosage Intelligence</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links (Multi-Page) -->
       <nav aria-label="Main Navigation" class="hidden md:flex items-center gap-7 text-sm font-semibold">
         <a href="index.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="home" class="w-4 h-4"></i> Home
+          <i data-lucide="home" class="w-4 h-4"></i> <span data-i18n="nav_home">Home</span>
         </a>
         <a href="survey.html" class="text-sky-600 dark:text-sky-400 flex items-center gap-1.5 border-b-2 border-sky-600 dark:border-sky-400 pb-0.5">
-          <i data-lucide="clipboard-check" class="w-4 h-4"></i> Clinical Survey
+          <i data-lucide="clipboard-check" class="w-4 h-4"></i> <span data-i18n="nav_survey">Clinical Survey</span>
         </a>
         <a href="medicines.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="search" class="w-4 h-4"></i> Medicine Search
+          <i data-lucide="search" class="w-4 h-4"></i> <span data-i18n="nav_medicines">Medicine Search</span>
         </a>
         <a href="dosage-calculator.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="calculator" class="w-4 h-4"></i> Dosage Calculator
+          <i data-lucide="calculator" class="w-4 h-4"></i> <span data-i18n="nav_calculator">Dosage Calculator</span>
         </a>
         <a href="safety.html" class="text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors flex items-center gap-1.5">
-          <i data-lucide="shield-alert" class="w-4 h-4"></i> Safety Protocols
+          <i data-lucide="shield-alert" class="w-4 h-4"></i> <span data-i18n="nav_safety">Safety Protocols</span>
         </a>
       </nav>
 
@@ -112,7 +112,7 @@
 
         <a href="medicines.html" class="hidden sm:flex touch-target px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-heading font-semibold text-xs sm:text-sm items-center gap-2 transition-colors">
           <i data-lucide="database" class="w-4 h-4 text-sky-600"></i>
-          <span>Drug Directory</span>
+          <span data-i18n="nav_medicines">Drug Directory</span>
         </a>
 
         <!-- Mobile Menu Button -->
@@ -141,29 +141,27 @@
           </button>
         </div>
 
-        <div class="himkiv-lang-selector-container mb-4"></div>
-
         <nav class="space-y-3 font-semibold text-sm">
           <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="home" class="w-5 h-5"></i> Home
+            <i data-lucide="home" class="w-5 h-5"></i> <span data-i18n="nav_home">Home</span>
           </a>
           <a href="survey.html" class="flex items-center gap-3 p-3 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400">
-            <i data-lucide="clipboard-check" class="w-5 h-5"></i> Clinical Survey
+            <i data-lucide="clipboard-check" class="w-5 h-5"></i> <span data-i18n="nav_survey">Clinical Survey</span>
           </a>
           <a href="medicines.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> Medicine & Salt Directory
+            <i data-lucide="search" class="w-5 h-5 text-indigo-600"></i> <span data-i18n="nav_medicines">Medicine & Salt Directory</span>
           </a>
           <a href="dosage-calculator.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="calculator" class="w-5 h-5 text-emerald-600"></i> Dosage Calculator
+            <i data-lucide="calculator" class="w-5 h-5 text-emerald-600"></i> <span data-i18n="nav_calculator">Dosage Calculator</span>
           </a>
           <a href="safety.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-200 transition-colors">
-            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-600"></i> Safety Protocols
+            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-600"></i> <span data-i18n="nav_safety">Safety Protocols</span>
           </a>
         </nav>
       </div>
 
       <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-        <p class="text-xs text-slate-400 text-center">24/7 Clinical Hotline: 1800-HIMKIV</p>
+        <p class="text-xs text-slate-400 text-center" data-i18n="top_hotline">24/7 Clinical Hotline: 1800-HIMKIV</p>
       </div>
 
     </div>
@@ -174,31 +172,31 @@
       
       <!-- Survey Header & Introduction -->
       <div class="text-center mb-10 no-print">
-        <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3 shadow-2xs">
+        <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 inline-block mb-3 shadow-2xs" data-i18n="survey_wizard_badge">
           Pharmacokinetic Decision Support Wizard
         </span>
-        <h1 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="survey_page_title">
           Clinical Symptom & Dosage Survey
         </h1>
-        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-2.5 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-2.5 leading-relaxed" data-i18n="survey_page_subtitle">
           Select your health condition, provide patient age and body weight, and receive verified generic drug salts and commercial brand posology calibrated to avoid underdosing and organ toxicity.
         </p>
 
         <!-- Stepper Progress Bar -->
         <div class="flex items-center justify-center gap-8 sm:gap-16 mt-8">
           <div class="survey-progress-step flex flex-col items-center">
-            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-sky-600 text-white shadow-md ring-4 ring-sky-100 dark:ring-sky-950">1</div>
-            <span class="step-label text-xs font-semibold text-sky-600 dark:text-sky-400 mt-1.5 hidden sm:block">Choose Condition</span>
+            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-sky-600 text-white shadow-md ring-4 ring-sky-100 dark:ring-sky-950" data-i18n="step1_badge">1</div>
+            <span class="step-label text-xs font-semibold text-sky-600 dark:text-sky-400 mt-1.5 hidden sm:block" data-i18n="step1_title">Choose Condition</span>
           </div>
           <div class="h-0.5 w-12 sm:w-24 bg-slate-300 dark:bg-slate-700"></div>
           <div class="survey-progress-step flex flex-col items-center">
-            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400">2</div>
-            <span class="step-label text-xs font-medium text-slate-400 dark:text-slate-500 mt-1.5 hidden sm:block">Vitals & Allergies</span>
+            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400" data-i18n="step2_badge">2</div>
+            <span class="step-label text-xs font-medium text-slate-400 dark:text-slate-500 mt-1.5 hidden sm:block" data-i18n="step2_title">Vitals & Allergies</span>
           </div>
           <div class="h-0.5 w-12 sm:w-24 bg-slate-300 dark:bg-slate-700"></div>
           <div class="survey-progress-step flex flex-col items-center">
-            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400">3</div>
-            <span class="step-label text-xs font-medium text-slate-400 dark:text-slate-500 mt-1.5 hidden sm:block">Prescribed Posology</span>
+            <div class="step-circle w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400" data-i18n="step3_badge">3</div>
+            <span class="step-label text-xs font-medium text-slate-400 dark:text-slate-500 mt-1.5 hidden sm:block" data-i18n="step3_title">Prescribed Posology</span>
           </div>
         </div>
       </div>
@@ -211,10 +209,10 @@
           
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+              <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="step1_title">
                 Step 1: Select Your Current Health Condition
               </h2>
-              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="step1_desc">
                 Choose the condition or symptoms you are experiencing to begin pharmacological calibration.
               </p>
             </div>
@@ -222,40 +220,40 @@
             <!-- Search Bar -->
             <div class="relative w-full sm:w-80">
               <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-              <input type="text" id="survey-disease-search" placeholder="Filter by symptom (e.g. fever, cough, pain)..." class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+              <input type="text" id="survey-disease-search" placeholder="Filter by symptom (e.g. fever, cough, pain)..." data-i18n-placeholder="search_condition_placeholder" class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
             </div>
           </div>
 
           <!-- Category Filter Pills -->
           <div id="survey-category-tabs" class="flex flex-wrap items-center gap-2 mb-4" role="tablist" aria-label="Condition Categories">
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-600 text-white shadow-xs transition-all" data-category="all">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-600 text-white shadow-xs transition-all" data-category="all" data-i18n="cat_all">
               All Conditions
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="general">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="general" data-i18n="cat_general">
               Fever & General
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="respiratory">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="respiratory" data-i18n="cat_respiratory">
               Respiratory & Throat
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="gastro">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="gastro" data-i18n="cat_gastro">
               Gastrointestinal & Acid
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="chronic">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="chronic" data-i18n="cat_chronic">
               Cardiovascular & Chronic
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="ortho">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="ortho" data-i18n="cat_ortho">
               Musculoskeletal Pain
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="neuro">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="neuro" data-i18n="cat_neuro">
               Neurology & Sleep
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="derm">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="derm" data-i18n="cat_derm">
               Dermatology & Allergy
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="infectious">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="infectious" data-i18n="cat_infectious">
               Infectious & Vector-Borne
             </button>
-            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="ophthalmic">
+            <button type="button" class="survey-cat-tab touch-target px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400 transition-all" data-category="ophthalmic" data-i18n="cat_uro">
               Ophthalmic & Otic
             </button>
           </div>
@@ -274,16 +272,16 @@
           <div id="survey-pagination-container" class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80">
             <span id="survey-count-label" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Showing 6 of 36 conditions</span>
             <button type="button" id="survey-show-more-btn" class="touch-target px-5 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-sky-950/60 dark:hover:bg-sky-900/60 text-sky-700 dark:text-sky-300 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-colors">
-              <span>Show More Conditions (+6)</span>
+              <span data-i18n="btn_more_conditions">Show More Conditions (+6)</span>
               <i data-lucide="chevrons-down" class="w-4 h-4"></i>
             </button>
           </div>
 
           <!-- Step 1 Footer Navigation -->
           <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-            <span class="text-xs text-slate-500 dark:text-slate-400">Select any condition card above to proceed</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400" data-i18n="select_condition_hint">Select any condition card above to proceed</span>
             <button type="button" id="survey-step-1-next" disabled class="touch-target px-7 py-3 rounded-xl bg-sky-600 text-white font-heading font-semibold text-xs sm:text-sm flex items-center gap-2 opacity-50 cursor-not-allowed transition-all">
-              <span>Continue to Patient Vitals</span>
+              <span data-i18n="btn_next">Continue to Patient Vitals</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
           </div>
@@ -294,10 +292,10 @@
         <div id="survey-step-2" class="survey-step hidden">
           
           <div class="mb-6">
-            <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+            <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="step2_title">
               Step 2: Patient Parameters, Symptoms & Triage
             </h2>
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="step2_desc">
               Verify your specific symptoms, rate clinical severity, and confirm patient parameters for calibrated posology.
             </p>
           </div>
@@ -311,36 +309,36 @@
           <div class="mb-6 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs">
             <div class="flex items-center justify-between mb-3">
               <label class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
-                <i data-lucide="activity" class="w-4 h-4 text-sky-600"></i> Clinical Severity Assessment
+                <i data-lucide="activity" class="w-4 h-4 text-sky-600"></i> <span data-i18n="label_severity">Clinical Severity Assessment</span>
               </label>
-              <span class="text-[11px] text-slate-400">Deterministic Triage</span>
+              <span class="text-[11px] text-slate-400" data-i18n="deterministic_triage">Deterministic Triage</span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-4">
               <label class="severity-card flex flex-col p-3 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-sky-400 transition-all" data-severity="mild">
                 <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-slate-900 dark:text-white">Mild</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white" data-i18n="sev_mild">Mild</span>
                   <input type="radio" name="survey-severity" value="mild" class="text-sky-600">
                 </div>
                 <span class="text-[11px] text-slate-500 dark:text-slate-400">Early or mild discomfort. Non-pharmacological priority.</span>
               </label>
               <label class="severity-card flex flex-col p-3 rounded-xl border-2 border-sky-500 bg-sky-50/50 dark:bg-sky-950/30 cursor-pointer transition-all" data-severity="moderate">
                 <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-sky-700 dark:text-sky-300">Moderate</span>
+                  <span class="text-xs font-bold text-sky-700 dark:text-sky-300" data-i18n="sev_moderate">Moderate</span>
                   <input type="radio" name="survey-severity" value="moderate" checked class="text-sky-600">
                 </div>
                 <span class="text-[11px] text-slate-500 dark:text-slate-400">Typical symptomatic distress. First-line posology recommended.</span>
               </label>
               <label class="severity-card flex flex-col p-3 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-amber-400 transition-all" data-severity="severe">
                 <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-amber-700 dark:text-amber-300">Severe</span>
+                  <span class="text-xs font-bold text-amber-700 dark:text-amber-300" data-i18n="sev_severe">Severe</span>
                   <input type="radio" name="survey-severity" value="severe" class="text-amber-600">
                 </div>
                 <span class="text-[11px] text-slate-500 dark:text-slate-400">High distress or marked fever. Clinical oversight recommended.</span>
               </label>
               <label class="severity-card flex flex-col p-3 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-rose-400 transition-all" data-severity="critical">
                 <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1"><i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i> Critical</span>
+                  <span class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1"><i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i> <span data-i18n="sev_critical">Critical</span></span>
                   <input type="radio" name="survey-severity" value="critical" class="text-rose-600">
                 </div>
                 <span class="text-[11px] text-rose-800 dark:text-rose-300">Emergency red flag signs. Immediate hospital / 112 triage.</span>
@@ -349,19 +347,19 @@
 
             <!-- Symptom Duration -->
             <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
-              <span class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">Duration of Current Episode:</span>
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2" data-i18n="label_duration">Duration of Current Episode:</span>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs cursor-pointer">
-                  <input type="radio" name="survey-duration" value="under-24h" class="text-sky-600"> &lt; 24 Hours
+                  <input type="radio" name="survey-duration" value="under-24h" class="text-sky-600"> <span data-i18n="dur_less_24h">&lt; 24 Hours</span>
                 </label>
                 <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs cursor-pointer">
-                  <input type="radio" name="survey-duration" value="1-3-days" checked class="text-sky-600"> 1 to 3 Days
+                  <input type="radio" name="survey-duration" value="1-3-days" checked class="text-sky-600"> <span data-i18n="dur_1_3d">1 to 3 Days</span>
                 </label>
                 <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs cursor-pointer">
-                  <input type="radio" name="survey-duration" value="4-7-days" class="text-sky-600"> 4 to 7 Days
+                  <input type="radio" name="survey-duration" value="4-7-days" class="text-sky-600"> <span data-i18n="dur_4_7d">4 to 7 Days</span>
                 </label>
                 <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs cursor-pointer">
-                  <input type="radio" name="survey-duration" value="over-7-days" class="text-sky-600"> &gt; 7 Days (Chronic)
+                  <input type="radio" name="survey-duration" value="over-7-days" class="text-sky-600"> <span data-i18n="dur_over_1w">&gt; 7 Days (Chronic)</span>
                 </label>
               </div>
             </div>
@@ -378,37 +376,37 @@
             <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
               <div class="flex items-center justify-between mb-2">
                 <label for="survey-age-input" class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                  <i data-lucide="calendar" class="w-4 h-4 text-sky-600"></i> Patient Age (Years)
+                  <i data-lucide="calendar" class="w-4 h-4 text-sky-600"></i> <span data-i18n="patient_age_label">Patient Age (Years)</span>
                 </label>
                 <span id="age-classification-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold">Adult (18-64 yrs)</span>
               </div>
               <input type="number" id="survey-age-input" min="0" max="120" value="28" step="1" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-base font-bold focus:ring-2 focus:ring-sky-500">
-              <p class="text-[11px] text-slate-400 mt-1.5">Children under 12 years receive weight-based pediatric liquid or drop posology.</p>
+              <p class="text-[11px] text-slate-400 mt-1.5" data-i18n="age_hint">Children under 12 years receive weight-based pediatric liquid or drop posology.</p>
             </div>
 
             <!-- Weight Input with Unit Switcher -->
             <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
               <div class="flex items-center justify-between mb-2">
                 <label for="survey-weight-input" class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                  <i data-lucide="scale" class="w-4 h-4 text-emerald-600"></i> Patient Body Weight
+                  <i data-lucide="scale" class="w-4 h-4 text-emerald-600"></i> <span data-i18n="patient_weight_label">Patient Body Weight</span>
                 </label>
                 <button type="button" id="weight-unit-toggle" class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-300 transition-colors">
                   KG
                 </button>
               </div>
               <input type="number" id="survey-weight-input" min="2" max="250" value="65" step="0.5" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-base font-bold focus:ring-2 focus:ring-sky-500">
-              <p class="text-[11px] text-slate-400 mt-1.5">Essential for antipyretics (mg/kg/dose) and antibiotic calculations.</p>
+              <p class="text-[11px] text-slate-400 mt-1.5" data-i18n="weight_hint">Essential for antipyretics (mg/kg/dose) and antibiotic calculations.</p>
             </div>
 
             <!-- Biological Sex & Pregnancy -->
             <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">Biological Sex</label>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2" data-i18n="bio_sex_label">Biological Sex</label>
               <div class="grid grid-cols-2 gap-2.5">
                 <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer text-xs font-semibold">
-                  <input type="radio" name="survey-gender" value="male" checked class="text-sky-600 focus:ring-sky-500"> Male
+                  <input type="radio" name="survey-gender" value="male" checked class="text-sky-600 focus:ring-sky-500"> <span data-i18n="gender_male">Male</span>
                 </label>
                 <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer text-xs font-semibold">
-                  <input type="radio" name="survey-gender" value="female" class="text-sky-600 focus:ring-sky-500"> Female
+                  <input type="radio" name="survey-gender" value="female" class="text-sky-600 focus:ring-sky-500"> <span data-i18n="gender_female">Female</span>
                 </label>
               </div>
               
@@ -416,7 +414,7 @@
               <div id="pregnancy-field" class="mt-3.5 pt-3 border-t border-slate-200 dark:border-slate-700 hidden">
                 <label class="flex items-center gap-2 text-xs font-semibold text-amber-700 dark:text-amber-300 cursor-pointer">
                   <input type="checkbox" id="survey-pregnant-check" class="rounded text-amber-600 focus:ring-amber-500">
-                  <span>Patient is currently pregnant or nursing</span>
+                  <span data-i18n="pregnancy_label">Patient is currently pregnant or nursing</span>
                 </label>
               </div>
             </div>
@@ -424,39 +422,39 @@
             <!-- Known Drug Hypersensitivities -->
             <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
               <label class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mb-2.5">
-                <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500"></i> Known Drug Allergies
+                <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500"></i> <span data-i18n="allergies_label">Known Drug Allergies</span>
               </label>
               <div class="grid grid-cols-2 gap-2 text-xs">
                 <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
-                  <input type="checkbox" name="survey-allergy" value="penicillin" class="rounded text-rose-600"> Penicillin / Amox
+                  <input type="checkbox" name="survey-allergy" value="penicillin" class="rounded text-rose-600"> <span data-i18n="allergy_penicillin">Penicillin / Amox</span>
                 </label>
                 <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
-                  <input type="checkbox" name="survey-allergy" value="nsaid" class="rounded text-rose-600"> NSAIDs / Aspirin
+                  <input type="checkbox" name="survey-allergy" value="nsaid" class="rounded text-rose-600"> <span data-i18n="allergy_nsaid">NSAIDs / Aspirin</span>
                 </label>
                 <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
-                  <input type="checkbox" name="survey-allergy" value="sulfa" class="rounded text-rose-600"> Sulfa Drugs
+                  <input type="checkbox" name="survey-allergy" value="sulfa" class="rounded text-rose-600"> <span data-i18n="allergy_sulfa">Sulfa Drugs</span>
                 </label>
                 <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-900 cursor-pointer">
-                  <input type="checkbox" name="survey-allergy" value="macrolide" class="rounded text-rose-600"> Macrolides
+                  <input type="checkbox" name="survey-allergy" value="macrolide" class="rounded text-rose-600"> <span data-i18n="allergy_macrolide">Macrolides</span>
                 </label>
               </div>
             </div>
 
             <!-- Pre-existing Comorbidities -->
             <div class="col-span-full p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2.5">Pre-existing Organ Dysfunction & Comorbidities</label>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2.5" data-i18n="comorbidities_label">Pre-existing Organ Dysfunction & Comorbidities</label>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
                 <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
-                  <input type="checkbox" name="survey-comorbidity" value="liver" class="rounded text-sky-600"> Liver Cirrhosis
+                  <input type="checkbox" name="survey-comorbidity" value="liver" class="rounded text-sky-600"> <span data-i18n="comorb_liver">Liver Cirrhosis</span>
                 </label>
                 <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
-                  <input type="checkbox" name="survey-comorbidity" value="kidney" class="rounded text-sky-600"> Chronic Kidney (CKD)
+                  <input type="checkbox" name="survey-comorbidity" value="kidney" class="rounded text-sky-600"> <span data-i18n="comorb_kidney">Chronic Kidney (CKD)</span>
                 </label>
                 <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
-                  <input type="checkbox" name="survey-comorbidity" value="ulcer" class="rounded text-sky-600"> Peptic Ulcers / GERD
+                  <input type="checkbox" name="survey-comorbidity" value="ulcer" class="rounded text-sky-600"> <span data-i18n="comorb_ulcer">Peptic Ulcers / GERD</span>
                 </label>
                 <label class="flex items-center gap-2 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-900 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 cursor-pointer">
-                  <input type="checkbox" name="survey-comorbidity" value="asthma" class="rounded text-sky-600"> Bronchial Asthma
+                  <input type="checkbox" name="survey-comorbidity" value="asthma" class="rounded text-sky-600"> <span data-i18n="comorb_asthma">Bronchial Asthma</span>
                 </label>
               </div>
             </div>
@@ -466,10 +464,10 @@
           <!-- Step 2 Footer Navigation -->
           <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <button type="button" id="survey-step-2-back" class="touch-target px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-              <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> <span data-i18n="btn_back">Back</span>
             </button>
             <button type="button" id="survey-step-2-next" class="touch-target px-7 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md hover:shadow-lg transition-all">
-              <span>Calculate Precise Doses & Regimens</span>
+              <span data-i18n="btn_calc_doses">Calculate Precise Doses & Regimens</span>
               <i data-lucide="check" class="w-4 h-4"></i>
             </button>
           </div>
@@ -481,20 +479,20 @@
           
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800 no-print">
             <div>
-              <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+              <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white" data-i18n="step3_page_title">
                 Step 3: Clinical Reference Posology & Monograph
               </h2>
-              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="step3_page_subtitle">
                 Calibrated against evidence-based international reference pharmacopoeias (WHO / BNF).
               </p>
             </div>
 
             <div class="flex items-center gap-2 shrink-0">
               <button type="button" id="survey-print-report-btn" class="touch-target px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors">
-                <i data-lucide="printer" class="w-4 h-4"></i> Print Reference Summary
+                <i data-lucide="printer" class="w-4 h-4"></i> <span data-i18n="btn_print">Print Reference Summary</span>
               </button>
               <button type="button" id="survey-step-3-restart" class="touch-target px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-colors">
-                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> New Survey
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> <span data-i18n="btn_new_survey">New Survey</span>
               </button>
             </div>
           </div>
@@ -507,10 +505,10 @@
           <!-- Step 3 Footer Navigation -->
           <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
             <button type="button" id="survey-step-3-back" class="touch-target px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-              <i data-lucide="arrow-left" class="w-4 h-4"></i> Adjust Vitals & Weight
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> <span data-i18n="btn_adjust_vitals">Adjust Vitals & Weight</span>
             </button>
             <a href="medicines.html" class="touch-target px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-heading font-semibold text-xs sm:text-sm flex items-center justify-center gap-2">
-              <span>Browse All Medicines & Salts</span>
+              <span data-i18n="btn_browse_all_meds">Browse All Medicines & Salts</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
@@ -570,20 +568,20 @@
 
         <!-- Col 4: Emergency Contacts -->
         <div>
-          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3">Emergency Lines</h4>
-          <p class="text-[11px] text-slate-400 mb-2">Emergency Ambulance: <strong>112 / 911</strong></p>
-          <p class="text-[11px] text-slate-400 mb-2">National Poison Control: <strong>1800-222-1222</strong></p>
-          <p class="text-[11px] text-slate-400">HIMKIV Clinical Support: <strong>support@himkivhealth.org</strong></p>
+          <h4 class="font-heading font-bold text-slate-200 text-xs uppercase tracking-wider mb-3" data-i18n="emergency_lines_title">Emergency Lines</h4>
+          <p class="text-[11px] text-slate-400 mb-2"><span data-i18n="emergency_ambulance">Emergency Ambulance:</span> <strong>112 / 911</strong></p>
+          <p class="text-[11px] text-slate-400 mb-2"><span data-i18n="poison_control">National Poison Control:</span> <strong>1800-222-1222</strong></p>
+          <p class="text-[11px] text-slate-400"><span data-i18n="clinical_support">HIMKIV Clinical Support:</span> <strong>support@himkivhealth.org</strong></p>
         </div>
 
       </div>
 
       <!-- Mandatory Medical Disclaimer -->
       <div class="text-[11px] leading-relaxed text-slate-500 text-center max-w-4xl mx-auto space-y-2">
-        <p>
+        <p data-i18n="footer_disclaimer">
           <strong>Clinical Disclaimer:</strong> The content, calculations, drug salts, and dosages provided by HIMKIV MedGuide are intended strictly for educational, informational, and clinical reference purposes. This platform does not constitute the provision of medical diagnoses, professional consultations, or binding prescriptions. Always consult a board-certified physician or licensed pharmacist before administering any medication.
         </p>
-        <p>
+        <p data-i18n="footer_copyright">
           &copy; 2026 HIMKIV Healthcare Technologies. Built according to UI/UX Pro Max clinical specifications. All rights reserved.
         </p>
       </div>
