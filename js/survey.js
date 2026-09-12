@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const t = (k, f = "") => f || k;
+
   // --------------------------------------------------------------------------
   // Theme Toggle (Dark / Light Mode)
   // --------------------------------------------------------------------------
@@ -172,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update Pagination Count and Button
     if (countLabel) {
-      countLabel.textContent = `${t("med_showing", "Showing")} ${visibleList.length} ${t("med_of", "of")} ${totalMatches} ${t("conditions_label", "conditions")}`;
+      countLabel.textContent = `Showing ${visibleList.length} of ${totalMatches} conditions`;
     }
 
     if (showMoreBtn) {
@@ -189,8 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
       diseaseGridContainer.innerHTML = `
         <div class="col-span-full py-12 text-center text-slate-500 dark:text-slate-400">
           <i data-lucide="search-x" class="w-10 h-10 mx-auto mb-3 opacity-50 text-slate-400"></i>
-          <h4 class="font-heading font-semibold text-slate-700 dark:text-slate-300 text-sm">${t("no_conditions_found", "No clinical conditions found")}</h4>
-          <p class="text-xs text-slate-400 mt-1">${t("no_conditions_desc", "Try searching broader symptoms like 'fever', 'cough', 'pain', or reset category filters.")}</p>
+          <h4 class="font-heading font-semibold text-slate-700 dark:text-slate-300 text-sm">No clinical conditions found</h4>
+          <p class="text-xs text-slate-400 mt-1">Try searching broader symptoms like 'fever', 'cough', 'pain', or reset category filters.</p>
         </div>
       `;
       refreshIcons();
@@ -219,8 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
               </span>
             </div>
             ${isSelected 
-              ? `<span class="text-sky-600 dark:text-sky-400 flex items-center gap-1 text-xs font-bold shrink-0"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ${t("btn_selected", "Selected")}</span>` 
-              : `<span class="text-[11px] font-medium text-slate-400 shrink-0">${t("btn_click_to_select", "Click to Select")}</span>`}
+              ? `<span class="text-sky-600 dark:text-sky-400 flex items-center gap-1 text-xs font-bold shrink-0"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selected</span>` 
+              : `<span class="text-[11px] font-medium text-slate-400 shrink-0">Click to Select</span>`}
           </div>
           
           <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base mb-1.5">${disease.name}</h4>
@@ -229,9 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-800/80">
           <div class="flex items-center justify-between mb-1.5 text-[11px]">
-            <span class="font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">${t("clinical_signs_label", "Clinical Signs:")}</span>
+            <span class="font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Clinical Signs:</span>
             ${disease.emergencyFlags && disease.emergencyFlags.length > 0 
-              ? `<span class="text-rose-600 dark:text-rose-400 font-bold text-[10px] flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> ${t("emergency_flags_label", "Emergency Flags")}</span>` 
+              ? `<span class="text-rose-600 dark:text-rose-400 font-bold text-[10px] flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Emergency Flags</span>` 
               : ''}
           </div>
           <div class="flex flex-wrap gap-1">
@@ -360,19 +362,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const badge = document.getElementById("age-classification-badge");
     if (!badge) return;
     if (age < 1) {
-      badge.textContent = t("age_cat_infant", "Infant (< 1 yr)");
+      badge.textContent = "Infant (< 1 yr)";
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 font-semibold";
     } else if (age < 12) {
-      badge.textContent = t("age_cat_pediatric", "Pediatric (1 - 11 yrs)");
+      badge.textContent = "Pediatric (1 - 11 yrs)";
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 font-semibold";
     } else if (age < 18) {
-      badge.textContent = t("age_cat_adolescent", "Adolescent (12 - 17 yrs)");
+      badge.textContent = "Adolescent (12 - 17 yrs)";
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 font-semibold";
     } else if (age < 65) {
-      badge.textContent = t("age_cat_adult", "Adult (18 - 64 yrs)");
+      badge.textContent = "Adult (18 - 64 yrs)";
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-semibold";
     } else {
-      badge.textContent = t("age_cat_geriatric", "Geriatric (65+ yrs)");
+      badge.textContent = "Geriatric (65+ yrs)";
       badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 font-semibold";
     }
   };

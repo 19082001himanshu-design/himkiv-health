@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const t = (k, f = "") => f || k;
+
   // --------------------------------------------------------------------------
   // Theme Toggle (Dark / Light Mode)
   // --------------------------------------------------------------------------
@@ -240,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const visibleMatches = filtered.slice(0, currentPageLimit);
 
     if (resultCountLabel) {
-      resultCountLabel.textContent = `${t("med_showing", "Showing")} ${visibleMatches.length} ${t("med_of", "of")} ${totalMatches} ${t("med_compounds", "medicines")}`;
+      resultCountLabel.textContent = `Showing ${visibleMatches.length} of ${totalMatches} medicines`;
     }
 
     // Show More (+6) Button Visibility
@@ -260,9 +262,9 @@ document.addEventListener("DOMContentLoaded", () => {
       resultsGrid.innerHTML = `
         <div class="col-span-full py-16 text-center text-slate-400 dark:text-slate-500">
           <i data-lucide="flask-conical-off" class="w-12 h-12 mx-auto mb-3 opacity-40 text-slate-400"></i>
-          <h3 class="text-base font-heading font-bold text-slate-700 dark:text-slate-300">${t("no_medicines_found", "No matching medicines found")}</h3>
+          <h3 class="text-base font-heading font-bold text-slate-700 dark:text-slate-300">No matching medicines found</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
-            ${t("no_medicines_desc", "Try searching for another brand name, active salt, or condition (e.g. 'Oseltamivir', 'Influenza', 'Paracetamol', 'Dengue').")}
+            Try searching for another brand name, active salt, or condition (e.g. 'Oseltamivir', 'Influenza', 'Paracetamol', 'Dengue').
           </p>
         </div>
       `;
@@ -289,14 +291,14 @@ document.addEventListener("DOMContentLoaded", () => {
             ${med.activeIngredient}
           </h3>
           <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 line-clamp-1">
-            <strong class="text-slate-700 dark:text-slate-300 font-semibold">${t("label_related_condition", "Related Condition:")}</strong> 
+            <strong class="text-slate-700 dark:text-slate-300 font-semibold">Related Condition:</strong> 
             <span class="text-indigo-600 dark:text-indigo-400 font-medium">${med.condition}</span>
           </p>
 
           <!-- General Medical Role -->
           <div class="mb-4">
             <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-              ${t("label_medical_role", "General Medical Role:")}
+              General Medical Role:
             </span>
             <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
               ${med.generalMedicalRole}
@@ -307,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="mb-5 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs">
             <div class="flex items-center gap-1.5 mb-1 font-bold text-[11px] uppercase tracking-wide text-amber-800 dark:text-amber-300">
               <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
-              <span>${t("label_safety_note", "Clinical Safety Guidance:")}</span>
+              <span>Clinical Safety Guidance:</span>
             </div>
             <p class="text-[11px] leading-relaxed font-medium pl-5">${med.safetyNote}</p>
           </div>
@@ -316,12 +318,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <!-- Card Footer -->
         <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 mt-auto">
           <div class="text-xs">
-            <span class="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">${t("label_source", "Source")}</span>
-            <span class="font-semibold text-slate-600 dark:text-slate-400 text-[11px]">${t("source_hkare", "HKare Reference Dataset")}</span>
+            <span class="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Source</span>
+            <span class="font-semibold text-slate-600 dark:text-slate-400 text-[11px]">HKare Reference Dataset</span>
           </div>
           
           <button type="button" class="view-med-modal-btn touch-target px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer" data-med-id="${med.id}">
-            <span>${t("btn_inspect_reference", "Inspect Reference")}</span>
+            <span>Inspect Reference</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </button>
         </div>
@@ -426,7 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="mb-6 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs">
         <div class="flex items-center gap-2 mb-1.5 font-bold uppercase tracking-wide text-amber-800 dark:text-amber-300">
           <i data-lucide="shield-alert" class="w-4 h-4 text-amber-600 shrink-0"></i>
-          <span>${t("label_safety_note", "Clinical Safety Guidance:")}</span>
+          <span>Clinical Safety Guidance:</span>
         </div>
         <p class="text-xs leading-relaxed font-semibold pl-6">${med.safetyNote}</p>
       </div>
@@ -434,7 +436,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <!-- Primary Indication & Related Problem -->
       <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
         <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="stethoscope" class="w-4 h-4 text-indigo-600"></i> ${t("label_related_condition", "Related Clinical Condition:")}
+          <i data-lucide="stethoscope" class="w-4 h-4 text-indigo-600"></i> Related Clinical Condition:
         </h4>
         <p class="text-sm font-bold text-indigo-700 dark:text-indigo-300 mb-1">${med.condition}</p>
         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${med.generalMedicalRole}</p>
