@@ -157,16 +157,60 @@ document.addEventListener("DOMContentLoaded", () => {
       return dCatSlug === category || dCat === category;
     });
 
-    // Search Query Filter
+    // Search Query Filter with Priority Scoring & ID Matching
     if (query) {
-      filtered = filtered.filter(d => {
-        const matchName = (d.name || "").toLowerCase().includes(query);
-        const matchIcd = (d.icd11Code || "").toLowerCase().includes(query);
-        const matchSymp = (d.symptoms || []).some(s => s.toLowerCase().includes(query));
-        const matchCat = (d.category || "").toLowerCase().includes(query);
-        const matchDesc = (d.description || "").toLowerCase().includes(query);
-        return matchName || matchIcd || matchSymp || matchCat || matchDesc;
+      const qClean = query.replace(/[^\w\s]/g, " ").trim().toLowerCase();
+      const qWords = qClean.split(/\s+/).filter(w => w.length > 1 && !["and", "the", "for", "with", "in"].includes(w));
+      const scored = [];
+
+      filtered.forEach(d => {
+        const id = (d.id || "").toLowerCase();
+        const name = (d.name || "").toLowerCase();
+        const icd = (d.icd11Code || "").toLowerCase();
+        const cat = (d.category || "").toLowerCase();
+        const desc = (d.description || "").toLowerCase();
+        const symps = (d.symptoms || []).map(s => s.toLowerCase());
+
+        let score = 0;
+
+        // Exact match on ID or Name
+        if (id === query || id === qClean.replace(/\s+/g, "-")) score = Math.max(score, 120);
+        else if (name === query || name === qClean) score = Math.max(score, 110);
+        else if (id.startsWith(query) || name.startsWith(query) || name.startsWith(qClean)) score = Math.max(score, 95);
+        else if (id.includes(query) || name.includes(query) || name.includes(qClean)) score = Math.max(score, 85);
+        else if (icd === query) score = Math.max(score, 80);
+
+        // Word matches in name or id
+        if (qWords.length > 0) {
+          const matchedWords = qWords.filter(w => name.includes(w) || id.includes(w));
+          if (matchedWords.length === qWords.length) {
+            score = Math.max(score, 80 + matchedWords.length * 5);
+          } else if (matchedWords.length > 0) {
+            score = Math.max(score, 50 + matchedWords.length * 5);
+          }
+        }
+
+        // Symptoms match
+        const matchingSymps = symps.filter(s => s.includes(query) || (qWords.length > 0 && qWords.some(w => s.includes(w))));
+        if (matchingSymps.length > 0) {
+          score = Math.max(score, 40 + matchingSymps.length * 3);
+        }
+
+        // Category or Description match
+        if (cat.includes(query) || (d.categorySlug || "").toLowerCase().includes(query)) score = Math.max(score, 30);
+        if (desc.includes(query)) score = Math.max(score, 20);
+
+        if (score > 0) {
+          scored.push({ item: d, score });
+        }
       });
+
+      scored.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.item.name.localeCompare(b.item.name);
+      });
+
+      filtered = scored.map(s => s.item);
     }
 
     const totalMatches = filtered.length;
@@ -679,11 +723,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Find all medicines associated with this condition
     const allMeds = CLINICAL_DATA.medicineReferences || [];
-    let linkedMeds = allMeds.filter(m => 
-      m.conditionId === disease.id || 
-      m.condition.toLowerCase() === disease.name.toLowerCase() ||
-      (disease.medicineIds || []).includes(m.id)
-    );
+    let linkedMeds = allMeds.filter(m => {
+      if (!m) return false;
+      const mCondId = (m.conditionId || "").toLowerCase();
+      const dId = (disease.id || "").toLowerCase();
+      if (mCondId === dId) return true;
+      if (Array.isArray(m.conditionIds) && m.conditionIds.some(cid => cid.toLowerCase() === dId)) return true;
+      if (m.condition && disease.name && m.condition.toLowerCase() === disease.name.toLowerCase()) return true;
+      if (disease.medicineIds) {
+        if (Array.isArray(disease.medicineIds)) return disease.medicineIds.includes(m.id);
+        if (typeof disease.medicineIds === "string") return disease.medicineIds.split(",").map(x => x.trim()).includes(m.id);
+      }
+      return false;
+    });
 
     // Fallback to legacy salts if no HKare medicines
     if (linkedMeds.length === 0 && disease.firstLineSalts) {

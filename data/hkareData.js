@@ -8,8 +8,8 @@ const HKARE_DATA = {
   "meta": {
     "fileName": "HKare_Common_Disease_Medicine_Reference(1).csv",
     "sourceType": "HKare Reference Dataset",
-    "totalRows": 200,
-    "uniqueConditions": 136,
+    "totalRows": 217,
+    "uniqueConditions": 140,
     "uniqueCategories": 18,
     "importDate": "2026-09-12",
     "standard": "WHO ICD-11 MMS (2026-01 Release)"
@@ -188,7 +188,9 @@ const HKARE_DATA = {
         "Severe fatigue"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_influenza_oseltamivir_1",
+      "medicineIds": [
+        "hkare_influenza_oseltamivir_1"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -216,7 +218,9 @@ const HKARE_DATA = {
         "Cyanosis of lips/face",
         "Persistent chest pain"
       ],
-      "medicineIds": "hkare_covid-19_nirmatrelvir-ritonavir_2",
+      "medicineIds": [
+        "hkare_covid-19_nirmatrelvir-ritonavir_2"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -239,7 +243,10 @@ const HKARE_DATA = {
         "Low-grade fever"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_tuberculosis_rifampicin-isoniazid-pyrazinamide-ethambutol_3",
+      "medicineIds": [
+        "hkare_tuberculosis_rifampicin-isoniazid-pyrazinamide-ethambutol_3",
+        "hkare_tb_bedaquiline_193"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -262,7 +269,9 @@ const HKARE_DATA = {
         "Nausea"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_malaria_artemether-lumefantrine_4",
+      "medicineIds": [
+        "hkare_malaria_artemether-lumefantrine_4"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -290,7 +299,9 @@ const HKARE_DATA = {
         "Mucosal bleeding (epistaxis/gums)",
         "Extreme lethargy / Hypotension"
       ],
-      "medicineIds": "hkare_dengue_paracetamol_5",
+      "medicineIds": [
+        "hkare_dengue_paracetamol_5"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -313,7 +324,9 @@ const HKARE_DATA = {
         "Headache"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_typhoid-fever_ceftriaxone-azithromycin_6",
+      "medicineIds": [
+        "hkare_typhoid-fever_ceftriaxone-azithromycin_6"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -341,7 +354,9 @@ const HKARE_DATA = {
         "Anuria",
         "Sunken eyes with absent skin turgor"
       ],
-      "medicineIds": "hkare_cholera_doxycycline-azithromycin_7",
+      "medicineIds": [
+        "hkare_cholera_doxycycline-azithromycin_7"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -364,7 +379,9 @@ const HKARE_DATA = {
         "Conjunctivitis"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_measles_vitamin-a_8",
+      "medicineIds": [
+        "hkare_measles_vitamin-a_8"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -387,7 +404,9 @@ const HKARE_DATA = {
         "Malaise"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_mumps_paracetamol_9",
+      "medicineIds": [
+        "hkare_mumps_paracetamol_9"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -410,7 +429,9 @@ const HKARE_DATA = {
         "Eye redness"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_rubella_paracetamol_10",
+      "medicineIds": [
+        "hkare_rubella_paracetamol_10"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -433,7 +454,9 @@ const HKARE_DATA = {
         "Headache"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_chickenpox_acyclovir_11",
+      "medicineIds": [
+        "hkare_chickenpox_acyclovir_11"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -456,7 +479,9 @@ const HKARE_DATA = {
         "Tingling"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_shingles_acyclovir-valaciclovir_12",
+      "medicineIds": [
+        "hkare_shingles_acyclovir-valaciclovir_12"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -479,7 +504,9 @@ const HKARE_DATA = {
         "Clay-colored stools"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hepatitis-b_tenofovir-disoproxil-fumarate_13",
+      "medicineIds": [
+        "hkare_hepatitis-b_tenofovir-disoproxil-fumarate_13"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -502,7 +529,9 @@ const HKARE_DATA = {
         "Loss of appetite"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hepatitis-c_sofosbuvir-velpatasvir_14",
+      "medicineIds": [
+        "hkare_hepatitis-c_sofosbuvir-velpatasvir_14"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -525,7 +554,10 @@ const HKARE_DATA = {
         "Fever"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hiv-infection_tenofovir-lamivudine-dolutegravir_15",
+      "medicineIds": [
+        "hkare_hiv-infection_tenofovir-lamivudine-dolutegravir_15",
+        "hkare_hiv_biktarvy_194"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -553,7 +585,9 @@ const HKARE_DATA = {
         "Rapidly progressive encephalitis",
         "Agitation"
       ],
-      "medicineIds": "hkare_rabies_rabies-vaccine-rabies-immunoglobulin_16",
+      "medicineIds": [
+        "hkare_rabies_rabies-vaccine-rabies-immunoglobulin_16"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -580,7 +614,9 @@ const HKARE_DATA = {
         "Autonomic instability (severe BP fluctuations)",
         "Opisthotonos"
       ],
-      "medicineIds": "hkare_tetanus_tetanus-toxoid-vaccine-tetanus-immunoglobulin_17",
+      "medicineIds": [
+        "hkare_tetanus_tetanus-toxoid-vaccine-tetanus-immunoglobulin_17"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -608,7 +644,9 @@ const HKARE_DATA = {
         "Altered consciousness / Coma",
         "Seizures"
       ],
-      "medicineIds": "hkare_bacterial-meningitis_ceftriaxone_18",
+      "medicineIds": [
+        "hkare_bacterial-meningitis_ceftriaxone_18"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -631,7 +669,11 @@ const HKARE_DATA = {
         "Tachypnea"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_pneumococcal-pneumonia_amoxicillin_19",
+      "medicineIds": [
+        "hkare_pneumococcal-pneumonia_amoxicillin_19",
+        "hkare_pneumococcal-pneumonia_cefpodoxime_153",
+        "hkare_pneumococcal-pneumonia_doxycycline_154"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -653,7 +695,11 @@ const HKARE_DATA = {
         "Excoriations"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_scabies_permethrin_20",
+      "medicineIds": [
+        "hkare_scabies_permethrin_20",
+        "hkare_anthelmintic_albendazole_190",
+        "hkare_anthelmintic_ivermectin_191"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -678,7 +724,8 @@ const HKARE_DATA = {
       "emergencyFlags": {},
       "medicineIds": [
         "hkare_asthma_salbutamol_21",
-        "hkare_asthma_budesonide_22"
+        "hkare_asthma_budesonide_22",
+        "hkare_asthma_montelukast_151"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -701,7 +748,9 @@ const HKARE_DATA = {
         "Frequent respiratory infections"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_copd_tiotropium_23",
+      "medicineIds": [
+        "hkare_copd_tiotropium_23"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -726,7 +775,8 @@ const HKARE_DATA = {
       "emergencyFlags": {},
       "medicineIds": [
         "hkare_allergic-rhinitis_cetirizine_24",
-        "hkare_allergic-rhinitis_fluticasone_25"
+        "hkare_allergic-rhinitis_fluticasone_25",
+        "hkare_allergic-rhinitis_levocetirizine_150"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -749,7 +799,9 @@ const HKARE_DATA = {
         "Low-grade fever"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_acute-bronchitis_paracetamol_26",
+      "medicineIds": [
+        "hkare_acute-bronchitis_paracetamol_26"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -771,7 +823,9 @@ const HKARE_DATA = {
         "Digital clubbing"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_pulmonary-fibrosis_nintedanib_27",
+      "medicineIds": [
+        "hkare_pulmonary-fibrosis_nintedanib_27"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -793,7 +847,9 @@ const HKARE_DATA = {
         "Morning dry mouth"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_sleep-apnea_cpap_28",
+      "medicineIds": [
+        "hkare_sleep-apnea_cpap_28"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -819,7 +875,10 @@ const HKARE_DATA = {
       "medicineIds": [
         "hkare_hypertension_enalapril_29",
         "hkare_hypertension_amlodipine_30",
-        "hkare_hypertension_indapamide_31"
+        "hkare_hypertension_indapamide_31",
+        "hkare_hypertension_amlodipine-besylate_139",
+        "hkare_hypertension_ramipril_140",
+        "hkare_hypertension_losartan_141"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -848,7 +907,9 @@ const HKARE_DATA = {
       ],
       "medicineIds": [
         "hkare_heart-failure_enalapril_32",
-        "hkare_heart-failure_bisoprolol_33"
+        "hkare_heart-failure_bisoprolol_33",
+        "hkare_heart-failure_spironolactone_142",
+        "hkare_heart-failure_furosemide_143"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -872,7 +933,10 @@ const HKARE_DATA = {
         "Fatigue"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_atrial-fibrillation_apixaban_34",
+      "medicineIds": [
+        "hkare_atrial-fibrillation_apixaban_34",
+        "hkare_atrial-fibrillation_digoxin_144"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -894,7 +958,13 @@ const HKARE_DATA = {
         "Relief upon rest"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_coronary-artery-disease_aspirin_35",
+      "medicineIds": [
+        "hkare_coronary-artery-disease_aspirin_35",
+        "hkare_coronary-artery-disease_aspirin-antiplatelet_132",
+        "hkare_coronary-artery-disease_clopidogrel_133",
+        "hkare_coronary-artery-disease_prasugrel_134",
+        "hkare_coronary-artery-disease_ticagrelor_135"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -915,7 +985,11 @@ const HKARE_DATA = {
         "Xanthelasma / tendon xanthomas in severe familial cases"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_high-ldl-cholesterol_atorvastatin_36",
+      "medicineIds": [
+        "hkare_high-ldl-cholesterol_atorvastatin_36",
+        "hkare_high-ldl-cholesterol_atorvastatin-calcium_136",
+        "hkare_high-ldl-cholesterol_rosuvastatin_137"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -940,7 +1014,11 @@ const HKARE_DATA = {
         "Radiating to jaw/neck/both arms",
         "Diaphoresis and vomiting"
       ],
-      "medicineIds": "hkare_angina_glyceryl-trinitrate_37",
+      "medicineIds": [
+        "hkare_angina_glyceryl-trinitrate_37",
+        "hkare_angina_metoprolol_138",
+        "hkare_angina_glyceryl-trinitrate-sublingual_145"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -965,7 +1043,9 @@ const HKARE_DATA = {
         "Sudden severe leg edema with cyanosis",
         "Acute shortness of breath (PE migration)"
       ],
-      "medicineIds": "hkare_deep-vein-thrombosis_apixaban_38",
+      "medicineIds": [
+        "hkare_deep-vein-thrombosis_apixaban_38"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -993,7 +1073,9 @@ const HKARE_DATA = {
         "Syncope / Hypotension",
         "Severe hypoxia"
       ],
-      "medicineIds": "hkare_pulmonary-embolism_apixaban_39",
+      "medicineIds": [
+        "hkare_pulmonary-embolism_apixaban_39"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1016,7 +1098,9 @@ const HKARE_DATA = {
         "Diabetic ketoacidosis signs"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_type-1-diabetes_human-insulin-insulin-analogues_40",
+      "medicineIds": [
+        "hkare_type-1-diabetes_human-insulin-insulin-analogues_40"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1041,7 +1125,9 @@ const HKARE_DATA = {
       "emergencyFlags": {},
       "medicineIds": [
         "hkare_type-2-diabetes_metformin_41",
-        "hkare_type-2-diabetes_empagliflozin_42"
+        "hkare_type-2-diabetes_empagliflozin_42",
+        "hkare_type-2-diabetes_metformin_146",
+        "hkare_type-2-diabetes_dapagliflozin_147"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -1065,7 +1151,9 @@ const HKARE_DATA = {
         "Dry skin and brittle hair"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hypothyroidism_levothyroxine_43",
+      "medicineIds": [
+        "hkare_hypothyroidism_levothyroxine_43"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1087,7 +1175,9 @@ const HKARE_DATA = {
         "Fine hand tremors"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hyperthyroidism_methimazole_44",
+      "medicineIds": [
+        "hkare_hyperthyroidism_methimazole_44"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1110,7 +1200,9 @@ const HKARE_DATA = {
         "Anxiety"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_graves-disease_methimazole_45",
+      "medicineIds": [
+        "hkare_graves-disease_methimazole_45"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1132,7 +1224,9 @@ const HKARE_DATA = {
         "Salt cravings"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_adrenal-insufficiency_hydrocortisone_46",
+      "medicineIds": [
+        "hkare_adrenal-insufficiency_hydrocortisone_46"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1154,7 +1248,9 @@ const HKARE_DATA = {
         "Hypersensitivity to touch"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_gout_allopurinol_47",
+      "medicineIds": [
+        "hkare_gout_allopurinol_47"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1200,7 +1296,9 @@ const HKARE_DATA = {
         "Elevated lipid panel markers"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hypercholesterolemia_rosuvastatin_49",
+      "medicineIds": [
+        "hkare_hypercholesterolemia_rosuvastatin_49"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1223,7 +1321,12 @@ const HKARE_DATA = {
         "Dysphagia"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_gerd_omeprazole_50",
+      "medicineIds": [
+        "hkare_gerd_omeprazole_50",
+        "hkare_gerd_rabeprazole_148",
+        "hkare_gerd_ondansetron_149",
+        "hkare_gerd_pantoprazole_201"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1244,7 +1347,9 @@ const HKARE_DATA = {
         "Nighttime awakening with pain"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_peptic-ulcer-disease_omeprazole_51",
+      "medicineIds": [
+        "hkare_peptic-ulcer-disease_omeprazole_51"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1267,7 +1372,9 @@ const HKARE_DATA = {
         "Acid taste"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_h-pylori-infection_amoxicillin-clarithromycin-omeprazole_52",
+      "medicineIds": [
+        "hkare_h-pylori-infection_amoxicillin-clarithromycin-omeprazole_52"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1289,7 +1396,9 @@ const HKARE_DATA = {
         "Dehydration signs"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_nausea-vomiting_ondansetron_53",
+      "medicineIds": [
+        "hkare_nausea-vomiting_ondansetron_53"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1310,7 +1419,9 @@ const HKARE_DATA = {
         "Bloating and tenesmus"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_irritable-bowel-syndrome_mebeverine_54",
+      "medicineIds": [
+        "hkare_irritable-bowel-syndrome_mebeverine_54"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1333,7 +1444,9 @@ const HKARE_DATA = {
         "Fever"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_inflammatory-bowel-disease_mesalazine_55",
+      "medicineIds": [
+        "hkare_inflammatory-bowel-disease_mesalazine_55"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1355,7 +1468,9 @@ const HKARE_DATA = {
         "Weight loss"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_crohn-disease_infliximab_56",
+      "medicineIds": [
+        "hkare_crohn-disease_infliximab_56"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1377,7 +1492,9 @@ const HKARE_DATA = {
         "Lower abdominal cramping"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_ulcerative-colitis_mesalazine_57",
+      "medicineIds": [
+        "hkare_ulcerative-colitis_mesalazine_57"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1399,7 +1516,9 @@ const HKARE_DATA = {
         "Abdominal distention"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_constipation_polyethylene-glycol_58",
+      "medicineIds": [
+        "hkare_constipation_polyethylene-glycol_58"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1422,7 +1541,13 @@ const HKARE_DATA = {
         "Nausea"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_diarrhea_loperamide_59",
+      "medicineIds": [
+        "hkare_diarrhea_loperamide_59",
+        "hkare_diarrhea_ors_205",
+        "hkare_diarrhea_zinc-sulfate_206",
+        "hkare_diarrhea_racecadotril_207",
+        "hkare_diarrhea_ofloxacin-ornidazole_208"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1444,7 +1569,9 @@ const HKARE_DATA = {
         "Discomfort sitting"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hemorrhoids_hydrocortisone_60",
+      "medicineIds": [
+        "hkare_hemorrhoids_hydrocortisone_60"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1470,7 +1597,9 @@ const HKARE_DATA = {
         "Hemodynamic collapse",
         "Cullen or Grey-Turner signs"
       ],
-      "medicineIds": "hkare_pancreatitis_analgesics-iv-fluids_61",
+      "medicineIds": [
+        "hkare_pancreatitis_analgesics-iv-fluids_61"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1492,7 +1621,9 @@ const HKARE_DATA = {
         "Spider angiomas in advanced stages"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_chronic-hepatitis-c_glecaprevir-pibrentasvir_62",
+      "medicineIds": [
+        "hkare_chronic-hepatitis-c_glecaprevir-pibrentasvir_62"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1515,7 +1646,9 @@ const HKARE_DATA = {
         "Peripheral edema"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_cirrhosis_spironolactone_63",
+      "medicineIds": [
+        "hkare_cirrhosis_spironolactone_63"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1538,7 +1671,9 @@ const HKARE_DATA = {
         "Slurred speech"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hepatic-encephalopathy_lactulose_64",
+      "medicineIds": [
+        "hkare_hepatic-encephalopathy_lactulose_64"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1560,7 +1695,9 @@ const HKARE_DATA = {
         "Cloudy foul-smelling urine"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_urinary-tract-infection_nitrofurantoin_65",
+      "medicineIds": [
+        "hkare_urinary-tract-infection_nitrofurantoin_65"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1582,7 +1719,9 @@ const HKARE_DATA = {
         "Dysuria and hematuria"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_kidney-infection_ceftriaxone_66",
+      "medicineIds": [
+        "hkare_kidney-infection_ceftriaxone_66"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1603,7 +1742,10 @@ const HKARE_DATA = {
         "Nausea and restlessness"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_kidney-stones_tamsulosin_67",
+      "medicineIds": [
+        "hkare_kidney-stones_tamsulosin_67",
+        "hkare_nephritis_tamsulosin_171"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1627,7 +1769,9 @@ const HKARE_DATA = {
         "Foamy urine"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_chronic-kidney-disease_enalapril_68",
+      "medicineIds": [
+        "hkare_chronic-kidney-disease_enalapril_68"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1648,7 +1792,9 @@ const HKARE_DATA = {
         "Nocturia waking >= 2 times"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_overactive-bladder_oxybutynin_69",
+      "medicineIds": [
+        "hkare_overactive-bladder_oxybutynin_69"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1720,7 +1866,9 @@ const HKARE_DATA = {
         "Postural instability / shuffling gait"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_parkinson-disease_levodopa-carbidopa_74",
+      "medicineIds": [
+        "hkare_parkinson-disease_levodopa-carbidopa_74"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1742,7 +1890,9 @@ const HKARE_DATA = {
         "Aphasia / word-finding difficulty"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_alzheimer-disease_donepezil_75",
+      "medicineIds": [
+        "hkare_alzheimer-disease_donepezil_75"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1764,7 +1914,9 @@ const HKARE_DATA = {
         "Ataxia and paresthesia"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_multiple-sclerosis_interferon-beta-1a_76",
+      "medicineIds": [
+        "hkare_multiple-sclerosis_interferon-beta-1a_76"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1786,7 +1938,9 @@ const HKARE_DATA = {
         "Numbness and tingling"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_neuropathic-pain_gabapentin_77",
+      "medicineIds": [
+        "hkare_neuropathic-pain_gabapentin_77"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1807,7 +1961,9 @@ const HKARE_DATA = {
         "Brief stabbing episodes"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_trigeminal-neuralgia_carbamazepine_78",
+      "medicineIds": [
+        "hkare_trigeminal-neuralgia_carbamazepine_78"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1829,7 +1985,9 @@ const HKARE_DATA = {
         "Fatigue and feelings of worthlessness"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_depressive-disorder_sertraline_79",
+      "medicineIds": [
+        "hkare_depressive-disorder_sertraline_79"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1852,7 +2010,9 @@ const HKARE_DATA = {
         "Irritability"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_anxiety-disorder_escitalopram_80",
+      "medicineIds": [
+        "hkare_anxiety-disorder_escitalopram_80"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1872,7 +2032,9 @@ const HKARE_DATA = {
         "Repetitive ritualistic behaviors (compulsions) to relieve anxiety"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_obsessive-compulsive-disorder_fluoxetine_81",
+      "medicineIds": [
+        "hkare_obsessive-compulsive-disorder_fluoxetine_81"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1894,7 +2056,9 @@ const HKARE_DATA = {
         "Sense of impending doom"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_panic-disorder_sertraline_82",
+      "medicineIds": [
+        "hkare_panic-disorder_sertraline_82"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1916,7 +2080,9 @@ const HKARE_DATA = {
         "Restlessness"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_adhd_methylphenidate_83",
+      "medicineIds": [
+        "hkare_adhd_methylphenidate_83"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1939,7 +2105,8 @@ const HKARE_DATA = {
       "emergencyFlags": {},
       "medicineIds": [
         "hkare_acne_adapalene_84",
-        "hkare_acne_benzoyl-peroxide_85"
+        "hkare_acne_benzoyl-peroxide_85",
+        "hkare_acne_tretinoin_198"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -1962,7 +2129,9 @@ const HKARE_DATA = {
         "Xerosis (dry skin)"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_eczema_hydrocortisone_86",
+      "medicineIds": [
+        "hkare_eczema_hydrocortisone_86"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -1984,7 +2153,9 @@ const HKARE_DATA = {
         "Extensor predilection"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_psoriasis_betamethasone_87",
+      "medicineIds": [
+        "hkare_psoriasis_betamethasone_87"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2006,7 +2177,10 @@ const HKARE_DATA = {
         "Maceration between toes"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_fungal-skin-infection_clotrimazole_88",
+      "medicineIds": [
+        "hkare_fungal-skin-infection_clotrimazole_88",
+        "hkare_antifungal_voriconazole_192"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2027,7 +2201,9 @@ const HKARE_DATA = {
         "Pustules and folliculitis"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_bacterial-skin-infection_mupirocin_89",
+      "medicineIds": [
+        "hkare_bacterial-skin-infection_mupirocin_89"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2049,7 +2225,9 @@ const HKARE_DATA = {
         "Lesions resolve within 24h"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_urticaria_cetirizine_90",
+      "medicineIds": [
+        "hkare_urticaria_cetirizine_90"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2070,7 +2248,10 @@ const HKARE_DATA = {
         "Common on periorificial areas and dorsal hands"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_vitiligo_tacrolimus_91",
+      "medicineIds": [
+        "hkare_vitiligo_tacrolimus_91",
+        "hkare_dermatology_tacrolimus-topical_197"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2092,7 +2273,10 @@ const HKARE_DATA = {
         "Bony enlargement (Heberden nodes)"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_osteoarthritis_paracetamol_92",
+      "medicineIds": [
+        "hkare_osteoarthritis_paracetamol_92",
+        "hkare_osteoarthritis_aceclofenac_152"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2116,7 +2300,8 @@ const HKARE_DATA = {
       "emergencyFlags": {},
       "medicineIds": [
         "hkare_rheumatoid-arthritis_methotrexate_93",
-        "hkare_rheumatoid-arthritis_methotrexate_125"
+        "hkare_rheumatoid-arthritis_methotrexate_125",
+        "hkare_autoimmune_methotrexate_196"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -2139,7 +2324,9 @@ const HKARE_DATA = {
         "Chest expansion limitation"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_ankylosing-spondylitis_naproxen_95",
+      "medicineIds": [
+        "hkare_ankylosing-spondylitis_naproxen_95"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2160,7 +2347,9 @@ const HKARE_DATA = {
         "Rapid onset over hours, often nighttime"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_gout-flare_naproxen_96",
+      "medicineIds": [
+        "hkare_gout-flare_naproxen_96"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2182,7 +2371,9 @@ const HKARE_DATA = {
         "Cognitive fog"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_fibromyalgia_duloxetine_97",
+      "medicineIds": [
+        "hkare_fibromyalgia_duloxetine_97"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2203,7 +2394,10 @@ const HKARE_DATA = {
         "Acute angle closure: severe ocular pain, headache, halos around lights"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_glaucoma_latanoprost_98",
+      "medicineIds": [
+        "hkare_glaucoma_latanoprost_98",
+        "hkare_eye_latanoprost_200"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2225,7 +2419,9 @@ const HKARE_DATA = {
         "Crusting of eyelashes upon waking"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_conjunctivitis_artificial-tears_99",
+      "medicineIds": [
+        "hkare_conjunctivitis_artificial-tears_99"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2247,7 +2443,9 @@ const HKARE_DATA = {
         "Periorbital dark circles"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_allergic-conjunctivitis_olopatadine_100",
+      "medicineIds": [
+        "hkare_allergic-conjunctivitis_olopatadine_100"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2269,7 +2467,9 @@ const HKARE_DATA = {
         "Fluctuating vision exacerbated by screen use"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_dry-eye-disease_carboxymethylcellulose_101",
+      "medicineIds": [
+        "hkare_dry-eye-disease_carboxymethylcellulose_101"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2290,7 +2490,9 @@ const HKARE_DATA = {
         "Erythema and purulent otorrhea"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_otitis-externa_ciprofloxacin-dexamethasone_102",
+      "medicineIds": [
+        "hkare_otitis-externa_ciprofloxacin-dexamethasone_102"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2312,7 +2514,9 @@ const HKARE_DATA = {
         "Fever in pediatric patients"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_otitis-media_paracetamol-amoxicillin_103",
+      "medicineIds": [
+        "hkare_otitis-media_paracetamol-amoxicillin_103"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2334,7 +2538,9 @@ const HKARE_DATA = {
         "Dyschezia during menses"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_endometriosis_levonorgestrel_104",
+      "medicineIds": [
+        "hkare_endometriosis_levonorgestrel_104"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2356,7 +2562,9 @@ const HKARE_DATA = {
         "Polycystic ovarian morphology"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_pcos_metformin_105",
+      "medicineIds": [
+        "hkare_pcos_metformin_105"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2378,7 +2586,9 @@ const HKARE_DATA = {
         "Sensation of incomplete bladder emptying"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_benign-prostatic-hyperplasia_tamsulosin_106",
+      "medicineIds": [
+        "hkare_benign-prostatic-hyperplasia_tamsulosin_106"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2398,7 +2608,9 @@ const HKARE_DATA = {
         "Reduced libido"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_erectile-dysfunction_sildenafil_107",
+      "medicineIds": [
+        "hkare_erectile-dysfunction_sildenafil_107"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2424,7 +2636,9 @@ const HKARE_DATA = {
         "Tubo-ovarian abscess signs",
         "Septic signs"
       ],
-      "medicineIds": "hkare_pelvic-inflammatory-disease_ceftriaxone-doxycycline-metronidazole_108",
+      "medicineIds": [
+        "hkare_pelvic-inflammatory-disease_ceftriaxone-doxycycline-metronidazole_108"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2447,7 +2661,10 @@ const HKARE_DATA = {
         "Pica (craving ice/clay)"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_iron-deficiency-anemia_ferrous-sulfate_109",
+      "medicineIds": [
+        "hkare_iron-deficiency-anemia_ferrous-sulfate_109",
+        "hkare_hematology_ferrous-ascorbate_199"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2469,7 +2686,9 @@ const HKARE_DATA = {
         "Glossitis"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_vitamin-b12-deficiency_cyanocobalamin_110",
+      "medicineIds": [
+        "hkare_vitamin-b12-deficiency_cyanocobalamin_110"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2490,7 +2709,9 @@ const HKARE_DATA = {
         "Absence of neurological symptoms (unlike B12)"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_folate-deficiency_folic-acid_111",
+      "medicineIds": [
+        "hkare_folate-deficiency_folic-acid_111"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2512,7 +2733,9 @@ const HKARE_DATA = {
         "Target joint arthropathy"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_hemophilia-a_factor-viii_112",
+      "medicineIds": [
+        "hkare_hemophilia-a_factor-viii_112"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2534,7 +2757,9 @@ const HKARE_DATA = {
         "Splenic sequestration"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_sickle-cell-disease_hydroxyurea_113",
+      "medicineIds": [
+        "hkare_sickle-cell-disease_hydroxyurea_113"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2556,7 +2781,9 @@ const HKARE_DATA = {
         "Transfusional iron overload"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_thalassemia_deferasirox_114",
+      "medicineIds": [
+        "hkare_thalassemia_deferasirox_114"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2578,7 +2805,11 @@ const HKARE_DATA = {
         "Axillary lymphadenopathy"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_breast-cancer_tamoxifen_115",
+      "medicineIds": [
+        "hkare_breast-cancer_tamoxifen_115",
+        "hkare_oncology_tamoxifen_184",
+        "hkare_oncology_trastuzumab_185"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2599,7 +2830,10 @@ const HKARE_DATA = {
         "Bone pain in metastatic disease"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_prostate-cancer_leuprolide_116",
+      "medicineIds": [
+        "hkare_prostate-cancer_leuprolide_116",
+        "hkare_oncology_enzalutamide_187"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2621,7 +2855,10 @@ const HKARE_DATA = {
         "Splenomegaly"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_leukemia_imatinib_117",
+      "medicineIds": [
+        "hkare_leukemia_imatinib_117",
+        "hkare_oncology_imatinib_189"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2644,7 +2881,9 @@ const HKARE_DATA = {
         "Normocytic anemia"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_multiple-myeloma_bortezomib_118",
+      "medicineIds": [
+        "hkare_multiple-myeloma_bortezomib_118"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2668,7 +2907,10 @@ const HKARE_DATA = {
         "Dyspnea"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_lung-cancer_osimertinib_119",
+      "medicineIds": [
+        "hkare_lung-cancer_osimertinib_119",
+        "hkare_oncology_osimertinib_186"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2689,7 +2931,9 @@ const HKARE_DATA = {
         "Pelvic pain in advanced stages"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_cervical-cancer_cisplatin_120",
+      "medicineIds": [
+        "hkare_cervical-cancer_cisplatin_120"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2711,7 +2955,10 @@ const HKARE_DATA = {
         "Tenesmus"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_colorectal-cancer_5-fluorouracil_121",
+      "medicineIds": [
+        "hkare_colorectal-cancer_5-fluorouracil_121",
+        "hkare_oncology_capecitabine_188"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2731,7 +2978,9 @@ const HKARE_DATA = {
         "B-symptoms: drenching night sweats, fever >38Â°C, unexplained weight loss"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_lymphoma_rituximab_122",
+      "medicineIds": [
+        "hkare_lymphoma_rituximab_122"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2758,7 +3007,9 @@ const HKARE_DATA = {
         "Respiratory failure",
         "Cyanosis"
       ],
-      "medicineIds": "hkare_severe-allergic-reaction_epinephrine_123",
+      "medicineIds": [
+        "hkare_severe-allergic-reaction_epinephrine_123"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2779,7 +3030,9 @@ const HKARE_DATA = {
         "Lichenified plaques in chronic contact"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_allergic-dermatitis_cetirizine_124",
+      "medicineIds": [
+        "hkare_allergic-dermatitis_cetirizine_124"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2802,7 +3055,10 @@ const HKARE_DATA = {
         "Oral ulcers"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_systemic-lupus-erythematosus_hydroxychloroquine_126",
+      "medicineIds": [
+        "hkare_systemic-lupus-erythematosus_hydroxychloroquine_126",
+        "hkare_autoimmune_hydroxychloroquine_195"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2824,7 +3080,9 @@ const HKARE_DATA = {
         "Joint effusion"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_inflammatory-arthritis_ibuprofen_127",
+      "medicineIds": [
+        "hkare_inflammatory-arthritis_ibuprofen_127"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2846,7 +3104,9 @@ const HKARE_DATA = {
         "Malaise and myalgia"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_fever_paracetamol_128",
+      "medicineIds": [
+        "hkare_fever_paracetamol_128"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2867,7 +3127,9 @@ const HKARE_DATA = {
         "Minor muscular soreness"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_mild-pain_paracetamol_129",
+      "medicineIds": [
+        "hkare_mild-pain_paracetamol_129"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2888,7 +3150,9 @@ const HKARE_DATA = {
         "Musculoskeletal inflammation"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_moderate-inflammatory-pain_ibuprofen_130",
+      "medicineIds": [
+        "hkare_moderate-inflammatory-pain_ibuprofen_130"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2911,7 +3175,9 @@ const HKARE_DATA = {
         "Lethargy"
       ],
       "emergencyFlags": {},
-      "medicineIds": "hkare_dehydration_glucose-sodium-chloride-potassium-chloride-citrate_131",
+      "medicineIds": [
+        "hkare_dehydration_glucose-sodium-chloride-potassium-chloride-citrate_131"
+      ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
     },
@@ -2935,7 +3201,11 @@ const HKARE_DATA = {
         "Altered consciousness",
         "Sudden vision loss"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_stroke_alteplase_155",
+        "hkare_stroke_aspirin-dipyridamole_156"
+      ]
     },
     {
       "id": "heart-attack",
@@ -2957,7 +3227,11 @@ const HKARE_DATA = {
         "Hemodynamic collapse",
         "Profound hypotension"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_heart-attack_tenecteplase_157",
+        "hkare_heart-attack_streptokinase_158"
+      ]
     },
     {
       "id": "gas-bloating",
@@ -2979,7 +3253,11 @@ const HKARE_DATA = {
         "Repeated bilious vomiting",
         "Inability to pass flatus or stool (bowel obstruction)"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_gas-bloating_simethicone_159",
+        "hkare_gas-bloating_alpha-galactosidase_160"
+      ]
     },
     {
       "id": "schizophrenia",
@@ -3001,7 +3279,12 @@ const HKARE_DATA = {
         "Command hallucinations",
         "Active risk of self-harm or violence"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_schizophrenia_olanzapine_161",
+        "hkare_schizophrenia_risperidone_162",
+        "hkare_schizophrenia_aripiprazole_163"
+      ]
     },
     {
       "id": "bipolar-disorder",
@@ -3022,7 +3305,11 @@ const HKARE_DATA = {
         "Severe manic psychosis with lack of sleep >72 hrs",
         "Severe acute depressive suicidal ideation"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_bipolar-disorder_lithium-carbonate_164",
+        "hkare_bipolar-disorder_sodium-valproate_165"
+      ]
     },
     {
       "id": "cataract",
@@ -3043,7 +3330,10 @@ const HKARE_DATA = {
         "Sudden post-surgical eye pain and purulent discharge (endophthalmitis alert)",
         "Acute vision drop"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_cataract_nepafenac_166"
+      ]
     },
     {
       "id": "macular-degeneration",
@@ -3062,7 +3352,10 @@ const HKARE_DATA = {
       "emergencyFlags": [
         "Sudden rapid deterioration of central vision (choroidal neovascularization leak)"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_macular-degeneration_ranibizumab_167"
+      ]
     },
     {
       "id": "hearing-loss",
@@ -3081,7 +3374,10 @@ const HKARE_DATA = {
       "emergencyFlags": [
         "Sudden complete hearing loss within 24 hours requiring urgent steroid rescue"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_hearing-loss_prednisolone-oral_168"
+      ]
     },
     {
       "id": "meniere-disease",
@@ -3102,7 +3398,10 @@ const HKARE_DATA = {
         "Drop attacks (Tumarkin otolithic crisis)",
         "Intractable vomiting causing acute dehydration"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_meniere-disease_betahistine_169"
+      ]
     },
     {
       "id": "nephritis",
@@ -3123,7 +3422,10 @@ const HKARE_DATA = {
         "Anuria (<100 mL urine in 24 hrs)",
         "Hypertensive encephalopathy / pulmonary edema"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_nephritis_methylprednisolone_170"
+      ]
     },
     {
       "id": "gallbladder-diseases",
@@ -3144,7 +3446,11 @@ const HKARE_DATA = {
         "Persistent severe RUQ pain with high fever and jaundice (Charcot's triad for cholangitis)",
         "Peritoneal rebound guarding"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_gallbladder_ursodeoxycholic-acid_172",
+        "hkare_gallbladder_drotaverine_173"
+      ]
     },
     {
       "id": "obesity",
@@ -3165,7 +3471,11 @@ const HKARE_DATA = {
         "Severe Pickwickian syndrome / alveolar hypoventilation",
         "Acute thromboembolic events"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_obesity_semaglutide_174",
+        "hkare_obesity_orlistat_175"
+      ]
     },
     {
       "id": "pregnancy-disorders",
@@ -3187,7 +3497,12 @@ const HKARE_DATA = {
         "Seizures (eclampsia)",
         "Pulmonary edema or HELLP syndrome signs"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_pregnancy_labetalol_176",
+        "hkare_pregnancy_methyldopa_177",
+        "hkare_pregnancy_doxylamine-pyridoxine_178"
+      ]
     },
     {
       "id": "nutritional-diseases",
@@ -3208,7 +3523,11 @@ const HKARE_DATA = {
         "Severe acute malnutrition with nutritional edema (kwashiorkor)",
         "Hypocalcemic tetany"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_nutritional_ascorbic-acid_179",
+        "hkare_nutritional_cholecalciferol_180"
+      ]
     },
     {
       "id": "environmental-diseases",
@@ -3229,7 +3548,10 @@ const HKARE_DATA = {
         "High Altitude Cerebral Edema (HACE) with ataxia / confusion",
         "Heat stroke with core temp >40 C and altered sensorium"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_environmental_acetazolamide_181"
+      ]
     },
     {
       "id": "rare-diseases",
@@ -3250,7 +3572,122 @@ const HKARE_DATA = {
         "Myasthenic crisis with respiratory muscle paralysis",
         "Acute fulminant hepatic failure in Wilson's disease"
       ],
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_rare_penicillamine_182",
+        "hkare_rare_pyridostigmine_183"
+      ]
+    },
+    {
+      "id": "fever-pain",
+      "name": "Fever & Generalized Body Pain",
+      "category": "Pain",
+      "categorySlug": "pain",
+      "icd11Code": "MG26",
+      "icd11Chapter": "Chapter 21",
+      "description": "Acute febrile illness accompanied by generalized muscle aches, headache, malaise, and systemic inflammatory discomfort.",
+      "symptoms": [
+        "Elevated core body temperature (>100.4 F / 38 C)",
+        "Generalized body aches and myalgia",
+        "Shivering, rigors, and chills",
+        "Frontal or throbbing headache",
+        "Physical fatigue and malaise"
+      ],
+      "emergencyFlags": [
+        "Body temperature > 104 F (40 C) unresponsive to antipyretics",
+        "Altered mental sensorium or confusion",
+        "Petechial or purpuric rash (meningococcemia risk)",
+        "Stiff neck (nuchal rigidity)"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_fever-pain_aceclofenac-paracetamol_215",
+        "hkare_fever-pain_ibuprofen-paracetamol_216",
+        "hkare_fever-pain_paracetamol_217"
+      ]
+    },
+    {
+      "id": "cough",
+      "name": "Cough (Acute, Dry & Productive Chesty Cough)",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "icd11Code": "MD11",
+      "icd11Chapter": "Chapter 21",
+      "description": "Protective respiratory reflex manifested as acute or chronic coughing bouts due to tracheobronchial irritation, viral infection, or hypersecretion.",
+      "symptoms": [
+        "Frequent coughing paroxysms (dry hacking or wet productive)",
+        "Throat tickling, scratching, and irritation",
+        "Chest tightness during coughing bouts",
+        "Clear, white, or mucopurulent sputum",
+        "Post-nasal drip"
+      ],
+      "emergencyFlags": [
+        "Hemoptysis (coughing up fresh blood)",
+        "Severe stridor or marked intercostal indrawing",
+        "Resting SpO2 < 92% on room air"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_cough_dextromethorphan-chlorpheniramine_211",
+        "hkare_cough_ambroxol-levosalbutamol-guaifenesin_212"
+      ]
+    },
+    {
+      "id": "stomach-pain",
+      "name": "Stomach Pain, Gastritis & Abdominal Cramps",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "icd11Code": "MD81.1",
+      "icd11Chapter": "Chapter 21",
+      "description": "Acute or recurrent upper abdominal epigastric distress, visceral smooth muscle spasms, acid-related burning, and gastrointestinal colic.",
+      "symptoms": [
+        "Gnawing or burning epigastric stomach pain",
+        "Spasmodic colicky abdominal cramps",
+        "Postprandial fullness, early satiety, and bloating",
+        "Acid sour regurgitation and nausea",
+        "Abdominal rumbling and discomfort"
+      ],
+      "emergencyFlags": [
+        "Board-like rigid abdomen with rebound tenderness (peritonitis / perforation)",
+        "Hematemesis (vomiting blood or coffee-ground material)",
+        "Melena (black tarry sticky stools)",
+        "Severe localized right lower quadrant pain (appendicitis alert)"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_gerd_pantoprazole_201",
+        "hkare_stomach-pain_pantoprazole-domperidone_202",
+        "hkare_stomach-pain_ranitidine_203",
+        "hkare_stomach-pain_dicyclomine-paracetamol_209",
+        "hkare_stomach-pain_drotaverine_210"
+      ]
+    },
+    {
+      "id": "sore-throat",
+      "name": "Sore Throat, Pharyngitis & Tonsillitis",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "icd11Code": "CA02",
+      "icd11Chapter": "Chapter 12",
+      "description": "Acute inflammation of the mucosal pharynx, palatine tonsils, and uvula resulting in odynophagia, erythema, and throat irritation.",
+      "symptoms": [
+        "Sharp, scratchy, or burning pain in throat",
+        "Odynophagia (pain exacerbated when swallowing saliva or food)",
+        "Erythematous swollen tonsils with follicular exudates",
+        "Tender swollen anterior cervical lymph nodes",
+        "Low-grade fever and raspy voice"
+      ],
+      "emergencyFlags": [
+        "Inability to swallow own saliva (drooling)",
+        "Severe trismus (inability to open jaw, indicating peritonsillar quinsy)",
+        "Inspiratory stridor or visible respiratory distress"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_sore-throat_amoxicillin-clavulanate_204",
+        "hkare_sore-throat_povidone-iodine_213",
+        "hkare_sore-throat_flurbiprofen_214"
+      ]
     }
   ],
   "medicines": [
@@ -6252,6 +6689,269 @@ const HKARE_DATA = {
       "brandNames": "Xalatan, Latoprost, 9PM Drops, Lacoma",
       "safetyNote": "May cause permanent gradual darkening of iris pigmentation (hazel/brown) and reversible lengthening, thickening, and darkening of eyelashes.",
       "source": "AAO Preferred Practice Pattern for Glaucoma & WHO EML",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_gerd_pantoprazole_201",
+      "activeIngredient": "Pantoprazole Sodium (Pantoprazole 40mg)",
+      "medicineClass": "Proton Pump Inhibitor (PPI)",
+      "condition": "Gastroesophageal reflux disease (GERD)",
+      "conditionId": "gerd",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Irreversibly inhibits gastric H+/K+-ATPase proton pumps on parietal cell apical membranes, profoundly suppressing basal and stimulated acid production for rapid heartburn relief and mucosal healing.",
+      "dosageGuideline": "Adult: 40 mg once daily taken 30-60 minutes before breakfast with water (Max: 80 mg/day for severe erosive esophagitis or Zollinger-Ellison syndrome).",
+      "brandNames": "Pan 40, Pantocid, Pantodac, Protonix, Pantosec",
+      "safetyNote": "Swallow tablet whole; do not crush or chew. Long-term use (>1 year) requires monitoring for hypomagnesemia, vitamin B12 deficiency, and bone fracture risk.",
+      "source": "WHO Model List of Essential Medicines (EML) & British National Formulary (BNF)",
+      "sourceType": "HKare Reference Dataset",
+      "conditionIds": [
+        "gerd",
+        "stomach-pain"
+      ]
+    },
+    {
+      "id": "hkare_stomach-pain_pantoprazole-domperidone_202",
+      "activeIngredient": "Pantoprazole + Domperidone SR",
+      "medicineClass": "Proton Pump Inhibitor + Prokinetic Antiemetic",
+      "condition": "Stomach Pain, Gastritis & Abdominal Cramps",
+      "conditionId": "stomach-pain",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Combines 24-hour gastric acid suppression with peripheral dopamine D2 receptor blockade to enhance lower esophageal sphincter tone, accelerate gastric emptying, and abolish postprandial nausea, acid reflux, and bloating.",
+      "dosageGuideline": "Adult: 1 capsule (Pantoprazole 40 mg + Domperidone 30 mg SR) once daily in the morning 30-60 minutes before breakfast.",
+      "brandNames": "Pan-D, Pantocid-D, Dompan-SR, Pantodac-DSR, Pantakind-D",
+      "safetyNote": "Contraindicated in patients with known QT prolongation or severe cardiac arrhythmias. Take on an empty stomach.",
+      "source": "Clinical Gastroenterology Formularies",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_stomach-pain_ranitidine_203",
+      "activeIngredient": "Ranitidine Hydrochloride (Rantac 150mg / 300mg)",
+      "medicineClass": "Histamine H2-Receptor Antagonist (H2RA)",
+      "condition": "Stomach Pain, Gastritis & Abdominal Cramps",
+      "conditionId": "stomach-pain",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Competitively blocks histamine H2 receptors on gastric parietal cells, significantly reducing basal, nocturnal, and food-stimulated gastric acid and pepsin secretion for rapid stomach pain and heartburn relief.",
+      "dosageGuideline": "Adult: 150 mg twice daily (morning and bedtime) or 300 mg once daily at bedtime with a glass of water.",
+      "brandNames": "Rantac 150, Rantac 300, Zinetac, Zantac, Aciloc 150",
+      "safetyNote": "Dose reduction required in moderate-to-severe renal impairment. May mask symptoms of gastric malignancy.",
+      "source": "WHO Model List of Essential Medicines & British National Formulary (BNF)",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_sore-throat_amoxicillin-clavulanate_204",
+      "activeIngredient": "Amoxicillin + Potassium Clavulanate (Augmentin / Augmentine 625mg)",
+      "medicineClass": "Broad-Spectrum Aminopenicillin + Beta-Lactamase Inhibitor",
+      "condition": "Sore Throat, Pharyngitis & Tonsillitis",
+      "conditionId": "sore-throat",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "generalMedicalRole": "Amoxicillin inhibits bacterial peptidoglycan cell wall synthesis, while clavulanate irreversibly inactivates beta-lactamase enzymes, restoring high bactericidal activity against penicillinase-producing pathogens in severe tonsillopharyngitis and respiratory infections.",
+      "dosageGuideline": "Adult: 625 mg (500/125) orally 2 to 3 times daily (every 8 to 12 hours) with the start of a meal to optimize absorption and reduce GI adverse effects. Pediatric: 30-45 mg/kg/day amoxicillin equivalent divided every 8-12 hrs.",
+      "brandNames": "Augmentin 625, Augmentine, Clavam 625, Moxikind-CV, Amoxyclav, Sensiclav",
+      "safetyNote": "Contraindicated in severe immediate penicillin allergy and history of amoxicillin/clavulanate-associated cholestatic jaundice. Complete full prescribed course.",
+      "source": "WHO Model List of Essential Medicines (EML) & IDSA Treatment Guidelines",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_diarrhea_ors_205",
+      "activeIngredient": "Oral Rehydration Salts (WHO-Standard Low-Osmolarity ORS)",
+      "medicineClass": "Oral Electrolyte & Glucose Replacement Formula",
+      "condition": "Diarrhea",
+      "conditionId": "diarrhea",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Harnesses sodium-glucose intestinal cotransport mechanisms across brush-border epithelial cells to facilitate rapid water and electrolyte reabsorption, preventing lethal hypovolemic dehydration in acute diarrheal illness.",
+      "dosageGuideline": "Adult: 200 to 400 mL after each watery stool (1-2 liters/day as needed). Pediatric: 10 mL/kg body weight after each loose stool (50-100 mL for infants under 2 years).",
+      "brandNames": "Electral, ORS-L, Walyte, Enerzal ORS, Reliance ORS",
+      "safetyNote": "Dissolve one sachet in exactly the recommended volume of clean potable water. Do not boil prepared solution. Discard unused portion after 24 hours.",
+      "source": "WHO / UNICEF Guidelines on the Management of Diarrhoea",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_diarrhea_zinc-sulfate_206",
+      "activeIngredient": "Zinc Sulfate / Zinc Gluconate",
+      "medicineClass": "Essential Trace Micronutrient / Intestinal Epithelial Protectant",
+      "condition": "Diarrhea",
+      "conditionId": "diarrhea",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Stimulates mucosal regeneration, repairs intestinal brush-border villous atrophy, enhances enterocyte immune clearance, and reduces diarrheal stool frequency, volume, and duration.",
+      "dosageGuideline": "Pediatric (<6 months): 10 mg elemental zinc once daily for 10-14 days. Children (>=6 months) & Adults: 20 mg elemental zinc once daily for 10-14 days to reduce stool frequency and prevent recurrence.",
+      "brandNames": "Zincat, Zinconia, Zinctec, Z-Zinc, Nutrizinc",
+      "safetyNote": "Give with food to prevent mild gastric upset. Must be continued for the complete 10-14 day course even after acute diarrhea resolves.",
+      "source": "WHO / UNICEF Essential Treatment Guidelines for Diarrhoea",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_diarrhea_racecadotril_207",
+      "activeIngredient": "Racecadotril",
+      "medicineClass": "Intestinal Enkephalinase Inhibitor / Pure Antisecretory Antidiarrheal",
+      "condition": "Diarrhea",
+      "conditionId": "diarrhea",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Selectively inhibits intestinal brush border enkephalinase, preventing degradation of endogenous enkephalins and decreasing hypersecretion of water and electrolytes into the gut lumen without causing secondary rebound constipation or delaying intestinal transit.",
+      "dosageGuideline": "Adult: 100 mg orally 3 times daily before meals until normal bowel movements resume (Max: 7 days). Pediatric: 1.5 mg/kg 3 times daily as sachet dissolved in water or food.",
+      "brandNames": "Redotil, Zedott, Enuff, Cadotril, Racotil",
+      "safetyNote": "Does not replace fluid and electrolyte rehydration therapy with ORS. If bloody stool (dysentery) or high fever is present, evaluate for invasive bacterial enteritis.",
+      "source": "European Society for Paediatric Gastroenterology & Hepatology (ESPGHAN) Guidelines",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_diarrhea_ofloxacin-ornidazole_208",
+      "activeIngredient": "Ofloxacin + Ornidazole",
+      "medicineClass": "Fluoroquinolone + Nitroimidazole Dual Antimicrobial",
+      "condition": "Diarrhea",
+      "conditionId": "diarrhea",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Provides synergistic bactericidal coverage by inhibiting bacterial topoisomerase II (DNA gyrase) via ofloxacin and generating toxic free radicals that disrupt anaerobic and protozoal DNA via ornidazole, eradicating mixed bacterial gastroenteritis and amoebic dysentery.",
+      "dosageGuideline": "Adult: 1 tablet (Ofloxacin 200 mg + Ornidazole 500 mg) orally twice daily after meals for 3 to 5 days with plenty of water.",
+      "brandNames": "O2, Zenflox-OZ, Zanocin-OZ, Ornof, Oflomac-OZ",
+      "safetyNote": "Avoid alcohol consumption during therapy and for 48 hours afterward (disulfiram-like reaction liability). Causes metallic taste and mild nausea.",
+      "source": "Clinical Infectious Diseases & Gastroenterology Formularies",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_stomach-pain_dicyclomine-paracetamol_209",
+      "activeIngredient": "Dicyclomine Hydrochloride + Paracetamol",
+      "medicineClass": "Antispasmodic / Muscarinic Antagonist + Analgesic",
+      "condition": "Stomach Pain, Gastritis & Abdominal Cramps",
+      "conditionId": "stomach-pain",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Relieves visceral smooth muscle spasm by blocking acetylcholine at gastrointestinal muscarinic receptors, combined with central analgesic prostaglandin inhibition for fast relief of sharp stomach colic and abdominal cramps.",
+      "dosageGuideline": "Adult: 1 tablet (Dicyclomine 20 mg + Paracetamol 500 mg) orally 2 to 3 times daily after meals as needed (Max: 4 tablets/24 hrs).",
+      "brandNames": "Meftal-Spas, Spasmonil, Cyclopam, Colimex, Spas-Trancop",
+      "safetyNote": "May cause dry mouth, blurred vision, and drowsiness. Contraindicated in narrow-angle glaucoma, myasthenia gravis, and severe urinary obstruction.",
+      "source": "British National Formulary (BNF) & Clinical Pharmacology References",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_stomach-pain_drotaverine_210",
+      "activeIngredient": "Drotaverine Hydrochloride",
+      "medicineClass": "Isoquinoline Phosphodiesterase-4 (PDE-4) Inhibitor Antispasmodic",
+      "condition": "Stomach Pain, Gastritis & Abdominal Cramps",
+      "conditionId": "stomach-pain",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Selectively inhibits phosphodiesterase-4 (PDE-4) enzyme, increasing intracellular cAMP levels and relaxing smooth muscle fibers across biliary, gastrointestinal, and ureteral tracts without anticholinergic side effects (no dry mouth or vision blurring).",
+      "dosageGuideline": "Adult: 40 mg to 80 mg orally 2 to 3 times daily after food (Max: 240 mg/day). Pediatric (1-6 yrs): 20 mg 2-3 times daily; (>6 yrs): 40 mg 2-3 times daily.",
+      "brandNames": "Drotin, Drotikind, No-Spa, Din, Dotra",
+      "safetyNote": "Caution in patients with severe hepatic, renal, or cardiac insufficiency. Free of anticholinergic side effects.",
+      "source": "International Pharmacopoeia & Gastroenterology Guidelines",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_cough_dextromethorphan-chlorpheniramine_211",
+      "activeIngredient": "Dextromethorphan Hydrobromide + Chlorpheniramine Maleate",
+      "medicineClass": "Centrally-Acting Antitussive + First-Generation Antihistamine",
+      "condition": "Cough (Acute, Dry & Productive Chesty Cough)",
+      "conditionId": "cough",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "generalMedicalRole": "Suppresses medullary cough center threshold via dextromethorphan while chlorpheniramine blocks H1 histamine receptors to dry excessive secretions and relieve post-nasal drip, abolishing irritating non-productive dry cough.",
+      "dosageGuideline": "Adult: 10 mL (providing 10-15 mg Dextromethorphan / 2-4 mg Chlorpheniramine) orally every 6 to 8 hours as needed (Max: 40 mL/24 hrs).",
+      "brandNames": "Benadryl DR, Ascoril D, Chericof, Corex DX, Zeet DX",
+      "safetyNote": "Causes mild sedation and drowsiness; avoid driving or operating machinery. Do not combine with MAO inhibitors or heavy alcohol.",
+      "source": "USP-NF & British National Formulary (BNF)",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_cough_ambroxol-levosalbutamol-guaifenesin_212",
+      "activeIngredient": "Ambroxol + Levosalbutamol + Guaifenesin",
+      "medicineClass": "Mucolytic + Selective Beta-2 Bronchodilator + Expectorant",
+      "condition": "Cough (Acute, Dry & Productive Chesty Cough)",
+      "conditionId": "cough",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "generalMedicalRole": "Ambroxol depolymerizes mucopolysaccharide fibers to liquefy thick tenacious sputum; levosalbutamol relaxes bronchial smooth muscle to open narrowed airways; and guaifenesin stimulates bronchial secretory glands to facilitate effortless mucus expectoration.",
+      "dosageGuideline": "Adult: 5 mL to 10 mL (providing Ambroxol 30mg / Levosalbutamol 1mg / Guaifenesin 50mg per 5mL) orally 3 times daily with a full glass of warm water.",
+      "brandNames": "Ascoril LS, Grilinctus-LS, Bro-Zedex, Macbery LS, Ambrodil-LX",
+      "safetyNote": "May cause mild tremors, palpitations, or tachycardia due to beta-2 adrenergic stimulation. Drink plenty of warm fluids.",
+      "source": "Clinical Respiratory Guidelines & BNF 86",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_sore-throat_povidone-iodine_213",
+      "activeIngredient": "Povidone-Iodine 2% w/v Germicide Gargle",
+      "medicineClass": "Broad-Spectrum Antiseptic & Virucidal Oral Gargle",
+      "condition": "Sore Throat, Pharyngitis & Tonsillitis",
+      "conditionId": "sore-throat",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "generalMedicalRole": "Releases free elemental iodine to penetrate and oxidize microbial cellular proteins and enzymes, rapidly killing 99.9% of bacteria, viruses, and fungi within 30 seconds to reduce oropharyngeal viral load and heal inflamed throat tissue.",
+      "dosageGuideline": "Adult & Children >=6 yrs: Dilute with an equal volume of warm water (1:1 ratio). Gargle and rinse around mouth and throat for 30 seconds, then spit out; repeat 3 to 4 times daily (Do NOT swallow).",
+      "brandNames": "Betadine Gargle 2%, Wokadine Gargle, Cipladine Gargle, Povikind",
+      "safetyNote": "Strictly for oropharyngeal gargling; do not swallow. Contraindicated in patients with known iodine hypersensitivity or active thyroid disorders.",
+      "source": "British National Formulary (BNF) & International Otorhinolaryngology Guidelines",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_sore-throat_flurbiprofen_214",
+      "activeIngredient": "Flurbiprofen 8.75 mg Throat Lozenges",
+      "medicineClass": "Non-Steroidal Anti-Inflammatory Drug (NSAID) / Local Pharyngeal Analgesic",
+      "condition": "Sore Throat, Pharyngitis & Tonsillitis",
+      "conditionId": "sore-throat",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "generalMedicalRole": "Inhibits cyclooxygenase (COX-1 and COX-2) enzymes locally in pharyngeal tissues, halting pain-producing prostaglandin synthesis to provide profound anti-inflammatory relief from swallowing pain (odynophagia) within 30 minutes.",
+      "dosageGuideline": "Adult & Children >=12 yrs: Slowly suck one lozenge (8.75 mg) every 3 to 6 hours as needed, moving it around mouth (Max: 5 lozenges in 24 hours for up to 3 days).",
+      "brandNames": "Strepsils Intensive, Strefen Lozenges, Flurzee, Flurofen",
+      "safetyNote": "Do not chew or swallow whole. Caution in patients with active peptic ulceration, asthma, or concurrent systemic NSAID therapy.",
+      "source": "British National Formulary (BNF) & MHRA Guidelines",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_fever-pain_aceclofenac-paracetamol_215",
+      "activeIngredient": "Aceclofenac + Paracetamol",
+      "medicineClass": "Selective COX-2 Preferential NSAID + Central Analgesic/Antipyretic",
+      "condition": "Fever & Generalized Body Pain",
+      "conditionId": "fever-pain",
+      "category": "Pain",
+      "categorySlug": "pain",
+      "generalMedicalRole": "Dual-action synergistic formulation combining aceclofenac's peripheral inhibition of inflammatory cytokine-mediated prostaglandins (IL-1beta, TNF-alpha) with paracetamol's central hypothalamic thermoregulatory reset for rapid fever reduction and profound body pain relief.",
+      "dosageGuideline": "Adult: 1 tablet (Aceclofenac 100 mg + Paracetamol 325 mg / 500 mg) orally twice daily after meals with a full glass of water.",
+      "brandNames": "Zerodol-P, Hifenac-P, Aceclo Plus, Dolokind Plus",
+      "safetyNote": "Always administer with or after food to minimize dyspepsia. Contraindicated in active gastrointestinal bleeding and severe renal or hepatic failure.",
+      "source": "Clinical Pharmacology Formularies & National Essential Medicine Formularies",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_fever-pain_ibuprofen-paracetamol_216",
+      "activeIngredient": "Ibuprofen + Paracetamol",
+      "medicineClass": "Dual Mechanism NSAID + Antipyretic Analgesic",
+      "condition": "Fever & Generalized Body Pain",
+      "conditionId": "fever-pain",
+      "category": "Pain",
+      "categorySlug": "pain",
+      "generalMedicalRole": "Combines peripheral anti-inflammatory cyclooxygenase inhibition with central antipyresis, demonstrating superior efficacy over monotherapy in controlling stubborn high fever, severe dental pain, and acute inflammatory muscular body ache.",
+      "dosageGuideline": "Adult: 1 tablet (Ibuprofen 400 mg + Paracetamol 325 mg) orally 2 to 3 times daily after food (Max: 3 tablets/24 hrs). Pediatric: Weight-based suspension as prescribed.",
+      "brandNames": "Combiflam, Ibugesic Plus, Flexon, Brufen Plus",
+      "safetyNote": "Take with food or milk. Avoid in patients with active peptic ulcer disease, aspirin-sensitive asthma, or during third trimester of pregnancy.",
+      "source": "WHO Model List of Essential Medicines & British National Formulary (BNF)",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_fever-pain_paracetamol_217",
+      "activeIngredient": "Paracetamol (Acetaminophen 650mg / 500mg)",
+      "medicineClass": "Centrally-Acting Antipyretic & Analgesic",
+      "condition": "Fever & Generalized Body Pain",
+      "conditionId": "fever-pain",
+      "conditionIds": [
+        "fever-pain",
+        "mild-to-moderate-pain-and-fever"
+      ],
+      "category": "Pain",
+      "categorySlug": "pain",
+      "generalMedicalRole": "Selectively inhibits central prostaglandin synthesis in the brain hypothalamus to reset the thermal setpoint, rapidly lowering high fever and relieving headache, malaise, and generalized muscular body ache.",
+      "dosageGuideline": "Adult: 500 mg to 650 mg orally every 4 to 6 hours as needed with water (Maximum safe ceiling: 3000 mg to 4000 mg in 24 hours). Pediatric: 10 to 15 mg/kg per single dose every 4 to 6 hours.",
+      "brandNames": "Dolo 650, Calpol 650, Crocin 650, Pacimol, Sumo L",
+      "safetyNote": "Maximum safe adult ceiling is 4000 mg/day from all sources combined. Severe hepatotoxicity risk with chronic alcohol consumption or acute overdose. Monitor concurrent combination cold/cough medications.",
+      "source": "WHO Model List of Essential Medicines (EML) & British National Formulary (BNF)",
       "sourceType": "HKare Reference Dataset"
     }
   ]

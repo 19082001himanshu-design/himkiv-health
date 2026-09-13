@@ -295,6 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       filtered.forEach(item => {
         const cond = (item.condition || "").toLowerCase();
+        const condIds = Array.isArray(item.conditionIds) ? item.conditionIds.join(" ").toLowerCase() : "";
         const active = (item.activeIngredient || "").toLowerCase();
         const brands = (item.brandNames || "").toLowerCase();
         const dosage = (item.dosageGuideline || "").toLowerCase();
@@ -307,15 +308,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Exact matches
         if (brands === q) score = Math.max(score, 110);
-        else if (cond === q) score = Math.max(score, 100);
+        else if (cond === q || condIds === q || condIds.split(" ").includes(q)) score = Math.max(score, 100);
         else if (active === q) score = Math.max(score, 95);
         else if (mClass === q) score = Math.max(score, 80);
         // Word boundary / start matches
         else if (brands.includes(q)) score = Math.max(score, 90);
-        else if (cond.startsWith(q) || cond.includes(" " + q)) score = Math.max(score, 85);
+        else if (cond.startsWith(q) || cond.includes(" " + q) || condIds.includes(q.replace(/\s+/g, "-"))) score = Math.max(score, 85);
         else if (active.startsWith(q) || active.includes(" " + q)) score = Math.max(score, 80);
+        // Word token matching for multi-word queries (e.g. "stomach pain", "sore throat", "fever pain")
+        const qWords = q.replace(/[^\w\s]/g, " ").split(/\s+/).filter(w => w.length > 2 && !["and", "the", "for", "with"].includes(w));
+        if (qWords.length > 1) {
+          const allInCond = qWords.every(w => cond.includes(w) || condIds.includes(w));
+          if (allInCond) score = Math.max(score, 80);
+          const allInBrandOrActive = qWords.every(w => brands.includes(w) || active.includes(w));
+          if (allInBrandOrActive) score = Math.max(score, 85);
+        }
         // Partial substring matches
-        else if (cond.includes(q)) score = Math.max(score, 65);
+        else if (cond.includes(q) || condIds.includes(q)) score = Math.max(score, 65);
         else if (active.includes(q)) score = Math.max(score, 60);
         else if (mClass.includes(q)) score = Math.max(score, 50);
         else if (dosage.includes(q)) score = Math.max(score, 40);
