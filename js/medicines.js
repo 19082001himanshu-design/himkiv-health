@@ -138,53 +138,102 @@ document.addEventListener("DOMContentLoaded", () => {
     const cond = (item.condition || "").toLowerCase();
     const mClass = (item.medicineClass || "").toLowerCase();
     const active = (item.activeIngredient || "").toLowerCase();
+    const brands = (item.brandNames || "").toLowerCase();
 
     switch (cat) {
       case "cardiovascular":
         return cSlug === "cardiovascular" || cName.includes("cardio") || cName.includes("heart") ||
                mClass.includes("cardio") || mClass.includes("antiplatelet") || mClass.includes("anticoagulant") ||
-               mClass.includes("statin") || mClass.includes("beta blocker") || mClass.includes("ace inhibitor") ||
-               mClass.includes("arb") || mClass.includes("calcium-channel") || mClass.includes("antianginal") ||
-               mClass.includes("nitrate") || mClass.includes("diuretic") || mClass.includes("glycoside") ||
+               mClass.includes("thrombolytic") || mClass.includes("statin") || mClass.includes("beta blocker") ||
+               mClass.includes("ace inhibitor") || mClass.includes("arb") || mClass.includes("calcium-channel") ||
+               mClass.includes("antianginal") || mClass.includes("nitrate") || mClass.includes("diuretic") ||
+               mClass.includes("glycoside") || mClass.includes("antiarrhythmic") ||
                cond.includes("coronary") || cond.includes("heart") || cond.includes("angina") || cond.includes("myocardial") ||
                cond.includes("atherosclerosis") || cond.includes("cardiovascular") || cond.includes("hypertension") ||
+               cond.includes("stroke") || cond.includes("ischemic") || cond.includes("tia") ||
                cond.includes("atrial fibrillation") || cond.includes("thrombosis") || cond.includes("cholesterol");
 
       case "cardiac-bp":
         return cSlug === "cardiovascular" || cName.includes("cardio") || cond.includes("hypertension") ||
-               cond.includes("blood pressure") || mClass.includes("antihypertensive") || mClass.includes("calcium-channel") ||
-               mClass.includes("ace inhibitor") || mClass.includes("arb") || mClass.includes("beta blocker") ||
-               mClass.includes("diuretic");
+               cond.includes("blood pressure") || cond.includes("preeclampsia") || mClass.includes("antihypertensive") ||
+               mClass.includes("calcium-channel") || mClass.includes("ace inhibitor") || mClass.includes("arb") ||
+               mClass.includes("beta blocker") || mClass.includes("diuretic");
 
       case "pain-fever":
         return cSlug === "pain" || cSlug === "emergency-supportive" || cName.includes("pain") ||
                mClass.includes("analgesic") || mClass.includes("antipyretic") || mClass.includes("nsaid") ||
+               mClass.includes("muscle relaxant") ||
                cond.includes("fever") || cond.includes("pain") || cond.includes("headache") || cond.includes("migraine") ||
-               cond.includes("osteoarthritis") || cond.includes("arthritis");
+               cond.includes("osteoarthritis") || cond.includes("arthritis") || cond.includes("gout");
 
       case "antibiotics":
         return mClass.includes("antibiotic") || mClass.includes("antibacterial") || mClass.includes("antimicrobial") ||
                mClass.includes("penicillin") || mClass.includes("cephalosporin") || mClass.includes("macrolide") ||
-               mClass.includes("fluoroquinolone") || mClass.includes("tetracycline") ||
+               mClass.includes("fluoroquinolone") || mClass.includes("tetracycline") || mClass.includes("carbapenem") ||
+               mClass.includes("aminoglycoside") || mClass.includes("nitroimidazole") ||
                (cSlug === "infectious" && !mClass.includes("antiviral") && !mClass.includes("antifungal") && !mClass.includes("antimalarial") && !mClass.includes("anthelmintic"));
 
       case "acidity-gerd":
         return cSlug === "gastrointestinal" || cName.includes("gastro") || cond.includes("gerd") ||
                cond.includes("acid") || cond.includes("reflux") || cond.includes("ulcer") || cond.includes("dyspepsia") ||
-               cond.includes("gastritis") || mClass.includes("ppi") || mClass.includes("proton pump") ||
-               mClass.includes("antacid") || mClass.includes("h2 blocker") || mClass.includes("antiemetic");
+               cond.includes("gastritis") || cond.includes("gas") || cond.includes("bloating") || cond.includes("flatulence") ||
+               mClass.includes("ppi") || mClass.includes("proton pump") || mClass.includes("antacid") ||
+               mClass.includes("h2 blocker") || mClass.includes("antiemetic") || mClass.includes("antiflatulent") ||
+               mClass.includes("digestive");
 
       case "allergy-cold":
         return cond.includes("cold") || cond.includes("cough") || cond.includes("allergy") || cond.includes("allergic") ||
                cond.includes("rhinitis") || cond.includes("bronchitis") || cond.includes("asthma") ||
                mClass.includes("antihistamine") || mClass.includes("decongestant") || mClass.includes("bronchodilator") ||
-               mClass.includes("expectorant") || mClass.includes("leukotriene");
+               mClass.includes("expectorant") || mClass.includes("leukotriene") || mClass.includes("mast cell");
 
       case "diabetes":
         return cSlug === "endocrine" || cName.includes("endocrine") || cond.includes("diabetes") ||
-               cond.includes("hyperglycemia") || mClass.includes("antidiabetic") || mClass.includes("biguanide") ||
-               mClass.includes("sulfonylurea") || mClass.includes("sglt2") || mClass.includes("dpp-4") ||
-               mClass.includes("insulin") || mClass.includes("glp-1");
+               cond.includes("hyperglycemia") || cond.includes("obesity") || cond.includes("thyroid") ||
+               mClass.includes("antidiabetic") || mClass.includes("biguanide") || mClass.includes("sulfonylurea") ||
+               mClass.includes("sglt2") || mClass.includes("dpp-4") || mClass.includes("insulin") ||
+               mClass.includes("glp-1");
+
+      case "mental-neuro":
+        return cSlug === "mental-health" || cSlug === "neurological" || cName.includes("mental") || cName.includes("neuro") ||
+               cond.includes("depression") || cond.includes("anxiety") || cond.includes("schizophrenia") ||
+               cond.includes("bipolar") || cond.includes("epilepsy") || cond.includes("parkinson") ||
+               cond.includes("alzheimer") || cond.includes("migraine") || cond.includes("insomnia") ||
+               mClass.includes("antidepressant") || mClass.includes("antipsychotic") || mClass.includes("mood stabilizer") ||
+               mClass.includes("anticonvulsant") || mClass.includes("antiepileptic") || mClass.includes("dopaminergic") ||
+               mClass.includes("cholinesterase") || mClass.includes("triptan") || mClass.includes("anxiolytic");
+
+      case "oncology":
+        return cSlug === "oncology" || cName.includes("cancer") || cName.includes("oncol") ||
+               cond.includes("cancer") || cond.includes("carcinoma") || cond.includes("breast") ||
+               cond.includes("lung cancer") || cond.includes("prostate") || cond.includes("colon") ||
+               cond.includes("leukemia") || cond.includes("lymphoma") || cond.includes("tumor") ||
+               mClass.includes("chemotherapy") || mClass.includes("antineoplastic") || mClass.includes("alkylating") ||
+               mClass.includes("antimetabolite") || mClass.includes("aromatase") || mClass.includes("serm") ||
+               mClass.includes("monoclonal") || mClass.includes("tyrosine kinase") || mClass.includes("cytotoxic");
+
+      case "kidney-urinary":
+        return cSlug === "kidney-urinary" || cName.includes("kidney") || cName.includes("urinary") || cName.includes("renal") ||
+               cond.includes("kidney") || cond.includes("ckd") || cond.includes("nephritis") ||
+               cond.includes("stone") || cond.includes("uti") || cond.includes("urinary") || cond.includes("glomerulo") ||
+               mClass.includes("alkalinizer") || mClass.includes("phosphate") || mClass.includes("renal");
+
+      case "skin-autoimmune":
+        return cSlug === "dermatological" || cSlug === "autoimmune" || cSlug === "musculoskeletal" ||
+               cName.includes("skin") || cName.includes("dermatol") || cName.includes("autoimmune") ||
+               cond.includes("eczema") || cond.includes("psoriasis") || cond.includes("acne") ||
+               cond.includes("vitiligo") || cond.includes("lupus") || cond.includes("rheumatoid") ||
+               cond.includes("multiple sclerosis") || cond.includes("sclerosis") || cond.includes("arthritis") ||
+               mClass.includes("topical retinoid") || mClass.includes("keratolytic") || mClass.includes("corticosteroid") ||
+               mClass.includes("psoralen") || mClass.includes("dmard") || mClass.includes("immunosuppressive") ||
+               mClass.includes("immunomodulator");
+
+      case "respiratory-lungs":
+        return cSlug === "respiratory" || cName.includes("respiratory") || cName.includes("lung") ||
+               cond.includes("asthma") || cond.includes("copd") || cond.includes("pneumonia") ||
+               cond.includes("fibrosis") || cond.includes("bronchitis") || cond.includes("tuberculosis") ||
+               mClass.includes("bronchodilator") || mClass.includes("inhaled corticosteroid") ||
+               mClass.includes("antifibrotic") || mClass.includes("expectorant") || mClass.includes("antitubercular");
 
       default:
         return cSlug === cat || cName === cat || cond.toLowerCase().includes(cat);
@@ -247,6 +296,8 @@ document.addEventListener("DOMContentLoaded", () => {
       filtered.forEach(item => {
         const cond = (item.condition || "").toLowerCase();
         const active = (item.activeIngredient || "").toLowerCase();
+        const brands = (item.brandNames || "").toLowerCase();
+        const dosage = (item.dosageGuideline || "").toLowerCase();
         const mClass = (item.medicineClass || "").toLowerCase();
         const cat = (item.category || "").toLowerCase();
         const role = (item.generalMedicalRole || "").toLowerCase();
@@ -255,16 +306,19 @@ document.addEventListener("DOMContentLoaded", () => {
         let score = 0;
 
         // Exact matches
-        if (cond === q) score = Math.max(score, 100);
-        else if (active === q) score = Math.max(score, 90);
+        if (brands === q) score = Math.max(score, 110);
+        else if (cond === q) score = Math.max(score, 100);
+        else if (active === q) score = Math.max(score, 95);
         else if (mClass === q) score = Math.max(score, 80);
         // Word boundary / start matches
-        else if (cond.startsWith(q) || cond.includes(" " + q)) score = Math.max(score, 75);
-        else if (active.startsWith(q) || active.includes(" " + q)) score = Math.max(score, 65);
+        else if (brands.includes(q)) score = Math.max(score, 90);
+        else if (cond.startsWith(q) || cond.includes(" " + q)) score = Math.max(score, 85);
+        else if (active.startsWith(q) || active.includes(" " + q)) score = Math.max(score, 80);
         // Partial substring matches
-        else if (cond.includes(q)) score = Math.max(score, 55);
-        else if (active.includes(q)) score = Math.max(score, 50);
-        else if (mClass.includes(q)) score = Math.max(score, 45);
+        else if (cond.includes(q)) score = Math.max(score, 65);
+        else if (active.includes(q)) score = Math.max(score, 60);
+        else if (mClass.includes(q)) score = Math.max(score, 50);
+        else if (dosage.includes(q)) score = Math.max(score, 40);
         else if (cat.includes(q)) score = Math.max(score, 35);
         else if (role.includes(q)) score = Math.max(score, 25);
         else if (safety.includes(q)) score = Math.max(score, 15);
@@ -289,6 +343,8 @@ document.addEventListener("DOMContentLoaded", () => {
         filtered.sort((a, b) => b.activeIngredient.localeCompare(a.activeIngredient));
       } else if (currentSort === "condition") {
         filtered.sort((a, b) => (a.condition || "").localeCompare(b.condition || ""));
+      } else if (currentSort === "brands") {
+        filtered.sort((a, b) => (b.brandNames || "").length - (a.brandNames || "").length);
       }
     }
 
@@ -322,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <i data-lucide="flask-conical-off" class="w-12 h-12 mx-auto mb-3 opacity-40 text-slate-400"></i>
           <h3 class="text-base font-heading font-bold text-slate-700 dark:text-slate-300">No matching medicines found</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
-            Try searching for another brand name, active salt, or condition (e.g. 'Oseltamivir', 'Influenza', 'Paracetamol', 'Dengue').
+            Try searching for another brand name, active salt, or condition (e.g. 'Oseltamivir', 'Influenza', 'Paracetamol', 'Dengue', 'Dolo', 'Augmentin').
           </p>
         </div>
       `;
@@ -351,23 +407,47 @@ document.addEventListener("DOMContentLoaded", () => {
           <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white mb-1 leading-snug">
             ${med.activeIngredient}
           </h3>
-          <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 line-clamp-1">
+          <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 line-clamp-1">
             <strong class="text-slate-700 dark:text-slate-300 font-semibold">Related Condition:</strong> 
             <span class="text-indigo-600 dark:text-indigo-400 font-medium">${med.condition}</span>
           </p>
 
-          <!-- General Medical Role -->
-          <div class="mb-4">
-            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-              General Medical Role:
+          <!-- Commercial Market Brand Names -->
+          ${med.brandNames ? `
+            <div class="mb-3 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 text-xs">
+              <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-0.5 flex items-center gap-1">
+                <i data-lucide="tag" class="w-3 h-3"></i> Commercial Market Brands:
+              </span>
+              <p class="font-bold text-slate-900 dark:text-white text-xs leading-normal">
+                ${med.brandNames}
+              </p>
+            </div>
+          ` : ''}
+
+          <!-- General Medical Role (Indications / Kis Kaam Aati Hai) -->
+          <div class="mb-3">
+            <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+              Indications / Therapeutic Use:
             </span>
-            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium line-clamp-3">
               ${med.generalMedicalRole}
             </p>
           </div>
 
+          <!-- Recommended Posology & Dosage (Kitni Dose Leni Hai) -->
+          ${med.dosageGuideline ? `
+            <div class="mb-3 p-2.5 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-xs">
+              <span class="text-[10px] font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider block mb-1 flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3"></i> Recommended Dosage Guideline:
+              </span>
+              <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-normal">
+                ${med.dosageGuideline}
+              </p>
+            </div>
+          ` : ''}
+
           <!-- Clinical Safety Note (High Priority Amber Alert) -->
-          <div class="mb-5 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs">
+          <div class="mb-4 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs">
             <div class="flex items-center gap-1.5 mb-1 font-bold text-[11px] uppercase tracking-wide text-amber-800 dark:text-amber-300">
               <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
               <span>Clinical Safety Guidance:</span>
@@ -485,6 +565,30 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3 class="text-2xl font-heading font-extrabold text-slate-900 dark:text-white">${med.activeIngredient}</h3>
       </div>
 
+      <!-- Commercial Market Brand Names (Trade Names) -->
+      ${med.brandNames ? `
+        <div class="mb-5 p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/60">
+          <h4 class="text-xs font-heading font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <i data-lucide="tag" class="w-4 h-4 text-indigo-600"></i> Commercial Market Brands & Formulations:
+          </h4>
+          <p class="text-sm font-bold text-slate-900 dark:text-white leading-relaxed">
+            ${med.brandNames}
+          </p>
+        </div>
+      ` : ''}
+
+      <!-- Standard Educational Posology & Dosage Guideline (Kitni Dose Leni Hai) -->
+      ${med.dosageGuideline ? `
+        <div class="mb-5 p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800">
+          <h4 class="text-xs font-heading font-bold text-sky-900 dark:text-sky-200 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <i data-lucide="clock" class="w-4 h-4 text-sky-600"></i> Recommended Posology & Dosage Guideline:
+          </h4>
+          <p class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed">
+            ${med.dosageGuideline}
+          </p>
+        </div>
+      ` : ''}
+
       <!-- Clinical Safety Notice Banner (High Priority) -->
       <div class="mb-6 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs">
         <div class="flex items-center gap-2 mb-1.5 font-bold uppercase tracking-wide text-amber-800 dark:text-amber-300">
@@ -494,10 +598,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="text-xs leading-relaxed font-semibold pl-6">${med.safetyNote}</p>
       </div>
 
-      <!-- Primary Indication & Related Problem -->
+      <!-- Primary Indication & Related Problem (Kis Kaam Aati Hai) -->
       <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
         <h4 class="text-xs font-heading font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-          <i data-lucide="stethoscope" class="w-4 h-4 text-indigo-600"></i> Related Clinical Condition:
+          <i data-lucide="stethoscope" class="w-4 h-4 text-indigo-600"></i> Related Clinical Condition & Indications:
         </h4>
         <p class="text-sm font-bold text-indigo-700 dark:text-indigo-300 mb-1">${med.condition}</p>
         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${med.generalMedicalRole}</p>
@@ -511,9 +615,14 @@ document.addEventListener("DOMContentLoaded", () => {
       <!-- Verified Pharmacology Details if Available -->
       ${verifiedSalt ? `
         <div class="mb-5 p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/60">
-          <h4 class="text-xs font-heading font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wider mb-2 flex items-center gap-2">
-            <i data-lucide="flask-conical" class="w-4 h-4 text-indigo-600"></i> Verified Reference Posology Standards
-          </h4>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-heading font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="flask-conical" class="w-4 h-4 text-indigo-600"></i> Verified Reference Posology Standards
+            </h4>
+            <a href="dosage-calculator.html" class="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 flex items-center gap-1">
+              Calculator <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
           <div class="text-xs space-y-1.5 text-slate-700 dark:text-slate-300">
             <div><strong>Adult Single Dose:</strong> ${verifiedSalt.adultDosing.standardSingleDose}</div>
             <div><strong>Frequency:</strong> ${verifiedSalt.adultDosing.frequency}</div>

@@ -851,6 +851,18 @@ document.addEventListener("DOMContentLoaded", () => {
             </span>
           </div>
 
+          <!-- Commercial Market Brand Names -->
+          ${med.brandNames ? `
+            <div class="mb-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 text-xs">
+              <span class="text-[10px] font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider block mb-1 flex items-center gap-1">
+                <i data-lucide="tag" class="w-3 h-3"></i> Commercial Market Brands:
+              </span>
+              <p class="font-bold text-slate-900 dark:text-white text-xs leading-normal">
+                ${med.brandNames}
+              </p>
+            </div>
+          ` : ''}
+
           <!-- General Medical Role -->
           <div class="mb-3">
             <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
@@ -860,6 +872,18 @@ document.addEventListener("DOMContentLoaded", () => {
               ${med.generalMedicalRole}
             </p>
           </div>
+
+          <!-- Recommended Posology & Dosage Guideline -->
+          ${med.dosageGuideline ? `
+            <div class="mb-3 p-3 rounded-2xl bg-sky-50/70 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/50 text-xs">
+              <span class="text-[10px] font-bold text-sky-700 dark:text-sky-300 uppercase tracking-wider block mb-1 flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3"></i> Standard Posology & Dosage:
+              </span>
+              <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-normal">
+                ${med.dosageGuideline}
+              </p>
+            </div>
+          ` : ''}
 
           <!-- Clinical Safety Guidance (Amber Alert Box) -->
           <div class="mb-4 p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs">
