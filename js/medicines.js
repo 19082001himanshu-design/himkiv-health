@@ -307,15 +307,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let score = 0;
 
-        // Exact matches
-        if (brands === q) score = Math.max(score, 110);
+        // Exact & Leading matches
+        if (brands === q) score = Math.max(score, 115);
+        else if (active === q || active.startsWith(q + " ") || active.startsWith(q + "(") || active.startsWith(q + "/")) score = Math.max(score, 110);
         else if (cond === q || condIds === q || condIds.split(" ").includes(q)) score = Math.max(score, 100);
-        else if (active === q) score = Math.max(score, 95);
-        else if (mClass === q) score = Math.max(score, 80);
-        // Word boundary / start matches
+        else if (active.startsWith(q)) score = Math.max(score, 98);
+        else if (brands.startsWith(q) || brands.includes(", " + q)) score = Math.max(score, 95);
         else if (brands.includes(q)) score = Math.max(score, 90);
         else if (cond.startsWith(q) || cond.includes(" " + q) || condIds.includes(q.replace(/\s+/g, "-"))) score = Math.max(score, 85);
-        else if (active.startsWith(q) || active.includes(" " + q)) score = Math.max(score, 80);
+        else if (active.includes(" " + q) || active.includes("+" + q) || active.includes("+ " + q)) score = Math.max(score, 75);
+        else if (mClass === q) score = Math.max(score, 80);
         // Word token matching for multi-word queries (e.g. "stomach pain", "sore throat", "fever pain")
         const qWords = q.replace(/[^\w\s]/g, " ").split(/\s+/).filter(w => w.length > 2 && !["and", "the", "for", "with"].includes(w));
         if (qWords.length > 1) {

@@ -177,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Exact match on ID or Name
         if (id === query || id === qClean.replace(/\s+/g, "-")) score = Math.max(score, 120);
         else if (name === query || name === qClean) score = Math.max(score, 110);
+        else if ((qClean.includes("loose") || qClean.includes("diarrhea")) && id === "diarrhea") score = Math.max(score, 125);
         else if (id.startsWith(query) || name.startsWith(query) || name.startsWith(qClean)) score = Math.max(score, 95);
         else if (id.includes(query) || name.includes(query) || name.includes(qClean)) score = Math.max(score, 85);
         else if (icd === query) score = Math.max(score, 80);
@@ -737,6 +738,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return false;
     });
+
+    // Prioritize medicines according to disease.medicineIds order if defined
+    if (disease.medicineIds && Array.isArray(disease.medicineIds)) {
+      linkedMeds.sort((a, b) => {
+        let idxA = disease.medicineIds.indexOf(a.id);
+        let idxB = disease.medicineIds.indexOf(b.id);
+        if (idxA === -1) idxA = 999;
+        if (idxB === -1) idxB = 999;
+        return idxA - idxB;
+      });
+    }
 
     // Fallback to legacy salts if no HKare medicines
     if (linkedMeds.length === 0 && disease.firstLineSalts) {

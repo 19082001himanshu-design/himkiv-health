@@ -170,6 +170,311 @@ const HKARE_DATA = {
   ],
   "conditions": [
     {
+      "id": "fever-pain",
+      "name": "Fever & Generalized Body Pain",
+      "category": "Pain",
+      "categorySlug": "pain",
+      "icd11Code": "MG26",
+      "icd11Chapter": "Chapter 21",
+      "description": "Acute febrile illness accompanied by generalized muscle aches, headache, malaise, and systemic inflammatory discomfort.",
+      "symptoms": [
+        "Elevated core body temperature (>100.4 F / 38 C)",
+        "Generalized body aches and myalgia",
+        "Shivering, rigors, and chills",
+        "Frontal or throbbing headache",
+        "Physical fatigue and malaise"
+      ],
+      "emergencyFlags": [
+        "Body temperature > 104 F (40 C) unresponsive to antipyretics",
+        "Altered mental sensorium or confusion",
+        "Petechial or purpuric rash (meningococcemia risk)",
+        "Stiff neck (nuchal rigidity)"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_fever-pain_aceclofenac-paracetamol_215",
+        "hkare_fever-pain_ibuprofen-paracetamol_216",
+        "hkare_fever-pain_paracetamol_217"
+      ]
+    },
+    {
+      "id": "diarrhea",
+      "name": "Diarrhea (Loose Motions)",
+      "category": "Gastrointestinal",
+      "categoryId": "gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "icd11Code": "ME05.1",
+      "icd11Title": "Diarrhoea",
+      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#ME05.1",
+      "icd11Release": "2026-01",
+      "description": "Acute or recurrent watery loose motions, enteropathogen irritation, cramping abdominal colic, and dehydration.",
+      "symptoms": [
+        "Frequent watery stools / loose motions (> 3/day)",
+        "Abdominal cramps and griping colic",
+        "Fecal urgency and tenesmus",
+        "Dehydration, dry mouth, and thirst",
+        "Nausea, bloating, and fatigue"
+      ],
+      "emergencyFlags": [
+        "Severe dehydration (sunken eyes, delayed skin pinch > 2 seconds, lethargy)",
+        "Bloody loose stools / frank dysentery",
+        "Persistent vomiting with fluid intolerance",
+        "High persistent fever with rigors"
+      ],
+      "medicineIds": [
+        "hkare_diarrhea_ors_205",
+        "hkare_diarrhea_lactic-acid-bacillus_219",
+        "hkare_diarrhea_metronidazole_218",
+        "hkare_diarrhea_ofloxacin-ornidazole_208",
+        "hkare_diarrhea_norfloxacin-tinidazole_220",
+        "hkare_diarrhea_zinc-sulfate_206",
+        "hkare_diarrhea_racecadotril_207",
+        "hkare_diarrhea_loperamide_59"
+      ],
+      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
+      "sourceType": "HKare Reference Dataset",
+      "icd11Chapter": "Chapter 21"
+    },
+    {
+      "id": "cough",
+      "name": "Cough (Acute, Dry & Productive Chesty Cough)",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "icd11Code": "MD11",
+      "icd11Chapter": "Chapter 21",
+      "description": "Protective respiratory reflex manifested as acute or chronic coughing bouts due to tracheobronchial irritation, viral infection, or hypersecretion.",
+      "symptoms": [
+        "Frequent coughing paroxysms (dry hacking or wet productive)",
+        "Throat tickling, scratching, and irritation",
+        "Chest tightness during coughing bouts",
+        "Clear, white, or mucopurulent sputum",
+        "Post-nasal drip"
+      ],
+      "emergencyFlags": [
+        "Hemoptysis (coughing up fresh blood)",
+        "Severe stridor or marked intercostal indrawing",
+        "Resting SpO2 < 92% on room air"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_cough_dextromethorphan-chlorpheniramine_211",
+        "hkare_cough_ambroxol-levosalbutamol-guaifenesin_212"
+      ]
+    },
+    {
+      "id": "stomach-pain",
+      "name": "Stomach Pain, Gastritis & Abdominal Cramps",
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "icd11Code": "MD81.1",
+      "icd11Chapter": "Chapter 21",
+      "description": "Acute or recurrent upper abdominal epigastric distress, visceral smooth muscle spasms, acid-related burning, and gastrointestinal colic.",
+      "symptoms": [
+        "Gnawing or burning epigastric stomach pain",
+        "Spasmodic colicky abdominal cramps",
+        "Postprandial fullness, early satiety, and bloating",
+        "Acid sour regurgitation and nausea",
+        "Abdominal rumbling and discomfort"
+      ],
+      "emergencyFlags": [
+        "Board-like rigid abdomen with rebound tenderness (peritonitis / perforation)",
+        "Hematemesis (vomiting blood or coffee-ground material)",
+        "Melena (black tarry sticky stools)",
+        "Severe localized right lower quadrant pain (appendicitis alert)"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_gerd_pantoprazole_201",
+        "hkare_stomach-pain_pantoprazole-domperidone_202",
+        "hkare_stomach-pain_ranitidine_203",
+        "hkare_stomach-pain_dicyclomine-paracetamol_209",
+        "hkare_stomach-pain_drotaverine_210"
+      ]
+    },
+    {
+      "id": "sore-throat",
+      "name": "Sore Throat, Pharyngitis & Tonsillitis",
+      "category": "Respiratory",
+      "categorySlug": "respiratory",
+      "icd11Code": "CA02",
+      "icd11Chapter": "Chapter 12",
+      "description": "Acute inflammation of the mucosal pharynx, palatine tonsils, and uvula resulting in odynophagia, erythema, and throat irritation.",
+      "symptoms": [
+        "Sharp, scratchy, or burning pain in throat",
+        "Odynophagia (pain exacerbated when swallowing saliva or food)",
+        "Erythematous swollen tonsils with follicular exudates",
+        "Tender swollen anterior cervical lymph nodes",
+        "Low-grade fever and raspy voice"
+      ],
+      "emergencyFlags": [
+        "Inability to swallow own saliva (drooling)",
+        "Severe trismus (inability to open jaw, indicating peritonsillar quinsy)",
+        "Inspiratory stridor or visible respiratory distress"
+      ],
+      "sourceType": "HKare Reference Dataset",
+      "medicineIds": [
+        "hkare_sore-throat_amoxicillin-clavulanate_204",
+        "hkare_sore-throat_povidone-iodine_213",
+        "hkare_sore-throat_flurbiprofen_214"
+      ]
+    },
+    {
+      "id": "gerd",
+      "name": "GERD",
+      "category": "Gastrointestinal",
+      "categoryId": "gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "icd11Code": "DA22",
+      "icd11Title": "Gastro-oesophageal reflux disease",
+      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#DA22",
+      "icd11Release": "2026-01",
+      "description": "Standard evidence-based management includes: Reduces gastric acid.",
+      "symptoms": [
+        "Substernal pyrosis (heartburn)",
+        "Acid regurgitation into throat",
+        "Water brash",
+        "Worse in recumbent position",
+        "Dysphagia"
+      ],
+      "emergencyFlags": {},
+      "medicineIds": [
+        "hkare_gerd_omeprazole_50",
+        "hkare_gerd_rabeprazole_148",
+        "hkare_gerd_ondansetron_149",
+        "hkare_gerd_pantoprazole_201"
+      ],
+      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "peptic-ulcer-disease",
+      "name": "Peptic ulcer disease",
+      "category": "Gastrointestinal",
+      "categoryId": "gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "icd11Code": "DA60",
+      "icd11Title": "Gastric ulcer",
+      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#DA60",
+      "icd11Release": "2026-01",
+      "description": "Standard evidence-based management includes: Acid suppression and ulcer healing.",
+      "symptoms": [
+        "Epigastric burning gnawing ache",
+        "Duodenal ulcer: relieved by food, worse 2-3h postprandial",
+        "Nighttime awakening with pain"
+      ],
+      "emergencyFlags": {},
+      "medicineIds": [
+        "hkare_peptic-ulcer-disease_omeprazole_51"
+      ],
+      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "nausea-vomiting",
+      "name": "Nausea/vomiting",
+      "category": "Gastrointestinal",
+      "categoryId": "gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "icd11Code": "MD90.0",
+      "icd11Title": "Nausea",
+      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#MD90.0",
+      "icd11Release": "2026-01",
+      "description": "Standard evidence-based management includes: Controls nausea/vomiting in selected situations.",
+      "symptoms": [
+        "Persistent retching",
+        "Inability to keep liquids down",
+        "Abdominal cramping",
+        "Dehydration signs"
+      ],
+      "emergencyFlags": {},
+      "medicineIds": [
+        "hkare_nausea-vomiting_ondansetron_53"
+      ],
+      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "constipation",
+      "name": "Constipation",
+      "category": "Gastrointestinal",
+      "categoryId": "gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "icd11Code": "ME05.0",
+      "icd11Title": "Constipation",
+      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#ME05.0",
+      "icd11Release": "2026-01",
+      "description": "Standard evidence-based management includes: Relieves constipation.",
+      "symptoms": [
+        "Infrequent hard lumpy stools (< 3/week)",
+        "Straining at defecation",
+        "Sensation of incomplete evacuation",
+        "Abdominal distention"
+      ],
+      "emergencyFlags": {},
+      "medicineIds": [
+        "hkare_constipation_polyethylene-glycol_58"
+      ],
+      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hypertension",
+      "name": "Hypertension",
+      "category": "Cardiovascular",
+      "categoryId": "cardiovascular",
+      "categorySlug": "cardiovascular",
+      "icd11Code": "BA00",
+      "icd11Title": "Essential hypertension",
+      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#BA00",
+      "icd11Release": "2026-01",
+      "description": "Standard evidence-based management includes: Blood-pressure control; Blood-pressure control; Blood-pressure control.",
+      "symptoms": [
+        "Often asymptomatic",
+        "Occipital morning headache",
+        "Occasional visual blurring",
+        "Tinnitus",
+        "Palpitations"
+      ],
+      "emergencyFlags": {},
+      "medicineIds": [
+        "hkare_hypertension_enalapril_29",
+        "hkare_hypertension_amlodipine_30",
+        "hkare_hypertension_indapamide_31",
+        "hkare_hypertension_amlodipine-besylate_139",
+        "hkare_hypertension_ramipril_140",
+        "hkare_hypertension_losartan_141"
+      ],
+      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "asthma",
+      "name": "Asthma",
+      "category": "Respiratory",
+      "categoryId": "respiratory",
+      "categorySlug": "respiratory",
+      "icd11Code": "CA23",
+      "icd11Title": "Asthma",
+      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#CA23",
+      "icd11Release": "2026-01",
+      "description": "Standard evidence-based management includes: Relief of bronchospasm; Long-term airway inflammation control.",
+      "symptoms": [
+        "Expiratory wheezing",
+        "Shortness of breath",
+        "Chest tightness",
+        "Nocturnal dry cough",
+        "Dyspnea on exertion"
+      ],
+      "emergencyFlags": {},
+      "medicineIds": [
+        "hkare_asthma_salbutamol_21",
+        "hkare_asthma_budesonide_22",
+        "hkare_asthma_montelukast_151"
+      ],
+      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
       "id": "influenza",
       "name": "Influenza",
       "category": "Infectious",
@@ -704,33 +1009,6 @@ const HKARE_DATA = {
       "sourceType": "HKare Reference Dataset"
     },
     {
-      "id": "asthma",
-      "name": "Asthma",
-      "category": "Respiratory",
-      "categoryId": "respiratory",
-      "categorySlug": "respiratory",
-      "icd11Code": "CA23",
-      "icd11Title": "Asthma",
-      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#CA23",
-      "icd11Release": "2026-01",
-      "description": "Standard evidence-based management includes: Relief of bronchospasm; Long-term airway inflammation control.",
-      "symptoms": [
-        "Expiratory wheezing",
-        "Shortness of breath",
-        "Chest tightness",
-        "Nocturnal dry cough",
-        "Dyspnea on exertion"
-      ],
-      "emergencyFlags": {},
-      "medicineIds": [
-        "hkare_asthma_salbutamol_21",
-        "hkare_asthma_budesonide_22",
-        "hkare_asthma_montelukast_151"
-      ],
-      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset"
-    },
-    {
       "id": "copd",
       "name": "COPD",
       "category": "Respiratory",
@@ -849,36 +1127,6 @@ const HKARE_DATA = {
       "emergencyFlags": {},
       "medicineIds": [
         "hkare_sleep-apnea_cpap_28"
-      ],
-      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset"
-    },
-    {
-      "id": "hypertension",
-      "name": "Hypertension",
-      "category": "Cardiovascular",
-      "categoryId": "cardiovascular",
-      "categorySlug": "cardiovascular",
-      "icd11Code": "BA00",
-      "icd11Title": "Essential hypertension",
-      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#BA00",
-      "icd11Release": "2026-01",
-      "description": "Standard evidence-based management includes: Blood-pressure control; Blood-pressure control; Blood-pressure control.",
-      "symptoms": [
-        "Often asymptomatic",
-        "Occipital morning headache",
-        "Occasional visual blurring",
-        "Tinnitus",
-        "Palpitations"
-      ],
-      "emergencyFlags": {},
-      "medicineIds": [
-        "hkare_hypertension_enalapril_29",
-        "hkare_hypertension_amlodipine_30",
-        "hkare_hypertension_indapamide_31",
-        "hkare_hypertension_amlodipine-besylate_139",
-        "hkare_hypertension_ramipril_140",
-        "hkare_hypertension_losartan_141"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -1303,57 +1551,6 @@ const HKARE_DATA = {
       "sourceType": "HKare Reference Dataset"
     },
     {
-      "id": "gerd",
-      "name": "GERD",
-      "category": "Gastrointestinal",
-      "categoryId": "gastrointestinal",
-      "categorySlug": "gastrointestinal",
-      "icd11Code": "DA22",
-      "icd11Title": "Gastro-oesophageal reflux disease",
-      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#DA22",
-      "icd11Release": "2026-01",
-      "description": "Standard evidence-based management includes: Reduces gastric acid.",
-      "symptoms": [
-        "Substernal pyrosis (heartburn)",
-        "Acid regurgitation into throat",
-        "Water brash",
-        "Worse in recumbent position",
-        "Dysphagia"
-      ],
-      "emergencyFlags": {},
-      "medicineIds": [
-        "hkare_gerd_omeprazole_50",
-        "hkare_gerd_rabeprazole_148",
-        "hkare_gerd_ondansetron_149",
-        "hkare_gerd_pantoprazole_201"
-      ],
-      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset"
-    },
-    {
-      "id": "peptic-ulcer-disease",
-      "name": "Peptic ulcer disease",
-      "category": "Gastrointestinal",
-      "categoryId": "gastrointestinal",
-      "categorySlug": "gastrointestinal",
-      "icd11Code": "DA60",
-      "icd11Title": "Gastric ulcer",
-      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#DA60",
-      "icd11Release": "2026-01",
-      "description": "Standard evidence-based management includes: Acid suppression and ulcer healing.",
-      "symptoms": [
-        "Epigastric burning gnawing ache",
-        "Duodenal ulcer: relieved by food, worse 2-3h postprandial",
-        "Nighttime awakening with pain"
-      ],
-      "emergencyFlags": {},
-      "medicineIds": [
-        "hkare_peptic-ulcer-disease_omeprazole_51"
-      ],
-      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset"
-    },
-    {
       "id": "h-pylori-infection",
       "name": "H. pylori infection",
       "category": "Gastrointestinal",
@@ -1374,30 +1571,6 @@ const HKARE_DATA = {
       "emergencyFlags": {},
       "medicineIds": [
         "hkare_h-pylori-infection_amoxicillin-clarithromycin-omeprazole_52"
-      ],
-      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset"
-    },
-    {
-      "id": "nausea-vomiting",
-      "name": "Nausea/vomiting",
-      "category": "Gastrointestinal",
-      "categoryId": "gastrointestinal",
-      "categorySlug": "gastrointestinal",
-      "icd11Code": "MD90.0",
-      "icd11Title": "Nausea",
-      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#MD90.0",
-      "icd11Release": "2026-01",
-      "description": "Standard evidence-based management includes: Controls nausea/vomiting in selected situations.",
-      "symptoms": [
-        "Persistent retching",
-        "Inability to keep liquids down",
-        "Abdominal cramping",
-        "Dehydration signs"
-      ],
-      "emergencyFlags": {},
-      "medicineIds": [
-        "hkare_nausea-vomiting_ondansetron_53"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
@@ -1497,68 +1670,6 @@ const HKARE_DATA = {
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset"
-    },
-    {
-      "id": "constipation",
-      "name": "Constipation",
-      "category": "Gastrointestinal",
-      "categoryId": "gastrointestinal",
-      "categorySlug": "gastrointestinal",
-      "icd11Code": "ME05.0",
-      "icd11Title": "Constipation",
-      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#ME05.0",
-      "icd11Release": "2026-01",
-      "description": "Standard evidence-based management includes: Relieves constipation.",
-      "symptoms": [
-        "Infrequent hard lumpy stools (< 3/week)",
-        "Straining at defecation",
-        "Sensation of incomplete evacuation",
-        "Abdominal distention"
-      ],
-      "emergencyFlags": {},
-      "medicineIds": [
-        "hkare_constipation_polyethylene-glycol_58"
-      ],
-      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset"
-    },
-    {
-      "id": "diarrhea",
-      "name": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
-      "category": "Gastrointestinal",
-      "categoryId": "gastrointestinal",
-      "categorySlug": "gastrointestinal",
-      "icd11Code": "ME05.1",
-      "icd11Title": "Diarrhoea",
-      "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#ME05.1",
-      "icd11Release": "2026-01",
-      "description": "Acute or recurrent watery loose motions, pathogen-induced enterotoxin hypersecretion, cramping abdominal colic, and dehydration.",
-      "symptoms": [
-        "Frequent loose watery stools / loose motions (> 3/day)",
-        "Abdominal cramps and griping colic",
-        "Fecal urgency and tenesmus",
-        "Dehydration, dry mouth, and thirst",
-        "Nausea, bloating, and malaise"
-      ],
-      "emergencyFlags": [
-        "Severe dehydration (sunken eyes, delayed skin pinch > 2 seconds, lethargy)",
-        "Bloody loose stools / frank dysentery",
-        "Persistent vomiting with fluid intolerance",
-        "High persistent fever with rigors"
-      ],
-      "medicineIds": [
-        "hkare_diarrhea_loperamide_59",
-        "hkare_diarrhea_ors_205",
-        "hkare_diarrhea_zinc-sulfate_206",
-        "hkare_diarrhea_racecadotril_207",
-        "hkare_diarrhea_ofloxacin-ornidazole_208",
-        "hkare_diarrhea_metronidazole_218",
-        "hkare_diarrhea_lactic-acid-bacillus_219",
-        "hkare_diarrhea_norfloxacin-tinidazole_220"
-      ],
-      "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset",
-      "icd11Chapter": "Chapter 21"
     },
     {
       "id": "hemorrhoids",
@@ -3586,117 +3697,6 @@ const HKARE_DATA = {
         "hkare_rare_penicillamine_182",
         "hkare_rare_pyridostigmine_183"
       ]
-    },
-    {
-      "id": "fever-pain",
-      "name": "Fever & Generalized Body Pain",
-      "category": "Pain",
-      "categorySlug": "pain",
-      "icd11Code": "MG26",
-      "icd11Chapter": "Chapter 21",
-      "description": "Acute febrile illness accompanied by generalized muscle aches, headache, malaise, and systemic inflammatory discomfort.",
-      "symptoms": [
-        "Elevated core body temperature (>100.4 F / 38 C)",
-        "Generalized body aches and myalgia",
-        "Shivering, rigors, and chills",
-        "Frontal or throbbing headache",
-        "Physical fatigue and malaise"
-      ],
-      "emergencyFlags": [
-        "Body temperature > 104 F (40 C) unresponsive to antipyretics",
-        "Altered mental sensorium or confusion",
-        "Petechial or purpuric rash (meningococcemia risk)",
-        "Stiff neck (nuchal rigidity)"
-      ],
-      "sourceType": "HKare Reference Dataset",
-      "medicineIds": [
-        "hkare_fever-pain_aceclofenac-paracetamol_215",
-        "hkare_fever-pain_ibuprofen-paracetamol_216",
-        "hkare_fever-pain_paracetamol_217"
-      ]
-    },
-    {
-      "id": "cough",
-      "name": "Cough (Acute, Dry & Productive Chesty Cough)",
-      "category": "Respiratory",
-      "categorySlug": "respiratory",
-      "icd11Code": "MD11",
-      "icd11Chapter": "Chapter 21",
-      "description": "Protective respiratory reflex manifested as acute or chronic coughing bouts due to tracheobronchial irritation, viral infection, or hypersecretion.",
-      "symptoms": [
-        "Frequent coughing paroxysms (dry hacking or wet productive)",
-        "Throat tickling, scratching, and irritation",
-        "Chest tightness during coughing bouts",
-        "Clear, white, or mucopurulent sputum",
-        "Post-nasal drip"
-      ],
-      "emergencyFlags": [
-        "Hemoptysis (coughing up fresh blood)",
-        "Severe stridor or marked intercostal indrawing",
-        "Resting SpO2 < 92% on room air"
-      ],
-      "sourceType": "HKare Reference Dataset",
-      "medicineIds": [
-        "hkare_cough_dextromethorphan-chlorpheniramine_211",
-        "hkare_cough_ambroxol-levosalbutamol-guaifenesin_212"
-      ]
-    },
-    {
-      "id": "stomach-pain",
-      "name": "Stomach Pain, Gastritis & Abdominal Cramps",
-      "category": "Gastrointestinal",
-      "categorySlug": "gastrointestinal",
-      "icd11Code": "MD81.1",
-      "icd11Chapter": "Chapter 21",
-      "description": "Acute or recurrent upper abdominal epigastric distress, visceral smooth muscle spasms, acid-related burning, and gastrointestinal colic.",
-      "symptoms": [
-        "Gnawing or burning epigastric stomach pain",
-        "Spasmodic colicky abdominal cramps",
-        "Postprandial fullness, early satiety, and bloating",
-        "Acid sour regurgitation and nausea",
-        "Abdominal rumbling and discomfort"
-      ],
-      "emergencyFlags": [
-        "Board-like rigid abdomen with rebound tenderness (peritonitis / perforation)",
-        "Hematemesis (vomiting blood or coffee-ground material)",
-        "Melena (black tarry sticky stools)",
-        "Severe localized right lower quadrant pain (appendicitis alert)"
-      ],
-      "sourceType": "HKare Reference Dataset",
-      "medicineIds": [
-        "hkare_gerd_pantoprazole_201",
-        "hkare_stomach-pain_pantoprazole-domperidone_202",
-        "hkare_stomach-pain_ranitidine_203",
-        "hkare_stomach-pain_dicyclomine-paracetamol_209",
-        "hkare_stomach-pain_drotaverine_210"
-      ]
-    },
-    {
-      "id": "sore-throat",
-      "name": "Sore Throat, Pharyngitis & Tonsillitis",
-      "category": "Respiratory",
-      "categorySlug": "respiratory",
-      "icd11Code": "CA02",
-      "icd11Chapter": "Chapter 12",
-      "description": "Acute inflammation of the mucosal pharynx, palatine tonsils, and uvula resulting in odynophagia, erythema, and throat irritation.",
-      "symptoms": [
-        "Sharp, scratchy, or burning pain in throat",
-        "Odynophagia (pain exacerbated when swallowing saliva or food)",
-        "Erythematous swollen tonsils with follicular exudates",
-        "Tender swollen anterior cervical lymph nodes",
-        "Low-grade fever and raspy voice"
-      ],
-      "emergencyFlags": [
-        "Inability to swallow own saliva (drooling)",
-        "Severe trismus (inability to open jaw, indicating peritonsillar quinsy)",
-        "Inspiratory stridor or visible respiratory distress"
-      ],
-      "sourceType": "HKare Reference Dataset",
-      "medicineIds": [
-        "hkare_sore-throat_amoxicillin-clavulanate_204",
-        "hkare_sore-throat_povidone-iodine_213",
-        "hkare_sore-throat_flurbiprofen_214"
-      ]
     }
   ],
   "medicines": [
@@ -4572,9 +4572,9 @@ const HKARE_DATA = {
     },
     {
       "id": "hkare_diarrhea_loperamide_59",
-      "activeIngredient": "Loperamide",
+      "activeIngredient": "Loperamide (Imodium 2mg)",
       "medicineClass": "Antidiarrheal",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -4582,7 +4582,7 @@ const HKARE_DATA = {
       "safetyNote": "Avoid in some infections/children without clinician advice",
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset",
-      "brandNames": "Imodium, Lopamide, Eldoper",
+      "brandNames": "Imodium, Lopamide, Eldoper, Roko, Lopram",
       "dosageGuideline": "Adult: 4 mg initially, then 2 mg after each loose stool (Max: 16 mg/day).",
       "conditionIds": [
         "diarrhea",
@@ -6771,13 +6771,13 @@ const HKARE_DATA = {
     },
     {
       "id": "hkare_diarrhea_ors_205",
-      "activeIngredient": "Oral Rehydration Salts (WHO-Standard Low-Osmolarity ORS)",
+      "activeIngredient": "Oral Rehydration Salts (Electral ORS)",
       "medicineClass": "Oral Electrolyte & Glucose Replacement Formula",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
-      "generalMedicalRole": "Harnesses sodium-glucose intestinal cotransport mechanisms across brush-border epithelial cells to facilitate rapid water and electrolyte reabsorption, preventing lethal hypovolemic dehydration in acute diarrheal illness.",
+      "generalMedicalRole": "Harnesses sodium-glucose intestinal cotransport mechanisms across brush-border epithelial cells to facilitate rapid water and electrolyte reabsorption, preventing hypovolemic dehydration in acute loose motions and diarrheal illness.",
       "dosageGuideline": "Adult: 200 to 400 mL after each watery stool (1-2 liters/day as needed). Pediatric: 10 mL/kg body weight after each loose stool (50-100 mL for infants under 2 years).",
       "brandNames": "Electral, ORS-L, Walyte, Enerzal ORS, Reliance ORS",
       "safetyNote": "Dissolve one sachet in exactly the recommended volume of clean potable water. Do not boil prepared solution. Discard unused portion after 24 hours.",
@@ -6791,15 +6791,15 @@ const HKARE_DATA = {
     },
     {
       "id": "hkare_diarrhea_zinc-sulfate_206",
-      "activeIngredient": "Zinc Sulfate / Zinc Gluconate",
+      "activeIngredient": "Zinc Sulfate (Zinconia 20mg)",
       "medicineClass": "Essential Trace Micronutrient / Intestinal Epithelial Protectant",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
       "generalMedicalRole": "Stimulates mucosal regeneration, repairs intestinal brush-border villous atrophy, enhances enterocyte immune clearance, and reduces diarrheal stool frequency, volume, and duration.",
       "dosageGuideline": "Pediatric (<6 months): 10 mg elemental zinc once daily for 10-14 days. Children (>=6 months) & Adults: 20 mg elemental zinc once daily for 10-14 days to reduce stool frequency and prevent recurrence.",
-      "brandNames": "Zincat, Zinconia, Zinctec, Z-Zinc, Nutrizinc",
+      "brandNames": "Zinconia, Zincat, Zinctec, Z-Zinc, Nutrizinc",
       "safetyNote": "Give with food to prevent mild gastric upset. Must be continued for the complete 10-14 day course even after acute diarrhea resolves.",
       "source": "WHO / UNICEF Essential Treatment Guidelines for Diarrhoea",
       "sourceType": "HKare Reference Dataset",
@@ -6811,9 +6811,9 @@ const HKARE_DATA = {
     },
     {
       "id": "hkare_diarrhea_racecadotril_207",
-      "activeIngredient": "Racecadotril",
+      "activeIngredient": "Racecadotril (Redotil 100mg)",
       "medicineClass": "Intestinal Enkephalinase Inhibitor / Pure Antisecretory Antidiarrheal",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -6831,9 +6831,9 @@ const HKARE_DATA = {
     },
     {
       "id": "hkare_diarrhea_ofloxacin-ornidazole_208",
-      "activeIngredient": "Ofloxacin + Ornidazole",
+      "activeIngredient": "Ofloxacin + Ornidazole (O2)",
       "medicineClass": "Fluoroquinolone + Nitroimidazole Dual Antimicrobial",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -6990,9 +6990,9 @@ const HKARE_DATA = {
     },
     {
       "id": "hkare_diarrhea_metronidazole_218",
-      "activeIngredient": "Metronidazole (Metrogyl 400mg / 200mg)",
+      "activeIngredient": "Metronidazole (Metrogyl 400mg)",
       "medicineClass": "Nitroimidazole Antiprotozoal & Anaerobic Antimicrobial",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "conditionIds": [
         "diarrhea",
@@ -7010,9 +7010,9 @@ const HKARE_DATA = {
     },
     {
       "id": "hkare_diarrhea_lactic-acid-bacillus_219",
-      "activeIngredient": "Lactic Acid Bacillus (Bacillus coagulans spores - Sporlac / Probiotic)",
+      "activeIngredient": "Lactic Acid Bacillus (Sporlac - Probiotic)",
       "medicineClass": "Probiotic / Gut Microflora Restorative Biotherapeutic",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "conditionIds": [
         "diarrhea",
@@ -7032,7 +7032,7 @@ const HKARE_DATA = {
       "id": "hkare_diarrhea_norfloxacin-tinidazole_220",
       "activeIngredient": "Norfloxacin + Tinidazole (Norflox-TZ)",
       "medicineClass": "Broad-Spectrum Fluoroquinolone + Nitroimidazole Dual Antimicrobial",
-      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "condition": "Diarrhea (Loose Motions)",
       "conditionId": "diarrhea",
       "conditionIds": [
         "diarrhea",
