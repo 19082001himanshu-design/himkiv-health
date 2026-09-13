@@ -290,7 +290,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Search & Score
     if (currentQuery) {
-      const q = currentQuery.trim().toLowerCase();
+      let q = currentQuery.trim().toLowerCase();
+      if (q.includes("losse")) q = q.replace(/losse/g, "loose");
       const scored = [];
 
       filtered.forEach(item => {

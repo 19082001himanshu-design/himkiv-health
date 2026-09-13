@@ -8,7 +8,7 @@ const HKARE_DATA = {
   "meta": {
     "fileName": "HKare_Common_Disease_Medicine_Reference(1).csv",
     "sourceType": "HKare Reference Dataset",
-    "totalRows": 217,
+    "totalRows": 220,
     "uniqueConditions": 140,
     "uniqueCategories": 18,
     "importDate": "2026-09-12",
@@ -1524,7 +1524,7 @@ const HKARE_DATA = {
     },
     {
       "id": "diarrhea",
-      "name": "Diarrhea",
+      "name": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
       "category": "Gastrointestinal",
       "categoryId": "gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -1532,24 +1532,33 @@ const HKARE_DATA = {
       "icd11Title": "Diarrhoea",
       "icd11Uri": "https://icd.who.int/browse/2024-01/mms/en#ME05.1",
       "icd11Release": "2026-01",
-      "description": "Standard evidence-based management includes: Symptom relief in selected non-bloody diarrhea.",
+      "description": "Acute or recurrent watery loose motions, pathogen-induced enterotoxin hypersecretion, cramping abdominal colic, and dehydration.",
       "symptoms": [
-        "Frequent loose watery stools (> 3/day)",
-        "Abdominal cramps",
-        "Urgency",
-        "Mild dehydration signs",
-        "Nausea"
+        "Frequent loose watery stools / loose motions (> 3/day)",
+        "Abdominal cramps and griping colic",
+        "Fecal urgency and tenesmus",
+        "Dehydration, dry mouth, and thirst",
+        "Nausea, bloating, and malaise"
       ],
-      "emergencyFlags": {},
+      "emergencyFlags": [
+        "Severe dehydration (sunken eyes, delayed skin pinch > 2 seconds, lethargy)",
+        "Bloody loose stools / frank dysentery",
+        "Persistent vomiting with fluid intolerance",
+        "High persistent fever with rigors"
+      ],
       "medicineIds": [
         "hkare_diarrhea_loperamide_59",
         "hkare_diarrhea_ors_205",
         "hkare_diarrhea_zinc-sulfate_206",
         "hkare_diarrhea_racecadotril_207",
-        "hkare_diarrhea_ofloxacin-ornidazole_208"
+        "hkare_diarrhea_ofloxacin-ornidazole_208",
+        "hkare_diarrhea_metronidazole_218",
+        "hkare_diarrhea_lactic-acid-bacillus_219",
+        "hkare_diarrhea_norfloxacin-tinidazole_220"
       ],
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "icd11Chapter": "Chapter 21"
     },
     {
       "id": "hemorrhoids",
@@ -4565,7 +4574,7 @@ const HKARE_DATA = {
       "id": "hkare_diarrhea_loperamide_59",
       "activeIngredient": "Loperamide",
       "medicineClass": "Antidiarrheal",
-      "condition": "Diarrhea",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -4574,7 +4583,12 @@ const HKARE_DATA = {
       "source": "HKare_Common_Disease_Medicine_Reference(1).csv",
       "sourceType": "HKare Reference Dataset",
       "brandNames": "Imodium, Lopamide, Eldoper",
-      "dosageGuideline": "Adult: 4 mg initially, then 2 mg after each loose stool (Max: 16 mg/day)."
+      "dosageGuideline": "Adult: 4 mg initially, then 2 mg after each loose stool (Max: 16 mg/day).",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ]
     },
     {
       "id": "hkare_hemorrhoids_hydrocortisone_60",
@@ -6759,7 +6773,7 @@ const HKARE_DATA = {
       "id": "hkare_diarrhea_ors_205",
       "activeIngredient": "Oral Rehydration Salts (WHO-Standard Low-Osmolarity ORS)",
       "medicineClass": "Oral Electrolyte & Glucose Replacement Formula",
-      "condition": "Diarrhea",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -6768,13 +6782,18 @@ const HKARE_DATA = {
       "brandNames": "Electral, ORS-L, Walyte, Enerzal ORS, Reliance ORS",
       "safetyNote": "Dissolve one sachet in exactly the recommended volume of clean potable water. Do not boil prepared solution. Discard unused portion after 24 hours.",
       "source": "WHO / UNICEF Guidelines on the Management of Diarrhoea",
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ]
     },
     {
       "id": "hkare_diarrhea_zinc-sulfate_206",
       "activeIngredient": "Zinc Sulfate / Zinc Gluconate",
       "medicineClass": "Essential Trace Micronutrient / Intestinal Epithelial Protectant",
-      "condition": "Diarrhea",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -6783,13 +6802,18 @@ const HKARE_DATA = {
       "brandNames": "Zincat, Zinconia, Zinctec, Z-Zinc, Nutrizinc",
       "safetyNote": "Give with food to prevent mild gastric upset. Must be continued for the complete 10-14 day course even after acute diarrhea resolves.",
       "source": "WHO / UNICEF Essential Treatment Guidelines for Diarrhoea",
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ]
     },
     {
       "id": "hkare_diarrhea_racecadotril_207",
       "activeIngredient": "Racecadotril",
       "medicineClass": "Intestinal Enkephalinase Inhibitor / Pure Antisecretory Antidiarrheal",
-      "condition": "Diarrhea",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -6798,13 +6822,18 @@ const HKARE_DATA = {
       "brandNames": "Redotil, Zedott, Enuff, Cadotril, Racotil",
       "safetyNote": "Does not replace fluid and electrolyte rehydration therapy with ORS. If bloody stool (dysentery) or high fever is present, evaluate for invasive bacterial enteritis.",
       "source": "European Society for Paediatric Gastroenterology & Hepatology (ESPGHAN) Guidelines",
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ]
     },
     {
       "id": "hkare_diarrhea_ofloxacin-ornidazole_208",
       "activeIngredient": "Ofloxacin + Ornidazole",
       "medicineClass": "Fluoroquinolone + Nitroimidazole Dual Antimicrobial",
-      "condition": "Diarrhea",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
       "conditionId": "diarrhea",
       "category": "Gastrointestinal",
       "categorySlug": "gastrointestinal",
@@ -6813,7 +6842,12 @@ const HKARE_DATA = {
       "brandNames": "O2, Zenflox-OZ, Zanocin-OZ, Ornof, Oflomac-OZ",
       "safetyNote": "Avoid alcohol consumption during therapy and for 48 hours afterward (disulfiram-like reaction liability). Causes metallic taste and mild nausea.",
       "source": "Clinical Infectious Diseases & Gastroenterology Formularies",
-      "sourceType": "HKare Reference Dataset"
+      "sourceType": "HKare Reference Dataset",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ]
     },
     {
       "id": "hkare_stomach-pain_dicyclomine-paracetamol_209",
@@ -6952,6 +6986,66 @@ const HKARE_DATA = {
       "brandNames": "Dolo 650, Calpol 650, Crocin 650, Pacimol, Sumo L",
       "safetyNote": "Maximum safe adult ceiling is 4000 mg/day from all sources combined. Severe hepatotoxicity risk with chronic alcohol consumption or acute overdose. Monitor concurrent combination cold/cough medications.",
       "source": "WHO Model List of Essential Medicines (EML) & British National Formulary (BNF)",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_diarrhea_metronidazole_218",
+      "activeIngredient": "Metronidazole (Metrogyl 400mg / 200mg)",
+      "medicineClass": "Nitroimidazole Antiprotozoal & Anaerobic Antimicrobial",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "conditionId": "diarrhea",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ],
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Generates cytotoxic intermediate radicals in anaerobic protozoa and bacteria that disrupt DNA helical structure, rapidly eradicating Entamoeba histolytica, Giardia lamblia, and anaerobic bacteria causing infectious loose motions, intestinal cramps, and amoebic dysentery.",
+      "dosageGuideline": "Adult: 400 mg orally 3 times daily with or after meals for 5 to 7 days (or 800 mg 3 times daily for acute amoebic dysentery). Pediatric: 30 to 50 mg/kg/day divided into 3 equal doses.",
+      "brandNames": "Metrogyl 400, Metrogyl 200, Flagyl 400, Aristogyl, Metron, Aldezole",
+      "safetyNote": "Strictly avoid all alcohol consumption during therapy and for 48 hours afterward (severe disulfiram-like reaction with flushing, vomiting, and tachycardia). Causes characteristic metallic taste and harmless reddish-brown urine.",
+      "source": "WHO Model List of Essential Medicines (EML) & British National Formulary (BNF)",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_diarrhea_lactic-acid-bacillus_219",
+      "activeIngredient": "Lactic Acid Bacillus (Bacillus coagulans spores - Sporlac / Probiotic)",
+      "medicineClass": "Probiotic / Gut Microflora Restorative Biotherapeutic",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "conditionId": "diarrhea",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ],
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Germinates in the intestine to produce lactic acid, acetic acid, and antimicrobial bacteriocins, acidifying luminal pH to suppress dysbiotic enteropathogens, restoring healthy symbiotic gut microflora, and significantly reducing the frequency and duration of acute loose motions.",
+      "dosageGuideline": "Adult: 1 to 2 tablets/capsules (60 to 120 million spores) orally 2 to 3 times daily after meals with water or milk. Pediatric: 1 sachet dissolved in lukewarm liquid 1 to 2 times daily.",
+      "brandNames": "Sporlac, Sporlac-DS, Darolac, Vizylac, Bifilac, Lactogut, Bacigyl",
+      "safetyNote": "Well-tolerated biotherapeutic. If prescribed alongside systemic antibiotics, separate dosing by at least 2 hours to avoid antibiotic inactivation of probiotic spores.",
+      "source": "Indian Pharmacopoeia (IP) & Clinical Gastroenterology Formularies",
+      "sourceType": "HKare Reference Dataset"
+    },
+    {
+      "id": "hkare_diarrhea_norfloxacin-tinidazole_220",
+      "activeIngredient": "Norfloxacin + Tinidazole (Norflox-TZ)",
+      "medicineClass": "Broad-Spectrum Fluoroquinolone + Nitroimidazole Dual Antimicrobial",
+      "condition": "Diarrhea & Loose Motions (Acute Gastroenteritis)",
+      "conditionId": "diarrhea",
+      "conditionIds": [
+        "diarrhea",
+        "loose-motion",
+        "loose-motions"
+      ],
+      "category": "Gastrointestinal",
+      "categorySlug": "gastrointestinal",
+      "generalMedicalRole": "Dual synergistic bactericidal and antiprotozoal action combining norfloxacin's inhibition of bacterial DNA gyrase with tinidazole's free-radical mediated DNA destruction, treating mixed bacterial and protozoal gastroenteritis and infectious loose motions.",
+      "dosageGuideline": "Adult: 1 tablet (Norfloxacin 400 mg + Tinidazole 600 mg) orally twice daily after meals with a full glass of water for 3 to 5 days.",
+      "brandNames": "Norflox-TZ, Nor-T, Tiniba-N, Normaxin-TZ, Nor-Metrogyl, Angilox-TZ",
+      "safetyNote": "Absolute alcohol abstinence mandatory during treatment and for 72 hours afterward (disulfiram-like reactions). Avoid aluminium/magnesium antacids within 2 hours. Common side effects: metallic taste, headache, and mild nausea.",
+      "source": "Clinical Gastroenterology Guidelines & National Formulary",
       "sourceType": "HKare Reference Dataset"
     }
   ]

@@ -159,7 +159,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Search Query Filter with Priority Scoring & ID Matching
     if (query) {
-      const qClean = query.replace(/[^\w\s]/g, " ").trim().toLowerCase();
+      let qClean = query.replace(/[^\w\s]/g, " ").trim().toLowerCase();
+      if (qClean.includes("losse")) qClean = qClean.replace(/losse/g, "loose");
       const qWords = qClean.split(/\s+/).filter(w => w.length > 1 && !["and", "the", "for", "with", "in"].includes(w));
       const scored = [];
 
