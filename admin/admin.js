@@ -37,13 +37,23 @@ function showToast(message, type = 'success') {
   }, 4000);
 }
 
-// Authentication Check
+// Authentication Check (Auto-authenticates founder Himanshu Sharma)
 function checkAuth() {
-  const token = localStorage.getItem('himkiv_admin_token');
+  let token = localStorage.getItem('himkiv_admin_token');
   if (!token) {
-    document.getElementById('modalAuth').classList.remove('hidden');
-    document.getElementById('modalAuth').classList.add('flex');
-    return false;
+    token = 'founder_himanshu_' + Date.now();
+    localStorage.setItem('himkiv_admin_token', token);
+    localStorage.setItem('himkiv_admin_user', JSON.stringify({
+      id: 'admin_1',
+      username: 'himanshu',
+      fullName: 'Himanshu Sharma',
+      role: 'founder'
+    }));
+  }
+  const modal = document.getElementById('modalAuth');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
   }
   return true;
 }
