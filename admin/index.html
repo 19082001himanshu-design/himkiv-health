@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIMKIV Admin Console | Founder & Medical Formulary Management</title>
+  <meta name="description" content="Official administrative management portal for HIMKIV Health. Manage medicines, drug salts, brand names, diseases, affiliate links, hospitals, and doctor appointments.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            clinical: {
+              teal: '#0891b2',
+              green: '#059669',
+              emerald: '#10b981',
+              amber: '#d97706',
+              danger: '#dc2626'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Figtree & Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-family: 'Figtree', system-ui, sans-serif; }
+    .font-mono-code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- TOP APP BAR -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-teal-500 flex items-center justify-center text-white font-bold shadow-md shadow-brand-500/20">
+            <i data-lucide="shield-plus" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-extrabold text-lg tracking-tight text-white">HIMKIV</span>
+              <span class="text-xs uppercase px-1.5 py-0.5 rounded bg-brand-500/20 text-brand-300 font-semibold border border-brand-500/30">Admin Console</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium">Founder &amp; Content Management System</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center System Status -->
+      <div class="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300" id="apiStatusBadge">Backend API: Connected (Port 5000)</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-2.5">
+        <!-- 1-Click Sync Button -->
+        <button id="btnSyncStatic" onclick="syncStaticData()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold shadow-sm transition-all">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="syncSpinner"></i>
+          <span>1-Click Sync to Web</span>
+        </button>
+
+        <!-- View Live Website -->
+        <a href="../index.html" target="_blank" class="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>View Site</span>
+        </a>
+
+        <!-- Founder Profile Badge -->
+        <div class="flex items-center space-x-2 pl-2 border-l border-slate-700">
+          <div class="w-8 h-8 rounded-full bg-teal-800/80 border border-teal-500/30 flex items-center justify-center text-teal-200 font-bold text-xs">
+            HS
+          </div>
+          <div class="hidden lg:block text-left">
+            <div class="text-xs font-semibold text-white" id="adminUserName">Himanshu Sharma</div>
+            <div class="text-[10px] text-teal-400 font-medium">Founder &amp; Lead</div>
+          </div>
+          <button onclick="logoutAdmin()" title="Logout" class="text-slate-400 hover:text-white p-1 ml-1">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs Bar -->
+    <div class="bg-slate-800 border-t border-slate-700/60 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto flex space-x-1 overflow-x-auto py-2 text-xs font-medium">
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-3 py-1.5 rounded-md text-white bg-slate-700 flex items-center space-x-1.5">
+          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
+          <span>Overview</span>
+        </button>
+        <button onclick="switchTab('medicines')" id="tab-medicines" class="tab-btn px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1.5">
+          <i data-lucide="pill" class="w-3.5 h-3.5"></i>
+          <span>Medicines &amp; Brands</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-teal-400 text-[10px]" id="navCountMeds">265</span>
+        </button>
+        <button onclick="switchTab('diseases')" id="tab-diseases" class="tab-btn px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1.5">
+          <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+          <span>Diseases &amp; Conditions</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-teal-400 text-[10px]" id="navCountDiseases">140</span>
+        </button>
+        <button onclick="switchTab('affiliates')" id="tab-affiliates" class="tab-btn px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1.5">
+          <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+          <span>Affiliate Partners</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-teal-400 text-[10px]" id="navCountAffiliates">795</span>
+        </button>
+        <button onclick="switchTab('hospitals')" id="tab-hospitals" class="tab-btn px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1.5">
+          <i data-lucide="building-2" class="w-3.5 h-3.5"></i>
+          <span>Nearby Hospitals</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-teal-400 text-[10px]" id="navCountHospitals">5</span>
+        </button>
+        <button onclick="switchTab('doctors')" id="tab-doctors" class="tab-btn px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center space-x-1.5">
+          <i data-lucide="stethoscope" class="w-3.5 h-3.5"></i>
+          <span>Doctor Appointments</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-teal-400 text-[10px]" id="navCountDoctors">4</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NOTIFICATION TOAST CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: OVERVIEW -->
+    <!-- ======================================================== -->
+    <div id="view-overview" class="space-y-6">
+      <!-- Welcome Card -->
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-teal-950 text-white shadow-sm border border-slate-700/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-500/20 text-teal-300 border border-teal-500/30">Master Administration</span>
+          <h1 class="text-2xl font-bold mt-2">Welcome, Himanshu Sharma</h1>
+          <p class="text-sm text-slate-300 mt-1 max-w-2xl">
+            Manage Himkiv's entire healthcare catalog: add new medicines, brand names, clinical conditions, affiliate purchase links, verified hospitals, and doctor appointments. Click <strong>1-Click Sync</strong> anytime to publish updates live to GitHub Pages.
+          </p>
+        </div>
+        <div class="flex items-center space-x-3 shrink-0">
+          <button onclick="openMedicineModal()" class="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-sm shadow-md transition-all flex items-center space-x-2">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Add Medicine</span>
+          </button>
+          <button onclick="openDiseaseModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-sm transition-all flex items-center space-x-2">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Add Condition</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Metrics Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-slate-500">Total Medicines</span>
+            <div class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
+              <i data-lucide="pill" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-2" id="kpiMedicines">265</div>
+          <div class="text-[11px] text-emerald-600 font-medium mt-1 flex items-center space-x-1">
+            <i data-lucide="check-circle-2" class="w-3 h-3"></i>
+            <span>WHO &amp; BNF Indexed</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-slate-500">Conditions &amp; Survey</span>
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+              <i data-lucide="activity" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-2" id="kpiDiseases">140</div>
+          <div class="text-[11px] text-blue-600 font-medium mt-1">ICD-11 MMS Mapped</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-slate-500">Affiliate Links</span>
+            <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-2" id="kpiAffiliates">795</div>
+          <div class="text-[11px] text-amber-600 font-medium mt-1">1mg, Apollo, Netmeds</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-slate-500">Nearby Hospitals</span>
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="building-2" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-2" id="kpiHospitals">5</div>
+          <div class="text-[11px] text-emerald-600 font-medium mt-1">Ready for Directory</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-slate-500">Doctor Network</span>
+            <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+              <i data-lucide="stethoscope" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-2" id="kpiDoctors">4</div>
+          <div class="text-[11px] text-purple-600 font-medium mt-1">Appointments Ready</div>
+        </div>
+      </div>
+
+      <!-- Quick Action Modules -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Quick Medicine Add Card -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center mb-3">
+              <i data-lucide="plus-circle" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 text-base">Add New Medicine &amp; Brands</h3>
+            <p class="text-xs text-slate-500 mt-1">Add newly released drug salts, dosage guidelines, safety precautions, and commercial brand names.</p>
+          </div>
+          <button onclick="openMedicineModal()" class="mt-4 w-full py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors flex items-center justify-center space-x-1">
+            <span>Launch Medicine Creator</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Affiliate Link Setup Card -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-amber-300 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center mb-3">
+              <i data-lucide="link" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 text-base">Affiliate Link Manager</h3>
+            <p class="text-xs text-slate-500 mt-1">Configure affiliate links for Tata 1mg, Apollo Pharmacy, Netmeds, and PharmEasy to earn referral commissions.</p>
+          </div>
+          <button onclick="switchTab('affiliates')" class="mt-4 w-full py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold transition-colors flex items-center justify-center space-x-1">
+            <span>Manage Affiliate Links</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Static Deployment Sync Card -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center mb-3">
+              <i data-lucide="globe" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 text-base">1-Click GitHub Sync</h3>
+            <p class="text-xs text-slate-500 mt-1">Exports all latest database edits into the static site data files so changes appear instantly on GitHub Pages.</p>
+          </div>
+          <button onclick="syncStaticData()" class="mt-4 w-full py-2 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold transition-colors flex items-center justify-center space-x-1">
+            <span>Sync to Web Now</span>
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Medicines Table Preview -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h2 class="font-bold text-slate-900 text-sm">Recently Active Medicines</h2>
+            <p class="text-xs text-slate-500">Live database entries ready for clinical search and dosage calculator</p>
+          </div>
+          <button onclick="switchTab('medicines')" class="text-xs font-semibold text-teal-600 hover:text-teal-700 flex items-center space-x-1">
+            <span>View All (265)</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <tr>
+                <th class="p-3">Medicine / Salt</th>
+                <th class="p-3">Category</th>
+                <th class="p-3">Condition</th>
+                <th class="p-3">Brand Names</th>
+                <th class="p-3">Affiliate Status</th>
+                <th class="p-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="overviewRecentMedsBody" class="divide-y divide-slate-100">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: MEDICINES & BRANDS -->
+    <!-- ======================================================== -->
+    <div id="view-medicines" class="space-y-4 hidden">
+      <!-- Toolbar -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="flex flex-1 items-center space-x-2">
+          <!-- Search input -->
+          <div class="relative flex-1 max-w-md">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+            <input type="text" id="medSearchInput" oninput="filterMedicines()" placeholder="Search active ingredient, brand (e.g. Norflox-TZ, Metrogyl, Dolo)..." class="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <!-- Category Filter -->
+          <select id="medCategoryFilter" onchange="filterMedicines()" class="py-2 px-3 rounded-lg border border-slate-200 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none">
+            <option value="all">All Categories</option>
+            <option value="general">Fever &amp; General</option>
+            <option value="gastrointestinal">Gastrointestinal</option>
+            <option value="respiratory">Respiratory &amp; Throat</option>
+            <option value="infectious">Infectious</option>
+            <option value="cardiovascular">Cardiovascular</option>
+            <option value="dermatology">Dermatology</option>
+          </select>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="openMedicineModal()" class="px-3.5 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-colors flex items-center space-x-1.5 shadow-sm">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add Medicine</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Medicines Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <tr>
+                <th class="p-3.5">Active Salt / Ingredient</th>
+                <th class="p-3.5">Commercial Brands</th>
+                <th class="p-3.5">Category &amp; Class</th>
+                <th class="p-3.5">Target Indication</th>
+                <th class="p-3.5">Affiliate Links</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="medicinesTableBody" class="divide-y divide-slate-100">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+        <!-- Pagination footer -->
+        <div class="p-3.5 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-slate-500">
+          <div>Showing <span id="medShowingCount">0</span> of <span id="medTotalCount">0</span> medicines</div>
+          <div class="flex space-x-1" id="medPaginationBtns"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: DISEASES & CONDITIONS -->
+    <!-- ======================================================== -->
+    <div id="view-diseases" class="space-y-4 hidden">
+      <!-- Toolbar -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="relative flex-1 max-w-md">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+          <input type="text" id="diseaseSearchInput" oninput="filterDiseases()" placeholder="Search condition name, symptom (e.g. loose motions, fever, cough)..." class="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+        <button onclick="openDiseaseModal()" class="px-3.5 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-colors flex items-center space-x-1.5 shadow-sm">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>Add New Condition</span>
+        </button>
+      </div>
+
+      <!-- Diseases Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <tr>
+                <th class="p-3.5">Condition Name</th>
+                <th class="p-3.5">Category</th>
+                <th class="p-3.5">Associated Symptoms</th>
+                <th class="p-3.5">ICD-11 Code</th>
+                <th class="p-3.5">Recommended Salts</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="diseasesTableBody" class="divide-y divide-slate-100">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: AFFILIATE PARTNERS & LINKS -->
+    <!-- ======================================================== -->
+    <div id="view-affiliates" class="space-y-6 hidden">
+      <!-- Affiliate Partners Banner -->
+      <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-sm">
+        <h2 class="text-base font-bold text-slate-900">Affiliate Commerce Integration</h2>
+        <p class="text-xs text-slate-500 mt-1">Configure direct purchase and price comparison links. Visitors clicking these links on Himkiv will be routed to online pharmacies with your affiliate referral tag.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-4">
+          <div class="p-3 rounded-lg border border-red-200 bg-red-50/50 flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-md bg-red-500 text-white flex items-center justify-center font-bold text-xs">1mg</div>
+            <div>
+              <div class="text-xs font-bold text-slate-900">Tata 1mg</div>
+              <div class="text-[10px] text-emerald-600 font-semibold">Active &bull; Verified</div>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg border border-emerald-200 bg-emerald-50/50 flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-md bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">AP</div>
+            <div>
+              <div class="text-xs font-bold text-slate-900">Apollo Pharmacy</div>
+              <div class="text-[10px] text-emerald-600 font-semibold">Active &bull; Verified</div>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg border border-blue-200 bg-blue-50/50 flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-md bg-blue-600 text-white flex items-center justify-center font-bold text-xs">NM</div>
+            <div>
+              <div class="text-xs font-bold text-slate-900">Netmeds</div>
+              <div class="text-[10px] text-emerald-600 font-semibold">Active &bull; Verified</div>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg border border-teal-200 bg-teal-50/50 flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-md bg-teal-600 text-white flex items-center justify-center font-bold text-xs">PE</div>
+            <div>
+              <div class="text-xs font-bold text-slate-900">PharmEasy</div>
+              <div class="text-[10px] text-slate-500">Ready for URLs</div>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg border border-amber-200 bg-amber-50/50 flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-md bg-amber-500 text-white flex items-center justify-center font-bold text-xs">AZ</div>
+            <div>
+              <div class="text-xs font-bold text-slate-900">Amazon Pharmacy</div>
+              <div class="text-[10px] text-slate-500">Ready for URLs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Affiliate Editor Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm">Medicine Affiliate Store Mapping</h3>
+            <p class="text-xs text-slate-500">Review and customize pharmacy URLs and discounts for each medicine</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <tr>
+                <th class="p-3.5">Medicine</th>
+                <th class="p-3.5">Brand</th>
+                <th class="p-3.5">Tata 1mg Link</th>
+                <th class="p-3.5">Apollo Link</th>
+                <th class="p-3.5">Netmeds Link</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="affiliateTableBody" class="divide-y divide-slate-100">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 5: NEARBY HOSPITALS (Future Module Ready) -->
+    <!-- ======================================================== -->
+    <div id="view-hospitals" class="space-y-4 hidden">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="font-bold text-slate-900 text-sm">Nearby Healthcare Facilities &amp; Hospitals</h2>
+          <p class="text-xs text-slate-500">Manage verified hospital directories with emergency contact lines and specialties.</p>
+        </div>
+        <button onclick="openHospitalModal()" class="px-3.5 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-colors flex items-center space-x-1.5 shadow-sm">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>Add Hospital</span>
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <tr>
+                <th class="p-3.5">Hospital Name</th>
+                <th class="p-3.5">City / State</th>
+                <th class="p-3.5">Emergency Contact</th>
+                <th class="p-3.5">Key Specialties</th>
+                <th class="p-3.5">Rating &amp; Beds</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="hospitalsTableBody" class="divide-y divide-slate-100">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 6: DOCTOR APPOINTMENTS (Future Module Ready) -->
+    <!-- ======================================================== -->
+    <div id="view-doctors" class="space-y-4 hidden">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="font-bold text-slate-900 text-sm">Doctor Consultation &amp; Appointments Directory</h2>
+          <p class="text-xs text-slate-500">Manage qualified doctor profiles, OPD schedules, fees, and booking links.</p>
+        </div>
+        <button onclick="openDoctorModal()" class="px-3.5 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-colors flex items-center space-x-1.5 shadow-sm">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>Add Doctor</span>
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <tr>
+                <th class="p-3.5">Doctor Name</th>
+                <th class="p-3.5">Specialization</th>
+                <th class="p-3.5">Hospital &amp; City</th>
+                <th class="p-3.5">Fee &amp; Timings</th>
+                <th class="p-3.5">Booking Action</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="doctorsTableBody" class="divide-y divide-slate-100">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT MEDICINE -->
+  <!-- ======================================================== -->
+  <div id="modalMedicine" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-bold text-base" id="medModalTitle">Add New Medicine</h3>
+          <p class="text-xs text-slate-400">Define active salt, commercial brands, dosage guideline &amp; affiliate links</p>
+        </div>
+        <button onclick="closeMedicineModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="formMedicine" onsubmit="handleSaveMedicine(event)" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+        <input type="hidden" id="medFormId">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Active Ingredient (Generic Salt Name) *</label>
+            <input type="text" id="medFormSalt" required placeholder="e.g. Paracetamol, Metronidazole, Pantoprazole" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Commercial Brand Names (Comma-separated)</label>
+            <input type="text" id="medFormBrands" placeholder="e.g. Dolo 650, Calpol, Crocin, Metrogyl" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Medicine Class</label>
+            <input type="text" id="medFormClass" placeholder="e.g. Analgesic &amp; Antipyretic, PPI" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Therapeutic Category</label>
+            <select id="medFormCategory" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+              <option value="General">Fever &amp; General</option>
+              <option value="Gastrointestinal">Gastrointestinal</option>
+              <option value="Respiratory">Respiratory &amp; Throat</option>
+              <option value="Infectious">Infectious &amp; Antimicrobial</option>
+              <option value="Cardiovascular">Cardiovascular</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Pain Management">Pain Management</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Clinical Indication / Condition</label>
+            <input type="text" id="medFormCondition" placeholder="e.g. Fever &amp; Pain, Loose Motions" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Dosage Guideline (Adult &amp; Pediatric Posology)</label>
+          <textarea id="medFormDosage" rows="2" placeholder="e.g. Adult: 500-650 mg orally every 4-6 hours as needed. Max 4000 mg/24 hours." class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Safety Note, Contraindications &amp; Precautions</label>
+          <textarea id="medFormSafety" rows="2" placeholder="e.g. Caution in hepatic impairment. Do not combine with other acetaminophen products." class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Mechanism / General Medical Role</label>
+          <input type="text" id="medFormRole" placeholder="e.g. Dual synergistic bactericidal action, or Central COX inhibition" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <!-- Affiliate URL Overrides -->
+        <div class="border-t border-slate-200 pt-3">
+          <span class="text-xs font-bold text-slate-800 flex items-center space-x-1 mb-2">
+            <i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-teal-600"></i>
+            <span>Affiliate Store Purchase URLs</span>
+          </span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600">Tata 1mg Buy URL</label>
+              <input type="url" id="medForm1mgUrl" placeholder="https://www.1mg.com/search/all?name=..." class="w-full px-2.5 py-1.5 text-xs border rounded-md focus:ring-2 focus:ring-teal-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600">Apollo Pharmacy Buy URL</label>
+              <input type="url" id="medFormApolloUrl" placeholder="https://www.apollopharmacy.in/search-medicines/..." class="w-full px-2.5 py-1.5 text-xs border rounded-md focus:ring-2 focus:ring-teal-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600">Netmeds Buy URL</label>
+              <input type="url" id="medFormNetmedsUrl" placeholder="https://www.netmeds.com/catalogsearch/result/..." class="w-full px-2.5 py-1.5 text-xs border rounded-md focus:ring-2 focus:ring-teal-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600">Discount Badge / Offer Text</label>
+              <input type="text" id="medFormDiscount" placeholder="e.g. 15% OFF, Best Price" class="w-full px-2.5 py-1.5 text-xs border rounded-md focus:ring-2 focus:ring-teal-500 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end space-x-3 border-t border-slate-100">
+          <button type="button" onclick="closeMedicineModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-xs font-semibold bg-teal-600 hover:bg-teal-500 text-white rounded-lg shadow-sm transition-all">Save Medicine</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT DISEASE -->
+  <!-- ======================================================== -->
+  <div id="modalDisease" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-bold text-base" id="diseaseModalTitle">Add Clinical Condition</h3>
+          <p class="text-xs text-slate-400">Map disease to survey, symptoms, and recommended medicines</p>
+        </div>
+        <button onclick="closeDiseaseModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="formDisease" onsubmit="handleSaveDisease(event)" class="p-6 space-y-4">
+        <input type="hidden" id="diseaseFormId">
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Condition Name *</label>
+          <input type="text" id="diseaseFormName" required placeholder="e.g. Diarrhea (Loose Motions), Acute Bronchitis" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Category</label>
+            <select id="diseaseFormCategory" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+              <option value="General">Fever &amp; General</option>
+              <option value="Gastrointestinal">Gastrointestinal &amp; Abdominal</option>
+              <option value="Respiratory">Respiratory &amp; Throat</option>
+              <option value="Infectious">Infectious &amp; Vector-Borne</option>
+              <option value="Cardiovascular">Cardiovascular</option>
+              <option value="Dermatology">Dermatology</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">WHO ICD-11 Code</label>
+            <input type="text" id="diseaseFormIcd" placeholder="e.g. 1A40, CA23, MD81" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Symptoms (Comma-separated)</label>
+          <input type="text" id="diseaseFormSymptoms" placeholder="e.g. Frequent watery stools, cramps, nausea, mild dehydration" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Recommended Medicines (Comma-separated)</label>
+          <input type="text" id="diseaseFormMeds" placeholder="e.g. ORS, Lactic Acid Bacillus, Norfloxacin + Tinidazole, Metronidazole" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Red Flags / Emergency Warning Signs</label>
+          <textarea id="diseaseFormRedFlags" rows="2" placeholder="e.g. Blood in stool, high fever > 102°F, inability to retain liquids" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Home Care &amp; Non-Pharmacological Advice</label>
+          <textarea id="diseaseFormHomeCare" rows="2" placeholder="e.g. Drink ORS after each loose stool. Consume bananas, rice, curd. Avoid oily food." class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end space-x-3 border-t border-slate-100">
+          <button type="button" onclick="closeDiseaseModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-xs font-semibold bg-teal-600 hover:bg-teal-500 text-white rounded-lg shadow-sm transition-all">Save Condition</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT HOSPITAL -->
+  <!-- ======================================================== -->
+  <div id="modalHospital" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-bold text-base" id="hospitalModalTitle">Add Nearby Hospital</h3>
+          <p class="text-xs text-slate-400">Emergency hospital facility contact &amp; specialties</p>
+        </div>
+        <button onclick="closeHospitalModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="formHospital" onsubmit="handleSaveHospital(event)" class="p-6 space-y-4">
+        <input type="hidden" id="hospitalFormId">
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Hospital Name *</label>
+          <input type="text" id="hospName" required placeholder="e.g. AIIMS Delhi, Max Hospital" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">City *</label>
+            <input type="text" id="hospCity" required placeholder="e.g. New Delhi, Gurugram" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">State</label>
+            <input type="text" id="hospState" placeholder="e.g. Delhi, Haryana" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number</label>
+            <input type="text" id="hospPhone" placeholder="+91-11-26588500" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Emergency Hotline</label>
+            <input type="text" id="hospEmergency" placeholder="102 / +91-11-26588700" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Specialties (Comma-separated)</label>
+          <input type="text" id="hospSpecialties" placeholder="Cardiology, Neurology, Pediatrics, Emergency Care" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Bed Capacity</label>
+            <input type="number" id="hospBeds" placeholder="500" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Rating (Out of 5)</label>
+            <input type="number" step="0.1" id="hospRating" placeholder="4.8" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Google Maps Location URL</label>
+          <input type="url" id="hospMaps" placeholder="https://maps.google.com/?q=..." class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div class="pt-4 flex items-center justify-end space-x-3 border-t border-slate-100">
+          <button type="button" onclick="closeHospitalModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-xs font-semibold bg-teal-600 hover:bg-teal-500 text-white rounded-lg shadow-sm transition-all">Save Hospital</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT DOCTOR -->
+  <!-- ======================================================== -->
+  <div id="modalDoctor" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-bold text-base" id="doctorModalTitle">Add Doctor Profile</h3>
+          <p class="text-xs text-slate-400">Appointment scheduling &amp; clinical credentials</p>
+        </div>
+        <button onclick="closeDoctorModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="formDoctor" onsubmit="handleSaveDoctor(event)" class="p-6 space-y-4">
+        <input type="hidden" id="doctorFormId">
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Doctor Name *</label>
+          <input type="text" id="docName" required placeholder="e.g. Dr. Himanshu Sharma, Dr. Rajesh Verma" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Specialty *</label>
+            <input type="text" id="docSpecialty" required placeholder="e.g. Internal Medicine, Gastroenterology" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Qualifications</label>
+            <input type="text" id="docQualification" placeholder="MBBS, MD, FICR" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Hospital / Clinic</label>
+            <input type="text" id="docHospital" placeholder="AIIMS &amp; Himkiv Health" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Consultation Fee</label>
+            <input type="text" id="docFee" placeholder="₹1,000" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Available Days</label>
+            <input type="text" id="docDays" placeholder="Monday - Friday" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">OPD Timings</label>
+            <input type="text" id="docTimings" placeholder="09:00 AM - 02:00 PM" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Appointment Booking URL</label>
+          <input type="url" id="docBookingUrl" placeholder="https://himkiv.org/appointments" class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+
+        <div class="pt-4 flex items-center justify-end space-x-3 border-t border-slate-100">
+          <button type="button" onclick="closeDoctorModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-xs font-semibold bg-teal-600 hover:bg-teal-500 text-white rounded-lg shadow-sm transition-all">Save Doctor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: LOGIN / AUTH GUARD -->
+  <!-- ======================================================== -->
+  <div id="modalAuth" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-slate-200 overflow-hidden p-6 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/30 text-teal-600 mx-auto flex items-center justify-center mb-3">
+        <i data-lucide="lock" class="w-6 h-6"></i>
+      </div>
+      <h3 class="font-extrabold text-lg text-slate-900">Himkiv Admin Authentication</h3>
+      <p class="text-xs text-slate-500 mt-1">Authorized access reserved for Founder Himanshu Sharma</p>
+
+      <form id="formLogin" onsubmit="handleLogin(event)" class="mt-5 space-y-3 text-left">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Username</label>
+          <input type="text" id="loginUsername" value="himanshu" required class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+          <input type="password" id="loginPassword" value="himkiv@2026" required class="w-full px-3 py-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+        </div>
+        <div id="loginErrorMsg" class="text-xs text-red-600 hidden"></div>
+        <button type="submit" class="w-full py-2.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-all shadow-md mt-2">
+          Unlock Admin Console
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Application Logic Script -->
+  <script src="admin.js"></script>
+</body>
+</html>

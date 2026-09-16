@@ -1,0 +1,17 @@
+{
+  "name": "himkiv-backend",
+  "version": "1.0.0",
+  "description": "Himkiv Healthcare - Dynamic Backend, REST API & Admin Management Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed/seedFromStatic.js"
+  },
+  "keywords": ["himkiv", "healthcare", "medicines", "affiliate", "api"],
+  "author": "Himanshu Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

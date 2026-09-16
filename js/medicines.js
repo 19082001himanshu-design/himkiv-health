@@ -647,6 +647,88 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       ` : ''}
 
+      <!-- Where to Buy Online & Compare Prices (Affiliate Commerce Links) -->
+      ${(() => {
+        const brandNamesList = (med.brandNames || "").split(",").map(b => b.trim()).filter(Boolean);
+        const primarySearchBrand = brandNamesList[0] || med.activeIngredient;
+        const encodedBrand = encodeURIComponent(primarySearchBrand);
+
+        const aff1mg = (med.affiliateLinks && med.affiliateLinks.find(a => a.platform && a.platform.includes('1mg'))) || {
+          platform: 'Tata 1mg',
+          url: `https://www.1mg.com/search/all?name=${encodedBrand}`,
+          discount: 'Up to 20% OFF'
+        };
+
+        const affApollo = (med.affiliateLinks && med.affiliateLinks.find(a => a.platform && a.platform.includes('Apollo'))) || {
+          platform: 'Apollo Pharmacy',
+          url: `https://www.apollopharmacy.in/search-medicines/${encodedBrand}`,
+          discount: 'Verified Authentic'
+        };
+
+        const affNetmeds = (med.affiliateLinks && med.affiliateLinks.find(a => a.platform && a.platform.includes('Netmeds'))) || {
+          platform: 'Netmeds',
+          url: `https://www.netmeds.com/catalogsearch/result/${encodedBrand}/all`,
+          discount: 'Quick Delivery'
+        };
+
+        return `
+          <div class="mb-5 p-4 rounded-2xl bg-gradient-to-br from-teal-50/80 via-emerald-50/40 to-slate-50 dark:from-slate-800/80 dark:via-teal-950/30 dark:to-slate-900 border border-teal-200/80 dark:border-teal-800/60">
+            <div class="flex items-center justify-between mb-2.5">
+              <h4 class="text-xs font-heading font-bold text-teal-950 dark:text-teal-200 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="shopping-bag" class="w-4 h-4 text-teal-600 dark:text-teal-400"></i>
+                <span>Where to Buy Online &bull; Compare Prices</span>
+              </h4>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800">
+                Verified Pharmacies
+              </span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
+              Compare prices and order genuine formulations of <strong class="text-slate-800 dark:text-slate-200">${primarySearchBrand}</strong> through certified digital pharmacies:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <!-- Tata 1mg -->
+              <a href="${aff1mg.url}" target="_blank" rel="noopener noreferrer" class="group p-3 rounded-xl bg-white dark:bg-slate-800 border border-red-200/80 dark:border-red-900/50 hover:border-red-400 dark:hover:border-red-600 hover:shadow-sm transition-all flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-red-600 dark:text-red-400 flex items-center gap-1">
+                    <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Tata 1mg
+                  </span>
+                  <i data-lucide="external-link" class="w-3 h-3 text-slate-400 group-hover:text-red-500 transition-colors"></i>
+                </div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Buy ${primarySearchBrand}</div>
+                <div class="mt-2 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">${aff1mg.discount || 'Best Offer'}</div>
+              </a>
+
+              <!-- Apollo Pharmacy -->
+              <a href="${affApollo.url}" target="_blank" rel="noopener noreferrer" class="group p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-200/80 dark:border-emerald-900/50 hover:border-emerald-400 dark:hover:border-emerald-600 hover:shadow-sm transition-all flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Apollo
+                  </span>
+                  <i data-lucide="external-link" class="w-3 h-3 text-slate-400 group-hover:text-emerald-500 transition-colors"></i>
+                </div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Apollo 24|7 Delivery</div>
+                <div class="mt-2 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">${affApollo.discount || 'Authentic'}</div>
+              </a>
+
+              <!-- Netmeds -->
+              <a href="${affNetmeds.url}" target="_blank" rel="noopener noreferrer" class="group p-3 rounded-xl bg-white dark:bg-slate-800 border border-blue-200/80 dark:border-blue-900/50 hover:border-blue-400 dark:hover:border-blue-600 hover:shadow-sm transition-all flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+                    <i data-lucide="truck" class="w-3.5 h-3.5"></i> Netmeds
+                  </span>
+                  <i data-lucide="external-link" class="w-3 h-3 text-slate-400 group-hover:text-blue-500 transition-colors"></i>
+                </div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Pan-India Dispatch</div>
+                <div class="mt-2 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">${affNetmeds.discount || 'Quick Dispatch'}</div>
+              </a>
+            </div>
+            <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-2.5 text-center">
+              Himkiv Health provides educational drug information and may earn referral commissions on pharmacy orders at no extra cost to you.
+            </p>
+          </div>
+        `;
+      })()}
+
       <!-- Educational Boundary & Disclaimer -->
       <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed mb-4">
         <strong>Educational & Reference Notice:</strong> This monograph is published strictly for healthcare reference, clinical pharmacology education, and decision support. It does not provide personalized medical diagnoses or binding prescriptions. Always consult a certified physician or licensed clinical pharmacist before initiating or modifying therapeutic regimens.

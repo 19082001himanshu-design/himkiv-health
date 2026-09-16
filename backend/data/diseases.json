@@ -1,0 +1,3117 @@
+[
+  {
+    "id": "fever-pain",
+    "name": "Fever & Generalized Body Pain",
+    "category": "Pain",
+    "categorySlug": "pain",
+    "symptoms": [
+      "Elevated core body temperature (>100.4 F / 38 C)",
+      "Generalized body aches and myalgia",
+      "Shivering, rigors, and chills",
+      "Frontal or throbbing headache",
+      "Physical fatigue and malaise"
+    ],
+    "icd11Code": "MG26",
+    "description": "Acute febrile illness accompanied by generalized muscle aches, headache, malaise, and systemic inflammatory discomfort.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.685Z"
+  },
+  {
+    "id": "diarrhea",
+    "name": "Diarrhea (Loose Motions)",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Frequent watery stools / loose motions (> 3/day)",
+      "Abdominal cramps and griping colic",
+      "Fecal urgency and tenesmus",
+      "Dehydration, dry mouth, and thirst",
+      "Nausea, bloating, and fatigue"
+    ],
+    "icd11Code": "ME05.1",
+    "description": "Acute or recurrent watery loose motions, enteropathogen irritation, cramping abdominal colic, and dehydration.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "cough",
+    "name": "Cough (Acute, Dry & Productive Chesty Cough)",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Frequent coughing paroxysms (dry hacking or wet productive)",
+      "Throat tickling, scratching, and irritation",
+      "Chest tightness during coughing bouts",
+      "Clear, white, or mucopurulent sputum",
+      "Post-nasal drip"
+    ],
+    "icd11Code": "MD11",
+    "description": "Protective respiratory reflex manifested as acute or chronic coughing bouts due to tracheobronchial irritation, viral infection, or hypersecretion.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "stomach-pain",
+    "name": "Stomach Pain, Gastritis & Abdominal Cramps",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Gnawing or burning epigastric stomach pain",
+      "Spasmodic colicky abdominal cramps",
+      "Postprandial fullness, early satiety, and bloating",
+      "Acid sour regurgitation and nausea",
+      "Abdominal rumbling and discomfort"
+    ],
+    "icd11Code": "MD81.1",
+    "description": "Acute or recurrent upper abdominal epigastric distress, visceral smooth muscle spasms, acid-related burning, and gastrointestinal colic.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "sore-throat",
+    "name": "Sore Throat, Pharyngitis & Tonsillitis",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Sharp, scratchy, or burning pain in throat",
+      "Odynophagia (pain exacerbated when swallowing saliva or food)",
+      "Erythematous swollen tonsils with follicular exudates",
+      "Tender swollen anterior cervical lymph nodes",
+      "Low-grade fever and raspy voice"
+    ],
+    "icd11Code": "CA02",
+    "description": "Acute inflammation of the mucosal pharynx, palatine tonsils, and uvula resulting in odynophagia, erythema, and throat irritation.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "gerd",
+    "name": "GERD",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Substernal pyrosis (heartburn)",
+      "Acid regurgitation into throat",
+      "Water brash",
+      "Worse in recumbent position",
+      "Dysphagia"
+    ],
+    "icd11Code": "DA22",
+    "description": "Standard evidence-based management includes: Reduces gastric acid.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "peptic-ulcer-disease",
+    "name": "Peptic ulcer disease",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Epigastric burning gnawing ache",
+      "Duodenal ulcer: relieved by food, worse 2-3h postprandial",
+      "Nighttime awakening with pain"
+    ],
+    "icd11Code": "DA60",
+    "description": "Standard evidence-based management includes: Acid suppression and ulcer healing.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "nausea-vomiting",
+    "name": "Nausea/vomiting",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Persistent retching",
+      "Inability to keep liquids down",
+      "Abdominal cramping",
+      "Dehydration signs"
+    ],
+    "icd11Code": "MD90.0",
+    "description": "Standard evidence-based management includes: Controls nausea/vomiting in selected situations.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "constipation",
+    "name": "Constipation",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Infrequent hard lumpy stools (< 3/week)",
+      "Straining at defecation",
+      "Sensation of incomplete evacuation",
+      "Abdominal distention"
+    ],
+    "icd11Code": "ME05.0",
+    "description": "Standard evidence-based management includes: Relieves constipation.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hypertension",
+    "name": "Hypertension",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Often asymptomatic",
+      "Occipital morning headache",
+      "Occasional visual blurring",
+      "Tinnitus",
+      "Palpitations"
+    ],
+    "icd11Code": "BA00",
+    "description": "Standard evidence-based management includes: Blood-pressure control; Blood-pressure control; Blood-pressure control.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "asthma",
+    "name": "Asthma",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Expiratory wheezing",
+      "Shortness of breath",
+      "Chest tightness",
+      "Nocturnal dry cough",
+      "Dyspnea on exertion"
+    ],
+    "icd11Code": "CA23",
+    "description": "Standard evidence-based management includes: Relief of bronchospasm; Long-term airway inflammation control.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "influenza",
+    "name": "Influenza",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "High fever (>38Â°C)",
+      "Myalgia / Body aches",
+      "Dry cough",
+      "Sore throat",
+      "Severe fatigue"
+    ],
+    "icd11Code": "1E30",
+    "description": "Standard evidence-based management includes: Antiviral treatment in selected influenza cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "covid-19",
+    "name": "COVID-19",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Fever or chills",
+      "Cough",
+      "Shortness of breath",
+      "Loss of taste/smell",
+      "Fatigue"
+    ],
+    "icd11Code": "RA01",
+    "description": "Standard evidence-based management includes: Antiviral treatment for selected high-risk cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "tuberculosis",
+    "name": "Tuberculosis",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Persistent cough > 2 weeks",
+      "Hemoptysis (coughing blood)",
+      "Night sweats",
+      "Unexplained weight loss",
+      "Low-grade fever"
+    ],
+    "icd11Code": "1B10",
+    "description": "Standard evidence-based management includes: Combination treatment.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "malaria",
+    "name": "Malaria",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Chills and rigors",
+      "High cyclical fever",
+      "Profuse sweating",
+      "Headache",
+      "Nausea"
+    ],
+    "icd11Code": "1F40",
+    "description": "Standard evidence-based management includes: Treatment of susceptible malaria.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "dengue",
+    "name": "Dengue",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Sudden high fever",
+      "Severe retro-orbital eye pain",
+      "Severe joint/muscle aches",
+      "Skin petechiae/rash",
+      "Nausea"
+    ],
+    "icd11Code": "1D20",
+    "description": "Standard evidence-based management includes: Fever/pain relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "typhoid-fever",
+    "name": "Typhoid fever",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Step-ladder rising fever",
+      "Abdominal tenderness",
+      "Rose spots on trunk",
+      "Constipation or diarrhea",
+      "Headache"
+    ],
+    "icd11Code": "1A07",
+    "description": "Standard evidence-based management includes: Treatment of susceptible bacterial infection.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "cholera",
+    "name": "Cholera",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Profuse painless watery diarrhea",
+      "Rice-water stools",
+      "Severe vomiting",
+      "Rapid dehydration",
+      "Muscle cramps"
+    ],
+    "icd11Code": "1A00",
+    "description": "Standard evidence-based management includes: Antibiotic in selected cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "measles",
+    "name": "Measles",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "High fever",
+      "Koplik spots in mouth",
+      "Maculopapular rash",
+      "Coryza / runny nose",
+      "Conjunctivitis"
+    ],
+    "icd11Code": "1F03",
+    "description": "Standard evidence-based management includes: Supportive management in children under clinical guidance.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "mumps",
+    "name": "Mumps",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Painful parotid gland swelling",
+      "Fever",
+      "Chewing pain",
+      "Headache",
+      "Malaise"
+    ],
+    "icd11Code": "1D80",
+    "description": "Standard evidence-based management includes: Fever/pain relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "rubella",
+    "name": "Rubella",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Mild fever",
+      "Maculopapular rash",
+      "Swollen lymph nodes",
+      "Joint aches",
+      "Eye redness"
+    ],
+    "icd11Code": "1F02",
+    "description": "Standard evidence-based management includes: Symptom relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "chickenpox",
+    "name": "Chickenpox",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Itchy fluid-filled blisters",
+      "Fever",
+      "Tiredness",
+      "Loss of appetite",
+      "Headache"
+    ],
+    "icd11Code": "1E90",
+    "description": "Standard evidence-based management includes: Treatment in selected higher-risk cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "shingles",
+    "name": "Shingles",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Unilateral dermatomal pain",
+      "Burning sensation",
+      "Clustered vesicular rash",
+      "Hyperesthesia",
+      "Tingling"
+    ],
+    "icd11Code": "1E91",
+    "description": "Standard evidence-based management includes: Antiviral treatment.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hepatitis-b",
+    "name": "Hepatitis B",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Jaundice (yellow eyes/skin)",
+      "Dark tea-colored urine",
+      "Right upper quadrant pain",
+      "Fatigue",
+      "Clay-colored stools"
+    ],
+    "icd11Code": "1E51",
+    "description": "Standard evidence-based management includes: Long-term antiviral therapy in selected chronic cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hepatitis-c",
+    "name": "Hepatitis C",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Chronic fatigue",
+      "Joint aches",
+      "Jaundice in acute flares",
+      "Abdominal discomfort",
+      "Loss of appetite"
+    ],
+    "icd11Code": "1E52",
+    "description": "Standard evidence-based management includes: Curative antiviral regimen.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hiv-infection",
+    "name": "HIV infection",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Persistent lymphadenopathy",
+      "Recurrent opportunistic infections",
+      "Chronic diarrhea",
+      "Weight loss",
+      "Fever"
+    ],
+    "icd11Code": "1C60",
+    "description": "Standard evidence-based management includes: Combination antiretroviral therapy.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "rabies",
+    "name": "Rabies",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Hydrophobia",
+      "Aerophobia",
+      "Agitation / Altered mental status",
+      "Paresthesia at bite site",
+      "Fever"
+    ],
+    "icd11Code": "1D00",
+    "description": "Standard evidence-based management includes: Post-exposure prevention.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "tetanus",
+    "name": "Tetanus",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Trismus (lockjaw)",
+      "Painful muscle spasms",
+      "Neck stiffness",
+      "Difficulty swallowing",
+      "Autonomic instability"
+    ],
+    "icd11Code": "1C10",
+    "description": "Standard evidence-based management includes: Prevention after selected wounds.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "bacterial-meningitis",
+    "name": "Bacterial meningitis",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "High fever",
+      "Severe nuchal rigidity (stiff neck)",
+      "Altered sensorium",
+      "Photophobia",
+      "Severe headache"
+    ],
+    "icd11Code": "1D01",
+    "description": "Standard evidence-based management includes: Empiric treatment in many settings.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "pneumococcal-pneumonia",
+    "name": "Pneumococcal pneumonia",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Productive cough with rust-colored sputum",
+      "Pleuritic chest pain",
+      "High fever with chills",
+      "Dyspnea",
+      "Tachypnea"
+    ],
+    "icd11Code": "CA40.0",
+    "description": "Standard evidence-based management includes: Treatment of susceptible bacterial infection.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "scabies",
+    "name": "Scabies",
+    "category": "Infectious",
+    "categorySlug": "infectious",
+    "symptoms": [
+      "Intense nocturnal itching",
+      "Interdigital burrows",
+      "Papular rash on wrists/waistline",
+      "Excoriations"
+    ],
+    "icd11Code": "1F73",
+    "description": "Standard evidence-based management includes: Eradicates mites.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "copd",
+    "name": "COPD",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Chronic productive morning cough",
+      "Progressive dyspnea on exertion",
+      "Chest tightness",
+      "Frequent respiratory infections"
+    ],
+    "icd11Code": "CA22",
+    "description": "Standard evidence-based management includes: Maintenance bronchodilation.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "allergic-rhinitis",
+    "name": "Allergic rhinitis",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Paroxysmal sneezing",
+      "Clear watery rhinorrhea",
+      "Nasal pruritus / itching",
+      "Nasal congestion",
+      "Allergic shiners"
+    ],
+    "icd11Code": "CA08",
+    "description": "Standard evidence-based management includes: Allergy symptom relief; Nasal inflammation control.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "acute-bronchitis",
+    "name": "Acute bronchitis",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Persistent cough (1-3 weeks)",
+      "Clear or purulent sputum",
+      "Mild substernal chest ache",
+      "Low-grade fever"
+    ],
+    "icd11Code": "CA42",
+    "description": "Standard evidence-based management includes: Fever/pain relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "pulmonary-fibrosis",
+    "name": "Pulmonary fibrosis",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Dry non-productive cough",
+      "Progressive shortness of breath",
+      "Velcro bibasilar inspiratory crackles",
+      "Digital clubbing"
+    ],
+    "icd11Code": "CB03",
+    "description": "Standard evidence-based management includes: Slows progression in selected fibrotic lung diseases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "sleep-apnea",
+    "name": "Sleep apnea",
+    "category": "Respiratory",
+    "categorySlug": "respiratory",
+    "symptoms": [
+      "Loud chronic snoring",
+      "Witnessed breathing pauses during sleep",
+      "Excessive daytime somnolence",
+      "Morning dry mouth"
+    ],
+    "icd11Code": "7A40",
+    "description": "Standard evidence-based management includes: Keeps airway open during sleep.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "heart-failure",
+    "name": "Heart failure",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Dyspnea on minimal exertion",
+      "Orthopnea (breathlessness lying flat)",
+      "Bilateral dependent ankle edema",
+      "Paroxysmal nocturnal dyspnea"
+    ],
+    "icd11Code": "BD10",
+    "description": "Standard evidence-based management includes: Reduces symptoms/events in selected patients; Selected stable heart-failure patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "atrial-fibrillation",
+    "name": "Atrial fibrillation",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Irregularly irregular heartbeat",
+      "Palpitations",
+      "Dizziness",
+      "Exertional dyspnea",
+      "Fatigue"
+    ],
+    "icd11Code": "BC81.3",
+    "description": "Standard evidence-based management includes: Prevention of stroke/systemic embolism in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "coronary-artery-disease",
+    "name": "Coronary artery disease",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Exertional retrosternal chest pressure",
+      "Radiation to left arm/jaw",
+      "Shortness of breath",
+      "Relief upon rest"
+    ],
+    "icd11Code": "BA80",
+    "description": "Standard evidence-based management includes: Prevention of cardiovascular events in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "high-ldl-cholesterol",
+    "name": "High LDL cholesterol",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Usually asymptomatic",
+      "Corneal arcus in early onset",
+      "Xanthelasma / tendon xanthomas in severe familial cases"
+    ],
+    "icd11Code": "5C80.0",
+    "description": "Standard evidence-based management includes: Lowers LDL cholesterol.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "angina",
+    "name": "Angina",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Transient squeezing chest tightness",
+      "Precipitated by exertion or cold",
+      "Relieved within minutes by rest or nitroglycerin"
+    ],
+    "icd11Code": "BA82",
+    "description": "Standard evidence-based management includes: Rapid relief of angina.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "deep-vein-thrombosis",
+    "name": "Deep-vein thrombosis",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Unilateral calf or leg swelling",
+      "Erythema and warmth",
+      "Deep throbbing calf ache",
+      "Positive Homan's sign"
+    ],
+    "icd11Code": "BD71",
+    "description": "Standard evidence-based management includes: Treatment/prevention of recurrent venous thrombosis.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "pulmonary-embolism",
+    "name": "Pulmonary embolism",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Sudden acute pleuritic chest pain",
+      "Severe unexplained dyspnea",
+      "Tachypnea",
+      "Tachycardia",
+      "Hemoptysis"
+    ],
+    "icd11Code": "BD11",
+    "description": "Standard evidence-based management includes: Anticoagulation in eligible patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "type-1-diabetes",
+    "name": "Type 1 diabetes",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Polydipsia (excessive thirst)",
+      "Polyuria (frequent urination)",
+      "Rapid unexplained weight loss",
+      "Polyphagia",
+      "Diabetic ketoacidosis signs"
+    ],
+    "icd11Code": "5A10",
+    "description": "Standard evidence-based management includes: Replaces insulin.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "type-2-diabetes",
+    "name": "Type 2 diabetes",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Chronic polydipsia",
+      "Nocturia and polyuria",
+      "Blurred vision",
+      "Poor wound healing",
+      "Recurrent candidiasis"
+    ],
+    "icd11Code": "5A11",
+    "description": "Standard evidence-based management includes: Blood-glucose lowering; Glucose lowering and cardiovascular/kidney benefits in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hypothyroidism",
+    "name": "Hypothyroidism",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Cold intolerance",
+      "Unexplained weight gain",
+      "Chronic fatigue",
+      "Constipation",
+      "Dry skin and brittle hair"
+    ],
+    "icd11Code": "5A00",
+    "description": "Standard evidence-based management includes: Thyroid hormone replacement.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hyperthyroidism",
+    "name": "Hyperthyroidism",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Heat intolerance",
+      "Palpitations and tachycardia",
+      "Weight loss despite increased appetite",
+      "Fine hand tremors"
+    ],
+    "icd11Code": "5A02",
+    "description": "Standard evidence-based management includes: Reduces thyroid hormone production.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "graves-disease",
+    "name": "Graves disease",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Bilateral exophthalmos (proptosis)",
+      "Diffuse goiter with bruit",
+      "Pretibial myxedema",
+      "Tachycardia",
+      "Anxiety"
+    ],
+    "icd11Code": "5A02.1",
+    "description": "Standard evidence-based management includes: Controls thyroid hormone production.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "adrenal-insufficiency",
+    "name": "Adrenal insufficiency",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Severe postural hypotension",
+      "Chronic profound fatigue",
+      "Cutaneous hyperpigmentation",
+      "Salt cravings"
+    ],
+    "icd11Code": "5A71",
+    "description": "Standard evidence-based management includes: Hormone replacement.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "gout",
+    "name": "Gout",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Acute excruciating pain in 1st MTP joint (podagra)",
+      "Erythema and warmth",
+      "Severe localized swelling",
+      "Hypersensitivity to touch"
+    ],
+    "icd11Code": "FA25",
+    "description": "Standard evidence-based management includes: Lowers uric acid to prevent flares.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "osteoporosis",
+    "name": "Osteoporosis",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Silent progressive bone loss",
+      "Low-trauma fragility fractures",
+      "Loss of height over time",
+      "Dorsal kyphosis (dowager hump)"
+    ],
+    "icd11Code": "FB83.1",
+    "description": "Standard evidence-based management includes: Reduces fracture risk; Reduces fracture risk.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hypercholesterolemia",
+    "name": "Hypercholesterolemia",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Asymptomatic vascular progression",
+      "Occasional xanthomas",
+      "Elevated lipid panel markers"
+    ],
+    "icd11Code": "5C80.0",
+    "description": "Standard evidence-based management includes: Lowers LDL cholesterol.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "h-pylori-infection",
+    "name": "H. pylori infection",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Chronic postprandial dyspepsia",
+      "Epigastric fullness / bloating",
+      "Nausea",
+      "Frequent belching",
+      "Acid taste"
+    ],
+    "icd11Code": "1A40",
+    "description": "Standard evidence-based management includes: Example eradication components.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "irritable-bowel-syndrome",
+    "name": "Irritable bowel syndrome",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Recurrent crampy abdominal pain related to defecation",
+      "Alternating constipation and diarrhea",
+      "Bloating and tenesmus"
+    ],
+    "icd11Code": "DD91.0",
+    "description": "Standard evidence-based management includes: May relieve intestinal spasm.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "inflammatory-bowel-disease",
+    "name": "Inflammatory bowel disease",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Chronic diarrhea with mucus/blood",
+      "Cramping abdominal pain",
+      "Urgency",
+      "Unexplained weight loss",
+      "Fever"
+    ],
+    "icd11Code": "DD70",
+    "description": "Standard evidence-based management includes: Controls inflammation in selected ulcerative-colitis cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "crohn-disease",
+    "name": "Crohn disease",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Right lower quadrant abdominal pain",
+      "Chronic watery non-bloody or bloody diarrhea",
+      "Perianal fissures/fistulas",
+      "Weight loss"
+    ],
+    "icd11Code": "DD70",
+    "description": "Standard evidence-based management includes: Controls inflammatory disease in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "ulcerative-colitis",
+    "name": "Ulcerative colitis",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Bloody mucoid diarrhea",
+      "Nocturnal bowel movements",
+      "Tenesmus (painful urgency)",
+      "Lower abdominal cramping"
+    ],
+    "icd11Code": "DD71",
+    "description": "Standard evidence-based management includes: Induces/maintains remission in selected cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hemorrhoids",
+    "name": "Hemorrhoids",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Painless bright red rectal bleeding on stool",
+      "Perianal pruritus",
+      "Prolapsed painful anal lump",
+      "Discomfort sitting"
+    ],
+    "icd11Code": "DB60",
+    "description": "Standard evidence-based management includes: Short-term symptom relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "pancreatitis",
+    "name": "Pancreatitis",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Severe epigastric pain radiating directly to back",
+      "Worse after eating",
+      "Nausea and persistent vomiting",
+      "Tachycardia"
+    ],
+    "icd11Code": "DC31",
+    "description": "Standard evidence-based management includes: Hospital supportive management.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "chronic-hepatitis-c",
+    "name": "Chronic hepatitis C",
+    "category": "Liver",
+    "categorySlug": "liver",
+    "symptoms": [
+      "Insidious fatigue",
+      "Mild RUQ ache",
+      "Elevated AST/ALT",
+      "Spider angiomas in advanced stages"
+    ],
+    "icd11Code": "1E53",
+    "description": "Standard evidence-based management includes: Curative antiviral regimen.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "cirrhosis",
+    "name": "Cirrhosis",
+    "category": "Liver",
+    "categorySlug": "liver",
+    "symptoms": [
+      "Ascites (abdominal swelling)",
+      "Caput medusae",
+      "Palmar erythema",
+      "Easy bruising / coagulopathy",
+      "Peripheral edema"
+    ],
+    "icd11Code": "DB93",
+    "description": "Standard evidence-based management includes: Controls fluid retention in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hepatic-encephalopathy",
+    "name": "Hepatic encephalopathy",
+    "category": "Liver",
+    "categorySlug": "liver",
+    "symptoms": [
+      "Asterixis (flapping hand tremor)",
+      "Reversal of sleep-wake cycle",
+      "Confusion",
+      "Disorientation",
+      "Slurred speech"
+    ],
+    "icd11Code": "DB93.Z",
+    "description": "Standard evidence-based management includes: Reduces ammonia absorption.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "urinary-tract-infection",
+    "name": "Urinary tract infection",
+    "category": "Kidney/urinary",
+    "categorySlug": "kidney-urinary",
+    "symptoms": [
+      "Dysuria (burning on urination)",
+      "Urinary frequency and urgency",
+      "Suprapubic tenderness",
+      "Cloudy foul-smelling urine"
+    ],
+    "icd11Code": "GC08",
+    "description": "Standard evidence-based management includes: Treatment of selected lower UTIs.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "kidney-infection",
+    "name": "Kidney infection",
+    "category": "Kidney/urinary",
+    "categorySlug": "kidney-urinary",
+    "symptoms": [
+      "High fever with rigors",
+      "Costovertebral angle flank pain",
+      "Nausea and vomiting",
+      "Dysuria and hematuria"
+    ],
+    "icd11Code": "GB54",
+    "description": "Standard evidence-based management includes: Hospital/initial treatment in selected cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "kidney-stones",
+    "name": "Kidney stones",
+    "category": "Kidney/urinary",
+    "categorySlug": "kidney-urinary",
+    "symptoms": [
+      "Severe spasmodic flank pain radiating to groin (renal colic)",
+      "Microscopic or gross hematuria",
+      "Nausea and restlessness"
+    ],
+    "icd11Code": "GB70",
+    "description": "Standard evidence-based management includes: May aid passage of selected ureteric stones.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "chronic-kidney-disease",
+    "name": "Chronic kidney disease",
+    "category": "Kidney/urinary",
+    "categorySlug": "kidney-urinary",
+    "symptoms": [
+      "Early: asymptomatic",
+      "Later: periorbital morning edema",
+      "Nocturia",
+      "Pruritus",
+      "Fatigue",
+      "Foamy urine"
+    ],
+    "icd11Code": "GB61",
+    "description": "Standard evidence-based management includes: Kidney/BP protection in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "overactive-bladder",
+    "name": "Overactive bladder",
+    "category": "Kidney/urinary",
+    "categorySlug": "kidney-urinary",
+    "symptoms": [
+      "Urinary urgency with or without incontinence",
+      "Frequency (> 8 times in 24h)",
+      "Nocturia waking >= 2 times"
+    ],
+    "icd11Code": "GC00.0",
+    "description": "Standard evidence-based management includes: Reduces bladder overactivity.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "migraine",
+    "name": "Migraine",
+    "category": "Neurological",
+    "categorySlug": "neurological",
+    "symptoms": [
+      "Unilateral throbbing pulsating headache",
+      "Photophobia and phonophobia",
+      "Visual or sensory aura",
+      "Nausea and vomiting"
+    ],
+    "icd11Code": "8A80",
+    "description": "Standard evidence-based management includes: Acute migraine treatment; Migraine prevention in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "epilepsy",
+    "name": "Epilepsy",
+    "category": "Neurological",
+    "categorySlug": "neurological",
+    "symptoms": [
+      "Generalized tonic-clonic motor convulsions",
+      "Transient focal absence lapses",
+      "Post-ictal confusion",
+      "Tongue biting"
+    ],
+    "icd11Code": "8A60",
+    "description": "Standard evidence-based management includes: Seizure control; Seizure control in selected cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "parkinson-disease",
+    "name": "Parkinson disease",
+    "category": "Neurological",
+    "categorySlug": "neurological",
+    "symptoms": [
+      "Resting pill-rolling tremor",
+      "Cogwheel rigidity",
+      "Bradykinesia (slowness of movement)",
+      "Postural instability / shuffling gait"
+    ],
+    "icd11Code": "8A00",
+    "description": "Standard evidence-based management includes: Improves motor symptoms.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "alzheimer-disease",
+    "name": "Alzheimer disease",
+    "category": "Neurological",
+    "categorySlug": "neurological",
+    "symptoms": [
+      "Short-term episodic memory loss",
+      "Impaired executive function",
+      "Disorientation to time and place",
+      "Aphasia / word-finding difficulty"
+    ],
+    "icd11Code": "8A20",
+    "description": "Standard evidence-based management includes: Symptomatic treatment in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "multiple-sclerosis",
+    "name": "Multiple sclerosis",
+    "category": "Neurological",
+    "categorySlug": "neurological",
+    "symptoms": [
+      "Optic neuritis with vision loss",
+      "Lhermitte sign (electric shock down spine)",
+      "Unilateral limb weakness",
+      "Ataxia and paresthesia"
+    ],
+    "icd11Code": "8A40",
+    "description": "Standard evidence-based management includes: Reduces relapses in selected MS.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "neuropathic-pain",
+    "name": "Neuropathic pain",
+    "category": "Neurological",
+    "categorySlug": "neurological",
+    "symptoms": [
+      "Lancinating or burning sensation",
+      "Allodynia (pain from light touch)",
+      "Hyperalgesia",
+      "Numbness and tingling"
+    ],
+    "icd11Code": "8E43",
+    "description": "Standard evidence-based management includes: Neuropathic pain treatment.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "trigeminal-neuralgia",
+    "name": "Trigeminal neuralgia",
+    "category": "Neurological",
+    "categorySlug": "neurological",
+    "symptoms": [
+      "Unilateral paroxysmal electric-shock facial pain",
+      "Triggered by chewing, touching face, or cold breeze",
+      "Brief stabbing episodes"
+    ],
+    "icd11Code": "8B82.0",
+    "description": "Standard evidence-based management includes: First-line treatment in many cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "depressive-disorder",
+    "name": "Depressive disorder",
+    "category": "Mental health",
+    "categorySlug": "mental-health",
+    "symptoms": [
+      "Persistent depressed mood (> 2 weeks)",
+      "Anhedonia (loss of interest)",
+      "Insomnia or hypersomnia",
+      "Fatigue and feelings of worthlessness"
+    ],
+    "icd11Code": "6A70",
+    "description": "Standard evidence-based management includes: Treatment of depressive/anxiety disorders.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "anxiety-disorder",
+    "name": "Anxiety disorder",
+    "category": "Mental health",
+    "categorySlug": "mental-health",
+    "symptoms": [
+      "Excessive persistent uncontrollable worry",
+      "Restlessness / feeling keyed up",
+      "Muscle tension",
+      "Fatigue",
+      "Irritability"
+    ],
+    "icd11Code": "6B00",
+    "description": "Standard evidence-based management includes: Treatment of selected anxiety disorders.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "obsessive-compulsive-disorder",
+    "name": "Obsessive-compulsive disorder",
+    "category": "Mental health",
+    "categorySlug": "mental-health",
+    "symptoms": [
+      "Intrusive distressing recurrent thoughts (obsessions)",
+      "Repetitive ritualistic behaviors (compulsions) to relieve anxiety"
+    ],
+    "icd11Code": "6B20",
+    "description": "Standard evidence-based management includes: Treatment of OCD in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "panic-disorder",
+    "name": "Panic disorder",
+    "category": "Mental health",
+    "categorySlug": "mental-health",
+    "symptoms": [
+      "Recurrent abrupt surges of intense fear (panic attacks)",
+      "Palpitations and pounding heart",
+      "Chest tightness",
+      "Sense of impending doom"
+    ],
+    "icd11Code": "6B01",
+    "description": "Standard evidence-based management includes: Long-term treatment in selected cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "adhd",
+    "name": "ADHD",
+    "category": "Mental health",
+    "categorySlug": "mental-health",
+    "symptoms": [
+      "Persistent inattention",
+      "Hyperactivity and impulsivity",
+      "Disorganization and task incompletion",
+      "Restlessness"
+    ],
+    "icd11Code": "6A05",
+    "description": "Standard evidence-based management includes: ADHD treatment in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "acne",
+    "name": "Acne",
+    "category": "Skin",
+    "categorySlug": "skin",
+    "symptoms": [
+      "Open and closed comedones (blackheads/whiteheads)",
+      "Inflammatory erythematous papules and pustules",
+      "Nodules and cysts on face/chest"
+    ],
+    "icd11Code": "ED80",
+    "description": "Standard evidence-based management includes: Treats comedonal/inflammatory acne; Reduces acne bacteria/inflammation.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "eczema",
+    "name": "Eczema",
+    "category": "Skin",
+    "categorySlug": "skin",
+    "symptoms": [
+      "Intense pruritus (itching)",
+      "Erythematous scaly patches",
+      "Lichenification from chronic scratching",
+      "Xerosis (dry skin)"
+    ],
+    "icd11Code": "EA80",
+    "description": "Standard evidence-based management includes: Reduces inflammation.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "psoriasis",
+    "name": "Psoriasis",
+    "category": "Skin",
+    "categorySlug": "skin",
+    "symptoms": [
+      "Well-demarcated erythematous plaques",
+      "Silvery-white micaceous scales",
+      "Auspitz sign (pinpoint bleeding upon scraping)",
+      "Extensor predilection"
+    ],
+    "icd11Code": "EA90",
+    "description": "Standard evidence-based management includes: Reduces inflammation in selected lesions.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "fungal-skin-infection",
+    "name": "Fungal skin infection",
+    "category": "Skin",
+    "categorySlug": "skin",
+    "symptoms": [
+      "Annular ring-like erythematous plaques (ringworm)",
+      "Central clearing with active scaly border",
+      "Intense itching",
+      "Maceration between toes"
+    ],
+    "icd11Code": "1F28",
+    "description": "Standard evidence-based management includes: Treats susceptible superficial fungal infections.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "bacterial-skin-infection",
+    "name": "Bacterial skin infection",
+    "category": "Skin",
+    "categorySlug": "skin",
+    "symptoms": [
+      "Erythema, warmth, and localized edema (cellulitis)",
+      "Honey-colored crusting (impetigo)",
+      "Pustules and folliculitis"
+    ],
+    "icd11Code": "1B70",
+    "description": "Standard evidence-based management includes: Topical treatment of selected bacterial infections.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "urticaria",
+    "name": "Urticaria",
+    "category": "Skin",
+    "categorySlug": "skin",
+    "symptoms": [
+      "Evanescent itchy wheals (hives)",
+      "Surrounding flare erythema",
+      "Blanches with pressure",
+      "Lesions resolve within 24h"
+    ],
+    "icd11Code": "EA91",
+    "description": "Standard evidence-based management includes: Relieves itching/hives.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "vitiligo",
+    "name": "Vitiligo",
+    "category": "Skin",
+    "categorySlug": "skin",
+    "symptoms": [
+      "Completely depigmented chalky-white macules/patches",
+      "Well-demarcated margins",
+      "Common on periorificial areas and dorsal hands"
+    ],
+    "icd11Code": "ED63",
+    "description": "Standard evidence-based management includes: May help repigmentation in selected areas.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "osteoarthritis",
+    "name": "Osteoarthritis",
+    "category": "Musculoskeletal",
+    "categorySlug": "musculoskeletal",
+    "symptoms": [
+      "Deep aching joint pain worse with use",
+      "Morning stiffness lasting < 30 minutes",
+      "Crepitus on active movement",
+      "Bony enlargement (Heberden nodes)"
+    ],
+    "icd11Code": "FA00",
+    "description": "Standard evidence-based management includes: Pain relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "rheumatoid-arthritis",
+    "name": "Rheumatoid arthritis",
+    "category": "Musculoskeletal",
+    "categorySlug": "musculoskeletal",
+    "symptoms": [
+      "Symmetric polyarthritis in MCP and PIP joints",
+      "Prolonged morning stiffness (> 1 hour)",
+      "Warm swollen boggy joints",
+      "Rheumatoid nodules"
+    ],
+    "icd11Code": "FA20",
+    "description": "Standard evidence-based management includes: Disease-modifying treatment; Disease modification.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "ankylosing-spondylitis",
+    "name": "Ankylosing spondylitis",
+    "category": "Musculoskeletal",
+    "categorySlug": "musculoskeletal",
+    "symptoms": [
+      "Chronic inflammatory back pain",
+      "Stiffness worse with rest, relieved by exercise",
+      "Sacroiliac joint tenderness",
+      "Chest expansion limitation"
+    ],
+    "icd11Code": "FA92",
+    "description": "Standard evidence-based management includes: Pain/inflammation control.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "gout-flare",
+    "name": "Gout flare",
+    "category": "Musculoskeletal",
+    "categorySlug": "musculoskeletal",
+    "symptoms": [
+      "Acute severe monoarticular inflammation",
+      "Erythema, swelling, and exquisite tenderness",
+      "Rapid onset over hours, often nighttime"
+    ],
+    "icd11Code": "FA25.0",
+    "description": "Standard evidence-based management includes: Acute inflammation/pain relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "fibromyalgia",
+    "name": "Fibromyalgia",
+    "category": "Musculoskeletal",
+    "categorySlug": "musculoskeletal",
+    "symptoms": [
+      "Widespread chronic musculoskeletal pain across multiple quadrants",
+      "Multiple bilateral tender trigger points",
+      "Chronic unrefreshing sleep",
+      "Cognitive fog"
+    ],
+    "icd11Code": "MG30.01",
+    "description": "Standard evidence-based management includes: May reduce pain in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "glaucoma",
+    "name": "Glaucoma",
+    "category": "Eye",
+    "categorySlug": "eye",
+    "symptoms": [
+      "Gradual peripheral visual field loss (tunnel vision)",
+      "Elevated intraocular pressure",
+      "Acute angle closure: severe ocular pain, headache, halos around lights"
+    ],
+    "icd11Code": "9C61",
+    "description": "Standard evidence-based management includes: Lowers intraocular pressure.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "conjunctivitis",
+    "name": "Conjunctivitis",
+    "category": "Eye",
+    "categorySlug": "eye",
+    "symptoms": [
+      "Conjunctival injection (pink/red eye)",
+      "Foreign-body sensation",
+      "Watery or purulent ocular discharge",
+      "Crusting of eyelashes upon waking"
+    ],
+    "icd11Code": "9A60",
+    "description": "Standard evidence-based management includes: Symptom relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "allergic-conjunctivitis",
+    "name": "Allergic conjunctivitis",
+    "category": "Eye",
+    "categorySlug": "eye",
+    "symptoms": [
+      "Intense bilateral ocular pruritus (itching)",
+      "Watery discharge",
+      "Conjunctival chemosis (edema)",
+      "Periorbital dark circles"
+    ],
+    "icd11Code": "9A61.1",
+    "description": "Standard evidence-based management includes: Allergy symptom relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "dry-eye-disease",
+    "name": "Dry eye disease",
+    "category": "Eye",
+    "categorySlug": "eye",
+    "symptoms": [
+      "Gritty sandy burning ocular sensation",
+      "Paradoxical reflex tearing",
+      "Visual fatigue",
+      "Fluctuating vision exacerbated by screen use"
+    ],
+    "icd11Code": "9A94",
+    "description": "Standard evidence-based management includes: Lubrication.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "otitis-externa",
+    "name": "Otitis externa",
+    "category": "Ear",
+    "categorySlug": "ear",
+    "symptoms": [
+      "Severe otalgia exacerbated by traction on auricle/tragus",
+      "Pruritus and fullness in ear canal",
+      "Erythema and purulent otorrhea"
+    ],
+    "icd11Code": "AA00",
+    "description": "Standard evidence-based management includes: Treats selected bacterial outer-ear infections.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "otitis-media",
+    "name": "Otitis media",
+    "category": "Ear",
+    "categorySlug": "ear",
+    "symptoms": [
+      "Acute deep throbbing otalgia",
+      "Conductive hearing loss",
+      "Erythematous bulging tympanic membrane",
+      "Fever in pediatric patients"
+    ],
+    "icd11Code": "AA20",
+    "description": "Standard evidence-based management includes: Pain relief; antibiotic in selected cases.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "endometriosis",
+    "name": "Endometriosis",
+    "category": "Reproductive",
+    "categorySlug": "reproductive",
+    "symptoms": [
+      "Severe progressive dysmenorrhea",
+      "Chronic non-cyclic pelvic pain",
+      "Deep dyspareunia (pain with intercourse)",
+      "Dyschezia during menses"
+    ],
+    "icd11Code": "GA10",
+    "description": "Standard evidence-based management includes: Reduces symptoms in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "pcos",
+    "name": "PCOS",
+    "category": "Reproductive",
+    "categorySlug": "reproductive",
+    "symptoms": [
+      "Oligomenorrhea or amenorrhea",
+      "Hirsutism and adult cystic acne",
+      "Central weight gain and insulin resistance",
+      "Polycystic ovarian morphology"
+    ],
+    "icd11Code": "5A80.1",
+    "description": "Standard evidence-based management includes: Metabolic management in selected PCOS patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "benign-prostatic-hyperplasia",
+    "name": "Benign prostatic hyperplasia",
+    "category": "Reproductive",
+    "categorySlug": "reproductive",
+    "symptoms": [
+      "Hesitancy and weak urinary stream",
+      "Nocturia and frequency",
+      "Post-void dribbling",
+      "Sensation of incomplete bladder emptying"
+    ],
+    "icd11Code": "GA90",
+    "description": "Standard evidence-based management includes: Improves urinary symptoms.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "erectile-dysfunction",
+    "name": "Erectile dysfunction",
+    "category": "Reproductive",
+    "categorySlug": "reproductive",
+    "symptoms": [
+      "Persistent inability to achieve or maintain penile erection satisfactory for sexual intercourse",
+      "Reduced libido"
+    ],
+    "icd11Code": "HA01.1",
+    "description": "Standard evidence-based management includes: Improves erectile function in eligible patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "pelvic-inflammatory-disease",
+    "name": "Pelvic inflammatory disease",
+    "category": "Reproductive",
+    "categorySlug": "reproductive",
+    "symptoms": [
+      "Bilateral lower abdominal/pelvic pain",
+      "Abnormal purulent vaginal discharge",
+      "Cervical motion tenderness (chandelier sign)",
+      "Fever"
+    ],
+    "icd11Code": "GA00",
+    "description": "Standard evidence-based management includes: Treatment of selected PID.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "iron-deficiency-anemia",
+    "name": "Iron-deficiency anemia",
+    "category": "Hematology",
+    "categorySlug": "hematology",
+    "symptoms": [
+      "Fatigue, pallor, and exertional dyspnea",
+      "Koilonychia (spoon nails)",
+      "Angular cheilitis",
+      "Atrophic glossitis",
+      "Pica (craving ice/clay)"
+    ],
+    "icd11Code": "3A00",
+    "description": "Standard evidence-based management includes: Replaces iron.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "vitamin-b12-deficiency",
+    "name": "Vitamin B12 deficiency",
+    "category": "Hematology",
+    "categorySlug": "hematology",
+    "symptoms": [
+      "Megaloblastic anemia with fatigue",
+      "Symmetric peripheral neuropathy (tingling/numbness)",
+      "Subacute combined spinal degeneration",
+      "Glossitis"
+    ],
+    "icd11Code": "3A01.0",
+    "description": "Standard evidence-based management includes: B12 replacement.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "folate-deficiency",
+    "name": "Folate deficiency",
+    "category": "Hematology",
+    "categorySlug": "hematology",
+    "symptoms": [
+      "Fatigue, weakness, and pallor",
+      "Sore tongue (glossitis)",
+      "Absence of neurological symptoms (unlike B12)"
+    ],
+    "icd11Code": "3A01.1",
+    "description": "Standard evidence-based management includes: Folate replacement.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hemophilia-a",
+    "name": "Hemophilia A",
+    "category": "Hematology",
+    "categorySlug": "hematology",
+    "symptoms": [
+      "Spontaneous recurrent hemarthrosis (joint bleeding)",
+      "Deep intramuscular hematomas",
+      "Prolonged bleeding after mild trauma",
+      "Target joint arthropathy"
+    ],
+    "icd11Code": "3B10.0",
+    "description": "Standard evidence-based management includes: Replaces missing clotting factor.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "sickle-cell-disease",
+    "name": "Sickle-cell disease",
+    "category": "Hematology",
+    "categorySlug": "hematology",
+    "symptoms": [
+      "Severe acute vaso-occlusive pain crises in bones/chest",
+      "Chronic hemolytic anemia and jaundice",
+      "Dactylitis in infants",
+      "Splenic sequestration"
+    ],
+    "icd11Code": "3A51",
+    "description": "Standard evidence-based management includes: Reduces complications in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "thalassemia",
+    "name": "Thalassemia",
+    "category": "Hematology",
+    "categorySlug": "hematology",
+    "symptoms": [
+      "Severe microcytic anemia from early childhood",
+      "Hepatosplenomegaly",
+      "Bone marrow expansion with frontal bossing",
+      "Transfusional iron overload"
+    ],
+    "icd11Code": "3A50",
+    "description": "Standard evidence-based management includes: Reduces transfusional iron overload.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "breast-cancer",
+    "name": "Breast cancer",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Painless solitary breast mass or thickening",
+      "Nipple retraction or bloody discharge",
+      "Skin dimpling (peau d'orange)",
+      "Axillary lymphadenopathy"
+    ],
+    "icd11Code": "2C60",
+    "description": "Standard evidence-based management includes: Hormone-receptor-positive disease in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "prostate-cancer",
+    "name": "Prostate cancer",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Often asymptomatic in early stages",
+      "Obstructive urinary symptoms (hesitancy/weak stream)",
+      "Bone pain in metastatic disease"
+    ],
+    "icd11Code": "2C82",
+    "description": "Standard evidence-based management includes: Hormone-sensitive disease in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "leukemia",
+    "name": "Leukemia",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Fatigue, pallor, and recurrent infections",
+      "Easy bruising, petechiae, and epistaxis",
+      "Bone and joint pain",
+      "Splenomegaly"
+    ],
+    "icd11Code": "2A60",
+    "description": "Standard evidence-based management includes: BCR-ABL-positive leukemia.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "multiple-myeloma",
+    "name": "Multiple myeloma",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Bone pain (especially lumbar spine/ribs)",
+      "Pathologic fractures",
+      "Hypercalcemia (lethargy, constipation)",
+      "Renal impairment",
+      "Normocytic anemia"
+    ],
+    "icd11Code": "2A83",
+    "description": "Standard evidence-based management includes: Cancer treatment in combination regimens.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "lung-cancer",
+    "name": "Lung cancer",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Persistent worsening cough",
+      "Hemoptysis",
+      "Substernal chest pain",
+      "Hoarseness",
+      "Unexplained weight loss",
+      "Dyspnea"
+    ],
+    "icd11Code": "2C25",
+    "description": "Standard evidence-based management includes: EGFR-mutated NSCLC in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "cervical-cancer",
+    "name": "Cervical cancer",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Abnormal postcoital or intermenstrual vaginal bleeding",
+      "Foul-smelling watery vaginal discharge",
+      "Pelvic pain in advanced stages"
+    ],
+    "icd11Code": "2C77",
+    "description": "Standard evidence-based management includes: Used in selected cancer regimens.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "colorectal-cancer",
+    "name": "Colorectal cancer",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Persistent change in bowel habits",
+      "Visible rectal bleeding or melena",
+      "Iron deficiency anemia in right-sided tumors",
+      "Tenesmus"
+    ],
+    "icd11Code": "2C40",
+    "description": "Standard evidence-based management includes: Used in combination regimens.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "lymphoma",
+    "name": "Lymphoma",
+    "category": "Cancer",
+    "categorySlug": "cancer",
+    "symptoms": [
+      "Painless firm rubbery lymphadenopathy (cervical/axillary)",
+      "B-symptoms: drenching night sweats, fever >38Â°C, unexplained weight loss"
+    ],
+    "icd11Code": "2A80",
+    "description": "Standard evidence-based management includes: B-cell malignancies in selected regimens.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "severe-allergic-reaction",
+    "name": "Severe allergic reaction",
+    "category": "Allergy/immune",
+    "categorySlug": "allergy-immune",
+    "symptoms": [
+      "Sudden respiratory distress / stridor / bronchospasm",
+      "Angioedema of lips/tongue/pharynx",
+      "Hypotension / circulatory collapse",
+      "Diffuse urticaria"
+    ],
+    "icd11Code": "4A84",
+    "description": "Standard evidence-based management includes: Emergency treatment of anaphylaxis.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "allergic-dermatitis",
+    "name": "Allergic dermatitis",
+    "category": "Allergy/immune",
+    "categorySlug": "allergy-immune",
+    "symptoms": [
+      "Pruritic vesicular rash localized to allergen contact area",
+      "Erythema, edema, and weeping vesicles",
+      "Lichenified plaques in chronic contact"
+    ],
+    "icd11Code": "EA80",
+    "description": "Standard evidence-based management includes: Itch relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "systemic-lupus-erythematosus",
+    "name": "Systemic lupus erythematosus",
+    "category": "Allergy/immune",
+    "categorySlug": "allergy-immune",
+    "symptoms": [
+      "Malar butterfly rash sparing nasolabial folds",
+      "Photosensitivity",
+      "Non-erosive symmetric polyarthritis",
+      "Renal proteinuria",
+      "Oral ulcers"
+    ],
+    "icd11Code": "4A40",
+    "description": "Standard evidence-based management includes: Disease control in selected patients.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "inflammatory-arthritis",
+    "name": "Inflammatory arthritis",
+    "category": "Allergy/immune",
+    "categorySlug": "allergy-immune",
+    "symptoms": [
+      "Joint inflammation with warmth and swelling",
+      "Morning stiffness > 45 minutes",
+      "Elevated CRP/ESR",
+      "Joint effusion"
+    ],
+    "icd11Code": "FA20",
+    "description": "Standard evidence-based management includes: Pain/inflammation relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "fever",
+    "name": "Fever",
+    "category": "Emergency/supportive",
+    "categorySlug": "emergency-supportive",
+    "symptoms": [
+      "Elevated core body temperature (> 37.8Â°C / 100Â°F)",
+      "Chills and rigors",
+      "Diaphoresis (sweating)",
+      "Malaise and myalgia"
+    ],
+    "icd11Code": "MG26",
+    "description": "Standard evidence-based management includes: Fever/pain relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "mild-pain",
+    "name": "Mild pain",
+    "category": "Emergency/supportive",
+    "categorySlug": "emergency-supportive",
+    "symptoms": [
+      "Localized discomfort of mild to moderate intensity (NRS 1-4)",
+      "Tension headache",
+      "Minor muscular soreness"
+    ],
+    "icd11Code": "MG30",
+    "description": "Standard evidence-based management includes: Pain relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "moderate-inflammatory-pain",
+    "name": "Moderate inflammatory pain",
+    "category": "Emergency/supportive",
+    "categorySlug": "emergency-supportive",
+    "symptoms": [
+      "Throbbing aching localized pain with inflammation",
+      "Soft-tissue strain or sprain",
+      "Musculoskeletal inflammation"
+    ],
+    "icd11Code": "MG30",
+    "description": "Standard evidence-based management includes: Pain/inflammation relief.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "dehydration",
+    "name": "Dehydration",
+    "category": "Emergency/supportive",
+    "categorySlug": "emergency-supportive",
+    "symptoms": [
+      "Dry oral mucous membranes",
+      "Reduced skin turgor",
+      "Oliguria with concentrated dark urine",
+      "Postural dizziness / tachycardia",
+      "Lethargy"
+    ],
+    "icd11Code": "5C73",
+    "description": "Standard evidence-based management includes: Replaces fluids/electrolytes.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "stroke",
+    "name": "Stroke & Transient Ischemic Attack (TIA)",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Facial drooping",
+      "Unilateral arm/leg weakness",
+      "Speech difficulty / slurred speech",
+      "Sudden severe headache",
+      "Loss of balance"
+    ],
+    "icd11Code": "8B11",
+    "description": "Acute cerebrovascular event resulting in localized cerebral ischemia or infarction with sudden focal neurological deficit.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "heart-attack",
+    "name": "Acute Myocardial Infarction (Heart Attack)",
+    "category": "Cardiovascular",
+    "categorySlug": "cardiovascular",
+    "symptoms": [
+      "Crushing substernal chest pressure",
+      "Pain radiating to left arm/jaw",
+      "Diaphoresis (cold sweats)",
+      "Dyspnea (shortness of breath)",
+      "Severe nausea"
+    ],
+    "icd11Code": "BA41",
+    "description": "Acute coronary arterial occlusion leading to myocardial tissue ischemia and necrosis, presenting with crushing substernal chest discomfort.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "gas-bloating",
+    "name": "Abdominal Gas, Flatulence & Bloating",
+    "category": "Gastrointestinal",
+    "categorySlug": "gastrointestinal",
+    "symptoms": [
+      "Abdominal bloating and distension",
+      "Excessive flatulence",
+      "Belching / burping",
+      "Abdominal cramps",
+      "Early satiety"
+    ],
+    "icd11Code": "MD90",
+    "description": "Excess intestinal gas buildup causing abdominal distension, postprandial fullness, cramping discomfort, and excessive flatulence or eructation.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "schizophrenia",
+    "name": "Schizophrenia & Psychotic Disorders",
+    "category": "Mental health",
+    "categorySlug": "mental-health",
+    "symptoms": [
+      "Auditory hallucinations",
+      "Delusions (persecutory or referential)",
+      "Disorganized thinking / speech",
+      "Catatonia",
+      "Emotional blunting"
+    ],
+    "icd11Code": "6A20",
+    "description": "Severe mental disorder characterized by persistent disturbances in thinking, perception, reality testing, affect, and behavior.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "bipolar-disorder",
+    "name": "Bipolar Affective Disorder",
+    "category": "Mental health",
+    "categorySlug": "mental-health",
+    "symptoms": [
+      "Elevated, expansive or irritable mood",
+      "Decreased need for sleep",
+      "Flight of ideas / racing thoughts",
+      "Impulsive risky behavior",
+      "Major depressive crashes"
+    ],
+    "icd11Code": "6A60",
+    "description": "Episodic mood disorder marked by alternating episodes of mania/hypomania (elation, impulsivity, decreased sleep) and major depressive episodes.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "cataract",
+    "name": "Cataract & Post-Surgical Ocular Inflammation",
+    "category": "Eye",
+    "categorySlug": "eye",
+    "symptoms": [
+      "Gradual progressive blurry vision",
+      "Halos around lights / glare",
+      "Faded color perception",
+      "Poor night vision",
+      "Frequent prescription changes"
+    ],
+    "icd11Code": "9B10",
+    "description": "Progressive opacification of the crystalline eye lens causing painless blurring of vision, glare, loss of contrast, and post-operative ocular inflammation.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "macular-degeneration",
+    "name": "Age-Related Macular Degeneration (AMD)",
+    "category": "Eye",
+    "categorySlug": "eye",
+    "symptoms": [
+      "Metamorphopsia (straight lines appearing wavy)",
+      "Dark or empty blurry area in center of vision",
+      "Difficulty recognizing faces",
+      "Decreased color brightness"
+    ],
+    "icd11Code": "9B75",
+    "description": "Progressive degenerative disease of the central retinal macula leading to distortion of central vision, central scotoma, and reading difficulty.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "hearing-loss",
+    "name": "Sudden Sensorineural Hearing Loss",
+    "category": "Ear",
+    "categorySlug": "ear",
+    "symptoms": [
+      "Sudden drop in hearing in one or both ears",
+      "Aural fullness / blocked ear sensation",
+      "Tinnitus (ringing in ear)",
+      "Mild imbalance or dizziness"
+    ],
+    "icd11Code": "AB51",
+    "description": "Rapid loss of hearing acuity of at least 30 decibels across three contiguous frequencies, occurring over a period of 72 hours or less.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "meniere-disease",
+    "name": "Meniere's Disease & Endolymphatic Hydrops",
+    "category": "Ear",
+    "categorySlug": "ear",
+    "symptoms": [
+      "Episodic spinning vertigo attacks (lasting 20 mins to 12 hrs)",
+      "Fluctuating hearing loss",
+      "Roaring tinnitus",
+      "Aural fullness / ear pressure",
+      "Severe nausea and vomiting"
+    ],
+    "icd11Code": "AB30",
+    "description": "Chronic inner ear disorder characterized by episodic rotational vertigo, fluctuating low-frequency sensorineural hearing loss, and aural fullness.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "nephritis",
+    "name": "Acute Glomerulonephritis & Interstitial Nephritis",
+    "category": "Kidney/urinary",
+    "categorySlug": "kidney-urinary",
+    "symptoms": [
+      "Tea-colored or cola-colored smoky urine (hematuria)",
+      "Facial and periorbital morning edema",
+      "Reduced urine output (oliguria)",
+      "Hypertension",
+      "Flank or back ache"
+    ],
+    "icd11Code": "GB40",
+    "description": "Inflammation of the renal glomeruli and tubules resulting in hematuria (tea-colored urine), proteinuria, periorbital edema, and acute oliguria.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "gallbladder-diseases",
+    "name": "Gallbladder Disease & Biliary Cholecystitis",
+    "category": "Liver",
+    "categorySlug": "liver",
+    "symptoms": [
+      "Severe RUQ abdominal stabbing colic",
+      "Pain radiating to right shoulder / scapula",
+      "Nausea after fatty meals",
+      "Low-grade fever",
+      "Postprandial dyspepsia"
+    ],
+    "icd11Code": "DC11",
+    "description": "Cholelithiasis and acute or chronic inflammation of the gallbladder, presenting with severe right upper quadrant colic radiating to the right scapula.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "obesity",
+    "name": "Obesity & Metabolic Adiposity Management",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Excess body weight and high BMI",
+      "Exertional breathlessness",
+      "Obstructive sleep apnea / snoring",
+      "Joint aches and back pain",
+      "Insulin resistance"
+    ],
+    "icd11Code": "5B81",
+    "description": "Chronic progressive metabolic disease characterized by abnormal or excessive adiposity accumulation (BMI >= 30 kg/m2) impairing health.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "pregnancy-disorders",
+    "name": "Pregnancy-Induced Hypertension & Preeclampsia",
+    "category": "Reproductive",
+    "categorySlug": "reproductive",
+    "symptoms": [
+      "Elevated blood pressure in pregnancy",
+      "Severe persistent throbbing headache",
+      "Visual disturbances (scintillating scotomas)",
+      "Epigastric or RUQ pain",
+      "Sudden edema of hands and face"
+    ],
+    "icd11Code": "JA20",
+    "description": "Multisystem pregnancy complication characterized by new-onset gestational hypertension (BP >= 140/90 mmHg) after 20 weeks with proteinuria or organ dysfunction.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "nutritional-diseases",
+    "name": "Nutritional Deficiencies (Scurvy, Rickets, Malnutrition)",
+    "category": "Endocrine",
+    "categorySlug": "endocrine",
+    "symptoms": [
+      "Spongy bleeding gums and petechiae (scurvy)",
+      "Bowing of long bones / rickets",
+      "Severe muscle wasting and fatigue",
+      "Dry scaly skin and brittle nails",
+      "Impaired wound healing"
+    ],
+    "icd11Code": "5B50",
+    "description": "Severe micronutrient and macronutrient depletion states causing bone demineralization, connective tissue fragility, gum bleeding, and stunted growth.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "environmental-diseases",
+    "name": "Environmental & Altitude Illness (Heat Exhaustion & AMS)",
+    "category": "Emergency/supportive",
+    "categorySlug": "emergency-supportive",
+    "symptoms": [
+      "Severe throbbing headache at high altitude",
+      "Nausea, dizziness, and insomnia",
+      "Heavy diaphoresis / heat cramps",
+      "Dehydration and lightheadedness",
+      "Exertional weakness"
+    ],
+    "icd11Code": "NF00",
+    "description": "Physical disorders caused by environmental thermal extremes or hypobaric hypoxia at high elevations (>2500m), presenting with ataxia and dehydration.",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  },
+  {
+    "id": "rare-diseases",
+    "name": "Rare Diseases (Wilson's Disease & Myasthenia Gravis)",
+    "category": "Emergency/supportive",
+    "categorySlug": "emergency-supportive",
+    "symptoms": [
+      "Fluctuating muscle weakness and ptosis (drooping eyelid)",
+      "Diplopia (double vision)",
+      "Tremors, dysarthria, and dystonia",
+      "Hepatic dysfunction and jaundice",
+      "Kayser-Fleischer corneal rings"
+    ],
+    "icd11Code": "5C53",
+    "description": "Low-prevalence complex disorders including abnormal copper storage (Wilson's) and autoimmune neuromuscular junction blockade (Myasthenia Gravis).",
+    "redFlags": [
+      "High persistent fever > 103°F",
+      "Severe dehydration",
+      "Difficulty breathing"
+    ],
+    "homeCare": "Hydration, rest, and monitoring of vitals.",
+    "recommendedMedicines": [],
+    "updatedAt": "2026-09-16T11:02:23.687Z"
+  }
+]
