@@ -12,6 +12,52 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // Merge custom clinical conditions and medicines from Admin Console (localStorage)
+  const mergeCustomClinicalData = () => {
+    try {
+      const customDiseases = JSON.parse(localStorage.getItem('himkiv_custom_diseases') || '[]');
+      if (Array.isArray(customDiseases) && customDiseases.length > 0 && Array.isArray(CLINICAL_DATA.diseases)) {
+        customDiseases.forEach(cd => {
+          const idx = CLINICAL_DATA.diseases.findIndex(d => d.id === cd.id);
+          if (idx !== -1) {
+            CLINICAL_DATA.diseases[idx] = { ...CLINICAL_DATA.diseases[idx], ...cd };
+          } else {
+            CLINICAL_DATA.diseases.unshift(cd);
+          }
+        });
+      }
+
+      const customMeds = JSON.parse(localStorage.getItem('himkiv_custom_medicines') || '[]');
+      if (Array.isArray(customMeds) && customMeds.length > 0 && Array.isArray(CLINICAL_DATA.medicineReferences)) {
+        customMeds.forEach(cm => {
+          const idx = CLINICAL_DATA.medicineReferences.findIndex(m => m.id === cm.id);
+          if (idx !== -1) {
+            CLINICAL_DATA.medicineReferences[idx] = { ...CLINICAL_DATA.medicineReferences[idx], ...cm };
+          } else {
+            CLINICAL_DATA.medicineReferences.unshift(cm);
+          }
+        });
+      }
+    } catch (e) {
+      console.warn('Error merging custom clinical data:', e);
+    }
+  };
+  mergeCustomClinicalData();
+
+  window.addEventListener('storage', (e) => {
+    if (!e.key || e.key.startsWith('himkiv_custom_') || e.key === 'himkiv_last_sync') {
+      mergeCustomClinicalData();
+      renderCategoryTabs();
+      renderDiseaseChoices();
+    }
+  });
+
+  window.addEventListener('himkiv_data_synced', () => {
+    mergeCustomClinicalData();
+    renderCategoryTabs();
+    renderDiseaseChoices();
+  });
+
   // State Management for Survey
   const state = {
     step: 1,

@@ -185,17 +185,32 @@
   <!-- Scripts -->
   <script src="data/doctorsData.js"></script>
   <script>
-    let allDoctors = typeof DOCTORS_DATA !== 'undefined' ? DOCTORS_DATA : [];
+    let allDoctors = typeof DOCTORS_DATA !== 'undefined' ? [...DOCTORS_DATA] : [];
 
+    // 1. Merge locally added doctors from localStorage (Instant Client Sync)
+    function mergeLocalDoctors() {
+      try {
+        const custom = JSON.parse(localStorage.getItem('himkiv_custom_doctors') || '[]');
+        custom.forEach(cd => {
+          const idx = allDoctors.findIndex(d => d.id === cd.id || d.name.toLowerCase() === cd.name.toLowerCase());
+          if (idx !== -1) allDoctors[idx] = cd;
+          else allDoctors.unshift(cd);
+        });
+      } catch (e) {}
+    }
+    mergeLocalDoctors();
+
+    // 2. Fetch from API if running with local backend
     fetch('http://localhost:5000/api/doctors')
       .then(r => r.json())
       .then(res => {
         if (res.success && res.data && res.data.length > 0) {
           allDoctors = res.data;
+          mergeLocalDoctors();
           renderDoctors(allDoctors);
         }
       })
-      .catch(() => renderDoctors(allDoctors));
+      .catch(() => {});
 
     function renderDoctors(list) {
       const grid = document.getElementById('doctorsGrid');
@@ -257,6 +272,18 @@
       );
       renderDoctors(filtered);
     }
+
+    // Real-time sync if doctor added in admin
+    window.addEventListener('storage', (e) => {
+      if (!e.key || e.key === 'himkiv_custom_doctors' || e.key === 'himkiv_last_sync') {
+        mergeLocalDoctors();
+        filterDoctors();
+      }
+    });
+    window.addEventListener('himkiv_data_synced', () => {
+      mergeLocalDoctors();
+      filterDoctors();
+    });
 
     renderDoctors(allDoctors);
     lucide.createIcons();

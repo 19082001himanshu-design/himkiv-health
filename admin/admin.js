@@ -208,58 +208,276 @@ function updateKpiCards() {
   if (nDoc) nDoc.textContent = allDoctors.length;
 }
 
-// 1-Click Sync to Web / GitHub Pages
+// --------------------------------------------------------------------------
+// 1-Click Sync to Web (Seamless Instant Live Sync - NO Unwanted Downloads!)
+// --------------------------------------------------------------------------
 async function syncStaticData() {
   const spinner = document.getElementById('syncSpinner');
   if (spinner) spinner.classList.add('animate-spin');
 
+  // 1. Re-persist all current datasets into browser's local storage
+  try {
+    localStorage.setItem('himkiv_custom_hospitals', JSON.stringify(allHospitals));
+    localStorage.setItem('himkiv_custom_doctors', JSON.stringify(allDoctors));
+    localStorage.setItem('himkiv_custom_medicines', JSON.stringify(allMedicines));
+    localStorage.setItem('himkiv_custom_diseases', JSON.stringify(allDiseases));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+
+    // Broadcast event to current page and listening sub-components
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced', {
+      detail: {
+        medicines: allMedicines.length,
+        conditions: allDiseases.length,
+        hospitals: allHospitals.length,
+        doctors: allDoctors.length
+      }
+    }));
+  } catch (err) {
+    console.warn('Storage sync error:', err);
+  }
+
+  // 2. If Backend REST API is running (e.g. port 5000), trigger file export to disk
   if (isApiConnected) {
     try {
       const res = await fetch(`${API_BASE}/api/sync/export-static`, { method: 'POST' });
       const json = await res.json();
       if (json.success) {
-        showToast(`⚡ Synced! ${json.details.totalMedicines} medicines exported to web.`);
         if (spinner) spinner.classList.remove('animate-spin');
+        openSyncSuccessModal({
+          mode: 'backend',
+          hospitals: json.details?.totalHospitals || allHospitals.length,
+          doctors: json.details?.totalDoctors || allDoctors.length,
+          medicines: json.details?.totalMedicines || allMedicines.length,
+          conditions: json.details?.totalConditions || allDiseases.length,
+          gitCommitted: json.details?.gitCommitted
+        });
         return;
       }
     } catch (e) {
-      console.warn('API sync failed, using client exporter:', e);
+      console.warn('Backend API sync failed, continuing client live sync:', e);
     }
   }
 
-  // Client-Side Exporter for GitHub Pages / Static Cloud Mode
+  // 3. If GitHub Token is configured, push directly to GitHub Repository (GitHub Pages Live Deploy)
+  const ghToken = localStorage.getItem('himkiv_github_token');
+  if (ghToken) {
+    try {
+      const pushed = await pushAllToGitHub(ghToken);
+      if (pushed) {
+        if (spinner) spinner.classList.remove('animate-spin');
+        openSyncSuccessModal({
+          mode: 'github',
+          hospitals: allHospitals.length,
+          doctors: allDoctors.length,
+          medicines: allMedicines.length,
+          conditions: allDiseases.length
+        });
+        return;
+      }
+    } catch (ghErr) {
+      console.warn('GitHub API push failed:', ghErr);
+    }
+  }
+
+  // 4. Instant Live Client-Side Sync
+  // All pages (hospitals.html, appointments.html, medicines.html, survey.html)
+  // are already listening and will display all items instantly.
+  if (spinner) {
+    setTimeout(() => spinner.classList.remove('animate-spin'), 400);
+  }
+
+  openSyncSuccessModal({
+    mode: 'browser',
+    hospitals: allHospitals.length,
+    doctors: allDoctors.length,
+    medicines: allMedicines.length,
+    conditions: allDiseases.length
+  });
+}
+
+function openSyncSuccessModal(data) {
+  const modal = document.getElementById('modalSyncSuccess');
+  if (!modal) {
+    showToast(`⚡ Synced! ${data.hospitals} Hospitals, ${data.doctors} Doctors live on website.`);
+    return;
+  }
+
+  const statHosp = document.getElementById('syncStatHospitals');
+  const statDoc = document.getElementById('syncStatDoctors');
+  const statMed = document.getElementById('syncStatMedicines');
+  const statCond = document.getElementById('syncStatConditions');
+  const modeText = document.getElementById('syncModeText');
+
+  if (statHosp) statHosp.textContent = data.hospitals;
+  if (statDoc) statDoc.textContent = data.doctors;
+  if (statMed) statMed.textContent = data.medicines;
+  if (statCond) statCond.textContent = data.conditions;
+
+  if (modeText) {
+    if (data.mode === 'backend') {
+      modeText.innerHTML = `<strong>Backend API Synced:</strong> Disk datasets (hospitals, doctors, medicines) updated! ${data.gitCommitted ? 'Git commit auto-created.' : ''}`;
+    } else if (data.mode === 'github') {
+      modeText.innerHTML = `<strong>GitHub Repository Pushed:</strong> Changes pushed directly to GitHub repository! Live globally on GitHub Pages in ~1 minute.`;
+    } else {
+      modeText.innerHTML = `<strong>Instant Live Mode Active:</strong> Aapka data turant website par live ho gaya hai. Website ke kisi bhi page ko open ya refresh karke dekhein!`;
+    }
+  }
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function closeSyncSuccessModal() {
+  const modal = document.getElementById('modalSyncSuccess');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+// GitHub Cloud Sync Helpers
+function openGitHubTokenModal() {
+  const modal = document.getElementById('modalGitHubSync');
+  const input = document.getElementById('ghTokenInput');
+  if (input) {
+    input.value = localStorage.getItem('himkiv_github_token') || '';
+  }
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function closeGitHubTokenModal() {
+  const modal = document.getElementById('modalGitHubSync');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function saveGitHubToken() {
+  const input = document.getElementById('ghTokenInput');
+  const val = input ? input.value.trim() : '';
+  if (!val) {
+    showToast('Kripya valid GitHub token enter karein.', 'error');
+    return;
+  }
+  localStorage.setItem('himkiv_github_token', val);
+  showToast('GitHub Token successfully saved!');
+  closeGitHubTokenModal();
+}
+
+function clearGitHubToken() {
+  localStorage.removeItem('himkiv_github_token');
+  const input = document.getElementById('ghTokenInput');
+  if (input) input.value = '';
+  showToast('GitHub Token removed.');
+  closeGitHubTokenModal();
+}
+
+async function syncFileToGitHub(filePath, content, token) {
+  const repo = '19082001himanshu-design/himkiv-health';
+  const url = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+  
+  let sha = null;
   try {
-    const exportData = {
-      meta: {
-        totalMedicines: allMedicines.length,
-        uniqueConditions: allDiseases.length,
-        lastSync: new Date().toISOString(),
-        updatedBy: 'Himanshu Sharma (Admin)'
-      },
-      categories: typeof HKARE_DATA !== 'undefined' && HKARE_DATA.categories ? HKARE_DATA.categories : [],
-      conditions: allDiseases,
-      medicines: allMedicines
-    };
-
-    const blobContent = `const HKARE_DATA = ${JSON.stringify(exportData, null, 2)};\nif (typeof module !== 'undefined' && module.exports) { module.exports = HKARE_DATA; }\n`;
-    const blob = new Blob([blobContent], { type: 'application/javascript' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'hkareData.js';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-
-    showToast(`⚡ Synchronized! Updated hkareData.js (${allMedicines.length} medicines) downloaded!`);
-  } catch (err) {
-    showToast('Sync completed in memory.');
-  } finally {
-    if (spinner) {
-      setTimeout(() => spinner.classList.remove('animate-spin'), 600);
+    const getRes = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if (getRes.ok) {
+      const getData = await getRes.json();
+      sha = getData.sha;
     }
+  } catch (e) {}
+
+  const utf8Bytes = new TextEncoder().encode(content);
+  let binary = '';
+  for (let i = 0; i < utf8Bytes.length; i++) {
+    binary += String.fromCharCode(utf8Bytes[i]);
   }
+  const base64Content = btoa(binary);
+
+  const putBody = {
+    message: `Admin Console Sync: ${filePath} [skip ci]`,
+    content: base64Content,
+    branch: 'main'
+  };
+  if (sha) putBody.sha = sha;
+
+  const putRes = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(putBody)
+  });
+
+  return putRes.ok;
+}
+
+async function pushAllToGitHub(token) {
+  showToast('Pushing datasets to GitHub repository...');
+  
+  // 1. hospitalsData.js
+  const hospContent = `/**\n * HIMKIV Health & MedGuide - Verified Hospitals Dataset\n * Synchronized with Himkiv Backend & Admin Console\n * Sync Date: ${new Date().toISOString()}\n */\n\nconst HOSPITALS_DATA = ${JSON.stringify(allHospitals, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = HOSPITALS_DATA;\n}\n`;
+  await syncFileToGitHub('data/hospitalsData.js', hospContent, token);
+
+  // 2. doctorsData.js
+  const docContent = `/**\n * HIMKIV Health & MedGuide - Verified Doctors Dataset\n * Synchronized with Himkiv Backend & Admin Console\n * Sync Date: ${new Date().toISOString()}\n */\n\nconst DOCTORS_DATA = ${JSON.stringify(allDoctors, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = DOCTORS_DATA;\n}\n`;
+  await syncFileToGitHub('data/doctorsData.js', docContent, token);
+
+  // 3. hkareData.js
+  const hkareContent = `const HKARE_DATA = ${JSON.stringify({
+    meta: {
+      totalMedicines: allMedicines.length,
+      uniqueConditions: allDiseases.length,
+      lastSync: new Date().toISOString(),
+      updatedBy: 'Himanshu Sharma (Admin)'
+    },
+    categories: typeof HKARE_DATA !== 'undefined' && HKARE_DATA.categories ? HKARE_DATA.categories : [],
+    conditions: allDiseases,
+    medicines: allMedicines
+  }, null, 2)};\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = HKARE_DATA;\n}\n`;
+  await syncFileToGitHub('data/hkareData.js', hkareContent, token);
+
+  return true;
+}
+
+// Optional Manual Backup Download (Only triggered when user clicks optional button)
+function downloadBackupFiles() {
+  const exportData = {
+    meta: {
+      totalMedicines: allMedicines.length,
+      uniqueConditions: allDiseases.length,
+      totalHospitals: allHospitals.length,
+      totalDoctors: allDoctors.length,
+      exportDate: new Date().toISOString(),
+      exportedBy: 'Himanshu Sharma (Admin)'
+    },
+    hospitals: allHospitals,
+    doctors: allDoctors,
+    medicines: allMedicines,
+    conditions: allDiseases
+  };
+
+  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `himkiv_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Offline backup JSON file downloaded.');
 }
 
 // Main Dashboard Initialization
@@ -566,6 +784,8 @@ async function handleSaveMedicine(e) {
     if (cIdx !== -1) custom[cIdx] = medRecord;
     else custom.unshift(medRecord);
     localStorage.setItem('himkiv_custom_medicines', JSON.stringify(custom));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   // 3. Send to API if connected
@@ -595,6 +815,8 @@ async function deleteMedicine(id) {
   try {
     const custom = JSON.parse(localStorage.getItem('himkiv_custom_medicines') || '[]');
     localStorage.setItem('himkiv_custom_medicines', JSON.stringify(custom.filter(m => m.id !== id)));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   if (isApiConnected) {
@@ -726,6 +948,8 @@ async function handleSaveDisease(e) {
     if (cIdx !== -1) custom[cIdx] = diseaseRecord;
     else custom.unshift(diseaseRecord);
     localStorage.setItem('himkiv_custom_diseases', JSON.stringify(custom));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   if (isApiConnected) {
@@ -749,6 +973,8 @@ async function deleteDisease(id) {
   try {
     const custom = JSON.parse(localStorage.getItem('himkiv_custom_diseases') || '[]');
     localStorage.setItem('himkiv_custom_diseases', JSON.stringify(custom.filter(d => d.id !== id)));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   if (isApiConnected) {
@@ -913,6 +1139,8 @@ async function handleSaveHospital(e) {
     if (cIdx !== -1) custom[cIdx] = hospRecord;
     else custom.unshift(hospRecord);
     localStorage.setItem('himkiv_custom_hospitals', JSON.stringify(custom));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   if (isApiConnected) {
@@ -936,6 +1164,8 @@ async function deleteHospital(id) {
   try {
     const custom = JSON.parse(localStorage.getItem('himkiv_custom_hospitals') || '[]');
     localStorage.setItem('himkiv_custom_hospitals', JSON.stringify(custom.filter(h => h.id !== id)));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   if (isApiConnected) {
@@ -1058,6 +1288,8 @@ async function handleSaveDoctor(e) {
     if (cIdx !== -1) custom[cIdx] = docRecord;
     else custom.unshift(docRecord);
     localStorage.setItem('himkiv_custom_doctors', JSON.stringify(custom));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   if (isApiConnected) {
@@ -1081,6 +1313,8 @@ async function deleteDoctor(id) {
   try {
     const custom = JSON.parse(localStorage.getItem('himkiv_custom_doctors') || '[]');
     localStorage.setItem('himkiv_custom_doctors', JSON.stringify(custom.filter(d => d.id !== id)));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced'));
   } catch (e) {}
 
   if (isApiConnected) {

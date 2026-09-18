@@ -1,6 +1,8 @@
 /**
  * HIMKIV Health & MedGuide - Verified Doctors Dataset
  * Synchronized with Himkiv Backend & Admin Console
+ * Updated by: Himanshu Sharma (Founder & Administrator)
+ * Sync Date: 2026-09-18T09:20:23.557Z
  */
 
 const DOCTORS_DATA = [

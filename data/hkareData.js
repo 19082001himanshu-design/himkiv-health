@@ -2,7 +2,7 @@
  * HIMKIV Health & MedGuide - Synchronized Clinical Reference Dataset
  * Automatically exported from Himkiv Admin Management System
  * Updated by: Himanshu Sharma (Founder & Administrator)
- * Sync Date: 2026-09-16T11:13:02.031Z
+ * Sync Date: 2026-09-18T09:20:23.546Z
  */
 
 const HKARE_DATA = {
@@ -11,7 +11,7 @@ const HKARE_DATA = {
     "sourceType": "Himkiv Database & Clinical Formulary",
     "totalMedicines": 265,
     "uniqueConditions": 140,
-    "lastSync": "2026-09-16T11:13:02.031Z",
+    "lastSync": "2026-09-18T09:20:23.527Z",
     "updatedBy": "Himanshu Sharma (Admin)",
     "standard": "WHO ICD-11 MMS (2026 Release)"
   },

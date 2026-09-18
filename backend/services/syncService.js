@@ -10,10 +10,14 @@ const db = require('../config/db');
 
 const rootDir = path.join(__dirname, '..', '..');
 const hkarePath = path.join(rootDir, 'data', 'hkareData.js');
+const hospitalsPath = path.join(rootDir, 'data', 'hospitalsData.js');
+const doctorsPath = path.join(rootDir, 'data', 'doctorsData.js');
 
 function syncToStatic() {
   const allMeds = db.medicines.getAll();
   const allDiseases = db.diseases.getAll();
+  const allHospitals = db.hospitals.getAll();
+  const allDoctors = db.doctors.getAll();
 
   // 1. Read existing categories if available
   let existingCategories = [];
@@ -96,10 +100,59 @@ if (typeof module !== 'undefined' && module.exports) {
 
   fs.writeFileSync(hkarePath, fileContent, 'utf8');
 
+  // 2. Export Hospitals to data/hospitalsData.js
+  const hospitalsFileContent = `/**
+ * HIMKIV Health & MedGuide - Verified Hospitals Dataset
+ * Synchronized with Himkiv Backend & Admin Console
+ * Updated by: Himanshu Sharma (Founder & Administrator)
+ * Sync Date: ${new Date().toISOString()}
+ */
+
+const HOSPITALS_DATA = ${JSON.stringify(allHospitals, null, 2)};
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = HOSPITALS_DATA;
+}
+`;
+  fs.writeFileSync(hospitalsPath, hospitalsFileContent, 'utf8');
+
+  // 3. Export Doctors to data/doctorsData.js
+  const doctorsFileContent = `/**
+ * HIMKIV Health & MedGuide - Verified Doctors Dataset
+ * Synchronized with Himkiv Backend & Admin Console
+ * Updated by: Himanshu Sharma (Founder & Administrator)
+ * Sync Date: ${new Date().toISOString()}
+ */
+
+const DOCTORS_DATA = ${JSON.stringify(allDoctors, null, 2)};
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = DOCTORS_DATA;
+}
+`;
+  fs.writeFileSync(doctorsPath, doctorsFileContent, 'utf8');
+
+  // 4. Attempt Git Commit if repo is present
+  let gitCommitted = false;
+  try {
+    const { execSync } = require('child_process');
+    execSync('git add data/ backend/data/', { cwd: rootDir, stdio: 'ignore' });
+    execSync('git commit -m "Admin Auto-Sync: Updated static datasets [skip ci]"', { cwd: rootDir, stdio: 'ignore' });
+    gitCommitted = true;
+    try {
+      execSync('git push origin main', { cwd: rootDir, stdio: 'ignore', timeout: 6000 });
+    } catch (_) {}
+  } catch (gitErr) {
+    // Git not available or nothing to commit
+  }
+
   return {
     success: true,
     totalMedicines: formattedMedicines.length,
     totalConditions: formattedConditions.length,
+    totalHospitals: allHospitals.length,
+    totalDoctors: allDoctors.length,
+    gitCommitted,
     timestamp: new Date().toISOString()
   };
 }

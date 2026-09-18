@@ -83,22 +83,35 @@ document.addEventListener("DOMContentLoaded", () => {
   // Data Source Preparation (HKare Dataset + Verified Monographs)
   // --------------------------------------------------------------------------
   const getMedicineRecords = () => {
+    let baseMeds = [];
     if (CLINICAL_DATA.medicineReferences && CLINICAL_DATA.medicineReferences.length > 0) {
-      return CLINICAL_DATA.medicineReferences;
+      baseMeds = [...CLINICAL_DATA.medicineReferences];
+    } else {
+      baseMeds = Object.values(CLINICAL_DATA.salts || {}).map(salt => ({
+        id: salt.id,
+        activeIngredient: salt.saltName,
+        medicineClass: salt.chemicalClass,
+        condition: salt.indications ? salt.indications[0] : "General",
+        category: salt.therapeuticCategory,
+        categorySlug: salt.categorySlug || "general",
+        generalMedicalRole: salt.mechanism || "Evidence-based pharmacology",
+        safetyNote: salt.pregnancyCaution || "Clinician guidance recommended",
+        source: "WHO Model List of Essential Medicines",
+        sourceType: "WHO EML"
+      }));
     }
-    // Fallback to legacy salts if HKare is unavailable
-    return Object.values(CLINICAL_DATA.salts || {}).map(salt => ({
-      id: salt.id,
-      activeIngredient: salt.saltName,
-      medicineClass: salt.chemicalClass,
-      condition: salt.indications ? salt.indications[0] : "General",
-      category: salt.therapeuticCategory,
-      categorySlug: salt.categorySlug || "general",
-      generalMedicalRole: salt.mechanism || "Evidence-based pharmacology",
-      safetyNote: salt.pregnancyCaution || "Clinician guidance recommended",
-      source: "WHO Model List of Essential Medicines",
-      sourceType: "WHO EML"
-    }));
+
+    // Merge custom medicines added via Admin Console (Instant Client Sync)
+    try {
+      const custom = JSON.parse(localStorage.getItem('himkiv_custom_medicines') || '[]');
+      custom.forEach(cm => {
+        const idx = baseMeds.findIndex(m => m.id === cm.id || (m.activeIngredient && cm.activeIngredient && m.activeIngredient.toLowerCase() === cm.activeIngredient.toLowerCase()));
+        if (idx !== -1) baseMeds[idx] = { ...baseMeds[idx], ...cm };
+        else baseMeds.unshift(cm);
+      });
+    } catch (e) {}
+
+    return baseMeds;
   };
 
   // --------------------------------------------------------------------------
@@ -762,9 +775,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // React to Language Changes
-  window.addEventListener("himkiv:languageChanged", () => {
-    updateCategoryFilterStyles();
+  // React to Storage Changes (Real-time updates when added in Admin Console)
+  window.addEventListener("storage", (e) => {
+    if (!e.key || e.key === "himkiv_custom_medicines" || e.key === "himkiv_last_sync") {
+      filterAndRenderDirectory();
+    }
+  });
+
+  window.addEventListener("himkiv_data_synced", () => {
     filterAndRenderDirectory();
   });
 

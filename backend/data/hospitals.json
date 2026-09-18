@@ -96,5 +96,28 @@
     "bedCount": 530,
     "mapsUrl": "https://maps.google.com/?q=Max+Hospital+Saket",
     "verified": true
+  },
+  {
+    "id": "hosp_shalby_jaipur",
+    "name": "Shalby Multi-Specialty Hospital",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "address": "Sector 3, Chitrakoot, Vaishali Nagar, Jaipur, Rajasthan 302021",
+    "phone": "0141-7123889",
+    "emergencyNumber": "0141-7123889",
+    "specialties": [
+      "Cancer",
+      "Cardiology",
+      "Emergency Care",
+      "Gastroenterology",
+      "General Surgery",
+      "Neurology",
+      "Nephrology",
+      "Orthopedics"
+    ],
+    "rating": 4.7,
+    "bedCount": 237,
+    "mapsUrl": "https://maps.google.com/?q=Shalby+Multi-Specialty+Hospital+Jaipur",
+    "verified": true
   }
 ]

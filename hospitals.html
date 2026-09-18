@@ -204,24 +204,51 @@
   <!-- Scripts -->
   <script src="data/hospitalsData.js"></script>
   <script>
-    let allHospitals = typeof HOSPITALS_DATA !== 'undefined' ? HOSPITALS_DATA : [];
+    let allHospitals = typeof HOSPITALS_DATA !== 'undefined' ? [...HOSPITALS_DATA] : [];
 
-    // Fetch from API if running with backend
+    // 1. Merge locally added hospitals from localStorage (Instant Client Sync)
+    function mergeLocalHospitals() {
+      try {
+        const custom = JSON.parse(localStorage.getItem('himkiv_custom_hospitals') || '[]');
+        custom.forEach(ch => {
+          const idx = allHospitals.findIndex(h => h.id === ch.id || h.name.toLowerCase() === ch.name.toLowerCase());
+          if (idx !== -1) allHospitals[idx] = ch;
+          else allHospitals.unshift(ch);
+        });
+      } catch (e) {}
+    }
+    mergeLocalHospitals();
+
+    // 2. Fetch from API if running with local backend
     fetch('http://localhost:5000/api/hospitals')
       .then(r => r.json())
       .then(res => {
         if (res.success && res.data && res.data.length > 0) {
           allHospitals = res.data;
+          mergeLocalHospitals();
+          populateCityDropdown(allHospitals);
           renderHospitals(allHospitals);
         }
       })
-      .catch(() => renderHospitals(allHospitals));
+      .catch(() => {});
+
+    function populateCityDropdown(list) {
+      const citySelect = document.getElementById('cityFilter');
+      if (!citySelect) return;
+      const currentVal = citySelect.value;
+      const cities = Array.from(new Set(list.map(h => (h.city || '').trim()).filter(Boolean))).sort();
+      citySelect.innerHTML = '<option value="all">All Cities</option>' + 
+        cities.map(c => `<option value="${c.toLowerCase()}">${c}</option>`).join('');
+      if (currentVal && Array.from(citySelect.options).some(o => o.value === currentVal)) {
+        citySelect.value = currentVal;
+      }
+    }
 
     function renderHospitals(list) {
       const grid = document.getElementById('hospitalsGrid');
       if (!grid) return;
       if (list.length === 0) {
-        grid.innerHTML = '<div class="col-span-full py-16 text-center text-slate-400">No hospitals found.</div>';
+        grid.innerHTML = '<div class="col-span-full py-16 text-center text-slate-400">No hospitals found matching your search.</div>';
         return;
       }
 
@@ -255,7 +282,7 @@
               <div class="mb-4">
                 <span class="text-[10px] font-bold uppercase text-slate-400 block mb-1.5">Specialties</span>
                 <div class="flex flex-wrap gap-1.5">
-                  ${specs.slice(0, 4).map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[10px] font-medium text-slate-700 dark:text-slate-300">${s}</span>`).join('')}
+                  ${specs.slice(0, 5).map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[10px] font-medium text-slate-700 dark:text-slate-300">${s}</span>`).join('')}
                 </div>
               </div>
             </div>
@@ -284,6 +311,21 @@
       renderHospitals(filtered);
     }
 
+    // Real-time sync if updated in another tab
+    window.addEventListener('storage', (e) => {
+      if (!e.key || e.key === 'himkiv_custom_hospitals' || e.key === 'himkiv_last_sync') {
+        mergeLocalHospitals();
+        populateCityDropdown(allHospitals);
+        filterHospitals();
+      }
+    });
+    window.addEventListener('himkiv_data_synced', () => {
+      mergeLocalHospitals();
+      populateCityDropdown(allHospitals);
+      filterHospitals();
+    });
+
+    populateCityDropdown(allHospitals);
     renderHospitals(allHospitals);
     lucide.createIcons();
   </script>
