@@ -303,7 +303,7 @@
     lucide.createIcons();
 
     function openAddDoctorModal() {
-      const token = sessionStorage.getItem('himkiv_admin_token') || localStorage.getItem('himkiv_admin_token');
+      const token = sessionStorage.getItem('himkiv_auth_session_v2') || localStorage.getItem('himkiv_auth_session_v2');
       if (!token) {
         openDocAuthPrompt();
         return;
@@ -351,8 +351,8 @@
       } catch (e) {}
 
       if (pass === 'himkiv@2026' || passHash === targetHash) {
-        sessionStorage.setItem('himkiv_admin_token', 'founder_himanshu_' + Date.now());
-        sessionStorage.setItem('himkiv_admin_user', JSON.stringify({ id: 'admin_1', username: 'himanshu', fullName: 'Himanshu Sharma', role: 'founder' }));
+        sessionStorage.setItem('himkiv_auth_session_v2', 'founder_himanshu_' + Date.now());
+        sessionStorage.setItem('himkiv_auth_user_v2', JSON.stringify({ id: 'admin_1', username: 'himanshu', fullName: 'Himanshu Sharma', role: 'founder' }));
         closeDocAuthPrompt();
         openAddDoctorModal();
       } else {

@@ -48,6 +48,10 @@ const DEFAULT_FOUNDER_USER = 'himanshu';
 // Default SHA-256 hash for 'himkiv@2026'
 const DEFAULT_FOUNDER_PWD_HASH = 'cdb57bf849a433a327949bac851905134a9ade62c7a3b6c4baeb15c7e7bc4fe5';
 
+// Authenticated session keys
+const AUTH_TOKEN_KEY = 'himkiv_auth_session_v2';
+const AUTH_USER_KEY = 'himkiv_auth_user_v2';
+
 // Helper: Compute SHA-256 Hash using Web Crypto API
 async function sha256(message) {
   try {
@@ -79,7 +83,21 @@ function togglePasswordVisibility(inputId, btn) {
 
 // Authentication Check
 function checkAuth() {
-  const token = sessionStorage.getItem('himkiv_admin_token') || localStorage.getItem('himkiv_admin_token');
+  // Purge any legacy unverified tokens from previous test sessions
+  localStorage.removeItem('himkiv_admin_token');
+  sessionStorage.removeItem('himkiv_admin_token');
+  localStorage.removeItem('himkiv_admin_user');
+  sessionStorage.removeItem('himkiv_admin_user');
+
+  // Check URL query or hash for explicit logout/login request
+  if (window.location.search.includes('logout') || window.location.hash.includes('logout') || window.location.hash.includes('login')) {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    sessionStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+    sessionStorage.removeItem(AUTH_USER_KEY);
+  }
+
+  const token = sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
   const modal = document.getElementById('modalAuth');
   const appWrapper = document.getElementById('adminAppContent');
 
@@ -87,13 +105,15 @@ function checkAuth() {
     if (modal) {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      modal.style.display = 'none';
     }
     if (appWrapper) {
       appWrapper.classList.remove('hidden');
+      appWrapper.style.display = 'flex';
     }
     
     // Display logged in user details
-    const userStr = sessionStorage.getItem('himkiv_admin_user') || localStorage.getItem('himkiv_admin_user');
+    const userStr = sessionStorage.getItem(AUTH_USER_KEY) || localStorage.getItem(AUTH_USER_KEY);
     if (userStr) {
       try {
         const u = JSON.parse(userStr);
@@ -103,13 +123,15 @@ function checkAuth() {
     }
     return true;
   } else {
-    // Lock Admin Console
+    // Lock Admin Console & Display Login Screen
     if (modal) {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      modal.style.display = 'flex';
     }
     if (appWrapper) {
       appWrapper.classList.add('hidden');
+      appWrapper.style.display = 'none';
     }
     return false;
   }
@@ -154,13 +176,17 @@ async function handleLogin(e) {
     role: 'founder'
   };
 
-  // 1. Attempt Backend API Auth if server is running
+  // 1. Attempt Backend API Auth if server is running (with 1.5s timeout)
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
     const res = await fetch(`${API_BASE}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password }),
+      signal: controller.signal
     });
+    clearTimeout(timeoutId);
     if (res.ok) {
       const data = await res.json();
       if (data.success) {
@@ -169,7 +195,7 @@ async function handleLogin(e) {
       }
     }
   } catch (err) {
-    // Backend offline or running in static mode, fallback to secure client-side check
+    // Backend offline or timeout, fallback to secure client-side check
   }
 
   // 2. Client-Side Cryptographic Verification (Works on GitHub Pages & offline)
@@ -199,13 +225,13 @@ async function handleLogin(e) {
     const token = 'himkiv_founder_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
     
     if (rememberMe) {
-      localStorage.setItem('himkiv_admin_token', token);
-      localStorage.setItem('himkiv_admin_user', JSON.stringify(loggedInUser));
+      localStorage.setItem(AUTH_TOKEN_KEY, token);
+      localStorage.setItem(AUTH_USER_KEY, JSON.stringify(loggedInUser));
     } else {
-      sessionStorage.setItem('himkiv_admin_token', token);
-      sessionStorage.setItem('himkiv_admin_user', JSON.stringify(loggedInUser));
-      localStorage.removeItem('himkiv_admin_token');
-      localStorage.removeItem('himkiv_admin_user');
+      sessionStorage.setItem(AUTH_TOKEN_KEY, token);
+      sessionStorage.setItem(AUTH_USER_KEY, JSON.stringify(loggedInUser));
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      localStorage.removeItem(AUTH_USER_KEY);
     }
 
     const modal = document.getElementById('modalAuth');
@@ -213,9 +239,11 @@ async function handleLogin(e) {
     if (modal) {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      modal.style.display = 'none';
     }
     if (appWrapper) {
       appWrapper.classList.remove('hidden');
+      appWrapper.style.display = 'flex';
     }
 
     passEl.value = '';
@@ -236,19 +264,23 @@ async function handleLogin(e) {
 
 // Logout & Lock Admin Console
 function logoutAdmin() {
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  localStorage.removeItem(AUTH_USER_KEY);
+  sessionStorage.removeItem(AUTH_TOKEN_KEY);
+  sessionStorage.removeItem(AUTH_USER_KEY);
   localStorage.removeItem('himkiv_admin_token');
-  localStorage.removeItem('himkiv_admin_user');
   sessionStorage.removeItem('himkiv_admin_token');
-  sessionStorage.removeItem('himkiv_admin_user');
 
   const modal = document.getElementById('modalAuth');
   const appWrapper = document.getElementById('adminAppContent');
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
+    modal.style.display = 'flex';
   }
   if (appWrapper) {
     appWrapper.classList.add('hidden');
+    appWrapper.style.display = 'none';
   }
 
   const passEl = document.getElementById('loginPassword');
