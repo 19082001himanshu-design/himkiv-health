@@ -55,9 +55,9 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Admin redirect fallback
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(adminDir, 'index.html'));
+// Admin route - serves root admin.html
+app.get(['/admin', '/admin/', '/admin.html'], (req, res) => {
+  res.sendFile(path.join(rootDir, 'admin.html'));
 });
 
 // Start Server
