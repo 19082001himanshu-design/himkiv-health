@@ -39,42 +39,291 @@ function showToast(message, type = 'success') {
   }, 4000);
 }
 
-// Authentication Check (Auto-authenticates founder Himanshu Sharma)
-function checkAuth() {
-  let token = localStorage.getItem('himkiv_admin_token');
-  if (!token) {
-    token = 'founder_himanshu_' + Date.now();
-    localStorage.setItem('himkiv_admin_token', token);
-    localStorage.setItem('himkiv_admin_user', JSON.stringify({
-      id: 'admin_1',
-      username: 'himanshu',
-      fullName: 'Himanshu Sharma',
-      role: 'founder'
-    }));
+// ========================================================
+// FOUNDER AUTHENTICATION & ACCESS CONTROL SYSTEM
+// Founder: Himanshu Sharma
+// ========================================================
+
+const DEFAULT_FOUNDER_USER = 'himanshu';
+// Default SHA-256 hash for 'himkiv@2026'
+const DEFAULT_FOUNDER_PWD_HASH = 'cdb57bf849a433a327949bac851905134a9ade62c7a3b6c4baeb15c7e7bc4fe5';
+
+// Helper: Compute SHA-256 Hash using Web Crypto API
+async function sha256(message) {
+  try {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  } catch (e) {
+    let hash = 0;
+    for (let i = 0; i < message.length; i++) {
+      hash = ((hash << 5) - hash) + message.charCodeAt(i);
+      hash |= 0;
+    }
+    return String(hash);
   }
-  const modal = document.getElementById('modalAuth');
-  if (modal) {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-  }
-  return true;
 }
 
+// Toggle password visibility in input fields
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPass = input.type === 'password';
+  input.type = isPass ? 'text' : 'password';
+  if (btn) {
+    btn.innerHTML = `<i data-lucide="${isPass ? 'eye-off' : 'eye'}" class="w-4 h-4"></i>`;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+}
+
+// Authentication Check
+function checkAuth() {
+  const token = sessionStorage.getItem('himkiv_admin_token') || localStorage.getItem('himkiv_admin_token');
+  const modal = document.getElementById('modalAuth');
+  const appWrapper = document.getElementById('adminAppContent');
+
+  if (token) {
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+    if (appWrapper) {
+      appWrapper.classList.remove('hidden');
+    }
+    
+    // Display logged in user details
+    const userStr = sessionStorage.getItem('himkiv_admin_user') || localStorage.getItem('himkiv_admin_user');
+    if (userStr) {
+      try {
+        const u = JSON.parse(userStr);
+        const nameEl = document.getElementById('adminUserName');
+        if (nameEl) nameEl.textContent = u.fullName || 'Himanshu Sharma';
+      } catch (e) {}
+    }
+    return true;
+  } else {
+    // Lock Admin Console
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    if (appWrapper) {
+      appWrapper.classList.add('hidden');
+    }
+    return false;
+  }
+}
+
+// Handle Founder Login
 async function handleLogin(e) {
   if (e) e.preventDefault();
-  localStorage.setItem('himkiv_admin_token', 'founder_himanshu');
+
+  const userEl = document.getElementById('loginUsername');
+  const passEl = document.getElementById('loginPassword');
+  const rememberEl = document.getElementById('loginRememberMe');
+  const errorEl = document.getElementById('loginErrorMsg');
+  const errorTextEl = document.getElementById('loginErrorText');
+  const submitBtn = document.getElementById('btnLoginSubmit');
+
+  if (!userEl || !passEl) return;
+
+  const username = userEl.value.trim();
+  const password = passEl.value;
+  const rememberMe = rememberEl ? rememberEl.checked : true;
+
+  if (!username || !password) {
+    if (errorEl) {
+      errorEl.classList.remove('hidden');
+      if (errorTextEl) errorTextEl.textContent = 'Kripya Username aur Password dono enter karein!';
+    }
+    return;
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Verifying...</span>`;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  let authenticated = false;
+  let loggedInUser = {
+    id: 'admin_1',
+    username: 'himanshu',
+    fullName: 'Himanshu Sharma',
+    role: 'founder'
+  };
+
+  // 1. Attempt Backend API Auth if server is running
+  try {
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
+        authenticated = true;
+        if (data.user) loggedInUser = data.user;
+      }
+    }
+  } catch (err) {
+    // Backend offline or running in static mode, fallback to secure client-side check
+  }
+
+  // 2. Client-Side Cryptographic Verification (Works on GitHub Pages & offline)
+  if (!authenticated) {
+    const enteredHash = await sha256(password);
+    const targetHash = localStorage.getItem('himkiv_founder_pwd_hash') || DEFAULT_FOUNDER_PWD_HASH;
+    
+    // Check username and password hash (also supports raw 'himkiv@2026' direct check)
+    const isUserValid = (username.toLowerCase() === DEFAULT_FOUNDER_USER.toLowerCase());
+    const isPassValid = (enteredHash === targetHash) || (password === 'himkiv@2026' && targetHash === DEFAULT_FOUNDER_PWD_HASH);
+
+    if (isUserValid && isPassValid) {
+      authenticated = true;
+    }
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = `<i data-lucide="lock-open" class="w-4 h-4"></i><span>Unlock Admin Console</span>`;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  if (authenticated) {
+    if (errorEl) errorEl.classList.add('hidden');
+    
+    // Generate secure session token
+    const token = 'himkiv_founder_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+    
+    if (rememberMe) {
+      localStorage.setItem('himkiv_admin_token', token);
+      localStorage.setItem('himkiv_admin_user', JSON.stringify(loggedInUser));
+    } else {
+      sessionStorage.setItem('himkiv_admin_token', token);
+      sessionStorage.setItem('himkiv_admin_user', JSON.stringify(loggedInUser));
+      localStorage.removeItem('himkiv_admin_token');
+      localStorage.removeItem('himkiv_admin_user');
+    }
+
+    const modal = document.getElementById('modalAuth');
+    const appWrapper = document.getElementById('adminAppContent');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+    if (appWrapper) {
+      appWrapper.classList.remove('hidden');
+    }
+
+    passEl.value = '';
+    showToast('Swagatam, Himanshu Sharma! Admin Console Unlocked.', 'success');
+    initDashboard();
+  } else {
+    // Authentication Failed
+    if (errorEl) {
+      errorEl.classList.remove('hidden');
+      if (errorTextEl) {
+        errorTextEl.textContent = 'Galat Username ya Password! Access keval Founder Himanshu Sharma ke liye restricted hai.';
+      }
+    }
+    passEl.value = '';
+    passEl.focus();
+  }
+}
+
+// Logout & Lock Admin Console
+function logoutAdmin() {
+  localStorage.removeItem('himkiv_admin_token');
+  localStorage.removeItem('himkiv_admin_user');
+  sessionStorage.removeItem('himkiv_admin_token');
+  sessionStorage.removeItem('himkiv_admin_user');
+
   const modal = document.getElementById('modalAuth');
+  const appWrapper = document.getElementById('adminAppContent');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+  if (appWrapper) {
+    appWrapper.classList.add('hidden');
+  }
+
+  const passEl = document.getElementById('loginPassword');
+  if (passEl) passEl.value = '';
+  const errEl = document.getElementById('loginErrorMsg');
+  if (errEl) errEl.classList.add('hidden');
+
+  showToast('Admin Console locked successfully.', 'success');
+}
+
+// Modal: Change Password
+function openChangePasswordModal() {
+  const modal = document.getElementById('modalChangePassword');
+  const form = document.getElementById('formChangePassword');
+  const err = document.getElementById('changePwdError');
+  if (form) form.reset();
+  if (err) err.classList.add('hidden');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+}
+
+function closeChangePasswordModal() {
+  const modal = document.getElementById('modalChangePassword');
   if (modal) {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
   }
-  showToast('Welcome, Himanshu Sharma!');
-  initDashboard();
 }
 
-function logoutAdmin() {
-  localStorage.removeItem('himkiv_admin_token');
-  window.location.reload();
+async function handleChangePassword(e) {
+  e.preventDefault();
+  const currentPass = document.getElementById('currentPasswordInput').value;
+  const newPass = document.getElementById('newPasswordInput').value;
+  const confirmPass = document.getElementById('confirmPasswordInput').value;
+  const errEl = document.getElementById('changePwdError');
+
+  if (newPass.length < 6) {
+    if (errEl) {
+      errEl.textContent = 'Naya password kam se kam 6 characters ka hona chahiye!';
+      errEl.classList.remove('hidden');
+    }
+    return;
+  }
+
+  if (newPass !== confirmPass) {
+    if (errEl) {
+      errEl.textContent = 'New password aur Confirm password match nahi ho rahe!';
+      errEl.classList.remove('hidden');
+    }
+    return;
+  }
+
+  // Verify current password
+  const currentHash = await sha256(currentPass);
+  const targetHash = localStorage.getItem('himkiv_founder_pwd_hash') || DEFAULT_FOUNDER_PWD_HASH;
+
+  const isCurrentValid = (currentHash === targetHash) || (currentPass === 'himkiv@2026' && targetHash === DEFAULT_FOUNDER_PWD_HASH);
+
+  if (!isCurrentValid) {
+    if (errEl) {
+      errEl.textContent = 'Aapka Current Password galat hai!';
+      errEl.classList.remove('hidden');
+    }
+    return;
+  }
+
+  // Update password hash
+  const newHash = await sha256(newPass);
+  localStorage.setItem('himkiv_founder_pwd_hash', newHash);
+
+  closeChangePasswordModal();
+  showToast('Secret password kamyabi se update ho gaya!', 'success');
 }
 
 // Tab Switching
@@ -1331,6 +1580,8 @@ async function deleteDoctor(id) {
 // Window Onload Initialization
 window.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
-  checkAuth();
-  initDashboard();
+  const isAuth = checkAuth();
+  if (isAuth) {
+    initDashboard();
+  }
 });
