@@ -52,6 +52,18 @@ const DEFAULT_FOUNDER_PWD_HASH = 'cdb57bf849a433a327949bac851905134a9ade62c7a3b6
 const AUTH_TOKEN_KEY = 'himkiv_auth_session_v2';
 const AUTH_USER_KEY = 'himkiv_auth_user_v2';
 
+// Configurable Credentials Storage Keys
+const FOUNDER_USER_KEY = 'himkiv_founder_username';
+const FOUNDER_PWD_KEY = 'himkiv_founder_pwd_hash';
+
+function getActiveFounderUser() {
+  return localStorage.getItem(FOUNDER_USER_KEY) || DEFAULT_FOUNDER_USER;
+}
+
+function getActiveFounderPwdHash() {
+  return localStorage.getItem(FOUNDER_PWD_KEY) || DEFAULT_FOUNDER_PWD_HASH;
+}
+
 // Helper: Compute SHA-256 Hash using Web Crypto API
 async function sha256(message) {
   try {
@@ -113,14 +125,11 @@ function checkAuth() {
     }
     
     // Display logged in user details
-    const userStr = sessionStorage.getItem(AUTH_USER_KEY) || localStorage.getItem(AUTH_USER_KEY);
-    if (userStr) {
-      try {
-        const u = JSON.parse(userStr);
-        const nameEl = document.getElementById('adminUserName');
-        if (nameEl) nameEl.textContent = u.fullName || 'Himanshu Sharma';
-      } catch (e) {}
-    }
+    const activeUser = getActiveFounderUser();
+    const nameEl = document.getElementById('adminUserName');
+    if (nameEl) nameEl.textContent = activeUser;
+    const badgeEl = document.getElementById('adminUserBadge');
+    if (badgeEl) badgeEl.textContent = activeUser.substring(0, 2).toUpperCase();
     return true;
   } else {
     // Lock Admin Console & Display Login Screen
@@ -201,14 +210,17 @@ async function handleLogin(e) {
   // 2. Client-Side Cryptographic Verification (Works on GitHub Pages & offline)
   if (!authenticated) {
     const enteredHash = await sha256(password);
-    const targetHash = localStorage.getItem('himkiv_founder_pwd_hash') || DEFAULT_FOUNDER_PWD_HASH;
+    const targetUser = getActiveFounderUser();
+    const targetHash = getActiveFounderPwdHash();
     
-    // Check username and password hash (also supports raw 'himkiv@2026' direct check)
-    const isUserValid = (username.toLowerCase() === DEFAULT_FOUNDER_USER.toLowerCase());
+    // Check username and password hash (also supports raw 'himkiv@2026' direct check if default)
+    const isUserValid = (username.toLowerCase() === targetUser.toLowerCase());
     const isPassValid = (enteredHash === targetHash) || (password === 'himkiv@2026' && targetHash === DEFAULT_FOUNDER_PWD_HASH);
 
     if (isUserValid && isPassValid) {
       authenticated = true;
+      loggedInUser.username = targetUser;
+      loggedInUser.fullName = targetUser;
     }
   }
 
@@ -291,16 +303,21 @@ function logoutAdmin() {
   showToast('Admin Console locked successfully.', 'success');
 }
 
-// Modal: Change Password
+// Modal: Change Credentials (Login ID & Password)
 function openChangePasswordModal() {
   const modal = document.getElementById('modalChangePassword');
   const form = document.getElementById('formChangePassword');
   const err = document.getElementById('changePwdError');
+  const userInp = document.getElementById('newUsernameInput');
   if (form) form.reset();
   if (err) err.classList.add('hidden');
+  if (userInp) {
+    userInp.value = getActiveFounderUser();
+  }
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
+    modal.style.display = 'flex';
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 }
@@ -310,35 +327,47 @@ function closeChangePasswordModal() {
   if (modal) {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
+    modal.style.display = 'none';
   }
 }
 
 async function handleChangePassword(e) {
   e.preventDefault();
   const currentPass = document.getElementById('currentPasswordInput').value;
-  const newPass = document.getElementById('newPasswordInput').value;
-  const confirmPass = document.getElementById('confirmPasswordInput').value;
+  const newUsername = (document.getElementById('newUsernameInput')?.value || '').trim();
+  const newPass = document.getElementById('newPasswordInput')?.value || '';
+  const confirmPass = document.getElementById('confirmPasswordInput')?.value || '';
   const errEl = document.getElementById('changePwdError');
 
-  if (newPass.length < 6) {
+  if (!newUsername || newUsername.length < 3) {
     if (errEl) {
-      errEl.textContent = 'Naya password kam se kam 6 characters ka hona chahiye!';
+      errEl.textContent = 'Login ID / Username kam se kam 3 characters ka hona chahiye!';
       errEl.classList.remove('hidden');
     }
     return;
   }
 
-  if (newPass !== confirmPass) {
-    if (errEl) {
-      errEl.textContent = 'New password aur Confirm password match nahi ho rahe!';
-      errEl.classList.remove('hidden');
+  if (newPass) {
+    if (newPass.length < 6) {
+      if (errEl) {
+        errEl.textContent = 'Naya password kam se kam 6 characters ka hona chahiye!';
+        errEl.classList.remove('hidden');
+      }
+      return;
     }
-    return;
+
+    if (newPass !== confirmPass) {
+      if (errEl) {
+        errEl.textContent = 'New password aur Confirm password match nahi ho rahe!';
+        errEl.classList.remove('hidden');
+      }
+      return;
+    }
   }
 
   // Verify current password
   const currentHash = await sha256(currentPass);
-  const targetHash = localStorage.getItem('himkiv_founder_pwd_hash') || DEFAULT_FOUNDER_PWD_HASH;
+  const targetHash = getActiveFounderPwdHash();
 
   const isCurrentValid = (currentHash === targetHash) || (currentPass === 'himkiv@2026' && targetHash === DEFAULT_FOUNDER_PWD_HASH);
 
@@ -350,12 +379,50 @@ async function handleChangePassword(e) {
     return;
   }
 
-  // Update password hash
-  const newHash = await sha256(newPass);
-  localStorage.setItem('himkiv_founder_pwd_hash', newHash);
+  // 1. Update Username in localStorage
+  localStorage.setItem(FOUNDER_USER_KEY, newUsername);
+
+  // 2. Update Password if provided
+  let newHash = targetHash;
+  if (newPass) {
+    newHash = await sha256(newPass);
+    localStorage.setItem(FOUNDER_PWD_KEY, newHash);
+  }
+
+  // 3. Update active session user object
+  const userStr = sessionStorage.getItem(AUTH_USER_KEY) || localStorage.getItem(AUTH_USER_KEY);
+  if (userStr) {
+    try {
+      const u = JSON.parse(userStr);
+      u.username = newUsername;
+      u.fullName = newUsername;
+      if (sessionStorage.getItem(AUTH_USER_KEY)) sessionStorage.setItem(AUTH_USER_KEY, JSON.stringify(u));
+      if (localStorage.getItem(AUTH_USER_KEY)) localStorage.setItem(AUTH_USER_KEY, JSON.stringify(u));
+    } catch (e) {}
+  }
+
+  // 4. Update UI labels in header
+  const nameEl = document.getElementById('adminUserName');
+  if (nameEl) nameEl.textContent = newUsername;
+  const badgeEl = document.getElementById('adminUserBadge');
+  if (badgeEl) badgeEl.textContent = newUsername.substring(0, 2).toUpperCase();
+
+  // 5. Sync to backend API if server is alive
+  try {
+    fetch(`${API_BASE}/api/auth/update-credentials`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        currentPassword: currentPass,
+        newUsername,
+        newPassword: newPass || undefined,
+        newPasswordHash: newHash
+      })
+    }).catch(() => {});
+  } catch (err) {}
 
   closeChangePasswordModal();
-  showToast('Secret password kamyabi se update ho gaya!', 'success');
+  showToast(newPass ? 'Login ID aur Password kamyabi se update ho gaye!' : 'Login ID kamyabi se update ho gayi!', 'success');
 }
 
 // Tab Switching
