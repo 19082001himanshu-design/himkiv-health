@@ -1687,7 +1687,7 @@ async function deleteDoctor(id) {
 
 // ========================================================
 // HIMKIV SEO & META TAGS MASTER CONTROLLER
-// Complete Page-by-Page Manager, SERP Simulator, Sitemap & Robots Engine
+// Complete Page-by-Page Manager, Image Alt Text Engine, SERP Simulator, Sitemap & Robots
 // ========================================================
 
 let currentSeoPageId = 'index';
@@ -1695,21 +1695,89 @@ let allSeoPages = {};
 let serpPreviewMode = 'desktop';
 let seoListenersAttached = false;
 
+// HTML Entity Escape Helper
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 // Initialize Master SEO Panel
 function initSeoPanel() {
-  // 1. Seed SEO configurations: Default config + LocalStorage overrides
   allSeoPages = {};
+
+  // 1. Seed SEO configurations: Default config + LocalStorage overrides
   if (typeof SEO_DEFAULT_CONFIG !== 'undefined' && typeof SEO_DEFAULT_CONFIG === 'object') {
-    allSeoPages = JSON.parse(JSON.stringify(SEO_DEFAULT_CONFIG));
+    if (Array.isArray(SEO_DEFAULT_CONFIG.pages)) {
+      SEO_DEFAULT_CONFIG.pages.forEach(p => {
+        allSeoPages[p.id] = {
+          id: p.id,
+          file: p.fileName || `${p.id}.html`,
+          name: p.name || p.id,
+          badge: p.badge || 'Page',
+          title: p.title || '',
+          description: p.description || '',
+          keywords: p.keywords || '',
+          canonical: p.canonical || (SEO_DEFAULT_CONFIG.siteUrl + '/' + (p.fileName || '')),
+          robots: p.robots || 'index, follow',
+          ogTitle: p.ogTitle || p.title || '',
+          ogDescription: p.ogDescription || p.description || '',
+          ogImage: p.ogImage || SEO_DEFAULT_CONFIG.defaultOgImage || 'https://himkiv.online/images/himkiv-logo.png',
+          ogImageAlt: p.ogImageAlt || `${p.name} - HIMKIV Health & MedGuide official portal`,
+          sitemapPriority: p.priority !== undefined ? p.priority : 0.8,
+          sitemapFrequency: p.changefreq || 'weekly',
+          pageImages: Array.isArray(p.pageImages) ? JSON.parse(JSON.stringify(p.pageImages)) : [
+            {
+              id: 'header_logo',
+              label: 'Header Navigation Brand Logo',
+              src: 'images/himkiv-logo.png',
+              alt: `${p.name} - HIMKIV Health & MedGuide official healthcare portal logo`
+            },
+            {
+              id: 'footer_logo',
+              label: 'Footer Brand Emblem',
+              src: 'images/himkiv-logo.png',
+              alt: `HIMKIV Health & MedGuide - Healthcare Intelligence by Himanshu Sharma`
+            },
+            {
+              id: 'favicon',
+              label: 'Browser Favicon / Web Icon',
+              src: 'images/himkiv-favicon.png',
+              alt: `HIMKIV Health official medical badge icon`
+            },
+            {
+              id: 'og_share',
+              label: 'Social Share Card Graphic',
+              src: p.ogImage || 'images/himkiv-logo.png',
+              alt: p.ogImageAlt || `${p.name} - HIMKIV Health & MedGuide`
+            }
+          ]
+        };
+      });
+    } else {
+      allSeoPages = JSON.parse(JSON.stringify(SEO_DEFAULT_CONFIG));
+    }
   }
 
+  // 2. Merge saved localStorage overrides
   try {
     const saved = localStorage.getItem('himkiv_seo_config');
     if (saved) {
       const parsed = JSON.parse(saved);
       if (typeof parsed === 'object' && parsed !== null) {
         Object.keys(parsed).forEach(k => {
-          allSeoPages[k] = Object.assign({}, allSeoPages[k] || {}, parsed[k]);
+          if (allSeoPages[k]) {
+            allSeoPages[k] = Object.assign({}, allSeoPages[k], parsed[k]);
+            if (Array.isArray(parsed[k].pageImages)) {
+              allSeoPages[k].pageImages = JSON.parse(JSON.stringify(parsed[k].pageImages));
+            }
+          } else {
+            allSeoPages[k] = parsed[k];
+          }
         });
       }
     }
@@ -1717,19 +1785,19 @@ function initSeoPanel() {
     console.warn('Failed to parse himkiv_seo_config from localStorage:', e);
   }
 
-  // 2. Render Page Selector Pills
+  // 3. Render Page Selector Pills
   renderSeoPageSelectorBar();
 
-  // 3. Select Active Page (default 'index')
+  // 4. Select Active Page (default 'index')
   if (!allSeoPages[currentSeoPageId]) {
     currentSeoPageId = Object.keys(allSeoPages)[0] || 'index';
   }
   selectSeoPage(currentSeoPageId);
 
-  // 4. Attach Live Input Listeners (once)
+  // 5. Attach Live Input Listeners (once)
   attachSeoLiveListeners();
 
-  // 5. Render Sitemap & Robots viewers
+  // 6. Render Sitemap & Robots viewers
   renderSitemapViewer();
   renderRobotsViewer();
 }
@@ -1766,6 +1834,94 @@ function renderSeoPageSelectorBar() {
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
+// Render Page Visual Assets & Image Alt Text Editor Rows
+function renderPageImagesEditor(page) {
+  const container = document.getElementById('seoPageImagesContainer');
+  const countBadge = document.getElementById('seoAltTagsCount');
+  if (!container) return;
+
+  const images = Array.isArray(page.pageImages) ? page.pageImages : [];
+  if (countBadge) countBadge.textContent = `${images.length} Visuals Tracked`;
+
+  if (images.length === 0) {
+    container.innerHTML = '<p class="text-xs text-slate-400">No visual assets registered for this page.</p>';
+    return;
+  }
+
+  container.innerHTML = images.map((img, idx) => {
+    const altVal = img.alt || '';
+    const altLen = altVal.trim().length;
+    let statusBadge = '';
+    if (altLen >= 20) {
+      statusBadge = '<span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Alt Set</span>';
+    } else if (altLen > 0) {
+      statusBadge = '<span class="text-[10px] font-semibold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Short Alt</span>';
+    } else {
+      statusBadge = '<span class="text-[10px] font-semibold text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Missing Alt</span>';
+    }
+
+    return `
+      <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5 overflow-hidden">
+            <div class="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center p-1 shrink-0 overflow-hidden">
+              <img src="${img.src}" alt="${escapeHtml(altVal)}" class="w-full h-full object-contain">
+            </div>
+            <div class="overflow-hidden">
+              <div class="text-xs font-bold text-slate-900 truncate">${img.label || 'Page Visual'}</div>
+              <div class="text-[10px] text-slate-400 font-mono truncate">${img.src}</div>
+            </div>
+          </div>
+          <div class="shrink-0" id="imgStatusBadge_${idx}">
+            ${statusBadge}
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-[11px] font-semibold text-slate-700">
+              Image Alt Text (Alternative Text) <span class="text-rose-500">*</span>
+            </label>
+            <span class="text-[10px] text-slate-400 font-mono" id="imgAltCounter_${idx}">${altLen} chars</span>
+          </div>
+          <input type="text" class="seo-img-alt-input w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all"
+            data-img-idx="${idx}"
+            value="${escapeHtml(altVal)}"
+            placeholder="Describe what is in this image with relevant health keywords...">
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Attach live input listeners to each alt text input
+  container.querySelectorAll('.seo-img-alt-input').forEach(input => {
+    input.addEventListener('input', (e) => {
+      const idx = parseInt(e.target.getAttribute('data-img-idx'), 10);
+      const val = e.target.value.trim();
+      if (page.pageImages && page.pageImages[idx]) {
+        page.pageImages[idx].alt = val;
+      }
+      const counter = document.getElementById(`imgAltCounter_${idx}`);
+      if (counter) counter.textContent = `${val.length} chars`;
+
+      const badgeContainer = document.getElementById(`imgStatusBadge_${idx}`);
+      if (badgeContainer) {
+        if (val.length >= 20) {
+          badgeContainer.innerHTML = '<span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Alt Set</span>';
+        } else if (val.length > 0) {
+          badgeContainer.innerHTML = '<span class="text-[10px] font-semibold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Short Alt</span>';
+        } else {
+          badgeContainer.innerHTML = '<span class="text-[10px] font-semibold text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Missing Alt</span>';
+        }
+      }
+
+      updateLiveSerpPreview();
+    });
+  });
+
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
 // Select a page and populate form & previews
 function selectSeoPage(pageId) {
   if (!allSeoPages[pageId]) return;
@@ -1793,7 +1949,7 @@ function selectSeoPage(pageId) {
   if (formPageName) formPageName.textContent = `${page.name || pageId} (${page.file || pageId})`;
 
   const formPagePath = document.getElementById('seoFormPagePath');
-  if (formPagePath) formPagePath.textContent = `URL: ${page.url || 'https://himkiv.online/'}`;
+  if (formPagePath) formPagePath.textContent = `URL: ${page.canonical || page.url || 'https://himkiv.online/'}`;
 
   // Populate form fields
   const titleInput = document.getElementById('seoInputTitle');
@@ -1806,6 +1962,7 @@ function selectSeoPage(pageId) {
   const ogTitleInput = document.getElementById('seoInputOgTitle');
   const ogImageInput = document.getElementById('seoInputOgImage');
   const ogDescInput = document.getElementById('seoInputOgDesc');
+  const ogAltInput = document.getElementById('seoInputOgAlt');
 
   if (titleInput) titleInput.value = page.title || '';
   if (descInput) descInput.value = page.description || '';
@@ -1817,6 +1974,10 @@ function selectSeoPage(pageId) {
   if (ogTitleInput) ogTitleInput.value = page.ogTitle || page.title || '';
   if (ogImageInput) ogImageInput.value = page.ogImage || 'https://himkiv.online/images/himkiv-logo.png';
   if (ogDescInput) ogDescInput.value = page.ogDescription || page.description || '';
+  if (ogAltInput) ogAltInput.value = page.ogImageAlt || `${page.name} - HIMKIV Health & MedGuide`;
+
+  // Render Page Images & Alt Text inputs
+  renderPageImagesEditor(page);
 
   // Refresh live previews
   updateLiveSerpPreview();
@@ -1827,7 +1988,7 @@ function attachSeoLiveListeners() {
   if (seoListenersAttached) return;
   const ids = [
     'seoInputTitle', 'seoInputDesc', 'seoInputKeywords', 'seoInputCanonical',
-    'seoInputRobots', 'seoInputOgTitle', 'seoInputOgImage', 'seoInputOgDesc'
+    'seoInputRobots', 'seoInputOgTitle', 'seoInputOgImage', 'seoInputOgDesc', 'seoInputOgAlt'
   ];
 
   ids.forEach(id => {
@@ -1850,6 +2011,7 @@ function updateLiveSerpPreview() {
   const ogTitle = (document.getElementById('seoInputOgTitle')?.value || title).trim();
   const ogDesc = (document.getElementById('seoInputOgDesc')?.value || desc).trim();
   const ogImage = (document.getElementById('seoInputOgImage')?.value || 'images/himkiv-logo.png').trim();
+  const ogAlt = (document.getElementById('seoInputOgAlt')?.value || '').trim();
 
   // 1. Title Character Counter & Progress Bar
   const titleLen = title.length;
@@ -1934,19 +2096,35 @@ function updateLiveSerpPreview() {
   const socialTitle = document.getElementById('socialCardTitle');
   const socialDesc = document.getElementById('socialCardDesc');
   const socialImg = document.getElementById('socialCardImage');
+  const socialAlt = document.getElementById('socialCardAltText');
+  const ogAltCounter = document.getElementById('seoOgAltCounter');
 
   if (socialTitle) socialTitle.textContent = ogTitle || title || 'HIMKIV';
   if (socialDesc) socialDesc.textContent = ogDesc || desc || 'Healthcare guidance portal';
   if (socialImg && ogImage) {
     socialImg.src = ogImage;
+    socialImg.alt = ogAlt || ogTitle || title || 'HIMKIV Card';
+  }
+  if (socialAlt) {
+    socialAlt.textContent = ogAlt ? `Alt: ${ogAlt}` : 'No Alt Tag';
+  }
+  if (ogAltCounter) {
+    ogAltCounter.textContent = `${ogAlt.length} chars`;
   }
 
-  // 5. Real-Time SEO Quality Checklist Evaluation (5 Criteria)
+  // 5. Real-Time SEO Quality Checklist Evaluation (6 Criteria)
   const isTitleOk = (titleLen >= 35 && titleLen <= 65);
   const isDescOk = (descLen >= 100 && descLen <= 170);
   const isCanonicalOk = Boolean(canonical && canonical.startsWith('http'));
   const isRobotsOk = Boolean(robots && robots.includes('index'));
   const isOgOk = Boolean(ogImage && ogImage.length > 5);
+
+  // 6th Criteria: Image Alt Tags Check
+  const page = allSeoPages[currentSeoPageId];
+  const images = (page && Array.isArray(page.pageImages)) ? page.pageImages : [];
+  const isPageImagesAltOk = (images.length === 0 || images.every(img => img.alt && img.alt.trim().length >= 10));
+  const isOgAltOk = Boolean(ogAlt && ogAlt.length >= 10);
+  const isAltOk = isPageImagesAltOk && isOgAltOk;
 
   let passedCount = 0;
   if (isTitleOk) passedCount++;
@@ -1954,11 +2132,12 @@ function updateLiveSerpPreview() {
   if (isCanonicalOk) passedCount++;
   if (isRobotsOk) passedCount++;
   if (isOgOk) passedCount++;
+  if (isAltOk) passedCount++;
 
   const scoreBadge = document.getElementById('seoChecklistScore');
   if (scoreBadge) {
-    scoreBadge.textContent = `${passedCount} / 5 Passed`;
-    scoreBadge.className = passedCount >= 4
+    scoreBadge.textContent = `${passedCount} / 6 Passed`;
+    scoreBadge.className = passedCount >= 5
       ? 'text-[11px] font-bold text-emerald-600 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200'
       : 'text-[11px] font-bold text-amber-600 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200';
   }
@@ -1985,6 +2164,10 @@ function updateLiveSerpPreview() {
       <li class="flex items-center gap-2">
         <i data-lucide="${isOgOk ? 'check-circle' : 'alert-circle'}" class="w-4 h-4 ${isOgOk ? 'text-emerald-500' : 'text-amber-500'} shrink-0"></i>
         <span>Open Graph social share card image attached</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i data-lucide="${isAltOk ? 'check-circle' : 'alert-circle'}" class="w-4 h-4 ${isAltOk ? 'text-emerald-500' : 'text-amber-500'} shrink-0"></i>
+        <span>Image Alternative Text (Alt tags) optimized for visuals &amp; social card</span>
       </li>
     `;
     if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -2021,7 +2204,7 @@ function setSerpPreviewMode(mode) {
   }
 }
 
-// Save Current Page SEO
+// Save Current Page SEO & Image Alt Tags
 function handleSavePageSeo(event) {
   if (event) event.preventDefault();
   if (!allSeoPages[currentSeoPageId]) return;
@@ -2037,6 +2220,16 @@ function handleSavePageSeo(event) {
   page.ogTitle = (document.getElementById('seoInputOgTitle')?.value || page.title).trim();
   page.ogImage = (document.getElementById('seoInputOgImage')?.value || 'https://himkiv.online/images/himkiv-logo.png').trim();
   page.ogDescription = (document.getElementById('seoInputOgDesc')?.value || page.description).trim();
+  page.ogImageAlt = (document.getElementById('seoInputOgAlt')?.value || '').trim();
+
+  // Collect image alt tags from inputs
+  const altInputs = document.querySelectorAll('.seo-img-alt-input');
+  altInputs.forEach(inp => {
+    const idx = parseInt(inp.getAttribute('data-img-idx'), 10);
+    if (page.pageImages && page.pageImages[idx]) {
+      page.pageImages[idx].alt = inp.value.trim();
+    }
+  });
 
   // Persist to localStorage
   try {
@@ -2051,7 +2244,7 @@ function handleSavePageSeo(event) {
   renderRobotsViewer();
   renderSeoPageSelectorBar();
 
-  showToast(`SEO settings saved for ${page.file || currentSeoPageId}!`, 'success');
+  showToast(`SEO & Image Alt tags saved for ${page.file || currentSeoPageId}!`, 'success');
 }
 
 // Save All SEO Settings
@@ -2069,28 +2262,39 @@ function saveAllSeoSettings() {
 
   renderSitemapViewer();
   renderRobotsViewer();
-  showToast('All 11 pages SEO configuration saved successfully!', 'success');
+  showToast('All 11 pages SEO configuration and Image Alt tags saved!', 'success');
 }
 
 // Reset Current Page to Defaults
 function resetCurrentPageSeo() {
-  if (!confirm(`Are you sure you want to reset SEO settings for "${currentSeoPageId}" to original defaults?`)) return;
+  if (!confirm(`Are you sure you want to reset SEO & Image Alt settings for "${currentSeoPageId}" to original defaults?`)) return;
 
-  if (typeof SEO_DEFAULT_CONFIG !== 'undefined' && SEO_DEFAULT_CONFIG[currentSeoPageId]) {
-    allSeoPages[currentSeoPageId] = JSON.parse(JSON.stringify(SEO_DEFAULT_CONFIG[currentSeoPageId]));
-    try {
-      localStorage.setItem('himkiv_seo_config', JSON.stringify(allSeoPages));
-    } catch (e) {}
+  if (typeof SEO_DEFAULT_CONFIG !== 'undefined') {
+    let defaultPage = null;
+    if (Array.isArray(SEO_DEFAULT_CONFIG.pages)) {
+      defaultPage = SEO_DEFAULT_CONFIG.pages.find(p => p.id === currentSeoPageId);
+    } else if (SEO_DEFAULT_CONFIG[currentSeoPageId]) {
+      defaultPage = SEO_DEFAULT_CONFIG[currentSeoPageId];
+    }
 
-    selectSeoPage(currentSeoPageId);
-    renderSitemapViewer();
-    showToast(`Reset ${currentSeoPageId} to default SEO settings.`, 'success');
-  } else {
-    showToast('Default configuration not found for this page.', 'error');
+    if (defaultPage) {
+      allSeoPages[currentSeoPageId] = JSON.parse(JSON.stringify(defaultPage));
+      allSeoPages[currentSeoPageId].file = defaultPage.fileName || `${defaultPage.id}.html`;
+      try {
+        localStorage.setItem('himkiv_seo_config', JSON.stringify(allSeoPages));
+      } catch (e) {}
+
+      selectSeoPage(currentSeoPageId);
+      renderSitemapViewer();
+      showToast(`Reset ${currentSeoPageId} to default SEO & Image Alt settings.`, 'success');
+      return;
+    }
   }
+
+  showToast('Default configuration not found for this page.', 'error');
 }
 
-// Copy HTML Meta Tags block for current page
+// Copy HTML Meta Tags block for current page (including Image Alt tags)
 function copySeoMetaTags() {
   const page = allSeoPages[currentSeoPageId];
   if (!page) return;
@@ -2103,6 +2307,12 @@ function copySeoMetaTags() {
   const ogTitle = (document.getElementById('seoInputOgTitle')?.value || page.ogTitle || title).trim();
   const ogImage = (document.getElementById('seoInputOgImage')?.value || page.ogImage || 'https://himkiv.online/images/himkiv-logo.png').trim();
   const ogDesc = (document.getElementById('seoInputOgDesc')?.value || page.ogDescription || desc).trim();
+  const ogAlt = (document.getElementById('seoInputOgAlt')?.value || page.ogImageAlt || `${page.name} - HIMKIV Health`).trim();
+
+  // Generate Image Alt snippets
+  const imgSnippets = (Array.isArray(page.pageImages) && page.pageImages.length > 0)
+    ? page.pageImages.map(img => `<!-- ${img.label} -->\n<img src="${img.src}" alt="${escapeHtml(img.alt || '')}">`).join('\n')
+    : '';
 
   const htmlBlock = `<!-- Primary Meta Tags -->
 <title>${title}</title>
@@ -2118,17 +2328,21 @@ function copySeoMetaTags() {
 <meta property="og:title" content="${ogTitle.replace(/"/g, '&quot;')}">
 <meta property="og:description" content="${ogDesc.replace(/"/g, '&quot;')}">
 <meta property="og:image" content="${ogImage}">
+<meta property="og:image:alt" content="${ogAlt.replace(/"/g, '&quot;')}">
 
 <!-- Twitter Card -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="${canonical}">
 <meta property="twitter:title" content="${ogTitle.replace(/"/g, '&quot;')}">
 <meta property="twitter:description" content="${ogDesc.replace(/"/g, '&quot;')}">
-<meta property="twitter:image" content="${ogImage}">`;
+<meta property="twitter:image" content="${ogImage}">
+<meta property="twitter:image:alt" content="${ogAlt.replace(/"/g, '&quot;')}">
+
+${imgSnippets ? `<!-- Page Visuals with Optimized Alt Attributes -->\n${imgSnippets}` : ''}`;
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(htmlBlock).then(() => {
-      showToast('HTML meta tags copied to clipboard!', 'success');
+      showToast('HTML meta tags & Image Alt snippets copied to clipboard!', 'success');
     }).catch(() => {
       prompt('Copy the HTML meta tags below:', htmlBlock);
     });
@@ -2147,8 +2361,9 @@ function generateSitemapXmlString() {
     .map(p => {
       const priority = p.sitemapPriority !== undefined ? Number(p.sitemapPriority).toFixed(1) : '0.8';
       const freq = p.sitemapFrequency || 'weekly';
+      const loc = p.canonical || p.url || ('https://himkiv.online/' + (p.file || ''));
       return `  <url>
-    <loc>${p.url || ('https://himkiv.online/' + (p.file || ''))}</loc>
+    <loc>${loc}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${freq}</changefreq>
     <priority>${priority}</priority>
