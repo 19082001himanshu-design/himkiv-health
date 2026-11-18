@@ -1,0 +1,12 @@
+# Robots.txt for HIMKIV Health & MedGuide (https://himkiv.online)
+# Clinical Pharmacology & Posology Portal
+# Founder: Himanshu Sharma
+
+User-agent: *
+Allow: /
+
+# Disallow private administrative console from search indexing
+Disallow: /admin.html
+
+# Sitemap location
+Sitemap: https://himkiv.online/sitemap.xml

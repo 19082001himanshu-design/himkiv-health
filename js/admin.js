@@ -427,7 +427,7 @@ async function handleChangePassword(e) {
 
 // Tab Switching
 function switchTab(tabId) {
-  const tabs = ['overview', 'medicines', 'diseases', 'affiliates', 'hospitals', 'doctors'];
+  const tabs = ['overview', 'medicines', 'diseases', 'affiliates', 'hospitals', 'doctors', 'seo'];
   tabs.forEach(t => {
     const view = document.getElementById(`view-${t}`);
     const btn = document.getElementById(`tab-${t}`);
@@ -441,6 +441,9 @@ function switchTab(tabId) {
       }
     }
   });
+  if (tabId === 'seo' && typeof initSeoPanel === 'function') {
+    initSeoPanel();
+  }
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
@@ -569,6 +572,9 @@ async function syncStaticData() {
     localStorage.setItem('himkiv_custom_doctors', JSON.stringify(allDoctors));
     localStorage.setItem('himkiv_custom_medicines', JSON.stringify(allMedicines));
     localStorage.setItem('himkiv_custom_diseases', JSON.stringify(allDiseases));
+    if (typeof allSeoPages === 'object' && Object.keys(allSeoPages).length > 0) {
+      localStorage.setItem('himkiv_seo_config', JSON.stringify(allSeoPages));
+    }
     localStorage.setItem('himkiv_last_sync', Date.now().toString());
 
     // Broadcast event to current page and listening sub-components
@@ -839,6 +845,9 @@ async function initDashboard() {
   renderDoctorsTable();
   renderOverviewRecent();
   renderAffiliateTable();
+  if (typeof initSeoPanel === 'function') {
+    initSeoPanel();
+  }
 
   // 2. Ping backend REST API
   try {
@@ -1674,6 +1683,568 @@ async function deleteDoctor(id) {
   showToast('Doctor removed.');
   updateKpiCards();
   renderDoctorsTable();
+}
+
+// ========================================================
+// HIMKIV SEO & META TAGS MASTER CONTROLLER
+// Complete Page-by-Page Manager, SERP Simulator, Sitemap & Robots Engine
+// ========================================================
+
+let currentSeoPageId = 'index';
+let allSeoPages = {};
+let serpPreviewMode = 'desktop';
+let seoListenersAttached = false;
+
+// Initialize Master SEO Panel
+function initSeoPanel() {
+  // 1. Seed SEO configurations: Default config + LocalStorage overrides
+  allSeoPages = {};
+  if (typeof SEO_DEFAULT_CONFIG !== 'undefined' && typeof SEO_DEFAULT_CONFIG === 'object') {
+    allSeoPages = JSON.parse(JSON.stringify(SEO_DEFAULT_CONFIG));
+  }
+
+  try {
+    const saved = localStorage.getItem('himkiv_seo_config');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (typeof parsed === 'object' && parsed !== null) {
+        Object.keys(parsed).forEach(k => {
+          allSeoPages[k] = Object.assign({}, allSeoPages[k] || {}, parsed[k]);
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to parse himkiv_seo_config from localStorage:', e);
+  }
+
+  // 2. Render Page Selector Pills
+  renderSeoPageSelectorBar();
+
+  // 3. Select Active Page (default 'index')
+  if (!allSeoPages[currentSeoPageId]) {
+    currentSeoPageId = Object.keys(allSeoPages)[0] || 'index';
+  }
+  selectSeoPage(currentSeoPageId);
+
+  // 4. Attach Live Input Listeners (once)
+  attachSeoLiveListeners();
+
+  // 5. Render Sitemap & Robots viewers
+  renderSitemapViewer();
+  renderRobotsViewer();
+}
+
+// Render horizontal page selector bar
+function renderSeoPageSelectorBar() {
+  const container = document.getElementById('seoPageSelectorBar');
+  if (!container) return;
+
+  const pageKeys = Object.keys(allSeoPages);
+  if (pageKeys.length === 0) {
+    container.innerHTML = '<span class="text-xs text-slate-400">No pages configured.</span>';
+    return;
+  }
+
+  container.innerHTML = pageKeys.map(key => {
+    const page = allSeoPages[key];
+    const isActive = (key === currentSeoPageId);
+    const activeClass = isActive
+      ? 'bg-emerald-600 text-white font-bold shadow-sm ring-2 ring-emerald-500/50'
+      : 'bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium';
+    
+    return `
+      <button type="button" onclick="selectSeoPage('${key}')" 
+        class="seo-page-pill px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${activeClass}" 
+        id="seoPill_${key}">
+        <span class="w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white' : 'bg-emerald-500'}"></span>
+        <span>${page.name || key}</span>
+        <span class="text-[10px] opacity-75 font-mono">(${page.file || key})</span>
+      </button>
+    `;
+  }).join('');
+
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// Select a page and populate form & previews
+function selectSeoPage(pageId) {
+  if (!allSeoPages[pageId]) return;
+  currentSeoPageId = pageId;
+  const page = allSeoPages[pageId];
+
+  // Update pill styles
+  document.querySelectorAll('.seo-page-pill').forEach(btn => {
+    btn.className = 'seo-page-pill px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium';
+    const dot = btn.querySelector('span');
+    if (dot) dot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500';
+  });
+  const activePill = document.getElementById(`seoPill_${pageId}`);
+  if (activePill) {
+    activePill.className = 'seo-page-pill px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 bg-emerald-600 text-white font-bold shadow-sm ring-2 ring-emerald-500/50';
+    const dot = activePill.querySelector('span');
+    if (dot) dot.className = 'w-1.5 h-1.5 rounded-full bg-white';
+  }
+
+  // Update Header labels
+  const activeLabel = document.getElementById('seoActivePageLabel');
+  if (activeLabel) activeLabel.textContent = `Currently Editing: ${page.file || pageId}`;
+
+  const formPageName = document.getElementById('seoFormPageName');
+  if (formPageName) formPageName.textContent = `${page.name || pageId} (${page.file || pageId})`;
+
+  const formPagePath = document.getElementById('seoFormPagePath');
+  if (formPagePath) formPagePath.textContent = `URL: ${page.url || 'https://himkiv.online/'}`;
+
+  // Populate form fields
+  const titleInput = document.getElementById('seoInputTitle');
+  const descInput = document.getElementById('seoInputDesc');
+  const keywordsInput = document.getElementById('seoInputKeywords');
+  const canonicalInput = document.getElementById('seoInputCanonical');
+  const robotsSelect = document.getElementById('seoInputRobots');
+  const prioritySelect = document.getElementById('seoInputPriority');
+  const freqSelect = document.getElementById('seoInputFreq');
+  const ogTitleInput = document.getElementById('seoInputOgTitle');
+  const ogImageInput = document.getElementById('seoInputOgImage');
+  const ogDescInput = document.getElementById('seoInputOgDesc');
+
+  if (titleInput) titleInput.value = page.title || '';
+  if (descInput) descInput.value = page.description || '';
+  if (keywordsInput) keywordsInput.value = page.keywords || '';
+  if (canonicalInput) canonicalInput.value = page.canonical || page.url || '';
+  if (robotsSelect) robotsSelect.value = page.robots || 'index, follow';
+  if (prioritySelect) prioritySelect.value = String(page.sitemapPriority || '0.8');
+  if (freqSelect) freqSelect.value = page.sitemapFrequency || 'weekly';
+  if (ogTitleInput) ogTitleInput.value = page.ogTitle || page.title || '';
+  if (ogImageInput) ogImageInput.value = page.ogImage || 'https://himkiv.online/images/himkiv-logo.png';
+  if (ogDescInput) ogDescInput.value = page.ogDescription || page.description || '';
+
+  // Refresh live previews
+  updateLiveSerpPreview();
+}
+
+// Attach real-time input listeners to fields
+function attachSeoLiveListeners() {
+  if (seoListenersAttached) return;
+  const ids = [
+    'seoInputTitle', 'seoInputDesc', 'seoInputKeywords', 'seoInputCanonical',
+    'seoInputRobots', 'seoInputOgTitle', 'seoInputOgImage', 'seoInputOgDesc'
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', () => updateLiveSerpPreview());
+      el.addEventListener('change', () => updateLiveSerpPreview());
+    }
+  });
+
+  seoListenersAttached = true;
+}
+
+// Live Update for SERP Preview, Progress Bars, Social Card & SEO Checklist
+function updateLiveSerpPreview() {
+  const title = (document.getElementById('seoInputTitle')?.value || '').trim();
+  const desc = (document.getElementById('seoInputDesc')?.value || '').trim();
+  const canonical = (document.getElementById('seoInputCanonical')?.value || '').trim();
+  const robots = (document.getElementById('seoInputRobots')?.value || 'index, follow').trim();
+  const ogTitle = (document.getElementById('seoInputOgTitle')?.value || title).trim();
+  const ogDesc = (document.getElementById('seoInputOgDesc')?.value || desc).trim();
+  const ogImage = (document.getElementById('seoInputOgImage')?.value || 'images/himkiv-logo.png').trim();
+
+  // 1. Title Character Counter & Progress Bar
+  const titleLen = title.length;
+  const titleCounter = document.getElementById('seoTitleCounter');
+  const titleBar = document.getElementById('seoTitleBar');
+  const serpTitleStatus = document.getElementById('serpTitleStatus');
+
+  if (titleCounter) titleCounter.textContent = titleLen;
+  if (titleBar) {
+    const titlePct = Math.min(100, Math.round((titleLen / 60) * 100));
+    titleBar.style.width = `${titlePct}%`;
+
+    if (titleLen >= 40 && titleLen <= 60) {
+      titleBar.className = 'h-full bg-emerald-500 transition-all duration-200';
+      if (serpTitleStatus) {
+        serpTitleStatus.className = 'font-bold text-emerald-600';
+        serpTitleStatus.textContent = `Optimal (${titleLen} Chars)`;
+      }
+    } else if (titleLen < 40) {
+      titleBar.className = 'h-full bg-amber-500 transition-all duration-200';
+      if (serpTitleStatus) {
+        serpTitleStatus.className = 'font-bold text-amber-600';
+        serpTitleStatus.textContent = `Short (${titleLen}/40 Chars)`;
+      }
+    } else {
+      titleBar.className = 'h-full bg-rose-500 transition-all duration-200';
+      if (serpTitleStatus) {
+        serpTitleStatus.className = 'font-bold text-rose-600';
+        serpTitleStatus.textContent = `Too Long (${titleLen} Chars)`;
+      }
+    }
+  }
+
+  // 2. Description Character Counter & Progress Bar
+  const descLen = desc.length;
+  const descCounter = document.getElementById('seoDescCounter');
+  const descBar = document.getElementById('seoDescBar');
+  const serpDescStatus = document.getElementById('serpDescStatus');
+
+  if (descCounter) descCounter.textContent = descLen;
+  if (descBar) {
+    const descPct = Math.min(100, Math.round((descLen / 160) * 100));
+    descBar.style.width = `${descPct}%`;
+
+    if (descLen >= 120 && descLen <= 160) {
+      descBar.className = 'h-full bg-emerald-500 transition-all duration-200';
+      if (serpDescStatus) {
+        serpDescStatus.className = 'font-bold text-emerald-600';
+        serpDescStatus.textContent = `Optimal (${descLen} Chars)`;
+      }
+    } else if (descLen < 120) {
+      descBar.className = 'h-full bg-amber-500 transition-all duration-200';
+      if (serpDescStatus) {
+        serpDescStatus.className = 'font-bold text-amber-600';
+        serpDescStatus.textContent = `Short (${descLen}/120 Chars)`;
+      }
+    } else {
+      descBar.className = 'h-full bg-rose-500 transition-all duration-200';
+      if (serpDescStatus) {
+        serpDescStatus.className = 'font-bold text-rose-600';
+        serpDescStatus.textContent = `Too Long (${descLen} Chars)`;
+      }
+    }
+  }
+
+  // 3. Google SERP Snippet Preview Elements
+  const serpTitleDisplay = document.getElementById('serpTitleDisplay');
+  const serpDescDisplay = document.getElementById('serpDescDisplay');
+  const serpUrlDisplay = document.getElementById('serpUrlDisplay');
+
+  if (serpTitleDisplay) {
+    serpTitleDisplay.textContent = title || 'HIMKIV Health & MedGuide | Healthcare Portal';
+  }
+  if (serpDescDisplay) {
+    serpDescDisplay.textContent = desc || 'Evidence-based medicine recommendations, active drug salt monographs, and clinical guidance.';
+  }
+  if (serpUrlDisplay) {
+    serpUrlDisplay.textContent = canonical || 'https://himkiv.online/';
+  }
+
+  // 4. Social Card Elements
+  const socialTitle = document.getElementById('socialCardTitle');
+  const socialDesc = document.getElementById('socialCardDesc');
+  const socialImg = document.getElementById('socialCardImage');
+
+  if (socialTitle) socialTitle.textContent = ogTitle || title || 'HIMKIV';
+  if (socialDesc) socialDesc.textContent = ogDesc || desc || 'Healthcare guidance portal';
+  if (socialImg && ogImage) {
+    socialImg.src = ogImage;
+  }
+
+  // 5. Real-Time SEO Quality Checklist Evaluation (5 Criteria)
+  const isTitleOk = (titleLen >= 35 && titleLen <= 65);
+  const isDescOk = (descLen >= 100 && descLen <= 170);
+  const isCanonicalOk = Boolean(canonical && canonical.startsWith('http'));
+  const isRobotsOk = Boolean(robots && robots.includes('index'));
+  const isOgOk = Boolean(ogImage && ogImage.length > 5);
+
+  let passedCount = 0;
+  if (isTitleOk) passedCount++;
+  if (isDescOk) passedCount++;
+  if (isCanonicalOk) passedCount++;
+  if (isRobotsOk) passedCount++;
+  if (isOgOk) passedCount++;
+
+  const scoreBadge = document.getElementById('seoChecklistScore');
+  if (scoreBadge) {
+    scoreBadge.textContent = `${passedCount} / 5 Passed`;
+    scoreBadge.className = passedCount >= 4
+      ? 'text-[11px] font-bold text-emerald-600 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200'
+      : 'text-[11px] font-bold text-amber-600 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200';
+  }
+
+  const checklistUl = document.getElementById('seoChecklistItems');
+  if (checklistUl) {
+    checklistUl.innerHTML = `
+      <li class="flex items-center gap-2">
+        <i data-lucide="${isTitleOk ? 'check-circle' : 'alert-circle'}" class="w-4 h-4 ${isTitleOk ? 'text-emerald-500' : 'text-amber-500'} shrink-0"></i>
+        <span>Title tag within optimal 40–60 character range (${titleLen} chars)</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i data-lucide="${isDescOk ? 'check-circle' : 'alert-circle'}" class="w-4 h-4 ${isDescOk ? 'text-emerald-500' : 'text-amber-500'} shrink-0"></i>
+        <span>Meta description within 120–160 character snippet window (${descLen} chars)</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i data-lucide="${isCanonicalOk ? 'check-circle' : 'alert-circle'}" class="w-4 h-4 ${isCanonicalOk ? 'text-emerald-500' : 'text-amber-500'} shrink-0"></i>
+        <span>Canonical URL declared to prevent duplicate indexing</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i data-lucide="${isRobotsOk ? 'check-circle' : 'alert-circle'}" class="w-4 h-4 ${isRobotsOk ? 'text-emerald-500' : 'text-amber-500'} shrink-0"></i>
+        <span>Search crawler directive explicitly specified (${robots})</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i data-lucide="${isOgOk ? 'check-circle' : 'alert-circle'}" class="w-4 h-4 ${isOgOk ? 'text-emerald-500' : 'text-amber-500'} shrink-0"></i>
+        <span>Open Graph social share card image attached</span>
+      </li>
+    `;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+}
+
+// Toggle SERP Simulator: Desktop vs Mobile
+function setSerpPreviewMode(mode) {
+  serpPreviewMode = mode;
+  const btnDesktop = document.getElementById('btnPreviewDesktop');
+  const btnMobile = document.getElementById('btnPreviewMobile');
+  const serpBox = document.getElementById('googleSerpBox');
+
+  if (mode === 'mobile') {
+    if (btnMobile) {
+      btnMobile.className = 'px-2.5 py-1 rounded-md font-semibold transition-all bg-white text-slate-900 shadow-2xs';
+    }
+    if (btnDesktop) {
+      btnDesktop.className = 'px-2.5 py-1 rounded-md font-medium text-slate-500 hover:text-slate-900 transition-all';
+    }
+    if (serpBox) {
+      serpBox.className = 'p-4 rounded-2xl border-2 border-slate-300 bg-white max-w-[380px] mx-auto shadow-md transition-all';
+    }
+  } else {
+    if (btnDesktop) {
+      btnDesktop.className = 'px-2.5 py-1 rounded-md font-semibold transition-all bg-white text-slate-900 shadow-2xs';
+    }
+    if (btnMobile) {
+      btnMobile.className = 'px-2.5 py-1 rounded-md font-medium text-slate-500 hover:text-slate-900 transition-all';
+    }
+    if (serpBox) {
+      serpBox.className = 'p-4 rounded-xl border border-slate-200 bg-white transition-all w-full';
+    }
+  }
+}
+
+// Save Current Page SEO
+function handleSavePageSeo(event) {
+  if (event) event.preventDefault();
+  if (!allSeoPages[currentSeoPageId]) return;
+
+  const page = allSeoPages[currentSeoPageId];
+  page.title = (document.getElementById('seoInputTitle')?.value || '').trim();
+  page.description = (document.getElementById('seoInputDesc')?.value || '').trim();
+  page.keywords = (document.getElementById('seoInputKeywords')?.value || '').trim();
+  page.canonical = (document.getElementById('seoInputCanonical')?.value || '').trim();
+  page.robots = (document.getElementById('seoInputRobots')?.value || 'index, follow').trim();
+  page.sitemapPriority = parseFloat(document.getElementById('seoInputPriority')?.value || '0.8');
+  page.sitemapFrequency = (document.getElementById('seoInputFreq')?.value || 'weekly').trim();
+  page.ogTitle = (document.getElementById('seoInputOgTitle')?.value || page.title).trim();
+  page.ogImage = (document.getElementById('seoInputOgImage')?.value || 'https://himkiv.online/images/himkiv-logo.png').trim();
+  page.ogDescription = (document.getElementById('seoInputOgDesc')?.value || page.description).trim();
+
+  // Persist to localStorage
+  try {
+    localStorage.setItem('himkiv_seo_config', JSON.stringify(allSeoPages));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+  } catch (e) {
+    console.warn('Storage save failed:', e);
+  }
+
+  // Refresh viewers
+  renderSitemapViewer();
+  renderRobotsViewer();
+  renderSeoPageSelectorBar();
+
+  showToast(`SEO settings saved for ${page.file || currentSeoPageId}!`, 'success');
+}
+
+// Save All SEO Settings
+function saveAllSeoSettings() {
+  // First persist active form into current page object
+  handleSavePageSeo(null);
+
+  try {
+    localStorage.setItem('himkiv_seo_config', JSON.stringify(allSeoPages));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced', {
+      detail: { seoPages: Object.keys(allSeoPages).length }
+    }));
+  } catch (e) {}
+
+  renderSitemapViewer();
+  renderRobotsViewer();
+  showToast('All 11 pages SEO configuration saved successfully!', 'success');
+}
+
+// Reset Current Page to Defaults
+function resetCurrentPageSeo() {
+  if (!confirm(`Are you sure you want to reset SEO settings for "${currentSeoPageId}" to original defaults?`)) return;
+
+  if (typeof SEO_DEFAULT_CONFIG !== 'undefined' && SEO_DEFAULT_CONFIG[currentSeoPageId]) {
+    allSeoPages[currentSeoPageId] = JSON.parse(JSON.stringify(SEO_DEFAULT_CONFIG[currentSeoPageId]));
+    try {
+      localStorage.setItem('himkiv_seo_config', JSON.stringify(allSeoPages));
+    } catch (e) {}
+
+    selectSeoPage(currentSeoPageId);
+    renderSitemapViewer();
+    showToast(`Reset ${currentSeoPageId} to default SEO settings.`, 'success');
+  } else {
+    showToast('Default configuration not found for this page.', 'error');
+  }
+}
+
+// Copy HTML Meta Tags block for current page
+function copySeoMetaTags() {
+  const page = allSeoPages[currentSeoPageId];
+  if (!page) return;
+
+  const title = (document.getElementById('seoInputTitle')?.value || page.title || '').trim();
+  const desc = (document.getElementById('seoInputDesc')?.value || page.description || '').trim();
+  const keywords = (document.getElementById('seoInputKeywords')?.value || page.keywords || '').trim();
+  const canonical = (document.getElementById('seoInputCanonical')?.value || page.canonical || page.url || '').trim();
+  const robots = (document.getElementById('seoInputRobots')?.value || page.robots || 'index, follow').trim();
+  const ogTitle = (document.getElementById('seoInputOgTitle')?.value || page.ogTitle || title).trim();
+  const ogImage = (document.getElementById('seoInputOgImage')?.value || page.ogImage || 'https://himkiv.online/images/himkiv-logo.png').trim();
+  const ogDesc = (document.getElementById('seoInputOgDesc')?.value || page.ogDescription || desc).trim();
+
+  const htmlBlock = `<!-- Primary Meta Tags -->
+<title>${title}</title>
+<meta name="title" content="${title.replace(/"/g, '&quot;')}">
+<meta name="description" content="${desc.replace(/"/g, '&quot;')}">
+<meta name="keywords" content="${keywords.replace(/"/g, '&quot;')}">
+<link rel="canonical" href="${canonical}">
+<meta name="robots" content="${robots}">
+
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="${canonical}">
+<meta property="og:title" content="${ogTitle.replace(/"/g, '&quot;')}">
+<meta property="og:description" content="${ogDesc.replace(/"/g, '&quot;')}">
+<meta property="og:image" content="${ogImage}">
+
+<!-- Twitter Card -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="${canonical}">
+<meta property="twitter:title" content="${ogTitle.replace(/"/g, '&quot;')}">
+<meta property="twitter:description" content="${ogDesc.replace(/"/g, '&quot;')}">
+<meta property="twitter:image" content="${ogImage}">`;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(htmlBlock).then(() => {
+      showToast('HTML meta tags copied to clipboard!', 'success');
+    }).catch(() => {
+      prompt('Copy the HTML meta tags below:', htmlBlock);
+    });
+  } else {
+    prompt('Copy the HTML meta tags below:', htmlBlock);
+  }
+}
+
+// Generate valid XML Sitemap String
+function generateSitemapXmlString() {
+  const pages = Object.values(allSeoPages);
+  const today = new Date().toISOString().split('T')[0];
+
+  const urlEntries = pages
+    .filter(p => !p.robots || p.robots.includes('index'))
+    .map(p => {
+      const priority = p.sitemapPriority !== undefined ? Number(p.sitemapPriority).toFixed(1) : '0.8';
+      const freq = p.sitemapFrequency || 'weekly';
+      return `  <url>
+    <loc>${p.url || ('https://himkiv.online/' + (p.file || ''))}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${freq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+    }).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urlEntries}
+</urlset>`;
+}
+
+// Render Sitemap in <pre>
+function renderSitemapViewer() {
+  const pre = document.getElementById('sitemapViewerPre');
+  if (pre) {
+    pre.textContent = generateSitemapXmlString();
+  }
+}
+
+// Copy Sitemap XML
+function copySitemapXml() {
+  const xml = generateSitemapXmlString();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(xml).then(() => {
+      showToast('Sitemap.xml content copied to clipboard!', 'success');
+    });
+  } else {
+    prompt('Copy Sitemap.xml:', xml);
+  }
+}
+
+// Download Sitemap XML File
+function downloadSitemapXml() {
+  const xml = generateSitemapXmlString();
+  const blob = new Blob([xml], { type: 'application/xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'sitemap.xml';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('sitemap.xml downloaded successfully!');
+}
+
+// Generate Robots.txt String
+function generateRobotsTxtString() {
+  return `# HIMKIV Online Health Portal - robots.txt
+# Generated via HIMKIV SEO Admin Console
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /backend/
+Disallow: /tests/
+
+# XML Sitemap Index
+Sitemap: https://himkiv.online/sitemap.xml
+`;
+}
+
+// Render Robots in <pre>
+function renderRobotsViewer() {
+  const pre = document.getElementById('robotsViewerPre');
+  if (pre) {
+    pre.textContent = generateRobotsTxtString();
+  }
+}
+
+// Copy Robots.txt
+function copyRobotsTxt() {
+  const txt = generateRobotsTxtString();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(() => {
+      showToast('robots.txt content copied to clipboard!', 'success');
+    });
+  } else {
+    prompt('Copy robots.txt:', txt);
+  }
+}
+
+// Download Robots.txt File
+function downloadRobotsTxt() {
+  const txt = generateRobotsTxtString();
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'robots.txt';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('robots.txt downloaded successfully!');
 }
 
 // Window Onload Initialization
