@@ -521,6 +521,52 @@ const SEO_DEFAULT_CONFIG = {
           alt: "HIMKIV Clinical Consultation Inquiry Confirmation Receipt Graphic"
         }
       ]
+    },
+    {
+      id: "blog",
+      fileName: "blog.html",
+      path: "/blog.html",
+      name: "Clinical Health Blog & Articles",
+      badge: "Educational Portal",
+      title: "Clinical Health Articles & Medication Guides | HIMKIV MedGuide Blog",
+      description: "Explore evidence-based clinical articles, pediatric dosage guides, pharmacology monographs, and medication safety protocols by Founder Himanshu Sharma and HIMKIV healthcare researchers.",
+      keywords: "health blog, clinical articles, paracetamol dosage guide, pediatric medicine safety, drug salts guide, medical blog india, HIMKIV blog, Himanshu Sharma",
+      canonical: "https://himkiv.online/blog.html",
+      robots: "index, follow",
+      ogTitle: "Clinical Health Articles & Medication Guides | HIMKIV MedGuide",
+      ogDescription: "Evidence-based health articles, pediatric posology breakdowns, and pharmacology safety guides.",
+      ogImage: "https://himkiv.online/images/himkiv-logo.png",
+      ogImageAlt: "HIMKIV Clinical Health Articles & Medication Guides official blog banner",
+      ogType: "website",
+      twitterCard: "summary_large_image",
+      priority: 0.9,
+      changefreq: "daily",
+      pageImages: [
+        {
+          id: "header_logo",
+          label: "Header Navigation Brand Logo",
+          src: "images/himkiv-logo.png",
+          alt: "HIMKIV Health & MedGuide Blog Portal Logo"
+        },
+        {
+          id: "footer_logo",
+          label: "Footer Corporate Emblem",
+          src: "images/himkiv-logo.png",
+          alt: "HIMKIV Health Educational Blog by Founder Himanshu Sharma"
+        },
+        {
+          id: "favicon",
+          label: "Browser Favicon & Breadcrumb Icon",
+          src: "images/himkiv-favicon.png",
+          alt: "HIMKIV Health medical emblem favicon badge"
+        },
+        {
+          id: "og_share",
+          label: "Social Share Card Graphic (WhatsApp / FB)",
+          src: "images/himkiv-logo.png",
+          alt: "HIMKIV Clinical Health Articles & Medication Guides official share card"
+        }
+      ]
     }
   ]
 };

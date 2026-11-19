@@ -9,6 +9,7 @@ let allMedicines = [];
 let allDiseases = [];
 let allHospitals = [];
 let allDoctors = [];
+let allBlogs = [];
 let currentMedPage = 1;
 const MED_PER_PAGE = 15;
 let isApiConnected = false;
@@ -427,7 +428,7 @@ async function handleChangePassword(e) {
 
 // Tab Switching
 function switchTab(tabId) {
-  const tabs = ['overview', 'medicines', 'diseases', 'affiliates', 'hospitals', 'doctors', 'seo'];
+  const tabs = ['overview', 'medicines', 'diseases', 'affiliates', 'hospitals', 'doctors', 'seo', 'blogs'];
   tabs.forEach(t => {
     const view = document.getElementById(`view-${t}`);
     const btn = document.getElementById(`tab-${t}`);
@@ -443,6 +444,9 @@ function switchTab(tabId) {
   });
   if (tabId === 'seo' && typeof initSeoPanel === 'function') {
     initSeoPanel();
+  }
+  if (tabId === 'blogs') {
+    renderBlogsTable();
   }
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
@@ -526,6 +530,25 @@ function seedInitialData() {
       else allDoctors.unshift(c);
     });
   } catch (e) {}
+
+  // 5. Seed Blogs & Articles
+  if (typeof HKARE_BLOGS !== 'undefined' && Array.isArray(HKARE_BLOGS)) {
+    allBlogs = [...HKARE_BLOGS];
+  } else if (typeof getAllBlogs === 'function') {
+    allBlogs = getAllBlogs();
+  }
+  try {
+    const customBlogs = JSON.parse(localStorage.getItem('himkiv_custom_blogs') || '[]');
+    if (Array.isArray(customBlogs) && customBlogs.length > 0) {
+      customBlogs.forEach(cb => {
+        const idx = allBlogs.findIndex(b => b.id === cb.id || b.slug === cb.slug);
+        if (idx !== -1) allBlogs[idx] = cb;
+        else allBlogs.unshift(cb);
+      });
+    }
+  } catch (e) {
+    console.warn('Error reading himkiv_custom_blogs in admin:', e);
+  }
 }
 
 function updateKpiCards() {
@@ -539,24 +562,30 @@ function updateKpiCards() {
   const elAff = document.getElementById('kpiAffiliates');
   const elHosp = document.getElementById('kpiHospitals');
   const elDoc = document.getElementById('kpiDoctors');
+  const elBlogs = document.getElementById('kpiBlogs');
 
   if (elMeds) elMeds.textContent = allMedicines.length;
   if (elDis) elDis.textContent = allDiseases.length;
   if (elAff) elAff.textContent = affCount || (allMedicines.length * 3);
   if (elHosp) elHosp.textContent = allHospitals.length;
   if (elDoc) elDoc.textContent = allDoctors.length;
+  if (elBlogs) elBlogs.textContent = allBlogs.length;
 
   const nMeds = document.getElementById('navCountMeds');
   const nDis = document.getElementById('navCountDiseases');
   const nAff = document.getElementById('navCountAffiliates');
   const nHosp = document.getElementById('navCountHospitals');
   const nDoc = document.getElementById('navCountDoctors');
+  const nBlogs = document.getElementById('navCountBlogs');
+  const badgeBlogs = document.getElementById('blogsHeaderCountBadge');
 
   if (nMeds) nMeds.textContent = allMedicines.length;
   if (nDis) nDis.textContent = allDiseases.length;
   if (nAff) nAff.textContent = affCount || (allMedicines.length * 3);
   if (nHosp) nHosp.textContent = allHospitals.length;
   if (nDoc) nDoc.textContent = allDoctors.length;
+  if (nBlogs) nBlogs.textContent = allBlogs.length;
+  if (badgeBlogs) badgeBlogs.textContent = `${allBlogs.length} Articles Live`;
 }
 
 // --------------------------------------------------------------------------
@@ -572,6 +601,7 @@ async function syncStaticData() {
     localStorage.setItem('himkiv_custom_doctors', JSON.stringify(allDoctors));
     localStorage.setItem('himkiv_custom_medicines', JSON.stringify(allMedicines));
     localStorage.setItem('himkiv_custom_diseases', JSON.stringify(allDiseases));
+    localStorage.setItem('himkiv_custom_blogs', JSON.stringify(allBlogs));
     if (typeof allSeoPages === 'object' && Object.keys(allSeoPages).length > 0) {
       localStorage.setItem('himkiv_seo_config', JSON.stringify(allSeoPages));
     }
@@ -583,7 +613,8 @@ async function syncStaticData() {
         medicines: allMedicines.length,
         conditions: allDiseases.length,
         hospitals: allHospitals.length,
-        doctors: allDoctors.length
+        doctors: allDoctors.length,
+        blogs: allBlogs.length
       }
     }));
   } catch (err) {
@@ -848,6 +879,7 @@ async function initDashboard() {
   if (typeof initSeoPanel === 'function') {
     initSeoPanel();
   }
+  renderBlogsTable();
 
   // 2. Ping backend REST API
   try {
@@ -2460,6 +2492,396 @@ function downloadRobotsTxt() {
   a.remove();
   URL.revokeObjectURL(url);
   showToast('robots.txt downloaded successfully!');
+}
+
+// ========================================================
+// CLINICAL BLOGS & ARTICLES CMS CONTROLLER
+// Author & Lead Architect: Himanshu Sharma
+// ========================================================
+
+function renderBlogsTable() {
+  const tbody = document.getElementById('blogsTableBody');
+  if (!tbody) return;
+
+  const search = (document.getElementById('blogSearchInput')?.value || '').toLowerCase().trim();
+  const categoryFilter = document.getElementById('blogCategoryFilter')?.value || 'all';
+  const statusFilter = document.getElementById('blogStatusFilter')?.value || 'all';
+
+  let filtered = allBlogs.filter(blog => {
+    const matchSearch = !search ||
+      (blog.title && blog.title.toLowerCase().includes(search)) ||
+      (blog.excerpt && blog.excerpt.toLowerCase().includes(search)) ||
+      (blog.category && blog.category.toLowerCase().includes(search)) ||
+      (blog.slug && blog.slug.toLowerCase().includes(search)) ||
+      (Array.isArray(blog.tags) && blog.tags.some(t => t.toLowerCase().includes(search)));
+
+    const matchCategory = (categoryFilter === 'all') || (blog.category === categoryFilter);
+    const matchStatus = (statusFilter === 'all') || ((blog.status || 'published') === statusFilter);
+
+    return matchSearch && matchCategory && matchStatus;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="py-12 text-center text-slate-400">
+          <i data-lucide="book-open" class="w-10 h-10 mx-auto text-slate-300 mb-2"></i>
+          <p class="font-semibold text-sm text-slate-600">No blog articles match your search or filter</p>
+          <p class="text-xs text-slate-400 mt-0.5">Click "+ Write New Blog Post" to publish an article live to himkiv.online/blog.html</p>
+          <button onclick="openBlogModal()" class="mt-3 px-3.5 py-1.5 rounded-lg bg-sky-600 text-white text-xs font-semibold shadow-xs">
+            + Write First Blog
+          </button>
+        </td>
+      </tr>
+    `;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(blog => {
+    const isPublished = (blog.status || 'published') === 'published';
+    const statusBadge = isPublished
+      ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live
+         </span>`
+      : `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Draft
+         </span>`;
+
+    const coverSrc = blog.coverImage || 'images/himkiv-logo.png';
+    const coverAlt = blog.coverImageAlt || blog.title;
+    const authorName = blog.author || 'Himanshu Sharma';
+    const dateStr = blog.date || 'Recent';
+    const readTimeStr = blog.readTime || '5 min read';
+    const categoryName = blog.category || 'General Health';
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition-colors">
+        <td class="py-3 px-4">
+          <div class="w-12 h-9 rounded-lg overflow-hidden bg-slate-900 border border-slate-200 shadow-xs shrink-0">
+            <img src="${coverSrc}" alt="${coverAlt}" class="w-full h-full object-cover" onerror="this.src='images/himkiv-logo.png'">
+          </div>
+        </td>
+        <td class="py-3 px-4 max-w-xs">
+          <a href="blog.html#${blog.slug || ''}" target="_blank" class="font-bold text-slate-900 hover:text-sky-600 transition-colors line-clamp-1 block text-xs" title="${blog.title}">
+            ${blog.title}
+          </a>
+          <span class="text-[10px] font-mono text-slate-400 block mt-0.5 truncate">
+            /${blog.slug || ''}
+          </span>
+        </td>
+        <td class="py-3 px-4">
+          <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200 whitespace-nowrap">
+            ${categoryName}
+          </span>
+        </td>
+        <td class="py-3 px-4 whitespace-nowrap">
+          <div class="text-xs font-semibold text-slate-800">${authorName}</div>
+          <div class="text-[10px] text-slate-400">${dateStr}</div>
+        </td>
+        <td class="py-3 px-4 whitespace-nowrap text-slate-500 font-medium text-xs">
+          ${readTimeStr}
+        </td>
+        <td class="py-3 px-4 whitespace-nowrap">
+          ${statusBadge}
+        </td>
+        <td class="py-3 px-4 text-right whitespace-nowrap space-x-1">
+          <a href="blog.html#${blog.slug || ''}" target="_blank" class="inline-flex items-center p-1.5 rounded-lg text-slate-500 hover:text-sky-600 hover:bg-sky-50 transition-colors" title="View Live on Website">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          </a>
+          <button onclick="openBlogModal('${blog.id}')" class="inline-flex items-center p-1.5 rounded-lg text-slate-500 hover:text-sky-600 hover:bg-sky-50 transition-colors" title="Edit Article">
+            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+          </button>
+          <button onclick="deleteBlog('${blog.id}')" class="inline-flex items-center p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Delete Article">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function autoGenerateBlogSlug(title) {
+  const slugInput = document.getElementById('blogInputSlug');
+  if (!slugInput) return;
+  const editId = document.getElementById('blogEditId')?.value;
+  if (editId && slugInput.value.trim() && slugInput.value !== '') return;
+
+  const slug = title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  slugInput.value = slug;
+}
+
+function openBlogModal(blogId) {
+  const modal = document.getElementById('modalBlogEditor');
+  const form = document.getElementById('formBlogEditor');
+  if (form) form.reset();
+
+  const titleEl = document.getElementById('blogModalTitle');
+  const btnLabel = document.getElementById('btnSaveBlogLabel');
+  const editIdInput = document.getElementById('blogEditId');
+
+  const defaultStock = (typeof PRESET_BLOG_IMAGES !== 'undefined' && PRESET_BLOG_IMAGES[0])
+    ? PRESET_BLOG_IMAGES[0]
+    : { url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80', alt: 'Doctor with stethoscope' };
+
+  if (blogId) {
+    const blog = allBlogs.find(b => b.id === blogId);
+    if (!blog) return;
+
+    if (editIdInput) editIdInput.value = blog.id;
+    if (titleEl) titleEl.textContent = 'Edit Clinical Blog Article';
+    if (btnLabel) btnLabel.textContent = 'Save Article Changes';
+
+    document.getElementById('blogInputTitle').value = blog.title || '';
+    document.getElementById('blogInputSlug').value = blog.slug || '';
+    document.getElementById('blogInputCategory').value = blog.category || 'Pediatric Posology';
+    document.getElementById('blogInputStatus').value = blog.status || 'published';
+    document.getElementById('blogInputReadTime').value = blog.readTime || '5 min read';
+    document.getElementById('blogInputAuthor').value = blog.author || 'Himanshu Sharma';
+    document.getElementById('blogInputAuthorRole').value = blog.authorRole || 'Founder & Lead Healthcare Architect';
+    document.getElementById('blogInputDate').value = blog.date || '';
+    document.getElementById('blogInputCoverUrl').value = blog.coverImage || '';
+    document.getElementById('blogInputCoverAlt').value = blog.coverImageAlt || '';
+    document.getElementById('blogCoverPreviewImg').src = blog.coverImage || defaultStock.url;
+    document.getElementById('blogInputExcerpt').value = blog.excerpt || '';
+    document.getElementById('blogInputContent').value = (blog.content || '').trim();
+    document.getElementById('blogInputTags').value = Array.isArray(blog.tags) ? blog.tags.join(', ') : (blog.tags || '');
+  } else {
+    if (editIdInput) editIdInput.value = '';
+    if (titleEl) titleEl.textContent = 'Publish New Clinical Blog Article';
+    if (btnLabel) btnLabel.textContent = 'Publish Article Live';
+
+    const now = new Date();
+    const dateFormatted = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    document.getElementById('blogInputAuthor').value = 'Himanshu Sharma';
+    document.getElementById('blogInputAuthorRole').value = 'Founder & Lead Healthcare Architect';
+    document.getElementById('blogInputDate').value = dateFormatted;
+    document.getElementById('blogInputReadTime').value = '5 min read';
+    document.getElementById('blogInputStatus').value = 'published';
+    document.getElementById('blogInputCoverUrl').value = defaultStock.url;
+    document.getElementById('blogInputCoverAlt').value = defaultStock.alt;
+    document.getElementById('blogCoverPreviewImg').src = defaultStock.url;
+  }
+
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    modal.style.display = 'flex';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+}
+
+function closeBlogModal() {
+  const modal = document.getElementById('modalBlogEditor');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    modal.style.display = 'none';
+  }
+}
+
+function handleBlogImageUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('Photo size is greater than 5MB. Please choose an optimized photo.', 'error');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    const urlInput = document.getElementById('blogInputCoverUrl');
+    const previewImg = document.getElementById('blogCoverPreviewImg');
+    const altInput = document.getElementById('blogInputCoverAlt');
+
+    if (urlInput) urlInput.value = dataUrl;
+    if (previewImg) previewImg.src = dataUrl;
+    if (altInput && !altInput.value.trim()) {
+      const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+      altInput.value = `Photo illustrating ${cleanName}`;
+    }
+    showToast('Image uploaded successfully from device!', 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateBlogCoverPreview(url) {
+  const previewImg = document.getElementById('blogCoverPreviewImg');
+  if (previewImg) {
+    previewImg.src = url || 'images/himkiv-logo.png';
+  }
+}
+
+function clearBlogCoverImage() {
+  const fileInput = document.getElementById('blogCoverFileInput');
+  const urlInput = document.getElementById('blogInputCoverUrl');
+  const previewImg = document.getElementById('blogCoverPreviewImg');
+  if (fileInput) fileInput.value = '';
+  if (urlInput) urlInput.value = '';
+  if (previewImg) previewImg.src = 'images/himkiv-logo.png';
+  showToast('Cover image cleared.');
+}
+
+function selectPresetBlogImage(index) {
+  if (typeof PRESET_BLOG_IMAGES === 'undefined' || !PRESET_BLOG_IMAGES[index]) return;
+  const preset = PRESET_BLOG_IMAGES[index];
+  const urlInput = document.getElementById('blogInputCoverUrl');
+  const altInput = document.getElementById('blogInputCoverAlt');
+  const previewImg = document.getElementById('blogCoverPreviewImg');
+
+  if (urlInput) urlInput.value = preset.url;
+  if (altInput) altInput.value = preset.alt;
+  if (previewImg) previewImg.src = preset.url;
+  showToast(`Stock image selected: ${preset.name}`, 'success');
+}
+
+function insertBlogFormatting(type) {
+  const textarea = document.getElementById('blogInputContent');
+  if (!textarea) return;
+
+  const start = textarea.selectionStart || 0;
+  const end = textarea.selectionEnd || 0;
+  const selected = textarea.value.substring(start, end) || '';
+
+  let replacement = '';
+  switch (type) {
+    case 'h2':
+      replacement = `\n<h2>${selected || 'Section Heading'}</h2>\n`;
+      break;
+    case 'h3':
+      replacement = `\n<h3>${selected || 'Subsection Heading'}</h3>\n`;
+      break;
+    case 'bold':
+      replacement = `<strong>${selected || 'Bold Text'}</strong>`;
+      break;
+    case 'italic':
+      replacement = `<em>${selected || 'Italic Text'}</em>`;
+      break;
+    case 'list':
+      replacement = `\n<ul>\n  <li>${selected || 'List item 1'}</li>\n  <li>List item 2</li>\n  <li>List item 3</li>\n</ul>\n`;
+      break;
+    case 'callout':
+      replacement = `\n<div class="clinical-callout p-4 my-4 rounded-xl bg-sky-50 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800">\n  <h4 class="font-bold text-sky-900 dark:text-sky-300 mb-1 flex items-center gap-1.5">\n    <i data-lucide="info" class="w-4 h-4"></i> Clinical Note\n  </h4>\n  <p class="text-xs text-sky-800 dark:text-sky-200">${selected || 'Insert critical dosage or clinical advice here...'}</p>\n</div>\n`;
+      break;
+    case 'table':
+      replacement = `\n<table class="w-full text-left my-4 border text-xs">\n  <thead><tr class="bg-slate-100"><th class="p-2 border">Weight</th><th class="p-2 border">Recommended Dose</th></tr></thead>\n  <tbody><tr><td class="p-2 border">10 kg</td><td class="p-2 border">100 - 150 mg</td></tr></tbody>\n</table>\n`;
+      break;
+    default:
+      replacement = selected;
+  }
+
+  textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
+  textarea.focus();
+  textarea.setSelectionRange(start + replacement.length, start + replacement.length);
+}
+
+function handleSaveBlog(e) {
+  if (e) e.preventDefault();
+
+  const editId = document.getElementById('blogEditId')?.value;
+  const title = (document.getElementById('blogInputTitle')?.value || '').trim();
+  const slug = (document.getElementById('blogInputSlug')?.value || '').trim() || ('blog-' + Date.now());
+  const category = document.getElementById('blogInputCategory')?.value || 'General Health';
+  const status = document.getElementById('blogInputStatus')?.value || 'published';
+  const readTime = (document.getElementById('blogInputReadTime')?.value || '').trim() || '5 min read';
+  const author = (document.getElementById('blogInputAuthor')?.value || '').trim() || 'Himanshu Sharma';
+  const authorRole = (document.getElementById('blogInputAuthorRole')?.value || '').trim() || 'Founder & Lead Healthcare Architect';
+  const date = (document.getElementById('blogInputDate')?.value || '').trim() || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const coverImage = (document.getElementById('blogInputCoverUrl')?.value || '').trim() || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80';
+  const coverImageAlt = (document.getElementById('blogInputCoverAlt')?.value || '').trim() || title;
+  const excerpt = (document.getElementById('blogInputExcerpt')?.value || '').trim();
+  const content = (document.getElementById('blogInputContent')?.value || '').trim();
+  const rawTags = document.getElementById('blogInputTags')?.value || '';
+  const tags = rawTags.split(',').map(t => t.trim()).filter(Boolean);
+
+  if (!title || !excerpt || !content) {
+    showToast('Kripya Title, Excerpt aur Content sabhi enter karein!', 'error');
+    return;
+  }
+
+  const blogItem = {
+    id: editId || ('blog_' + Date.now()),
+    slug,
+    title,
+    category,
+    status,
+    readTime,
+    author,
+    authorRole,
+    authorAvatar: 'images/himkiv-logo.png',
+    date,
+    coverImage,
+    coverImageAlt,
+    excerpt,
+    content,
+    tags,
+    views: Math.floor(Math.random() * 200) + 500,
+    updatedAt: new Date().toISOString()
+  };
+
+  if (editId) {
+    const idx = allBlogs.findIndex(b => b.id === editId);
+    if (idx !== -1) {
+      allBlogs[idx] = { ...allBlogs[idx], ...blogItem };
+    } else {
+      allBlogs.unshift(blogItem);
+    }
+    showToast('Article changes saved successfully!', 'success');
+  } else {
+    allBlogs.unshift(blogItem);
+    showToast('Naya Blog Article successfully publish ho gaya!', 'success');
+  }
+
+  // Persist to localStorage
+  try {
+    localStorage.setItem('himkiv_custom_blogs', JSON.stringify(allBlogs));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    // Dispatch instant live broadcast
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced', {
+      detail: { blogs: allBlogs.length }
+    }));
+  } catch (err) {
+    console.warn('LocalStorage save failed:', err);
+  }
+
+  // Update UI
+  updateKpiCards();
+  renderBlogsTable();
+  closeBlogModal();
+}
+
+function deleteBlog(blogId) {
+  const blog = allBlogs.find(b => b.id === blogId);
+  const title = blog ? blog.title : 'this article';
+  if (!confirm(`Are you sure you want to delete "${title}"? This will remove it from the website.`)) {
+    return;
+  }
+
+  allBlogs = allBlogs.filter(b => b.id !== blogId);
+
+  try {
+    localStorage.setItem('himkiv_custom_blogs', JSON.stringify(allBlogs));
+    localStorage.setItem('himkiv_last_sync', Date.now().toString());
+    window.dispatchEvent(new CustomEvent('himkiv_data_synced', {
+      detail: { blogs: allBlogs.length }
+    }));
+  } catch (e) {
+    console.warn('LocalStorage save error:', e);
+  }
+
+  updateKpiCards();
+  renderBlogsTable();
+  showToast('Blog article deleted successfully.', 'success');
 }
 
 // Window Onload Initialization
